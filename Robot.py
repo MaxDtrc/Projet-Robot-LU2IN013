@@ -1,3 +1,5 @@
+from math import cos, sin, radians
+
 class Robot:
     """
     Classe représentant un robot
@@ -19,7 +21,14 @@ class Robot:
         self.angle = angle
 
     def avancer(self, distance: float):
-        return None
+        """
+        Fait avancer le robot dans sa direction d'un certain nombre de centimètres
+        
+        Paramètres:
+        distance -> Distance de l'avancée
+        """
+        self.posX = self.posX + distance * cos(radians(self.angle))
+        self.posY = self.posY + distance * sin(radians(self.angle))
 
     def tourner(self, angle: float):
         return None

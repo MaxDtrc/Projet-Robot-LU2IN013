@@ -13,7 +13,7 @@ class Robot:
         nom -> Nom du robot
         posX -> position x du robot
         posY -> position y du robot
-        angle -> orientation du robot (en degré)
+        angle -> orientation du robot (en degrés)
         """
         self._nom = nom
         self._posX = posX
@@ -31,7 +31,14 @@ class Robot:
         self._posY = self._posY + distance * sin(radians(self._angle))
 
     def tourner(self, angle: float):
-        return None
+        """
+        Effectue une rotation du robot d'un certain nombre de degrés
+        
+        Paramètres:
+        angle -> Angle de la rotation (en degrés)
+        """
+
+        self._angle += angle
 
     def getPosition(self):
         return None

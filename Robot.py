@@ -41,13 +41,22 @@ class Robot:
         self._angle += angle
 
     def getPosition(self):
-        return None
+        """
+        Renvoie un tuple contenant la position (x, y) du robot
+        """
+        return (self._posX, self._posY)
 
     def getX(self):
-        return None
+        """
+        Renvoie la position x du robot
+        """
+        return self._posX
     
     def getY(self):
-        return None
+        """
+        Renvoie la position y du robot
+        """
+        return self._posY
 
     def getNom(self):
         return None

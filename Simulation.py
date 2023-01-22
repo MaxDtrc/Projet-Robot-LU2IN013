@@ -1,5 +1,5 @@
-import Robot
-import Terrain
+from Robot import Robot
+from Terrain import Terrain
 
 class Simulation : 
     """

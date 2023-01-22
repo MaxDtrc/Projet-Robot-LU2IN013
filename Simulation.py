@@ -90,5 +90,14 @@ class Simulation :
         return self._robotsList[index]
 
 
-    
+    def afficherSimulation(self, robotsList : list):
+        """
+        Affiche l'ensemble de la simulation grâce à la librairie graphique (pour l'instant tous les robots de la liste)
 
+        Paramètres:
+        robotsList -> la liste des robots à afficher
+        """
+
+        for robot in robotsList :
+            robot.afficher()
+        

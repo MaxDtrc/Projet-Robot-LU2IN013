@@ -59,10 +59,16 @@ class Robot:
         return self._posY
 
     def getNom(self):
-        return None
-
+        """
+        Renvoie le nom du robot
+        """
+        return self._nom
+        
     def getAngle(self):
-        return None
+          """
+        Renvoie l'angle d'orientation du robot (en degrés)
+        """
+        return self._angle
 
     def getDistanceFromRobot(self):
         return None

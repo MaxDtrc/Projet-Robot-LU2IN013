@@ -15,13 +15,22 @@ class Terrain:
         self._sizeY = sizeY
     
     def getSize(self):
-        return None
+        """
+        Renvoie un tuple correspondant à la taille du terrain (sizeX, sizeY)
+        """
+        return (self._sizeX, self._sizeY)
 
     def getSizeX(self):
-        return None
+        """
+        Renvoie la taille X du terrain
+        """
+        return self._sizeX
 
     def getSizeY(self):
-        return None
+        """
+        Renvoie la taille Y du terrain
+        """
+        return self._sizeY
 
     def afficher(self, screen):
         return None

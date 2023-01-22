@@ -15,10 +15,10 @@ class Robot:
         posY -> position y du robot
         angle -> orientation du robot (en degré)
         """
-        self.nom = nom
-        self.posX = posX
-        self.posY = posY
-        self.angle = angle
+        self._nom = nom
+        self._posX = posX
+        self._posY = posY
+        self._angle = angle
 
     def avancer(self, distance: float):
         """
@@ -27,8 +27,8 @@ class Robot:
         Paramètres:
         distance -> Distance de l'avancée
         """
-        self.posX = self.posX + distance * cos(radians(self.angle))
-        self.posY = self.posY + distance * sin(radians(self.angle))
+        self._posX = self._posX + distance * cos(radians(self._angle))
+        self._posY = self._posY + distance * sin(radians(self._angle))
 
     def tourner(self, angle: float):
         return None

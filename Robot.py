@@ -1,4 +1,5 @@
 from math import cos, sin, radians
+from Terrain import Terrain
 
 class Robot:
     """
@@ -65,13 +66,31 @@ class Robot:
         return self._nom
         
     def getAngle(self):
-          """
+        """
         Renvoie l'angle d'orientation du robot (en degrés)
         """
         return self._angle
 
-    def getDistanceFromRobot(self):
-        return None
+    def getDistanceFromRobot(self, terrain: Terrain):
+        """
+        Renvoie la distance jusqu'au prochain mur
+        
+        Paramètres:
+        terrain -> Terrain
+        """
+
+        dirVect = (cos(radians(self._angle)), sin(radians(self._angle)))
+        posRayon = (self._posX, self._posY)
+        distance = 0
+
+        while distance < terrain.getSizeX() * terrain.getSizeY(): #Limite pour pas que le rayon n'avance à l'infini
+            if(abs(posRayon[0]) >= terrain.getSizeX()/2 or abs(posRayon[1]) >= terrain.getSizeY()/2): #Le point (0,0) est au centre de l'écran donc normalement ça passe
+                return distance
+            
+            tickRayon = 0.001
+            distance += tickRayon
+            posRayon = (posRayon[0] + tickRayon * dirVect[0], posRayon[1] + tickRayon * dirVect[1])
 
     def afficher(self, screen):
         return None
+

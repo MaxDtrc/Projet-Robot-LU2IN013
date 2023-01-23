@@ -44,7 +44,13 @@ def testSimulation():
 
         for robot in simulation.getRobotsList():
             screen.blit(image, (tailleTerrainX/2 - image.get_width()/2 + robot.getX(), tailleTerrainY/2 - image.get_height()/2 + robot.getY()))
+            if(robot.getDistanceFromRobot(terrain) < 20):
+                robot.tourner(90)
+                image = pygame.transform.rotate(image, robot.getAngle())
+            robot.avancer(100)
         pygame.display.update()
+
+
 
         time.sleep(1)
 

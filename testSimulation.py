@@ -2,6 +2,7 @@ from Simulation import Simulation
 from Robot import Robot
 from Terrain import Terrain
 
+import time
 import pygame
 import random
 
@@ -19,7 +20,7 @@ def testSimulation():
     simulation.setTerrain(terrain)
 
     for i in range(10):
-        simulation.ajouterRobot(Robot("robot", random.randint(0,tailleTerrainX), random.randint(0,tailleTerrainY), random.randint(0, 360)))
+        simulation.ajouterRobot(Robot("robot", random.randint(-tailleTerrainX/2,tailleTerrainX/2), random.randint(-tailleTerrainY/2,tailleTerrainY/2), random.randint(0, 360)))
     
 
     #Initialisation de la fenêtre pygame
@@ -42,8 +43,10 @@ def testSimulation():
         pygame.display.update()
 
         for robot in simulation.getRobotsList():
-            screen.blit(image,(robot.getX(), robot.getY()))
+            screen.blit(image, (tailleTerrainX/2 - image.get_width()/2 + robot.getX(), tailleTerrainY/2 - image.get_height()/2 + robot.getY()))
         pygame.display.update()
+
+        time.sleep(1)
 
 
    

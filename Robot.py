@@ -87,10 +87,7 @@ class Robot:
             if(abs(posRayon[0]) >= terrain.getSizeX()/2 or abs(posRayon[1]) >= terrain.getSizeY()/2): #Le point (0,0) est au centre de l'écran donc normalement ça passe
                 return distance
             
-            tickRayon = 0.001
+            tickRayon = 0.1
             distance += tickRayon
             posRayon = (posRayon[0] + tickRayon * dirVect[0], posRayon[1] + tickRayon * dirVect[1])
-
-    def afficher(self, screen):
-        return None
 

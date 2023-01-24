@@ -31,6 +31,3 @@ class Terrain:
         Renvoie la taille Y du terrain
         """
         return self._sizeY
-
-    def afficher(self, screen):
-        return None

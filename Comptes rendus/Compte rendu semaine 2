@@ -9,3 +9,4 @@ de réalisation (durée passée).
 .Modification du constructeur et des fonctions de déplacement de la classe Robot
 .Création de la classe mère Obstacle et des classes filles ObstacleRond et ObstacleCarré
 .Calcul permettant de déterminer si le robot est en collision avec un obstacle de type rond ou carré
+.Ajout de méthodes pour obtenir la position des roues gauche et droite du robot

@@ -14,12 +14,20 @@ class Robot:
         nom -> Nom du robot
         posX -> position x du robot
         posY -> position y du robot
+        rayon -> rayon du robot
         angle -> orientation du robot (en degrés)
+        vitesseGauche -> vitesse de la roue gauche
+        vitesseDroite -> vitesse de la roue droite
+        vitesseMax -> vitesse maximum des roues
         """
         self._nom = nom
         self._posX = posX
         self._posY = posY
+        self._rayon = 10
         self._angle = angle
+        self._vitesseGauche = 10
+        self.vitesseDroite = 10
+        self.vitesseMax = 20
 
     def avancer(self, distance: float):
         """

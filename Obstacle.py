@@ -13,7 +13,7 @@ class Obstacle(ABC):
         Constructeur de la classe Obstacle
 
         Paramètres:
-        nom -> Nom de l'obstacle
+        nom -> nom de l'obstacle
         posX -> position x du centre de l'obstacle 
         posY -> position y du centre de l'obstacle
         """
@@ -24,6 +24,9 @@ class Obstacle(ABC):
         
     @abstractmethod  
     def testCrash(self, robot : Robot):
+    	"""
+    	Méthode abstraite qui détermine si le robot est en collision avec un obstacle
+    	"""
         pass
         
     def getNom(self):

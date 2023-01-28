@@ -8,3 +8,4 @@ de réalisation (durée passée).
 .Recherches sur la façon de calculer le déplacement du robot sur un temps donné selon les vitesses des deux roues
 .Modification du constructeur et des fonctions de déplacement de la classe Robot
 .Création de la classe mère Obstacle et des classes filles ObstacleRond et ObstacleCarré
+.Calcul permettant de déterminer si le robot est en collision avec un obstacle de type rond ou carré

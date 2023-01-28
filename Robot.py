@@ -150,24 +150,56 @@ class Robot:
 
     def accelererGauche(self, v: float):
         """
-        Actualise la vitesse de la roue gauche du robot
+        Augmente la vitesse de la roue gauche du robot
 
         Paramètres:
         v -> vitesse à ajouter
         """
         if(abs(self._vitesseGauche + v) > self._vitesseMax):
             self._vitesseGauche = self._vitesseMax
+        elif((self._vitesseGauche + v) < -self._vitesseMax):
+            self._vitesseGauche = -self._vitesseMax
         else:
             self._vitesseGauche = self._vitesseGauche + v
 
     def accelererDroite(self, v: float):
         """
-        Actualise la vitesse de la roue droite du robot
+        Augmente la vitesse de la roue droite du robot
 
         Paramètres:
         v -> vitesse à ajouter
         """
-        if(abs(self._vitesseDroite + v) > self._vitesseMax):
+        if((self._vitesseDroite + v) > self._vitesseMax):
             self._vitesseDroite = self._vitesseMax
+        elif((self._vitesseDroite + v) < -self._vitesseMax):
+            self._vitesseDroite = -self._vitesseMax
         else:
             self._vitesseDroite = self._vitesseDroite + v
+
+    def setVitesseDroite(self, v: float):
+        """
+        Actualise la vitesse de la roue droite
+
+        Paramètres:
+        v -> vitesse à ajouter
+        """
+        if(v > self._vitesseMax):
+            self._vitesseDroite = self._vitesseMax
+        elif(v < -self._vitesseMax):
+            self._vitesseDroite = -self._vitesseMax
+        else:
+            self._vitesseDroite = v
+
+    def setVitesseGauche(self, v: float):
+        """
+        Actualise la vitesse de la roue gauche
+
+        Paramètres:
+        v -> vitesse à ajouter
+        """
+        if(v > self._vitesseMax):
+            self._vitesseGauche = self._vitesseMax
+        elif(v < -self._vitesseMax):
+            self._vitesseGauche = -self._vitesseMax
+        else:
+            self._vitesseGauche = v

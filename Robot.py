@@ -26,8 +26,8 @@ class Robot:
         self._rayon = 10
         self._angle = angle
         self._vitesseGauche = 10
-        self.vitesseDroite = 10
-        self.vitesseMax = 20
+        self._vitesseDroite = 10
+        self._vitesseMax = 20
 
     def avancer(self, distance: float):
         """
@@ -99,3 +99,14 @@ class Robot:
             distance += tickRayon
             posRayon = (posRayon[0] + tickRayon * dirVect[0], posRayon[1] + tickRayon * dirVect[1])
 
+    def actualiser(self, dT: float):
+        """
+        Actualise la position et l'angle du robot selon le temps dT écoulé depuis la dernière actualisation
+
+        Paramètres:
+        dT -> différence de temps (en seconde)
+        """
+        a = radians(self._angle)
+        self._posX += ((self._vitesseGauche + self._vitesseDroite)/2) * cos(a) * dT
+        self._posY += ((self._vitesseGauche + self._vitesseDroite)/2) * sin(a) * dT
+        self._angle += degrees((self._vitesseDroite - self._vitesseGauche)/self._rayon * dT)

@@ -6,6 +6,7 @@ class Robot:
     Classe représentant un robot
     """
 
+    #Constructeur
     def __init__(self, nom: str, posX: float, posY: float, angle: float, r: float = 10, vMax: float = 10):
         """
         Constructeur de la classe Robot
@@ -29,6 +30,7 @@ class Robot:
         self._vitesseDroite = 0
         self._vitesseMax = vMax
 
+    #Getters
     def getPosition(self):
         """
         Renvoie un tuple contenant la position (x, y) du robot
@@ -47,11 +49,11 @@ class Robot:
         """
         return self._posY
         
-    def getRayon(self):
-    	"""
-    	Renvoie le rayon du robot
-    	"""
-    	return self._rayon
+    def getY(self):
+        """
+        Renvoie la position y du robot
+        """
+        return self._rayon
 
     def getNom(self):
         """
@@ -65,6 +67,42 @@ class Robot:
         """
         return self._angle
 
+    def getPosRoueGauche(self):
+        """
+        Renvoie un tuple contenant la position absolue de la roue gauche
+        """
+        return (cos(radians(self._angle + 90)) * self._rayon + self._posX, sin(radians(self._angle + 90)) * self._rayon + self._posY)
+
+    def getPosRoueGaucheX(self):
+        """
+        Renvoie la position X de la roue gauche
+        """
+        return self.getPosRoueGauche()[0]
+
+    def getPosRoueGaucheY(self):
+        """
+        Renvoie la position Y de la roue gauche
+        """
+        return self.getPosRoueGauche()[1]
+
+    def getPosRoueDroite(self):
+        """
+        Renvoie un tuple contenant la position absolue de la roue droite
+        """
+        return (cos(radians(self._angle - 90)) * self._rayon + self._posX, sin(radians(self._angle - 90)) * self._rayon + self._posY)
+
+    def getPosRoueDroiteX(self):
+        """
+        Renvoie la position X de la roue droite
+        """
+        return self.getPosRoueDroite()[0]
+
+    def getPosRoueDroiteY(self):
+        """
+        Renvoie la position Y de la roue droite
+        """
+        return self.getPosRoueDroite()[1]
+
     def getVitesseGauche(self):
         """
         Renvoie le vitesse de la roue gauche
@@ -77,6 +115,7 @@ class Robot:
         """
         return self._vitesseDroite
         
+    #Capteur de distance
     def getDistanceFromRobot(self, terrain: Terrain):
         """
         Renvoie la distance jusqu'au prochain mur
@@ -96,6 +135,7 @@ class Robot:
             distance += tickRayon
             posRayon = (posRayon[0] + tickRayon * dirVect[0], posRayon[1] + tickRayon * dirVect[1])
 
+    #Contrôle du robot
     def actualiser(self, dT: float):
         """
         Actualise la position et l'angle du robot selon le temps dT écoulé depuis la dernière actualisation

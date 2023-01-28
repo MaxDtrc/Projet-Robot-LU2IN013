@@ -23,7 +23,7 @@ class Obstacle(ABC):
 
         
     @abstractmethod  
-    def testCrashRobot(self, robot : Robot):
+    def testCrash(self, robot : Robot):
         pass
         
     def getNom(self):

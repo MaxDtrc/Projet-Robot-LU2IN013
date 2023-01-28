@@ -99,7 +99,7 @@ class Robot:
         """
         a = radians(self._angle)
         self._posX += ((self._vitesseGauche + self._vitesseDroite)/2) * cos(a) * dT
-        self._posY += ((self._vitesseGauche + self._vitesseDroite)/2) * sin(a) * dT
+        self._posY -= ((self._vitesseGauche + self._vitesseDroite)/2) * sin(a) * dT
         self._angle += degrees((self._vitesseDroite - self._vitesseGauche)/self._rayon * dT)
 
     def accelererGauche(self, v: float):

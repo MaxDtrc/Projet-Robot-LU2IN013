@@ -79,6 +79,18 @@ class Robot:
         """
         return self._angle
 
+    def getVitesseGauche(self):
+        """
+        Renvoie le vitesse de la roue gauche
+        """
+        return self._vitesseGauche
+
+    def getVitesseDroite(self):
+        """
+        Renvoie la vitesse de la roue gauche
+        """
+        return self._vitesseDroite
+        
     def getDistanceFromRobot(self, terrain: Terrain):
         """
         Renvoie la distance jusqu'au prochain mur

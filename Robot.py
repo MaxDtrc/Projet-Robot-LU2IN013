@@ -25,9 +25,9 @@ class Robot:
         self._posY = posY
         self._rayon = 10
         self._angle = angle
-        self._vitesseGauche = 10
-        self._vitesseDroite = 10
-        self._vitesseMax = 20
+        self._vitesseGauche = 10.0
+        self._vitesseDroite = 10.0
+        self._vitesseMax = 20.0
 
     def avancer(self, distance: float):
         """
@@ -110,3 +110,27 @@ class Robot:
         self._posX += ((self._vitesseGauche + self._vitesseDroite)/2) * cos(a) * dT
         self._posY += ((self._vitesseGauche + self._vitesseDroite)/2) * sin(a) * dT
         self._angle += degrees((self._vitesseDroite - self._vitesseGauche)/self._rayon * dT)
+
+    def accelererGauche(slef, v: float):
+        """
+        Actualise la vitesse de la roue gauche du robot
+
+        Paramètres:
+        v -> vitesse à ajouter
+        """
+        if(abs(self._vitesseGauche + v) > self._vitesseMax):
+            self._vitesseGauche = self._vitesseMax
+        else:
+            self._vitesseGauche = self._vitesseGauche+v
+
+    def accelererDroite(slef, v: float):
+        """
+        Actualise la vitesse de la roue droite du robot
+
+        Paramètres:
+        v -> vitesse à ajouter
+        """
+        if(abs(self._vitesseDroite + v) > self._vitesseMax):
+            self._vitesseDroite = self._vitesseMax
+        else:
+            self._vitesseDroite = self._vitesseDroite+v

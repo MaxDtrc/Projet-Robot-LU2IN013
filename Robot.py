@@ -1,4 +1,4 @@
-from math import cos, sin, radians
+from math import cos, sin, radians, degrees
 from Terrain import Terrain
 
 class Robot:
@@ -6,7 +6,7 @@ class Robot:
     Classe représentant un robot
     """
 
-    def __init__(self, nom: str, posX: float, posY: float, angle: float):
+    def __init__(self, nom: str, posX: float, posY: float, angle: float, r: float = 10, vMax: float = 10):
         """
         Constructeur de la classe Robot
 
@@ -23,31 +23,11 @@ class Robot:
         self._nom = nom
         self._posX = posX
         self._posY = posY
-        self._rayon = 10
+        self._rayon = r
         self._angle = angle
-        self._vitesseGauche = 10.0
-        self._vitesseDroite = 10.0
-        self._vitesseMax = 20.0
-
-    def avancer(self, distance: float):
-        """
-        Fait avancer le robot dans sa direction d'un certain nombre de centimètres
-        
-        Paramètres:
-        distance -> Distance de l'avancée
-        """
-        self._posX = self._posX + distance * cos(radians(self._angle))
-        self._posY = self._posY + distance * sin(radians(self._angle))
-
-    def tourner(self, angle: float):
-        """
-        Effectue une rotation du robot d'un certain nombre de degrés
-        
-        Paramètres:
-        angle -> Angle de la rotation (en degrés)
-        """
-
-        self._angle += angle
+        self._vitesseGauche = 0
+        self._vitesseDroite = 0
+        self._vitesseMax = vMax
 
     def getPosition(self):
         """
@@ -98,7 +78,6 @@ class Robot:
         Paramètres:
         terrain -> Terrain
         """
-
         dirVect = (cos(radians(self._angle)), sin(radians(self._angle)))
         posRayon = (self._posX, self._posY)
         distance = 0
@@ -123,7 +102,7 @@ class Robot:
         self._posY += ((self._vitesseGauche + self._vitesseDroite)/2) * sin(a) * dT
         self._angle += degrees((self._vitesseDroite - self._vitesseGauche)/self._rayon * dT)
 
-    def accelererGauche(slef, v: float):
+    def accelererGauche(self, v: float):
         """
         Actualise la vitesse de la roue gauche du robot
 
@@ -133,9 +112,9 @@ class Robot:
         if(abs(self._vitesseGauche + v) > self._vitesseMax):
             self._vitesseGauche = self._vitesseMax
         else:
-            self._vitesseGauche = self._vitesseGauche+v
+            self._vitesseGauche = self._vitesseGauche + v
 
-    def accelererDroite(slef, v: float):
+    def accelererDroite(self, v: float):
         """
         Actualise la vitesse de la roue droite du robot
 
@@ -145,4 +124,4 @@ class Robot:
         if(abs(self._vitesseDroite + v) > self._vitesseMax):
             self._vitesseDroite = self._vitesseMax
         else:
-            self._vitesseDroite = self._vitesseDroite+v
+            self._vitesseDroite = self._vitesseDroite + v

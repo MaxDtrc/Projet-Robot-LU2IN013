@@ -16,9 +16,7 @@ class ObstacleRond(Obstacle):
         posY -> position y du centre de l'obstacle
         rayon -> rayon de l'obstacle
         """
-        self._nom = nom
-        self._posX = posX
-        self._posY = posY
+        Obstacle.__init__(self, nom, posX, posY)
         self._rayon = rayon
 
         

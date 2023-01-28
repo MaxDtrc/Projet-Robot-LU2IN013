@@ -10,7 +10,7 @@ class Obstacle(ABC):
     
     def __init__(self, nom: str, posX: float, posY: float):
         """
-        Constructeur de la classe Obstacles
+        Constructeur de la classe Obstacle
 
         Paramètres:
         nom -> nom de l'obstacle

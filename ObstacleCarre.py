@@ -1,5 +1,7 @@
 import math
 from Robot import Robot
+from Obstacle import Obstacle
+import numpy as np
 
 class ObstacleCarre(Obstacle): 
     """
@@ -26,5 +28,25 @@ class ObstacleCarre(Obstacle):
     	Renvoie 1 si crash, 0 sinon
     	#Marge d erreur de 0.2
     	"""
-    
+
+        #Coordonnées du robot
+        p3 = np.array([robot.getX(), robot.getY()])
+
+        #Obtention des coins de l'obstacle
+        c1 = np.array([self._posX - self._longueur/2, self._posY - self._longueur/2])
+        c2 = np.array([self._posX + self._longueur/2, self._posY - self._longueur/2])
+        c3 = np.array([self._posX + self._longueur/2, self._posY + self._longueur/2])
+        c4 = np.array([self._posX - self._longueur/2, self._posY + self._longueur/2])
+
+
+        #Test avec chaque côté
+        for (p1, p2) in [(c1, c2), (c2, c3), (c3, c4), (c4, c1)]:
+            #Projection
+            t = max(0, min(1, np.sum((p3 - p1) * (p2 - p1)) / np.sum((p1 - p2)**2)))
+            projection = p1 + t * (p2 - p1)
+
+            if math.sqrt((projection[0] - p3[0])** 2 + (projection[1] - p3[0])**2) < robot.getRayon() + 0.2:
+                return 1
+
         
+        return 0

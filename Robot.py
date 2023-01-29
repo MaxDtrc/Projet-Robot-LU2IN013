@@ -67,6 +67,12 @@ class Robot:
         """
         return self._angle
 
+    def getRayon(self):
+        """
+        Renvoie le rayon du robot
+        """
+        return self._rayon
+
     def getPosRoueGauche(self):
         """
         Renvoie un tuple contenant la position absolue de la roue gauche

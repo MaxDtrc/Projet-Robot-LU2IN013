@@ -10,3 +10,4 @@ de réalisation (durée passée).
 .Création de la classe mère Obstacle et des classes filles ObstacleRond et ObstacleCarré
 .Calcul permettant de déterminer si le robot est en collision avec un obstacle de type rond ou carré
 .Ajout de méthodes pour obtenir la position des roues gauche et droite du robot
+.Ajout de la détection des obstacles ronds et carrés par le capteur de distance

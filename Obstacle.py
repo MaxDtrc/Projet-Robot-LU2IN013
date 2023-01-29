@@ -27,6 +27,13 @@ class Obstacle(ABC):
         Méthode abstraite qui détermine si le robot est en collision avec un obstacle
         """
         pass
+
+    @abstractmethod
+    def estDedans(self, x : int, y : int):
+        """
+        Méthode abstraite qui détermine si le point de coordonnée (x, y) se trouve dans la surface de l'obstacle
+        """
+        pass
         
     def getNom(self):
         """

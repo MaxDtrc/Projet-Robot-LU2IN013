@@ -134,8 +134,14 @@ class Robot:
         distance = 0
 
         while distance < terrain.getSizeX() * terrain.getSizeY(): #Limite pour pas que le rayon n'avance à l'infini
+            #Detection des bords du terrain
             if(abs(posRayon[0]) >= terrain.getSizeX()/2 or abs(posRayon[1]) >= terrain.getSizeY()/2): #Le point (0,0) est au centre de l'écran donc normalement ça passe
                 return distance
+
+            #Detection des obstacles
+            for o in terrain.getListeObstacles():
+                if o.estDedans(posRayon[0], posRayon[1]):
+                    return distance
             
             tickRayon = 0.1
             distance += tickRayon

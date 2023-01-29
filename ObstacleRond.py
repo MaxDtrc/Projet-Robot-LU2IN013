@@ -1,5 +1,6 @@
 import math
 from Robot import Robot
+from Obstacle import Obstacle
 
 class ObstacleRond(Obstacle): 
     """
@@ -26,12 +27,25 @@ class ObstacleRond(Obstacle):
     	Renvoie 1 si crash, 0 sinon
     	#Marge d erreur de 0.2
     	"""
-    	posXRobot = robot.getX()
-    	posYRobot = robot.getY()
-    	rayonRobot = robot.getRayon()
-    	distance = sqrt(pow((self._posX - posXRobot), 2) + pow((self._posY - posYRobot), 2))
-    	if (distance-rayonRobot-self._rayon <= 0.2): 
-    		return 1
-    	else:
-    		return 0
-        
+        posXRobot = robot.getX()
+        posYRobot = robot.getY()
+        rayonRobot = robot.getRayon()
+        distance = math.sqrt(pow((self._posX - posXRobot), 2) + pow((self._posY - posYRobot), 2))
+        if (distance-rayonRobot-self._rayon <= 0.2): 
+            return 1
+        else:
+            return 0
+            
+
+    def estDedans(self, x : int, y : int):
+        """
+        Méthode abstraite qui détermine si le point de coordonnée (x, y) se trouve dans la surface de l'obstacle
+
+        Paramètres:
+        x -> coordonnée X
+        y -> coordonnée Y
+        """
+        if math.sqrt(pow((self._posX - x), 2) + pow((self._posY - y), 2)) > self._rayon:
+            return True
+        else:
+            return False

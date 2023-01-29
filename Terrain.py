@@ -1,3 +1,5 @@
+from Obstacle import Obstacle
+
 class Terrain:
     """
     Classe représentant un terrain
@@ -13,6 +15,7 @@ class Terrain:
         """
         self._sizeX = sizeX
         self._sizeY = sizeY
+        self._listeObstacles = list()
     
     def getSize(self):
         """
@@ -31,3 +34,16 @@ class Terrain:
         Renvoie la taille Y du terrain
         """
         return self._sizeY
+
+    def addObstacle(self, obstacle : Obstacle):
+        """
+        Ajoute un obstacle à la liste des obstacles du terrain
+        """
+
+        self._listeObstacles.append(obstacle)
+
+    def getListeObstacles(self):
+        """
+        Renvoie la liste des obstacles du terrain
+        """
+        return self._listeObstacles

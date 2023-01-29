@@ -50,3 +50,16 @@ class ObstacleCarre(Obstacle):
 
         
         return 0
+
+    def estDedans(self, x : int, y : int):
+        """
+        Méthode abstraite qui détermine si le point de coordonnée (x, y) se trouve dans la surface de l'obstacle
+
+        Paramètres:
+        x -> coordonnée X
+        y -> coordonnée Y
+        """
+        if self._posX - self._longueur < x < self._posX + self._longueur and self._posY - self._longueur < y < self._posY + self._longueur:
+            return True
+        else:
+            return False

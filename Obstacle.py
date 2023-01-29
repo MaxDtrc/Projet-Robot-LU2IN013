@@ -20,20 +20,19 @@ class Obstacle(ABC):
         self._nom = nom
         self._posX = posX
         self._posY = posY
-
         
-    @abstractmethod  
+    @abstractmethod
     def testCrash(self, robot : Robot):
-    	"""
-    	Méthode abstraite qui détermine si le robot est en collision avec un obstacle
-    	"""
+        """
+        Méthode abstraite qui détermine si le robot est en collision avec un obstacle
+        """
         pass
         
     def getNom(self):
-    	"""
-    	Renvoie le nom de l'obstacle"
-    	"""
-    	return self._nom
+        """
+        Renvoie le nom de l'obstacle"
+        """
+        return self._nom
   
 
     def getPosition(self):
@@ -55,9 +54,9 @@ class Obstacle(ABC):
         return self._posY
         
     def setPosition(self, pX : float, pY: float):
-    	"""
-    	Modifie la position d'un obstacle
-    	"""
-    	self._posX = pX
+        """
+        Modifie la position d'un obstacle
+        """
+        self._posX = pX
         self._posY = pY
 

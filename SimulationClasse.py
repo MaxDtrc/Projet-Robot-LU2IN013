@@ -1,12 +1,12 @@
-from Robot import Robot
-from Terrain import Terrain
+import Objets as o
+from math import cos, sin, radians, degrees
 
 class Simulation : 
     """
     Classe représentant la simulation
     """
 
-    def __init__(self, robotsList : list = None, terrain : Terrain = None):
+    def __init__(self, robotsList : list = None, terrain : o.Terrain = None):
         """
         Constructeur de la classe Simulation
 
@@ -22,7 +22,7 @@ class Simulation :
         self._terrain = terrain
     
 
-    def ajouterRobot(self, robot : Robot):
+    def ajouterRobot(self, robot : o.Robot):
         """
         Ajoute un robot dans la liste des robots de la simulation
 
@@ -33,7 +33,7 @@ class Simulation :
         self._robotsList.append(robot)
 
     
-    def retirerRobot(self, robot : Robot):
+    def retirerRobot(self, robot : o.Robot):
         """
         Retire le robot passé en paramètre de la liste des robots de la simulation
 
@@ -53,7 +53,7 @@ class Simulation :
         """
         self._robotsList.pop(index)
 
-    def setTerrain(self, terrain : Terrain):
+    def setTerrain(self, terrain : o.Terrain):
         """
         Affecte le terrain passé en paramètre à la variable Terrain de la simulation
 
@@ -101,3 +101,28 @@ class Simulation :
         for robot in self._robotsList :
             robot.afficher(screen)
         
+    #Capteur de distance
+    def getDistanceFromRobot(self, robot: o.Robot):
+        """
+        Renvoie la distance jusqu'au prochain mur
+        
+        Paramètres:
+        terrain -> Terrain
+        """
+        dirVect = (cos(radians(robot.getAngle())), sin(radians(robot.getAngle())))
+        posRayon = (robot.getX(), robot.getY())
+        distance = 0
+
+        while distance < self._terrain.getSizeX() * self._terrain.getSizeY(): #Limite pour pas que le rayon n'avance à l'infini
+            #Detection des bords du terrain
+            if(abs(posRayon[0]) >= self._terrain.getSizeX()/2 or abs(posRayon[1]) >= self._terrain.getSizeY()/2): #Le point (0,0) est au centre de l'écran donc normalement ça passe
+                return distance
+
+            #Detection des obstacles
+            for l in self._terrain.getListeObstacles():
+                if l.estDedans(posRayon[0], posRayon[1]):
+                    return distance
+            
+            tickRayon = 0.1
+            distance += tickRayon
+            posRayon = (posRayon[0] + tickRayon * dirVect[0], posRayon[1] + tickRayon * dirVect[1])

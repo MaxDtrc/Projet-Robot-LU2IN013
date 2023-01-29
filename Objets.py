@@ -134,7 +134,9 @@ class Robot:
         a = radians(self._angle)
         self._posX += ((self._vitesseGauche + self._vitesseDroite)/2) * cos(a) * dT
         self._posY -= ((self._vitesseGauche + self._vitesseDroite)/2) * sin(a) * dT
-        self._angle += degrees((self._vitesseDroite - self._vitesseGauche)/self._rayon * dT)
+        a+=(self._vitesseDroite - self._vitesseGauche)/self._rayon * dT
+        self._angle = degrees(a)
+        self._angle %= 360
 
     def accelererGauche(self, v: float):
         """
@@ -164,6 +166,46 @@ class Robot:
         else:
             self._vitesseDroite = self._vitesseDroite + v
 
+    def accelerer(self, v:float):
+        self.accelererGauche(v)
+        self.accelererDroite(v)
+
+    def ralentirDroite(self, v:float):
+        """
+        Ralenti la vitesse de la roue droite du robot
+
+        Paramètres:
+        v -> vitesse à retirer
+        """
+        if(self._vitesseDroite > 0):
+            self._vitesseDroite -= v
+            if(self._vitesseDroite < 0):
+                self._vitesseDroite = 0
+        else :
+            self._vitesseDroite += v
+            if(self._vitesseDroite >= 0):
+                self._vitesseDroite = 0
+
+    def ralentirGauche(self, v:float):
+        """
+        Ralenti la vitesse de la roue droite du robot
+
+        Paramètres:
+        v -> vitesse à retirer
+        """
+        if(self._vitesseGauche > 0):
+            self._vitesseGauche -= v
+            if(self._vitesseGauche < 0):
+                self._vitesseGauche = 0
+        else :
+            self._vitesseGauche += v
+            if(self._vitesseGauche >= 0):
+                self._vitesseGauche = 0
+
+    def ralentir(self, v:float):
+        self.ralentirGauche(v)
+        self.ralentirDroite(v)
+
     def setVitesseDroite(self, v: float):
         """
         Actualise la vitesse de la roue droite
@@ -191,6 +233,10 @@ class Robot:
             self._vitesseGauche = -self._vitesseMax
         else:
             self._vitesseGauche = v
+
+    def setVitesse(self, v: float):
+        self.setVitesseDroite(v)
+        self.setVitesseGauche(v)
 
 
 class Obstacle(ABC): 

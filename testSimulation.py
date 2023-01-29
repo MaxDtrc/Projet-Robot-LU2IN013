@@ -21,7 +21,7 @@ def testSimulation():
 
     for i in range(1):
         #simulation.ajouterRobot(o.Robot("robot", random.randint(-tailleTerrainX/2,tailleTerrainX/2), random.randint(-tailleTerrainY/2,tailleTerrainY/2), random.randint(0, 360)))
-        simulation.ajouterRobot(o.Robot("robot", 0,0, 0, 10, 200))
+        simulation.ajouterRobot(o.Robot("robot", 0,0, 90, 10, 200))
     
 
     #Initialisation de la fenêtre pygame
@@ -48,15 +48,7 @@ def testSimulation():
             image = pygame.transform.rotate(image_pas_tournee, robot.getAngle())
             screen.blit(image, (tailleTerrainX/2 - image.get_width()/2 + robot.getX(), tailleTerrainY/2 - image.get_height()/2 + robot.getY()))
             pygame.draw.rect(screen, (255,0,0), (4,4,10,10))
-            if(simulation.getDistanceFromRobot(robot) < 100):
-                robot.accelererDroite(-5)
-                robot.accelererGauche(-5)
-
-            else:
-                robot.accelererGauche(2)
-                robot.accelererDroite(2)
-            robot.actualiser(0.1)
-
+            simulation.actualiser(0.1)
         
         pygame.display.update()
         time.sleep(0.1)

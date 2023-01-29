@@ -126,3 +126,30 @@ class Simulation :
             tickRayon = 0.1
             distance += tickRayon
             posRayon = (posRayon[0] + tickRayon * dirVect[0], posRayon[1] + tickRayon * dirVect[1])
+
+    def actualiser(self, dT : float):
+        """
+        Actualise la simulation selon le temps dT écoulé depuis la dernière actualisation
+
+        Paramètres:
+        dT -> différence de temps (en seconde)
+        """
+
+        for robot in self._robotsList:
+            if (self.getDistanceFromRobot(robot) > 50):
+                if(robot.getVitesseGauche() > robot.getVitesseDroite()):
+                    robot.accelererDroite(7)
+                elif(robot.getVitesseDroite() > robot.getVitesseGauche()):
+                    robot.accelererGauche(7)
+                else:
+                    robot.accelerer(2)
+            elif(self.getDistanceFromRobot(robot) > 20 and abs(robot.getVitesseGauche()) >0 and  abs(robot.getVitesseDroite()) > 0):
+                robot.ralentirGauche(20)
+            else:
+                robot.accelererGauche(5)
+                robot.accelererDroite(-5)
+
+            robot.actualiser(dT)
+            print(robot.getVitesseGauche(), robot.getVitesseDroite(), robot.getAngle())
+            
+

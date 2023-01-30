@@ -306,7 +306,7 @@ class Terrain:
     Classe représentant un terrain
     """
 
-    def __init__(self, sizeX: int, sizeY: int):
+    def __init__(self, sizeX: int, sizeY: int, obstaclesList : list = None):
         """
         Constructeur de la classe
         
@@ -316,7 +316,12 @@ class Terrain:
         """
         self._sizeX = sizeX
         self._sizeY = sizeY
-        self._listeObstacles = list()
+
+        if obstaclesList is None : 
+            self._obstaclesList = []
+        else:
+            self._obstaclesList = obstaclesList
+
     
     def getSize(self):
         """
@@ -336,7 +341,7 @@ class Terrain:
         """
         return self._sizeY
 
-    def addObstacle(self, obstacle : Obstacle):
+    def ajouterObstacle(self, obstacle : Obstacle):
         """
         Ajoute un obstacle à la liste des obstacles du terrain
         """
@@ -368,6 +373,9 @@ class ObstacleCarre(Obstacle):
         """
         Obstacle.__init__(self, nom, posX, posY)
         self._longueur = longueur
+
+    def getLongueur(self):
+        return self._longueur
 
         
     def testCrash(self, robot : Robot):
@@ -430,6 +438,9 @@ class ObstacleRond(Obstacle):
         Obstacle.__init__(self, nom, posX, posY)
         self._rayon = rayon
 
+    def getRayon(self):
+        return self._rayon
+
         
     def testCrash(self, robot : Robot):
         """
@@ -445,5 +456,8 @@ class ObstacleRond(Obstacle):
             return 1
         else:
             return 0
+
+    def estDedans(self, x: int, y: int):
+        pass
         
 

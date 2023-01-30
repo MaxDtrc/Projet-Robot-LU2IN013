@@ -115,7 +115,9 @@ class Robot:
         Renvoie la vitesse de la roue gauche
         """
         return self._vitesseDroite
-        
+    
+    def getInfo(self):
+        return ("VitG: "+str(format(self.getVitesseGauche(),'.2f'))+"\tVitD: "+str(format(self.getVitesseDroite(),'.2f'))+"\tAngle: "+str(format(self.getAngle(),'.2f')))
 
     #Contrôle du robot
     def actualiser(self, dT: float):

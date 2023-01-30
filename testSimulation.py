@@ -53,10 +53,5 @@ def testSimulation():
         pygame.display.update()
         time.sleep(0.1)
 
-
-
-        
-
-
 testSimulation()
     

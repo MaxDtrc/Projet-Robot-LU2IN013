@@ -49,12 +49,6 @@ class Robot:
         Renvoie la position y du robot
         """
         return self._posY
-        
-    def getY(self):
-        """
-        Renvoie la position y du robot
-        """
-        return self._rayon
 
     def getNom(self):
         """

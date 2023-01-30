@@ -24,8 +24,8 @@ class Affichage :
         Paramètres:
         obstacle -> Obstacle à afficher
         """
-        if (isinstance(obstacle, o.ObstacleCarre)):
-            pygame.draw.rect(self._screen, (255,0,0), (obstacle.getX(),obstacle.getY(),obstacle.getLongueur(),obstacle.getLongueur()))
+        if (isinstance(obstacle, o.ObstacleRectangle)):
+            pygame.draw.rect(self._screen, (255, 163, 183), (obstacle.getX()+(self._screen.get_size()[0]/2)-obstacle.getLongueur()/2,obstacle.getY()+(self._screen.get_size()[1]/2)-obstacle.getLargeur()/2,obstacle.getLongueur(),obstacle.getLargeur()))
         elif (isinstance(obstacle, o.ObstacleRond)):
             pygame.draw.circle(self._screen, (255,0,0), (obstacle.getX(), obstacle.getY()), obstacle.getRayon())
 

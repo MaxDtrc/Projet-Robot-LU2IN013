@@ -17,12 +17,16 @@ simulation = s.Simulation()
 #Creation du terrain
 terrain = o.Terrain(tailleTerrainX,tailleTerrainY)
 terrain.ajouterObstacle(o.ObstacleRond("obs1", 150, 80, 50))
-terrain.ajouterObstacle(o.ObstacleCarre("obs2", 300, 10, 50))
+terrain.ajouterObstacle(o.ObstacleRectangle("obs2", 249, 0, 3, 500))
+terrain.ajouterObstacle(o.ObstacleRectangle("obs3", -249, 0, 3, 500))
+terrain.ajouterObstacle(o.ObstacleRectangle("obs4", 0, 249, 500, 3))
+terrain.ajouterObstacle(o.ObstacleRectangle("obs4", 0, -249, 500, 3))
+
 simulation.setTerrain(terrain)
 
 #Ajout des robots
 for i in range(1):
-    simulation.ajouterRobot(o.Robot("robot", random.randint(-tailleTerrainX/2,tailleTerrainX/2), random.randint(-tailleTerrainY/2,tailleTerrainY/2), random.randint(0, 360)))
+    simulation.ajouterRobot(o.Robot("robot", random.randint(-tailleTerrainX/2,tailleTerrainX/2), random.randint(-tailleTerrainY/2,tailleTerrainY/2), random.randint(0, 360), 10, 100))
     
 #Initialisation de l'affichage
 a = af.Affichage(simulation)

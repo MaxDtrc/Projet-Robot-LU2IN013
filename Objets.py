@@ -356,12 +356,12 @@ class Terrain:
 
 
 
-class ObstacleCarre(Obstacle): 
+class ObstacleRectangle(Obstacle): 
     """
     Classe héritant de la classe Obstacle et représentant un obstacle carré
     """
     
-    def __init__(self, nom: str, posX: float, posY: float, longueur: float):
+    def __init__(self, nom: str, posX: float, posY: float, longueur: float, largeur: float):
         """
         Constructeur de la classe ObstacleCarré
 
@@ -373,9 +373,13 @@ class ObstacleCarre(Obstacle):
         """
         Obstacle.__init__(self, nom, posX, posY)
         self._longueur = longueur
+        self._largeur = largeur
 
     def getLongueur(self):
         return self._longueur
+
+    def getLargeur(self):
+        return self._largeur
 
         
     def testCrash(self, robot : Robot):
@@ -389,10 +393,10 @@ class ObstacleCarre(Obstacle):
         p3 = np.array([robot.getX(), robot.getY()])
 
         #Obtention des coins de l'obstacle
-        c1 = np.array([self._posX - self._longueur/2, self._posY - self._longueur/2])
-        c2 = np.array([self._posX + self._longueur/2, self._posY - self._longueur/2])
-        c3 = np.array([self._posX + self._longueur/2, self._posY + self._longueur/2])
-        c4 = np.array([self._posX - self._longueur/2, self._posY + self._longueur/2])
+        c1 = np.array([self._posX - self._longueur/2, self._posY - self._largeur/2])
+        c2 = np.array([self._posX + self._longueur/2, self._posY - self._largeur/2])
+        c3 = np.array([self._posX + self._longueur/2, self._posY + self._largeur/2])
+        c4 = np.array([self._posX - self._longueur/2, self._posY + self._largeur/2])
 
 
         #Test avec chaque côté
@@ -415,7 +419,7 @@ class ObstacleCarre(Obstacle):
         x -> coordonnée X
         y -> coordonnée Y
         """
-        if self._posX - self._longueur < x < self._posX + self._longueur and self._posY - self._longueur < y < self._posY + self._longueur:
+        if self._posX - self._longueur < x < self._posX + self._longueur and self._posY - self._largeur < y < self._posY + self._largeur:
             return True
         else:
             return False

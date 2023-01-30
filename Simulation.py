@@ -115,10 +115,7 @@ class Simulation :
         distance = 0
 
         while distance < self._terrain.getSizeX() * self._terrain.getSizeY(): #Limite pour pas que le rayon n'avance à l'infini
-            #Detection des bords du terrain
-            if(abs(posRayon[0]) >= self._terrain.getSizeX()/2 or abs(posRayon[1]) >= self._terrain.getSizeY()/2): #Le point (0,0) est au centre de l'écran donc normalement ça passe
-                return distance
-
+            
             #Detection des obstacles
             for l in self._terrain.getListeObstacles():
                 if l.estDedans(posRayon[0], posRayon[1]):
@@ -138,7 +135,8 @@ class Simulation :
 
         for robot in self._robotsList:
             print(robot.getInfo()+"\tDist: "+str(format(self.getDistanceFromRobot(robot),'.2f'))) 
-            if (self.getDistanceFromRobot(robot) > 50):
+
+            """if (self.getDistanceFromRobot(robot) > 50):
                 if(robot.getVitesseGauche() > robot.getVitesseDroite()):
                     robot.accelererDroite(7)
                 elif(robot.getVitesseDroite() > robot.getVitesseGauche()):
@@ -149,7 +147,18 @@ class Simulation :
                 robot.ralentirGauche(20)
             else:
                 robot.accelererGauche(-50)
-                robot.accelererDroite(-50)
+                robot.accelererDroite(-50)"""
+
+            if (self.getDistanceFromRobot(robot) > 50):
+                if(robot.getVitesseGauche() > robot.getVitesseDroite()):
+                    robot.accelererDroite(7)
+                elif(robot.getVitesseDroite() > robot.getVitesseGauche()):
+                    robot.accelererGauche(7)
+                else:
+                    robot.accelerer(7)
+            else:
+                robot.ralentir(100/(self.getDistanceFromRobot(robot)+1))
+                
 
             robot.actualiser(dT)
 

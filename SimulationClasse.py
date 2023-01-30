@@ -136,6 +136,7 @@ class Simulation :
         """
 
         for robot in self._robotsList:
+            print(robot.getInfo()+"\tDist: "+str(format(self.getDistanceFromRobot(robot),'.2f'))) 
             if (self.getDistanceFromRobot(robot) > 50):
                 if(robot.getVitesseGauche() > robot.getVitesseDroite()):
                     robot.accelererDroite(7)
@@ -150,6 +151,5 @@ class Simulation :
                 robot.accelererDroite(-5)
 
             robot.actualiser(dT)
-            print(robot.getVitesseGauche(), robot.getVitesseDroite(), robot.getAngle())
-            
+                       
 

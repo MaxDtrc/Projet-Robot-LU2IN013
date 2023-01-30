@@ -14,3 +14,6 @@ de réalisation (durée passée).
 .Modification de l'organisation de nos fichiers (Regroupement des classes)
 .Ajout d'une méthode actualisation dans notre simulation
 .Ajout de méthodes mineures sur les roues du Robot
+.Ajout d'une classe Affichage et modification de ce dernier
+.Correction de bug par rapport a l'affichage du robot
+.Changement de la classe ObstacleCarre par ObstacleRectangle

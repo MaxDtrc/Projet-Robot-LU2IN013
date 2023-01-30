@@ -318,9 +318,9 @@ class Terrain:
         self._sizeY = sizeY
 
         if obstaclesList is None : 
-            self._obstaclesList = []
+            self._listeObstacles = []
         else:
-            self._obstaclesList = obstaclesList
+            self._listeObstacles = obstaclesList
 
     
     def getSize(self):

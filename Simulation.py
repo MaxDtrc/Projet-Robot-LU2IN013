@@ -128,7 +128,7 @@ class Simulation :
             distance += tickRayon
             posRayon = (posRayon[0] + tickRayon * dirVect[0], posRayon[1] + tickRayon * dirVect[1])
 
-    def actualiserSimulation(self, dT : float):
+    def actualiser(self, dT : float):
         """
         Actualise la simulation selon le temps dT écoulé depuis la dernière actualisation
 

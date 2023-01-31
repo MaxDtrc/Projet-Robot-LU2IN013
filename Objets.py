@@ -376,9 +376,15 @@ class ObstacleRectangle(Obstacle):
         self._largeur = largeur
 
     def getLongueur(self):
+        """
+        Renvoie la longueur du rectangle
+        """
         return self._longueur
 
     def getLargeur(self):
+        """
+        Renvoie la largeur du rectangle
+        """
         return self._largeur
 
         
@@ -389,27 +395,16 @@ class ObstacleRectangle(Obstacle):
     	#Marge d erreur de 0.2
     	"""
 
-        #Coordonnées du robot
-        p3 = np.array([robot.getX(), robot.getY()])
+        x = robot.getX()
+        y = robot.getY()
 
-        #Obtention des coins de l'obstacle
-        c1 = np.array([self._posX - self._longueur/2, self._posY - self._largeur/2])
-        c2 = np.array([self._posX + self._longueur/2, self._posY - self._largeur/2])
-        c3 = np.array([self._posX + self._longueur/2, self._posY + self._largeur/2])
-        c4 = np.array([self._posX - self._longueur/2, self._posY + self._largeur/2])
+        dx = abs(self._posX - x) - (self._longueur * 0.5)
+        dy = abs(self._posY - y) - (self._largeur * 0.5)
+        if sqrt((dx * (dx > 0)) ** 2 + (dy * (dy > 0)) ** 2) - robot.getRayon() < 0.2:
+            return 1
+        else:
+            return 0
 
-
-        #Test avec chaque côté
-        for (p1, p2) in [(c1, c2), (c2, c3), (c3, c4), (c4, c1)]:
-            #Projection
-            t = max(0, min(1, np.sum((p3 - p1) * (p2 - p1)) / np.sum((p1 - p2)**2)))
-            projection = p1 + t * (p2 - p1)
-
-            if sqrt((projection[0] - p3[0])** 2 + (projection[1] - p3[0])**2) < robot.getRayon() + 0.2:
-                return 1
-
-        
-        return 0
 
     def estDedans(self, x : int, y : int):
         """
@@ -452,11 +447,13 @@ class ObstacleRond(Obstacle):
     	Renvoie 1 si crash, 0 sinon
     	#Marge d erreur de 0.2
     	"""
+
         posXRobot = robot.getX()
         posYRobot = robot.getY()
         rayonRobot = robot.getRayon()
         distance = sqrt(pow((self._posX - posXRobot), 2) + pow((self._posY - posYRobot), 2))
-        if (distance-rayonRobot-self._rayon <= 0.2): 
+
+        if (distance - rayonRobot - self._rayon <= 0.2): 
             return 1
         else:
             return 0
@@ -469,7 +466,6 @@ class ObstacleRond(Obstacle):
         x -> coordonnée X
         y -> coordonnée Y
         """
-        print(sqrt((self._posX - x)**2 + (self._posY - y)**2), self._rayon)
         if sqrt((self._posX - x)**2 + (self._posY - y)**2) < self._rayon:
             return True
         else:

@@ -41,11 +41,11 @@ class Simulation :
         Paramètres:
         robot -> le robot à retirer de la liste
         """
+        if robot in self._robotsList:
+            self._robotsList.remove(robot)
 
-        self._robotList.remove(robot)
 
-
-    def retirerRobot(self, index : int):
+    def retirerRobotId(self, index : int):
         """
         Retire le robot à l'index passé en paramètre de la liste de robots de la simulation 
 
@@ -133,31 +133,33 @@ class Simulation :
         dT -> différence de temps (en seconde)
         """
 
+        #Test du crash
+        robotsARetirer = []
+        for robot in self._robotsList:
+            for obstacle in self._terrain.getListeObstacles():
+                if(obstacle.testCrash(robot) == 1):
+                    print("crash")
+                    robotsARetirer.append(robot)
+
+        for r in robotsARetirer:
+            self.retirerRobot(r)
+
+
+        #Comportement des robots
         for robot in self._robotsList:
             #print(robot.getInfo()+"\tDist: "+str(format(self.getDistanceFromRobot(robot, scr),'.2f'))) 
 
-            """if (self.getDistanceFromRobot(robot) > 50):
-                if(robot.getVitesseGauche() > robot.getVitesseDroite()):
-                    robot.accelererDroite(7)
-                elif(robot.getVitesseDroite() > robot.getVitesseGauche()):
-                    robot.accelererGauche(7)
-                else:
-                    robot.accelerer(2)
-            elif(self.getDistanceFromRobot(robot) > 20 and abs(robot.getVitesseGauche()) >0 and  abs(robot.getVitesseDroite()) > 0):
-                robot.ralentirGauche(20)
-            else:
-                robot.accelererGauche(-50)
-                robot.accelererDroite(-50)"""
-
             if (self.getDistanceFromRobot(robot) > 100):
                 if(robot.getVitesseGauche() > robot.getVitesseDroite()):
-                    robot.accelererDroite(7)
+                    robot.accelererDroite(14)
                 elif(robot.getVitesseDroite() > robot.getVitesseGauche()):
-                    robot.accelererGauche(7)
+                    robot.accelererGauche(14)
                 else:
                     robot.accelerer(7)
             else:
-                robot.ralentir(1000/(self.getDistanceFromRobot(robot)+1))
-                
+                if (robot.getVitesseGauche() + robot.getVitesseDroite())/2 > 30:
+                    robot.ralentir(1000/(self.getDistanceFromRobot(robot)+1))
+                else:
+                    robot.accelererGauche(20)
 
             robot.actualiser(dT)

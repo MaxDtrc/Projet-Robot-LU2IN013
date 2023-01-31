@@ -413,13 +413,13 @@ class ObstacleRectangle(Obstacle):
 
     def estDedans(self, x : int, y : int):
         """
-        Méthode abstraite qui détermine si le point de coordonnée (x, y) se trouve dans la surface de l'obstacle
+        Méthode qui détermine si le point de coordonnée (x, y) se trouve dans la surface de l'obstacle
 
         Paramètres:
         x -> coordonnée X
         y -> coordonnée Y
         """
-        if self._posX - self._longueur < x < self._posX + self._longueur and self._posY - self._largeur < y < self._posY + self._largeur:
+        if self._posX - self._longueur/2 < x < self._posX + self._longueur/2 and self._posY - self._largeur/2 < y < self._posY + self._largeur/2:
             return True
         else:
             return False
@@ -462,6 +462,17 @@ class ObstacleRond(Obstacle):
             return 0
 
     def estDedans(self, x: int, y: int):
-        pass
+        """
+        Méthode qui détermine si le point de coordonnée (x, y) se trouve dans la surface de l'obstacle
+
+        Paramètres:
+        x -> coordonnée X
+        y -> coordonnée Y
+        """
+        print(sqrt((self._posX - x)**2 + (self._posY - y)**2), self._rayon)
+        if sqrt((self._posX - x)**2 + (self._posY - y)**2) < self._rayon:
+            return True
+        else:
+            return False
         
 

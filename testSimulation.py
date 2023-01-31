@@ -24,10 +24,9 @@ terrain.ajouterObstacle(o.ObstacleRectangle("obs4", 0, -249, 500, 3))
 
 simulation.setTerrain(terrain)
 
-#Ajout des robots
-for i in range(1):
-    simulation.ajouterRobot(o.Robot("robot", random.randint(-tailleTerrainX/2,tailleTerrainX/2), random.randint(-tailleTerrainY/2,tailleTerrainY/2), random.randint(0, 360), 10, 100))
-    
+#Ajout d'un robot
+simulation.ajouterRobot(o.Robot("robot", random.randint(-tailleTerrainX/2,tailleTerrainX/2), random.randint(-tailleTerrainY/2,tailleTerrainY/2), random.randint(0, 360), 10, 100))
+
 #Initialisation de l'affichage
 a = af.Affichage(simulation)
 
@@ -45,6 +44,3 @@ while enMarche:
     simulation.actualiser(dT) #Actualisation de la simulation
     a.afficherSimulation(simulation) #Affichage de la simulation
     time.sleep(dT)
-
-
-    

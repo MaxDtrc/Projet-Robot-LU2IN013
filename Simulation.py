@@ -1,6 +1,6 @@
 import Objets as o
 from math import cos, sin, radians, degrees
-
+import pygame
 
 class Simulation : 
     """
@@ -105,17 +105,16 @@ class Simulation :
     #Capteur de distance
     def getDistanceFromRobot(self, robot: o.Robot):
         """
-        Renvoie la distance jusqu'au prochain mur
+        Renvoie la distance jusqu'au prochain obstacle
         
         Paramètres:
         terrain -> Terrain
         """
-        dirVect = (cos(radians(robot.getAngle())), sin(radians(robot.getAngle())))
+        dirVect = (cos(radians(robot.getAngle())), sin(radians(-robot.getAngle())))
         posRayon = (robot.getX(), robot.getY())
         distance = 0
 
         while distance < self._terrain.getSizeX() * self._terrain.getSizeY(): #Limite pour pas que le rayon n'avance à l'infini
-            
             #Detection des obstacles
             for l in self._terrain.getListeObstacles():
                 if l.estDedans(posRayon[0], posRayon[1]):
@@ -123,7 +122,8 @@ class Simulation :
             
             tickRayon = 0.1
             distance += tickRayon
-            posRayon = (posRayon[0] + tickRayon * dirVect[0], posRayon[1] + tickRayon * dirVect[1])
+            newPosRayon = (posRayon[0] + tickRayon * dirVect[0], posRayon[1] + tickRayon * dirVect[1])
+            posRayon = newPosRayon
 
     def actualiser(self, dT : float):
         """
@@ -134,7 +134,7 @@ class Simulation :
         """
 
         for robot in self._robotsList:
-            print(robot.getInfo()+"\tDist: "+str(format(self.getDistanceFromRobot(robot),'.2f'))) 
+            #print(robot.getInfo()+"\tDist: "+str(format(self.getDistanceFromRobot(robot, scr),'.2f'))) 
 
             """if (self.getDistanceFromRobot(robot) > 50):
                 if(robot.getVitesseGauche() > robot.getVitesseDroite()):
@@ -149,7 +149,7 @@ class Simulation :
                 robot.accelererGauche(-50)
                 robot.accelererDroite(-50)"""
 
-            if (self.getDistanceFromRobot(robot) > 50):
+            if (self.getDistanceFromRobot(robot) > 100):
                 if(robot.getVitesseGauche() > robot.getVitesseDroite()):
                     robot.accelererDroite(7)
                 elif(robot.getVitesseDroite() > robot.getVitesseGauche()):
@@ -157,12 +157,7 @@ class Simulation :
                 else:
                     robot.accelerer(7)
             else:
-                robot.ralentir(100/(self.getDistanceFromRobot(robot)+1))
+                robot.ralentir(1000/(self.getDistanceFromRobot(robot)+1))
                 
 
             robot.actualiser(dT)
-
-    
-
-                       
-

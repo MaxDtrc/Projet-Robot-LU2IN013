@@ -17,3 +17,6 @@ de réalisation (durée passée).
 .Ajout d'une classe Affichage et modification de ce dernier
 .Correction de bug par rapport a l'affichage du robot
 .Changement de la classe ObstacleCarre par ObstacleRectangle
+.Ajout de l'affichage de la "vraie" surface du robot
+.Ajout d'un test de collision dans la simulation
+.Modification de la boucle de test pour refaire apparaître un robot si le précédent s'est crashé

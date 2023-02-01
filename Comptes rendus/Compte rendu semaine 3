@@ -6,10 +6,10 @@ Compte rendu semaine 3
 - Revoir méthode getObstacleList()
 - Penser à une orientation des obstacles rectangulaires + eventuellement polynome quelconque
 - Dans testSimulation, faire une fonction pour initialisation ou encore mieux avec un fichier config
-- Tracer carré
 - Mettre code fonctionnel dans branch main
+- Objectif semaine pro : Tracer carré
 - Pour la seance prochaine, analyser l API du robot et essayer de faire notre simulation avec
 
 Taches faites :
--Début des tests unitaires sur la classe Robot
--
+- Tests unitaires sur la classe Robot
+- Tests unitaires sur la classe ObstacleRond

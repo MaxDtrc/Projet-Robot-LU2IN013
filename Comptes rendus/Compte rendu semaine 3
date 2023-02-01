@@ -1,4 +1,15 @@
 Compte rendu semaine 3
--Début des tests unitaires sur la classe Robot
+- Ajouter la démo du capteur distance dans notre simulation
+- Utiliser des modules
+- La méthode accélerer() n' est pas utile ici, on utilisera plutôt setVitesseRoueDroite() et setVitesseRoueGauche()
+- Rajouter des commentaires dans notre code (notamment dans la fonction actualiser())
+- Revoir méthode getObstacleList()
+- Penser à une orientation des obstacles rectangulaires + eventuellement polynome quelconque
+- Dans testSimulation, faire une fonction pour initialisation ou encore mieux avec un fichier config
+- Tracer carré
+- Mettre code fonctionnel dans branch main
+- Pour la seance prochaine, analyser l API du robot et essayer de faire notre simulation avec
 
+Taches faites :
+-Début des tests unitaires sur la classe Robot
 -

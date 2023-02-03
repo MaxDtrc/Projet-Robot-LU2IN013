@@ -8,8 +8,8 @@ import random
 
 
 #Definition de la taille du terrain
-tailleTerrainX = 500
-tailleTerrainY = 500
+tailleTerrainX = 700
+tailleTerrainY = 700
     
 #Creation de la simulation
 simulation = s.Simulation()

@@ -117,6 +117,9 @@ class Robot:
         return self._vitesseDroite
     
     def getInfo(self):
+        """
+        Renvoie des informations sur le robot
+        """
         return ("VitG: "+str(format(self.getVitesseGauche(),'.2f'))+"\tVitD: "+str(format(self.getVitesseDroite(),'.2f'))+"\tAngle: "+str(format(self.getAngle(),'.2f')))
 
     #Contrôle du robot
@@ -453,10 +456,7 @@ class ObstacleRond(Obstacle):
         rayonRobot = robot.getRayon()
         distance = sqrt(pow((self._posX - posXRobot), 2) + pow((self._posY - posYRobot), 2))
 
-        if (distance - rayonRobot - self._rayon <= 0.2): 
-            return 1
-        else:
-            return 0
+        return (distance - rayonRobot - self._rayon <= 0.2) 
 
     def estDedans(self, x: int, y: int):
         """
@@ -466,9 +466,4 @@ class ObstacleRond(Obstacle):
         x -> coordonnée X
         y -> coordonnée Y
         """
-        if sqrt((self._posX - x)**2 + (self._posY - y)**2) < self._rayon:
-            return True
-        else:
-            return False
-        
-
+        return sqrt((self._posX - x)**2 + (self._posY - y)**2) < self._rayon

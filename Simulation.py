@@ -21,6 +21,9 @@ class Simulation :
         else:
             self._robotsList = robotsList
         self._terrain = terrain
+
+        self.lastPosX = 0
+        self.lastPosY = 0
     
 
     def ajouterRobot(self, robot : o.Robot):
@@ -67,7 +70,6 @@ class Simulation :
     def getTerrain(self):
         """
         Renvoie le Terrain affecté à la variable Terrain de la simulation
-
         """
 
         return self._terrain
@@ -75,7 +77,6 @@ class Simulation :
     def getRobotsList(self):
         """
         Renvoie la liste contenant tout les robots de la simulation
-
         """
         
         return self._robotsList
@@ -91,17 +92,6 @@ class Simulation :
         return self._robotsList[index]
 
 
-    def afficherSimulation(self, screen):
-        """
-        Affiche l'ensemble de la simulation grâce à la librairie graphique (pour l'instant tous les robots de la liste)
-
-        Paramètres:
-        robotsList -> la liste des robots à afficher
-        """
-
-        for robot in self._robotsList :
-            robot.afficher(screen)
-        
     #Capteur de distance
     def getDistanceFromRobot(self, robot: o.Robot):
         """
@@ -118,6 +108,8 @@ class Simulation :
             #Detection des obstacles
             for l in self._terrain.getListeObstacles():
                 if l.estDedans(posRayon[0], posRayon[1]):
+                    self.lastPosX = posRayon[0] #Retour X de la position de l'impact du rayon
+                    self.lastPosY = posRayon[1] #Retour Y de la position de l'impact du rayon
                     return distance
             
             tickRayon = 0.1
@@ -137,7 +129,7 @@ class Simulation :
         robotsARetirer = []
         for robot in self._robotsList:
             for obstacle in self._terrain.getListeObstacles():
-                if(obstacle.testCrash(robot) == 1):
+                if(obstacle.testCrash(robot)):
                     print("crash")
                     robotsARetirer.append(robot)
 

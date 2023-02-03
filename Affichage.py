@@ -5,8 +5,8 @@ import Objets as o
 import Simulation as s
 
 
-COULEUR_OBSTACLES = (0, 80, 255)
-COULEUR_ROBOT = (255, 150, 150)
+COULEUR_OBSTACLES = (65, 0, 55)
+COULEUR_ROBOT = (255, 165, 165)
 
 class Affichage :
     def __init__(self, simulation : s.Simulation):
@@ -64,8 +64,9 @@ class Affichage :
         #Affichage des objets
         for robot in simulation.getRobotsList():
             self._afficherRobot(robot)
+            pygame.draw.line(self._screen, (255, 0, 0), (robot.getX() + simulation.getTerrain().getSizeX()/2, robot.getY() + simulation.getTerrain().getSizeY()/2), (simulation.lastPosX  + simulation.getTerrain().getSizeX()/2, simulation.lastPosY  + simulation.getTerrain().getSizeY()/2))
         for obstacle in simulation.getTerrain().getListeObstacles():
             self._afficherObstacle(obstacle)
 
         #Actualisation de l'écran
-        pygame.display.update()
+        pygame.display.update()     

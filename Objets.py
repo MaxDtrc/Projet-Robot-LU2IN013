@@ -13,7 +13,7 @@ class Robot:
         Constructeur de la classe Robot
 
         Paramètres:
-        nom -> Nom du robot
+        nom -> nom du robot
         posX -> position x du robot
         posY -> position y du robot
         rayon -> rayon du robot
@@ -361,12 +361,12 @@ class Terrain:
 
 class ObstacleRectangle(Obstacle): 
     """
-    Classe héritant de la classe Obstacle et représentant un obstacle carré
+    Classe héritant de la classe Obstacle et représentant un obstacle rectangulaire
     """
     
     def __init__(self, nom: str, posX: float, posY: float, longueur: float, largeur: float):
         """
-        Constructeur de la classe ObstacleCarré
+        Constructeur de la classe ObstacleRectangle
 
         Paramètres:
         nom -> nom de l'obstacle
@@ -393,7 +393,7 @@ class ObstacleRectangle(Obstacle):
         
     def testCrash(self, robot : Robot):
         """
-    	Méthode qui détermine si le robot est en collision avec un obstacle carré
+    	Méthode qui détermine si le robot est en collision avec un obstacle rectangulaire
     	Renvoie 1 si crash, 0 sinon
     	#Marge d erreur de 0.2
     	"""

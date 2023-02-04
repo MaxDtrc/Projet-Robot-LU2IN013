@@ -1,4 +1,4 @@
-import Objets as o
+import objets as o
 from math import cos, sin, radians, degrees
 import pygame
 

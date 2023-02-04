@@ -115,6 +115,12 @@ class Robot:
         Renvoie la vitesse de la roue gauche
         """
         return self._vitesseDroite
+
+    def getVitesse(self):
+        """
+        Renvoie la vitesse du robot sous la forme d'un tuple (vitesse roue gauche, vitesse roue droite)
+        """
+        return (self._vitesseGauche, self._vitesseDroite)
     
     def getInfo(self):
         """

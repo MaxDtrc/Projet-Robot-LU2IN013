@@ -47,19 +47,47 @@ class TestRobot(unittest.TestCase):
 
     def testGetVitesseGauche(self):
         self.assertEqual(self.r.getVitesseGauche(), 0)
+    
+    def testSetVitesseDroite(self):
+        self.r.setVitesseDroite(250)
+        self.assertEqual(self.r.getVitesseDroite(), 200)
+        self.r.setVitesseDroite(50)
+        self.assertEqual(self.r.getVitesseDroite(), 50)
+        self.r.setVitesseDroite(-50)
+        self.assertEqual(self.r.getVitesseDroite(), -50)
+        self.r.setVitesseDroite(-250)
+        self.assertEqual(self.r.getVitesseDroite(), -200)
+
+    def testSetVitesseGauche(self):
+        self.r.setVitesseGauche(250)
+        self.assertEqual(self.r.getVitesseGauche(), 200)
+        self.r.setVitesseGauche(50)
+        self.assertEqual(self.r.getVitesseGauche(), 50)
+        self.r.setVitesseGauche(-50)
+        self.assertEqual(self.r.getVitesseGauche(), -50)
+        self.r.setVitesseGauche(-250)
+        self.assertEqual(self.r.getVitesseGauche(), -200)
+
+    def testSetVitesse(self):
+        self.r.setVitesse(250)
+        self.assertEqual(self.r.getVitesse(), (200,200))
+        self.r.setVitesse(50)
+        self.assertEqual(self.r.getVitesse(), (50,50))
+        self.r.setVitesse(-50)
+        self.assertEqual(self.r.getVitesse(), (-50,-50))
+        self.r.setVitesse(-250)
+        self.assertEqual(self.r.getVitesse(), (-200,-200))
+
 
 """ 
-getInfo()
-actualiser()
-accelererGauche()
-accelererDroite()
-accelerer()
-ralentirDroite()
-ralentirGauche()
-ralentir()
-setVitesseDroite()
-setVitesseGauche()
-setVitesse()
+testGetInfo()
+testActualiser()
+testAccelererGauche()
+testAccelererDroite()
+testAccelerer()
+testRalentirDroite()
+testRalentirGauche()
+testRalentir()
 """
 
 class TestObstacleRond(unittest.TestCase):

@@ -1,6 +1,6 @@
-import Simulation as s
-import Objets as o
-import Affichage as af
+import simulation as s
+import objets as o
+import affichage as af
 
 import time
 import pygame

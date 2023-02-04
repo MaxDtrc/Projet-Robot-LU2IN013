@@ -47,6 +47,9 @@ class TestRobot(unittest.TestCase):
 
     def testGetVitesseGauche(self):
         self.assertEqual(self.r.getVitesseGauche(), 0)
+       
+    def testGetInfo(self):
+        self.assertEqual(self.r.getInfo(),"VitG: 0.00\tVitD: 0.00\tAngle: 0.00")
     
     def testSetVitesseDroite(self):
         self.r.setVitesseDroite(250)
@@ -80,7 +83,7 @@ class TestRobot(unittest.TestCase):
 
 
 """ 
-testGetInfo()
+Reste à faire :
 testActualiser()
 testAccelererGauche()
 testAccelererDroite()

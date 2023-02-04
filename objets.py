@@ -150,7 +150,7 @@ class Robot:
         Paramètres:
         v -> vitesse à ajouter
         """
-        if(abs(self._vitesseGauche + v) > self._vitesseMax):
+        if((self._vitesseGauche + v) > self._vitesseMax):
             self._vitesseGauche = self._vitesseMax
         elif((self._vitesseGauche + v) < -self._vitesseMax):
             self._vitesseGauche = -self._vitesseMax

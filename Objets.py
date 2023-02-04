@@ -417,7 +417,7 @@ class ObstacleRectangle(Obstacle):
         x -> coordonnée X
         y -> coordonnée Y
         """
-        if self._posX - self._longueur/2 < x < self._posX + self._longueur/2 and self._posY - self._largeur/2 < y < self._posY + self._largeur/2:
+        if self._posX - self._longueur/2 <= x <= self._posX + self._longueur/2 and self._posY - self._largeur/2 <= y <= self._posY + self._largeur/2:
             return True
         else:
             return False

@@ -1,8 +1,8 @@
 import pygame
 import random
 
-import Objets as o
-import Simulation as s
+import objets as o
+import simulation as s
 
 
 COULEUR_OBSTACLES = (65, 0, 55)

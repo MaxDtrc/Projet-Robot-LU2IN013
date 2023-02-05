@@ -12,15 +12,14 @@ class Robot:
         """
         Constructeur de la classe Robot
 
-        Paramètres:
-        nom -> nom du robot
-        posX -> position x du robot
-        posY -> position y du robot
-        rayon -> rayon du robot
-        angle -> orientation du robot (en degrés)
-        vitesseGauche -> vitesse de la roue gauche
-        vitesseDroite -> vitesse de la roue droite
-        vitesseMax -> vitesse maximum des roues
+        :param nom: nom du robot
+        :param posX: position x du robot
+        :param posY: position y du robot
+        :param rayon: rayon du robot
+        :param angle: orientation du robot (en degrés)
+        :param vitesseGauche: vitesse de la roue gauche
+        :param vitesseDroite: vitesse de la roue droite
+        :param vitesseMax: vitesse maximum des roues
         """
         self._nom = nom
         self._posX = posX
@@ -34,98 +33,98 @@ class Robot:
     #Getters
     def getPosition(self):
         """
-        Renvoie un tuple contenant la position (x, y) du robot
+        :returns: tuple contenant la position (x, y) du robot
         """
         return (self._posX, self._posY)
 
     def getX(self):
         """
-        Renvoie la position x du robot
+        :returns: la position x du robot
         """
         return self._posX
     
     def getY(self):
         """
-        Renvoie la position y du robot
+        :returns: la position y du robot
         """
         return self._posY
 
     def getNom(self):
         """
-        Renvoie le nom du robot
+        :returns: le nom du robot
         """
         return self._nom
         
     def getAngle(self):
         """
-        Renvoie l'angle d'orientation du robot (en degrés)
+        :returns: l'angle d'orientation du robot (en degrés)
         """
         return self._angle
 
     def getRayon(self):
         """
-        Renvoie le rayon du robot
+        :returns: le rayon du robot
         """
         return self._rayon
 
     def getPosRoueGauche(self):
         """
-        Renvoie un tuple contenant la position absolue de la roue gauche
+        :returns: un tuple contenant la position absolue de la roue gauche
         """
         return (cos(radians(self._angle + 90)) * self._rayon + self._posX, sin(radians(self._angle + 90)) * self._rayon + self._posY)
 
     def getPosRoueGaucheX(self):
         """
-        Renvoie la position X de la roue gauche
+        :returns: la position X de la roue gauche
         """
         return self.getPosRoueGauche()[0]
 
     def getPosRoueGaucheY(self):
         """
-        Renvoie la position Y de la roue gauche
+        :returns: la position Y de la roue gauche
         """
         return self.getPosRoueGauche()[1]
 
     def getPosRoueDroite(self):
         """
-        Renvoie un tuple contenant la position absolue de la roue droite
+        :returns: un tuple contenant la position absolue de la roue droite
         """
         return (cos(radians(self._angle - 90)) * self._rayon + self._posX, sin(radians(self._angle - 90)) * self._rayon + self._posY)
 
     def getPosRoueDroiteX(self):
         """
-        Renvoie la position X de la roue droite
+        :returns: la position X de la roue droite
         """
         return self.getPosRoueDroite()[0]
 
     def getPosRoueDroiteY(self):
         """
-        Renvoie la position Y de la roue droite
+        :returns: la position Y de la roue droite
         """
         return self.getPosRoueDroite()[1]
 
 
     def getVitesseGauche(self):
         """
-        Renvoie le vitesse de la roue gauche
+        :returns: la vitesse de la roue gauche
         """
         return self._vitesseGauche
 
     def getVitesseDroite(self):
         """
-        Renvoie la vitesse de la roue gauche
+        :returns: la vitesse de la roue gauche
         """
         return self._vitesseDroite
 
     def getVitesse(self):
         """
-        Renvoie la vitesse du robot sous la forme d'un tuple (vitesse roue gauche, vitesse roue droite)
+        :returns: la vitesse du robot sous la forme d'un tuple (vitesse roue gauche, vitesse roue droite)
         """
         return (self._vitesseGauche, self._vitesseDroite)
     
     def getInfo(self):
         """
-        Renvoie des informations sur le robot sous forme  de string
+        :returns: les informations sur le robot sous forme  de string
         """
         return ("VitG: "+str(format(self.getVitesseGauche(),'.2f'))+"\tVitD: "+str(format(self.getVitesseDroite(),'.2f'))+"\tAngle: "+str(format(self.getAngle(),'.2f')))
 
@@ -134,8 +133,8 @@ class Robot:
         """
         Actualise la position et l'angle du robot selon le temps dT écoulé depuis la dernière actualisation
 
-        Paramètres:
-        dT -> différence de temps (en seconde)
+        :param dT: différence de temps (en seconde)
+        :returns: rien, changement in place
         """
         a = radians(self._angle)
         self._posX += ((self._vitesseGauche + self._vitesseDroite)/2) * cos(a) * dT
@@ -148,8 +147,8 @@ class Robot:
         """
         Actualise la vitesse de la roue droite
 
-        Paramètres:
-        v -> vitesse à ajouter
+        :param v: vitesse à ajouter
+        :returns: rien, changement in place
         """
         if(v > self._vitesseMax):
             self._vitesseDroite = self._vitesseMax
@@ -162,8 +161,8 @@ class Robot:
         """
         Actualise la vitesse de la roue gauche
 
-        Paramètres:
-        v -> vitesse à ajouter
+        :param v: vitesse à ajouter
+        :returns: rien, changement in place
         """
         if(v > self._vitesseMax):
             self._vitesseGauche = self._vitesseMax
@@ -173,6 +172,12 @@ class Robot:
             self._vitesseGauche = v
 
     def setVitesse(self, v: float):
+        """
+        Actualise la vitesse des deux roues
+
+        :param v: vitesse à ajouter
+        :returns: rien, changement in place
+        """
         self.setVitesseDroite(v)
         self.setVitesseGauche(v)
 
@@ -186,10 +191,9 @@ class Obstacle(ABC):
         """
         Constructeur de la classe Obstacle
 
-        Paramètres:
-        nom -> nom de l'obstacle
-        posX -> position x du centre de l'obstacle 
-        posY -> position y du centre de l'obstacle
+        :param nom: nom de l'obstacle
+        :param posX: position x du centre de l'obstacle 
+        :param posY: position y du centre de l'obstacle
         """
         self._nom = nom
         self._posX = posX
@@ -211,32 +215,36 @@ class Obstacle(ABC):
         
     def getNom(self):
         """
-        Renvoie le nom de l'obstacle"
+        :returns: le nom de l'obstacle
         """
         return self._nom
   
 
     def getPosition(self):
         """
-        Renvoie un tuple contenant la position (x, y) de l'obstacle
+        :returns: un tuple contenant la position (x, y) de l'obstacle
         """
         return (self._posX, self._posY)
 
     def getX(self):
         """
-        Renvoie la position x du centre de l'obstacle
+        :returns: la position x du centre de l'obstacle
         """
         return self._posX
     
     def getY(self):
         """
-        Renvoie la position y du centre de l'obstacle
+        :returns: la position y du centre de l'obstacle
         """
         return self._posY
         
     def setPosition(self, pX : float, pY: float):
         """
         Modifie la position d'un obstacle
+
+        :param pX: nouvelle position x du robot
+        :param pY: nouvelle position y du robot
+        :returns: rien, changement in place
         """
         self._posX = pX
         self._posY = pY
@@ -252,9 +260,8 @@ class Terrain:
         """
         Constructeur de la classe
         
-        Paramètres:
-        sizeX -> taille X du terrain
-        sizeY -> taille Y du terrain
+        :param sizeX: taille X du terrain
+        :param sizeY: taille Y du terrain
         """
         self._sizeX = sizeX
         self._sizeY = sizeY
@@ -267,41 +274,42 @@ class Terrain:
     
     def getSize(self):
         """
-        Renvoie un tuple correspondant à la taille du terrain (sizeX, sizeY)
+        :returns: un tuple correspondant à la taille du terrain (sizeX, sizeY)
         """
         return (self._sizeX, self._sizeY)
 
     def getSizeX(self):
         """
-        Renvoie la taille X du terrain
+        :returns: la taille X du terrain
         """
         return self._sizeX
 
     def getSizeY(self):
         """
-        Renvoie la taille Y du terrain
+        :returns: la taille Y du terrain
         """
         return self._sizeY
 
     def ajouterObstacle(self, obstacle : Obstacle):
         """
         Ajoute un obstacle à la liste des obstacles du terrain
+
+        :param obstacle: l'obstacle à ajouter sur le terrain
+        :returns: rien, changement in place
         """
 
         self._listeObstacles.append(obstacle)
 
     def getNombreObstacles(self):
         """
-        Renvoie le nombre d'obstacles sur le terrain
+        :returns: le nombre d'obstacles sur le terrain
         """
         return len(self._listeObstacles)
 
     def getObstacle(self, index: int):
         """
-        Renvoie l'obstacle correspondant à l'index passé en paramètre dans le tableau des obstacles
-
-        Paramètres:
-        index -> index de l'obstacle à renvoyer
+        :param index: index de l'obstacle à renvoyer
+        :returns: l'obstacle correspondant à l'index passé en paramètre dans le tableau des obstacles
         """
         return self._listeObstacles[index]
 
@@ -316,11 +324,10 @@ class ObstacleRectangle(Obstacle):
         """
         Constructeur de la classe ObstacleRectangle
 
-        Paramètres:
-        nom -> nom de l'obstacle
-        posX -> position x du centre de l'obstacle 
-        posY -> position y du centre de l'obstacle
-        longueur -> longueur des côtés de l'obstacle
+        :param nom: nom de l'obstacle
+        :param posX: position x du centre de l'obstacle 
+        :param posY: position y du centre de l'obstacle
+        :param longueur: longueur des côtés de l'obstacle
         """
         Obstacle.__init__(self, nom, posX, posY)
         self._longueur = longueur
@@ -328,13 +335,13 @@ class ObstacleRectangle(Obstacle):
 
     def getLongueur(self):
         """
-        Renvoie la longueur du rectangle
+        :returns: la longueur du rectangle
         """
         return self._longueur
 
     def getLargeur(self):
         """
-        Renvoie la largeur du rectangle
+        :returns: la largeur du rectangle
         """
         return self._largeur
 
@@ -342,8 +349,10 @@ class ObstacleRectangle(Obstacle):
     def testCrash(self, robot : Robot):
         """
     	Méthode qui détermine si le robot est en collision avec un obstacle rectangulaire
-    	Renvoie 1 si crash, 0 sinon
-    	#Marge d erreur de 0.2
+        #Marge d erreur de 0.2
+
+        :param robot: robot sur lequel s'applique le test du crash avec un obstacle
+    	:returns: 1 si crash, 0 sinon
     	"""
 
         x = robot.getX()
@@ -361,9 +370,9 @@ class ObstacleRectangle(Obstacle):
         """
         Méthode qui détermine si le point de coordonnée (x, y) se trouve dans la surface de l'obstacle
 
-        Paramètres:
-        x -> coordonnée X
-        y -> coordonnée Y
+        :param x: coordonnée X
+        :param y: coordonnée Y
+        :returns: True si le point (x,y) se trouve dans l'obstacle
         """
         if self._posX - self._longueur/2 <= x <= self._posX + self._longueur/2 and self._posY - self._largeur/2 <= y <= self._posY + self._largeur/2:
             return True
@@ -379,11 +388,10 @@ class ObstacleRond(Obstacle):
         """
         Constructeur de la classe ObstacleRond
 
-        Paramètres:
-        nom -> nom de l'obstacle
-        posX -> position x du centre de l'obstacle 
-        posY -> position y du centre de l'obstacle
-        rayon -> rayon de l'obstacle
+        :param nom: nom de l'obstacle
+        :param posX: position x du centre de l'obstacle 
+        :param posY: position y du centre de l'obstacle
+        :param rayon: rayon de l'obstacle
         """
         Obstacle.__init__(self, nom, posX, posY)
         self._rayon = rayon
@@ -394,9 +402,11 @@ class ObstacleRond(Obstacle):
         
     def testCrash(self, robot : Robot):
         """
-    	Méthode qui détermine si le robot est en collision avec un obstacle rond
-    	Renvoie 1 si crash, 0 sinon
-    	#Marge d erreur de 0.2
+    	Méthode qui détermine si le robot est en collision avec un obstacle rectangulaire
+        #Marge d erreur de 0.2
+
+        :param robot: robot sur lequel s'applique le test du crash avec un obstacle
+    	:returns: 1 si crash, 0 sinon
     	"""
 
         posXRobot = robot.getX()
@@ -410,8 +420,8 @@ class ObstacleRond(Obstacle):
         """
         Méthode qui détermine si le point de coordonnée (x, y) se trouve dans la surface de l'obstacle
 
-        Paramètres:
-        x -> coordonnée X
-        y -> coordonnée Y
+        :param x: coordonnée X
+        :param y: coordonnée Y
+        :returns: True si le point (x,y) se trouve dans l'obstacle
         """
         return sqrt((self._posX - x)**2 + (self._posY - y)**2) < self._rayon

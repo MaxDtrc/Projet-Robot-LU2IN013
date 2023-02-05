@@ -81,17 +81,8 @@ class TestRobot(unittest.TestCase):
         self.r.setVitesse(-250)
         self.assertEqual(self.r.getVitesse(), (-200,-200))
 
-
-""" 
-Reste à faire :
-testActualiser()
-testAccelererGauche()
-testAccelererDroite()
-testAccelerer()
-testRalentirDroite()
-testRalentirGauche()
-testRalentir()
-"""
+    def testActualiser(self):
+        pass
 
 class TestObstacleRond(unittest.TestCase):
     def setUp(self):

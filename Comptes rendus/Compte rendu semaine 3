@@ -13,3 +13,7 @@ Compte rendu semaine 3
 Taches faites :
 - Tests unitaires sur la classe Robot
 - Tests unitaires sur la classe ObstacleRond
+- Suppresion des méthodes accelerer/ralentir de la classe robot
+- Suppression de l'obtention directe des listes d'obstacles et de robot dans les classes Terrain et Simulation
+- Ajout à la place de méthodes permettant l'obtention de la taille des listes et d'obtention d'un élément précis
+- Modification dans la classe Simulation du déplacement du robot pour correspondre aux nouvelles méthodes de déplacement

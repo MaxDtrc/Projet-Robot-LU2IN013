@@ -124,7 +124,7 @@ class Robot:
     
     def getInfo(self):
         """
-        Renvoie des informations sur le robot
+        Renvoie des informations sur le robot sous forme  de string
         """
         return ("VitG: "+str(format(self.getVitesseGauche(),'.2f'))+"\tVitD: "+str(format(self.getVitesseDroite(),'.2f'))+"\tAngle: "+str(format(self.getAngle(),'.2f')))
 
@@ -142,74 +142,6 @@ class Robot:
         a+=(self._vitesseDroite - self._vitesseGauche)/self._rayon * dT
         self._angle = degrees(a)
         self._angle %= 360
-
-    def accelererGauche(self, v: float):
-        """
-        Augmente la vitesse de la roue gauche du robot
-
-        Paramètres:
-        v -> vitesse à ajouter
-        """
-        if((self._vitesseGauche + v) > self._vitesseMax):
-            self._vitesseGauche = self._vitesseMax
-        elif((self._vitesseGauche + v) < -self._vitesseMax):
-            self._vitesseGauche = -self._vitesseMax
-        else:
-            self._vitesseGauche = self._vitesseGauche + v
-
-    def accelererDroite(self, v: float):
-        """
-        Augmente la vitesse de la roue droite du robot
-
-        Paramètres:
-        v -> vitesse à ajouter
-        """
-        if((self._vitesseDroite + v) > self._vitesseMax):
-            self._vitesseDroite = self._vitesseMax
-        elif((self._vitesseDroite + v) < -self._vitesseMax):
-            self._vitesseDroite = -self._vitesseMax
-        else:
-            self._vitesseDroite = self._vitesseDroite + v
-
-    def accelerer(self, v:float):
-        self.accelererGauche(v)
-        self.accelererDroite(v)
-
-    def ralentirDroite(self, v:float):
-        """
-        Ralenti la vitesse de la roue droite du robot
-
-        Paramètres:
-        v -> vitesse à retirer
-        """
-        if(self._vitesseDroite > 0):
-            self._vitesseDroite -= v
-            if(self._vitesseDroite < 0):
-                self._vitesseDroite = 0
-        else :
-            self._vitesseDroite += v
-            if(self._vitesseDroite >= 0):
-                self._vitesseDroite = 0
-
-    def ralentirGauche(self, v:float):
-        """
-        Ralenti la vitesse de la roue droite du robot
-
-        Paramètres:
-        v -> vitesse à retirer
-        """
-        if(self._vitesseGauche > 0):
-            self._vitesseGauche -= v
-            if(self._vitesseGauche < 0):
-                self._vitesseGauche = 0
-        else :
-            self._vitesseGauche += v
-            if(self._vitesseGauche >= 0):
-                self._vitesseGauche = 0
-
-    def ralentir(self, v:float):
-        self.ralentirGauche(v)
-        self.ralentirDroite(v)
 
     def setVitesseDroite(self, v: float):
         """

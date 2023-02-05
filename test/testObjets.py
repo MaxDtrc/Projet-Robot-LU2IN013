@@ -1,6 +1,6 @@
 import unittest
 
-from objets import Robot, Obstacle, ObstacleRectangle, ObstacleRond
+from robot import Robot, ObstacleRectangle, ObstacleRond, Terrain
 
 class TestRobot(unittest.TestCase):
     def setUp(self):

@@ -1,0 +1,7 @@
+setup.py
+driftator.egg-info/PKG-INFO
+driftator.egg-info/SOURCES.txt
+driftator.egg-info/dependency_links.txt
+driftator.egg-info/not-zip-safe
+driftator.egg-info/top_level.txt
+robot/__init__.py

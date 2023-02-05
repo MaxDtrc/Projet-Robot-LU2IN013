@@ -1,5 +1,6 @@
 import pygame
 import random
+from math import radians, cos, sin
 
 import objets as o
 import simulation as s
@@ -68,11 +69,14 @@ class Affichage :
 
         #Affichage des objets
         for i in range(0, simulation.getNombreDeRobots()):
-            self._afficherRobot(simulation.getRobot(i))
+            r = simulation.getRobot(i)
+            t = simulation.getTerrain()
+            self._afficherRobot(r)
+
             #Affichage du capteur de distance
-            pygame.draw.line(self._screen, (255, 0, 0), (simulation.getRobot(i).getX()*e + simulation.getTerrain().getSizeX()*e/2, simulation.getRobot(i).getY()*e + simulation.getTerrain().getSizeY()*e/2), (simulation.lastPosX*e  + simulation.getTerrain().getSizeX()*e/2, simulation.lastPosY*e  + simulation.getTerrain().getSizeY()*e/2))
-        for i in range(0, simulation.getTerrain().getNombreObstacles()):
-            self._afficherObstacle(simulation.getTerrain().getObstacle(i))
+            pygame.draw.line(self._screen, (255, 0, 0), ((r.getX() + cos(radians(r.getAngle())) * r.getRayon())*e + t.getSizeX()*e/2, (r.getY() + sin(radians(-r.getAngle())) * r.getRayon())*e + t.getSizeY()*e/2), (simulation.lastPosX*e  + t.getSizeX()*e/2, simulation.lastPosY*e  + t.getSizeY()*e/2))
+        for i in range(0, t.getNombreObstacles()):
+            self._afficherObstacle(t.getObstacle(i))
 
         #Actualisation de l'écran
         pygame.display.update()     

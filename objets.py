@@ -104,6 +104,7 @@ class Robot:
         """
         return self.getPosRoueDroite()[1]
 
+
     def getVitesseGauche(self):
         """
         Renvoie le vitesse de la roue gauche

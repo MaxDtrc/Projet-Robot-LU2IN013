@@ -97,7 +97,7 @@ class Simulation :
         terrain -> Terrain
         """
         dirVect = (cos(radians(robot.getAngle())), sin(radians(-robot.getAngle())))
-        posRayon = (robot.getX(), robot.getY())
+        posRayon = (robot.getX() + dirVect[0], robot.getY() + dirVect[1])
         distance = 0
 
         while distance < self._terrain.getSizeX() * self._terrain.getSizeY(): #Limite pour pas que le rayon n'avance à l'infini

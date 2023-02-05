@@ -8,8 +8,8 @@ import random
 
 
 #Definition de la taille du terrain
-tailleTerrainX = 700
-tailleTerrainY = 700
+tailleTerrainX = 510
+tailleTerrainY = 510
     
 #Creation de la simulation
 simulation = s.Simulation()
@@ -30,7 +30,7 @@ terrain.ajouterObstacle(o.ObstacleRectangle("mur4", 0, -249, 500, 3))
 simulation.setTerrain(terrain)
 
 #Initialisation de l'affichage
-a = af.Affichage(simulation)
+a = af.Affichage(simulation, 1.5)
 
 #Definition de la "précision temporelle"
 dT = 0.1

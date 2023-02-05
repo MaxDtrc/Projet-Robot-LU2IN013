@@ -9,7 +9,7 @@ COULEUR_OBSTACLES = (65, 0, 55)
 COULEUR_ROBOT = (255, 165, 165)
 
 class Affichage :
-    def __init__(self, simulation : s.Simulation):
+    def __init__(self, simulation : s.Simulation, echelle: int = 1):
         """
         Constructeur de la classe affichae
         
@@ -17,7 +17,8 @@ class Affichage :
         simulation -> Simulation concernée par cet affichage
         """
         pygame.init()
-        self._screen = pygame.display.set_mode((simulation.getTerrain().getSizeX(), simulation.getTerrain().getSizeY()))
+        self._echelle = echelle
+        self._screen = pygame.display.set_mode((simulation.getTerrain().getSizeX() * self._echelle, simulation.getTerrain().getSizeY() * self._echelle))
         pygame.display.set_caption('Test de la simulation du robot') 
         self._screen.fill((255,255,255))
 
@@ -28,10 +29,11 @@ class Affichage :
         Paramètres:
         obstacle -> Obstacle à afficher
         """
+        e = self._echelle
         if (isinstance(obstacle, o.ObstacleRectangle)):
-            pygame.draw.rect(self._screen, COULEUR_OBSTACLES, (obstacle.getX() + self._screen.get_size()[0]/2 - obstacle.getLongueur()/2,obstacle.getY()+(self._screen.get_size()[1]/2)-obstacle.getLargeur()/2,obstacle.getLongueur(),obstacle.getLargeur()))
+            pygame.draw.rect(self._screen, COULEUR_OBSTACLES, (obstacle.getX()*e + self._screen.get_size()[0]/2 - obstacle.getLongueur()*e/2, obstacle.getY()*e + self._screen.get_size()[1]/2 - obstacle.getLargeur()*e/2, obstacle.getLongueur()*e, obstacle.getLargeur()*e))
         elif (isinstance(obstacle, o.ObstacleRond)):
-            pygame.draw.circle(self._screen, COULEUR_OBSTACLES, (obstacle.getX() + self._screen.get_size()[0]/2, obstacle.getY() + self._screen.get_size()[0]/2), obstacle.getRayon())
+            pygame.draw.circle(self._screen, COULEUR_OBSTACLES, (obstacle.getX()*e + self._screen.get_size()[0]/2, obstacle.getY()*e + self._screen.get_size()[0]/2), obstacle.getRayon()*e)
 
     def _afficherRobot(self, robot: o.Robot):
         """
@@ -40,15 +42,17 @@ class Affichage :
         Paramètres:
         robot -> Robot à afficher
         """
+        e = self._echelle
         #Image de base
         image_pas_tournee = pygame.image.load("robot.png").convert_alpha()
+        image_pas_tournee = pygame.transform.scale(image_pas_tournee, (image_pas_tournee.get_width()*e, image_pas_tournee.get_height()*e))
         
         #Image que l'on tourne en fonction de l'angle du robot
         image = pygame.transform.rotate(image_pas_tournee, robot.getAngle())
 
         #Affichage du robot sur le self._screen
-        pygame.draw.circle(self._screen, COULEUR_ROBOT, (robot.getX() + self._screen.get_size()[0]/2, robot.getY() + self._screen.get_size()[0]/2), robot.getRayon())
-        self._screen.blit(image, (self._screen.get_size()[0]/2 - image.get_width()/2 + robot.getX(), self._screen.get_size()[1]/2 - image.get_height()/2 + robot.getY()))
+        pygame.draw.circle(self._screen, COULEUR_ROBOT, (robot.getX()*e + self._screen.get_size()[0]/2, robot.getY()*e + self._screen.get_size()[0]/2), robot.getRayon()*e)
+        self._screen.blit(image, (self._screen.get_size()[0]/2 - image.get_width()/2 + robot.getX()*e, self._screen.get_size()[1]/2 - image.get_height()/2 + robot.getY()*e))
 
 
     def afficherSimulation(self, simulation : s.Simulation):
@@ -58,13 +62,15 @@ class Affichage :
         Paramètres:
         simulation: simulation à afficher
         """
+        e = self._echelle
         #Fill de l'écran
         self._screen.fill((255,255,255))
 
         #Affichage des objets
         for i in range(0, simulation.getNombreDeRobots()):
             self._afficherRobot(simulation.getRobot(i))
-            pygame.draw.line(self._screen, (255, 0, 0), (simulation.getRobot(i).getX() + simulation.getTerrain().getSizeX()/2, simulation.getRobot(i).getY() + simulation.getTerrain().getSizeY()/2), (simulation.lastPosX  + simulation.getTerrain().getSizeX()/2, simulation.lastPosY  + simulation.getTerrain().getSizeY()/2))
+            #Affichage du capteur de distance
+            pygame.draw.line(self._screen, (255, 0, 0), (simulation.getRobot(i).getX()*e + simulation.getTerrain().getSizeX()*e/2, simulation.getRobot(i).getY()*e + simulation.getTerrain().getSizeY()*e/2), (simulation.lastPosX*e  + simulation.getTerrain().getSizeX()*e/2, simulation.lastPosY*e  + simulation.getTerrain().getSizeY()*e/2))
         for i in range(0, simulation.getTerrain().getNombreObstacles()):
             self._afficherObstacle(simulation.getTerrain().getObstacle(i))
 

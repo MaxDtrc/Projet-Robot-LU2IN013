@@ -62,11 +62,11 @@ class Affichage :
         self._screen.fill((255,255,255))
 
         #Affichage des objets
-        for robot in simulation.getRobotsList():
-            self._afficherRobot(robot)
-            pygame.draw.line(self._screen, (255, 0, 0), (robot.getX() + simulation.getTerrain().getSizeX()/2, robot.getY() + simulation.getTerrain().getSizeY()/2), (simulation.lastPosX  + simulation.getTerrain().getSizeX()/2, simulation.lastPosY  + simulation.getTerrain().getSizeY()/2))
-        for obstacle in simulation.getTerrain().getListeObstacles():
-            self._afficherObstacle(obstacle)
+        for i in range(0, simulation.getNombreDeRobots()):
+            self._afficherRobot(simulation.getRobot(i))
+            pygame.draw.line(self._screen, (255, 0, 0), (simulation.getRobot(i).getX() + simulation.getTerrain().getSizeX()/2, simulation.getRobot(i).getY() + simulation.getTerrain().getSizeY()/2), (simulation.lastPosX  + simulation.getTerrain().getSizeX()/2, simulation.lastPosY  + simulation.getTerrain().getSizeY()/2))
+        for i in range(0, simulation.getTerrain().getNombreObstacles()):
+            self._afficherObstacle(simulation.getTerrain().getObstacle(i))
 
         #Actualisation de l'écran
         pygame.display.update()     

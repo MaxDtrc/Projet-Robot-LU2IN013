@@ -64,23 +64,20 @@ class Simulation :
         Paramètres:
         terrain -> le terrain à affecter
         """
-
         self._terrain = terrain
 
     def getTerrain(self):
         """
         Renvoie le Terrain affecté à la variable Terrain de la simulation
         """
-
         return self._terrain
 
-    def getRobotsList(self):
+    def getNombreDeRobots(self):
         """
-        Renvoie la liste contenant tout les robots de la simulation
+        Renvoie le nombre de robots présents dans la simulation
         """
+        return len(self._robotsList)
         
-        return self._robotsList
-
     def getRobot(self, index : int):
         """
         Renvoie le robot correspondant à l'index passé en paramètre dans le tableau de robots
@@ -88,7 +85,6 @@ class Simulation :
         Paramètres:
         index -> l'index du robot à renvoyer
         """
-
         return self._robotsList[index]
 
 
@@ -106,8 +102,8 @@ class Simulation :
 
         while distance < self._terrain.getSizeX() * self._terrain.getSizeY(): #Limite pour pas que le rayon n'avance à l'infini
             #Detection des obstacles
-            for l in self._terrain.getListeObstacles():
-                if l.estDedans(posRayon[0], posRayon[1]):
+            for i in range(0, self._terrain.getNombreObstacles()):
+                if self._terrain.getObstacle(i).estDedans(posRayon[0], posRayon[1]):
                     self.lastPosX = posRayon[0] #Retour X de la position de l'impact du rayon
                     self.lastPosY = posRayon[1] #Retour Y de la position de l'impact du rayon
                     return distance
@@ -128,8 +124,8 @@ class Simulation :
         #Test du crash
         robotsARetirer = []
         for robot in self._robotsList:
-            for obstacle in self._terrain.getListeObstacles():
-                if(obstacle.testCrash(robot)):
+            for i in range(0, self._terrain.getNombreObstacles()):
+                if(self._terrain.getObstacle(i).testCrash(robot)):
                     print("crash")
                     robotsARetirer.append(robot)
 
@@ -139,19 +135,17 @@ class Simulation :
 
         #Comportement des robots
         for robot in self._robotsList:
-            #print(robot.getInfo()+"\tDist: "+str(format(self.getDistanceFromRobot(robot, scr),'.2f'))) 
-
             if (self.getDistanceFromRobot(robot) > 100):
                 if(robot.getVitesseGauche() > robot.getVitesseDroite()):
-                    robot.accelererDroite(14)
+                    robot.setVitesseDroite(robot.getVitesseDroite() + 14)
                 elif(robot.getVitesseDroite() > robot.getVitesseGauche()):
-                    robot.accelererGauche(14)
+                    robot.setVitesseGauche(robot.getVitesseGauche() + 14)
                 else:
-                    robot.accelerer(7)
+                    robot.setVitesse(robot.getVitesseGauche() + 7)
             else:
                 if (robot.getVitesseGauche() + robot.getVitesseDroite())/2 > 30:
-                    robot.ralentir(1000/(self.getDistanceFromRobot(robot)+1))
+                    robot.setVitesse(robot.getVitesseGauche() - 1000/(self.getDistanceFromRobot(robot)+1))
                 else:
-                    robot.accelererGauche(20)
+                    robot.setVitesseGauche(robot.getVitesseGauche() + 20)
 
             robot.actualiser(dT)

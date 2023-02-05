@@ -289,11 +289,20 @@ class Terrain:
 
         self._listeObstacles.append(obstacle)
 
-    def getListeObstacles(self):
+    def getNombreObstacles(self):
         """
-        Renvoie la liste des obstacles du terrain
+        Renvoie le nombre d'obstacles sur le terrain
         """
-        return self._listeObstacles
+        return len(self._listeObstacles)
+
+    def getObstacle(self, index: int):
+        """
+        Renvoie l'obstacle correspondant à l'index passé en paramètre dans le tableau des obstacles
+
+        Paramètres:
+        index -> index de l'obstacle à renvoyer
+        """
+        return self._listeObstacles[index]
 
 
 

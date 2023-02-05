@@ -42,8 +42,8 @@ while enMarche:
         if event.type == pygame.QUIT:
             enMarche = False
         
-    #Spawn d'un robot si aucun présent
-    if(len(simulation.getRobotsList()) == 0):
+    #Apparition d'un robot si aucun présent
+    if(simulation.getNombreDeRobots() == 0):
         simulation.ajouterRobot(o.Robot("robot", 0, 0, random.randint(0, 360), 15, 100))
 
     simulation.actualiser(dT) #Actualisation de la simulation

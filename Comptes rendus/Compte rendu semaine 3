@@ -18,4 +18,4 @@ Taches faites :
 - Ajout à la place de méthodes permettant l'obtention de la taille des listes et d'obtention d'un élément précis
 - Modification dans la classe Simulation du déplacement du robot pour correspondre aux nouvelles méthodes de déplacement
 - Ajout d'un attribut "echelle" à la classe Simulation permettant de modifier la taille de l'affichage
-
+- MAJ du capteur de distance (désormais il capte depuis l'avant du robot et plus depuis le centre), affichage ne marche toujours que pour 1 robot

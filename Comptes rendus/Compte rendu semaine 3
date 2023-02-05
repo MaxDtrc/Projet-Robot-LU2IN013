@@ -11,8 +11,7 @@ Compte rendu semaine 3
 - Pour la seance prochaine, analyser l API du robot et essayer de faire notre simulation avec
 
 Taches faites :
-- Tests unitaires sur la classe Robot
-- Tests unitaires sur la classe ObstacleRond
+- Tests unitaires pour les classes Robot, ObstacleRond et ObstacleRectangle
 - Suppresion des méthodes accelerer/ralentir de la classe robot
 - Suppression de l'obtention directe des listes d'obstacles et de robot dans les classes Terrain et Simulation
 - Ajout à la place de méthodes permettant l'obtention de la taille des listes et d'obtention d'un élément précis

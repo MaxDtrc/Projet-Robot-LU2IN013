@@ -1,10 +1,10 @@
+from math import cos, sin, radians, degrees, sqrt
+from robot import Robot, Obstacle, ObstacleRectangle, ObstacleRond
 import unittest
-
-from robot import Robot, ObstacleRectangle, ObstacleRond, Terrain
 
 class TestRobot(unittest.TestCase):
     def setUp(self):
-        self.r = Robot("MJ", 20, 45, 0, 15, 200)
+        self.r = Robot("MJ", 20, 45, 0, 10, 200)
 
     def testNom(self):
         self.assertEqual(self.r.getNom(), "MJ")
@@ -22,25 +22,25 @@ class TestRobot(unittest.TestCase):
         self.assertEqual(self.r.getAngle(), 0)
 
     def testGetRayon(self):
-        self.assertEqual(self.r.getRayon(), 15)
+        self.assertEqual(self.r.getRayon(), 10)
 
     def testGetPosRoueGaucheX(self):
         self.assertEqual(self.r.getPosRoueGaucheX(), 20)
 
     def testGetPosRoueGaucheY(self):
-        self.assertEqual(self.r.getPosRoueGaucheY(), 60)
+        self.assertEqual(self.r.getPosRoueGaucheY(), 55)
 
     def testGetPosRoueDroiteX(self):
         self.assertEqual(self.r.getPosRoueDroiteX(), 20)
 
     def testGetPosRoueDroiteY(self):
-        self.assertEqual(self.r.getPosRoueDroiteY(), 30)
+        self.assertEqual(self.r.getPosRoueDroiteY(), 35)
 
     def testGetPosRoueGauche(self):
-        self.assertEqual(self.r.getPosRoueGauche(),(20,60))
+        self.assertEqual(self.r.getPosRoueGauche(),(20,55))
 
     def testGetPosRoueDroite(self):
-        self.assertEqual(self.r.getPosRoueDroite(),(20,30))
+        self.assertEqual(self.r.getPosRoueDroite(),(20,35))
     
     def testGetVitesseDroite(self):
         self.assertEqual(self.r.getVitesseDroite(), 0)
@@ -82,8 +82,22 @@ class TestRobot(unittest.TestCase):
         self.assertEqual(self.r.getVitesse(), (-200,-200))
 
     def testActualiser(self):
-        pass
-
+        self.r.setVitesse(20)
+        self.r.actualiser(0.1)
+        self.assertEqual(self.r.getPosition(), (22,45))
+        self.assertEqual(self.r.getAngle(), 0)
+        self.r.actualiser(0.1)
+        self.assertEqual(self.r.getPosition(), (24,45))
+        self.assertEqual(self.r.getAngle(), 0)
+        self.r.setVitesseDroite(10)
+        self.r.setVitesseGauche(30)
+        self.r.actualiser(0.1)
+        self.assertEqual(self.r.getPosition(), (26,45))
+        self.assertEqual(self.r.getAngle(), degrees(-0.2)%360)
+        self.r.actualiser(0.1)
+        self.assertEqual(self.r.getPosition(), (26+(2*cos(radians(degrees(-0.2)%360))),45-(2*sin(radians(degrees(-0.2)%360)))))
+        self.assertEqual(self.r.getAngle(), degrees(radians(degrees(-0.2)%360)-0.2)%360)
+        
 class TestObstacleRond(unittest.TestCase):
     def setUp(self):
         self.obs = ObstacleRond("ObsOne", 100, 80, 10)

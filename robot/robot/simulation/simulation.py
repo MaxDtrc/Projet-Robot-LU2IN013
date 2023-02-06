@@ -11,9 +11,8 @@ class Simulation :
         """
         Constructeur de la classe Simulation
 
-        Paramètres:
-        robotsList -> Liste de robots
-        terrain -> Le terrain
+        :param robotsList : Liste de robots
+        :param terrain : Le terrain
         """
         
         if robotsList is None : 
@@ -30,8 +29,7 @@ class Simulation :
         """
         Ajoute un robot dans la liste des robots de la simulation
 
-        Paramètres:
-        robot -> le robot à ajouter dans la liste
+        :param robot : le robot à ajouter dans la liste
         """
 
         self._robotsList.append(robot)
@@ -41,8 +39,7 @@ class Simulation :
         """
         Retire le robot passé en paramètre de la liste des robots de la simulation
 
-        Paramètres:
-        robot -> le robot à retirer de la liste
+        :param robot : le robot à retirer de la liste
         """
         if robot in self._robotsList:
             self._robotsList.remove(robot)
@@ -52,8 +49,7 @@ class Simulation :
         """
         Retire le robot à l'index passé en paramètre de la liste de robots de la simulation 
 
-        Paramètres:
-        index -> l'index du robot à enlever
+        :param index : l'index du robot à enlever
         """
         self._robotsList.pop(index)
 
@@ -61,40 +57,35 @@ class Simulation :
         """
         Affecte le terrain passé en paramètre à la variable Terrain de la simulation
 
-        Paramètres:
-        terrain -> le terrain à affecter
+        :param terrain : le terrain à affecter
         """
         self._terrain = terrain
 
     def getTerrain(self):
         """
-        Renvoie le Terrain affecté à la variable Terrain de la simulation
+        :returns : le Terrain affecté à la variable Terrain de la simulation
         """
         return self._terrain
 
     def getNombreDeRobots(self):
         """
-        Renvoie le nombre de robots présents dans la simulation
+        :returns : le nombre de robots présents dans la simulation
         """
         return len(self._robotsList)
         
     def getRobot(self, index : int):
         """
-        Renvoie le robot correspondant à l'index passé en paramètre dans le tableau de robots
-
-        Paramètres:
-        index -> l'index du robot à renvoyer
+        :param index : l'index du robot à renvoyer
+        :returns : le robot correspondant à l'index passé en paramètre dans le tableau de robots
         """
         return self._robotsList[index]
 
 
     #Capteur de distance
     def getDistanceFromRobot(self, robot: o.Robot):
-        """
-        Renvoie la distance jusqu'au prochain obstacle
-        
-        Paramètres:
-        terrain -> Terrain
+        """ 
+        :param terrain : Terrain
+        :returns : la distance jusqu'au prochain obstacle
         """
         dirVect = (cos(radians(robot.getAngle())), sin(radians(-robot.getAngle())))
         posRayon = (robot.getX() + dirVect[0], robot.getY() + dirVect[1])
@@ -117,8 +108,7 @@ class Simulation :
         """
         Actualise la simulation selon le temps dT écoulé depuis la dernière actualisation
 
-        Paramètres:
-        dT -> différence de temps (en seconde)
+        :param dT : différence de temps (en seconde)
         """
 
         #Test du crash

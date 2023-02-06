@@ -13,10 +13,9 @@ COULEUR_ROBOT = (255, 165, 165)
 class Affichage :
     def __init__(self, simulation : s.Simulation, echelle: int = 1, afficherDistance: bool = False):
         """
-        Constructeur de la classe affichae
+        Constructeur de la classe affichage
         
-        Paramètres:
-        simulation -> Simulation concernée par cet affichage
+        :param simulation : Simulation concernée par cet affichage
         """
         pygame.init()
         self._echelle = echelle
@@ -29,8 +28,7 @@ class Affichage :
         """
         Affiche un obstacle sur la fenêtre
         
-        Paramètres:
-        obstacle -> Obstacle à afficher
+        :param obstacle : Obstacle à afficher
         """
         e = self._echelle
         if (isinstance(obstacle, o.ObstacleRectangle)):
@@ -42,8 +40,7 @@ class Affichage :
         """
         Affiche un robot sur la fenêtre
         
-        Paramètres:
-        robot -> Robot à afficher
+        :param robot : Robot à afficher
         """
         e = self._echelle
         #Image de base
@@ -63,8 +60,7 @@ class Affichage :
         """
         Affiche l'ensemble de la simulation sur la fenêtre
         
-        Paramètres:
-        simulation: simulation à afficher
+        :param simulation : simulation à afficher
         """
         e = self._echelle
         #Fill de l'écran

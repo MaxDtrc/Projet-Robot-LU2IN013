@@ -87,11 +87,11 @@ class Simulation :
         :param terrain : Terrain
         :returns : la distance jusqu'au prochain obstacle
         """
-        dirVect = (cos(radians(robot.getAngle())), sin(radians(-robot.getAngle())))
-        posRayon = (robot.getX() + dirVect[0], robot.getY() + dirVect[1])
+        dirVect = (cos(radians(robot.angle)), sin(radians(-robot.angle)))
+        posRayon = (robot.x + dirVect[0], robot.y + dirVect[1])
         distance = 0
 
-        while distance < self._terrain.getSizeX() * self._terrain.getSizeY(): #Limite pour pas que le rayon n'avance à l'infini
+        while distance < self._terrain.sizeX * self._terrain.sizeY: #Limite pour pas que le rayon n'avance à l'infini
             #Detection des obstacles
             for i in range(0, self._terrain.getNombreObstacles()):
                 if self._terrain.getObstacle(i).estDedans(posRayon[0], posRayon[1]):
@@ -116,7 +116,6 @@ class Simulation :
         for robot in self._robotsList:
             for i in range(0, self._terrain.getNombreObstacles()):
                 if(self._terrain.getObstacle(i).testCrash(robot)):
-                    print("crash")
                     robotsARetirer.append(robot)
 
         for r in robotsARetirer:
@@ -126,16 +125,16 @@ class Simulation :
         #Comportement des robots
         for robot in self._robotsList:
             if (self.getDistanceFromRobot(robot) > 100):
-                if(robot.getVitesseGauche() > robot.getVitesseDroite()):
-                    robot.setVitesseDroite(robot.getVitesseDroite() + 14)
-                elif(robot.getVitesseDroite() > robot.getVitesseGauche()):
-                    robot.setVitesseGauche(robot.getVitesseGauche() + 14)
+                if(robot.vitesseGauche > robot.vitesseDroite):
+                    robot.vitesseDroite += 14
+                elif(robot.vitesseDroite > robot.vitesseGauche):
+                    robot.vitesseGauche += 14
                 else:
-                    robot.setVitesse(robot.getVitesseGauche() + 7)
+                    robot.vitesse = robot.vitesseGauche + 7
             else:
-                if (robot.getVitesseGauche() + robot.getVitesseDroite())/2 > 30:
-                    robot.setVitesse(robot.getVitesseGauche() - 1000/(self.getDistanceFromRobot(robot)+1))
+                if (robot.vitesseGauche + robot.vitesseDroite)/2 > 30:
+                    robot.vitesse = robot.vitesseGauche - 1000/(self.getDistanceFromRobot(robot)+1)
                 else:
-                    robot.setVitesseGauche(robot.getVitesseGauche() + 20)
+                    robot.vitesseGauche += 20
 
             robot.actualiser(dT)

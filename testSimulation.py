@@ -13,19 +13,7 @@ tailleTerrainY = 510
 simulation = r.Simulation()
 
 #Creation du terrain
-terrain = r.Terrain(tailleTerrainX,tailleTerrainY)
-terrain.ajouterObstacle(r.ObstacleRond("rond1", 100, 80, 50))
-terrain.ajouterObstacle(r.ObstacleRond("rond1", -100, -80, 50))
-
-terrain.ajouterObstacle(r.ObstacleRectangle("carre1", 150, -80, 60, 60))
-terrain.ajouterObstacle(r.ObstacleRectangle("carre2", -150, 80, 60, 60))
-
-terrain.ajouterObstacle(r.ObstacleRectangle("mur1", 249, 0, 3, 500))
-terrain.ajouterObstacle(r.ObstacleRectangle("mur2", -249, 0, 3, 500))
-terrain.ajouterObstacle(r.ObstacleRectangle("mur3", 0, 249, 500, 3))
-terrain.ajouterObstacle(r.ObstacleRectangle("mur4", 0, -249, 500, 3))
-
-simulation.terrain = terrain
+simulation.chargerJson('test.json')
 
 #Initialisation de l'affichage
 a = r.Affichage(simulation, 1.5)

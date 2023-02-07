@@ -1,6 +1,7 @@
 from .. import objets as o
 from math import cos, sin, radians, degrees
 import pygame
+import json
 
 class Simulation : 
     """
@@ -24,6 +25,33 @@ class Simulation :
         self.lastPosX = 0
         self.lastPosY = 0
     
+    def chargerJson(self, fichier : str):
+        """
+        Crée les objets à partir d'un fichier json passé en paramètre
+
+        :param fichier : le fichier json à charger
+        """
+        with open(fichier) as json_file:
+            data = json.load(json_file)
+        
+            #Importation et initialisation du terrain
+            t = data['terrain'] 
+            self._terrain = o.Terrain(t['tailleX'], t['tailleY'])
+
+            #Importation et initialisation des obstacles ronds
+            for oR in data['obstaclesRonds'] :
+                ob = o.ObstacleRond(oR['nom'], oR['posX'], oR['posY'], oR['rayon'])
+                self._terrain.ajouterObstacle(ob)
+
+            #Importation et initialisation des obstacles rectangles
+            for oRect in data['obstaclesRectangles'] :
+                ob = o.ObstacleRectangle(oRect['nom'], oRect['posX'], oRect['posY'], oRect['longueur'], oRect['largeur'])
+                self._terrain.ajouterObstacle(ob)
+
+            #Importation et initialisation des robots
+            for rob in data['robots'] :
+                r = o.Robot(rob['nom'], rob['posX'], rob['posY'], rob['angle'], rob['tailleRoues'], rob['rayon'], rob['vitesseMax'])
+                self.ajouterRobot(r)
 
     def ajouterRobot(self, robot : o.Robot):
         """

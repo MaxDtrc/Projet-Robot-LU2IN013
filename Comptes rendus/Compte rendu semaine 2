@@ -1,0 +1,22 @@
+Semaine du 25/01/2023
+
+- Debrief de la semaine passée le mercredi, choses à changer:
+modifications au niveau de l'organisation du groupe, étiqueter les tâches, mettre les temps
+de réalisation (durée passée).
+
+- Avancées pendant la semaine:
+.Recherches sur la façon de calculer le déplacement du robot sur un temps donné selon les vitesses des deux roues
+.Modification du constructeur et des fonctions de déplacement de la classe Robot
+.Création de la classe mère Obstacle et des classes filles ObstacleRond et ObstacleCarré
+.Calcul permettant de déterminer si le robot est en collision avec un obstacle de type rond ou carré
+.Ajout de méthodes pour obtenir la position des roues gauche et droite du robot
+.Ajout de la détection des obstacles ronds et carrés par le capteur de distance
+.Modification de l'organisation de nos fichiers (Regroupement des classes)
+.Ajout d'une méthode actualisation dans notre simulation
+.Ajout de méthodes mineures sur les roues du Robot
+.Ajout d'une classe Affichage et modification de ce dernier
+.Correction de bug par rapport a l'affichage du robot
+.Changement de la classe ObstacleCarre par ObstacleRectangle
+.Ajout de l'affichage de la "vraie" surface du robot
+.Ajout d'un test de collision dans la simulation
+.Modification de la boucle de test pour refaire apparaître un robot si le précédent s'est crashé

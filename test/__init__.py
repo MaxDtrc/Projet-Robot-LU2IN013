@@ -1,0 +1,1 @@
+from .testObjets import TestRobot, TestObstacleRond, TestObstacleRectangle

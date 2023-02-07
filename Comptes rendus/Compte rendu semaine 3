@@ -1,0 +1,28 @@
+Compte rendu semaine 3
+- Ajouter la démo du capteur distance dans notre simulation
+- Utiliser des modules
+- La méthode accélerer() n' est pas utile ici, on utilisera plutôt setVitesseRoueDroite() et setVitesseRoueGauche()
+- Rajouter des commentaires dans notre code (notamment dans la fonction actualiser())
+- Revoir méthode getObstacleList()
+- Penser à une orientation des obstacles rectangulaires + eventuellement polynome quelconque
+- Dans testSimulation, faire une fonction pour initialisation ou encore mieux avec un fichier config
+- Mettre code fonctionnel dans branch main
+- Objectif semaine pro : Tracer carré
+- Pour la seance prochaine, analyser l API du robot et essayer de faire notre simulation avec
+
+Taches faites :
+- Tests unitaires pour les classes Robot, ObstacleRond et ObstacleRectangle
+- Suppresion des méthodes accelerer/ralentir de la classe robot
+- Suppression de l'obtention directe des listes d'obstacles et de robot dans les classes Terrain et Simulation
+- Ajout à la place de méthodes permettant l'obtention de la taille des listes et d'obtention d'un élément précis
+- Modification dans la classe Simulation du déplacement du robot pour correspondre aux nouvelles méthodes de déplacement
+- Ajout d'un attribut "echelle" à la classe Simulation permettant de modifier la taille de l'affichage
+- MAJ du capteur de distance (désormais il capte depuis l'avant du robot et plus depuis le centre), affichage ne marche toujours que pour 1 robot
+- Modification des getters et setters
+- Ajout d'une méthode pour charger des objets à partir d'un fichier JSON
+- Remplacement des vitesses par des vitesses angulaires
+- Restructuration du code sous forme de modules
+- Définition d'une échelle de temps et d'espace (temps : 1 = 1seconde, espace : 1 = 1cm)
+- Modification du nom des fichiers
+- Ajout de commentaires
+- Restructuration des commentaires

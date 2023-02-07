@@ -120,16 +120,19 @@ class Simulation :
         dirVect = (cos(radians(robot.angle)), sin(radians(-robot.angle)))
         posRayon = (robot.x + dirVect[0], robot.y + dirVect[1])
         distance = 0
+        tickRayon = 0.1
 
         while distance < self._terrain.sizeX * self._terrain.sizeY: #Limite pour pas que le rayon n'avance à l'infini
             #Detection des obstacles
             for i in range(0, self._terrain.getNombreObstacles()):
                 if self._terrain.getObstacle(i).estDedans(posRayon[0], posRayon[1]):
-                    self.lastPosX = posRayon[0] #Retour X de la position de l'impact du rayon
-                    self.lastPosY = posRayon[1] #Retour Y de la position de l'impact du rayon
+                    #Enregistrement des dernières valeurs observées (utiles pour du débogage ou l'affichage du rayon par exemple)
+                    self.lastPosX = posRayon[0] #On enregistre la dernière position X du rayon
+                    self.lastPosY = posRayon[1] #On enregistre la dernière position Y du rayon
                     return distance
             
-            tickRayon = 0.1
+
+            #On augmente la distance et on fait avancer le rayon
             distance += tickRayon
             newPosRayon = (posRayon[0] + tickRayon * dirVect[0], posRayon[1] + tickRayon * dirVect[1])
             posRayon = newPosRayon
@@ -146,8 +149,10 @@ class Simulation :
         for robot in self._robotsList:
             for i in range(0, self._terrain.getNombreObstacles()):
                 if(self._terrain.getObstacle(i).testCrash(robot)):
+                    #Ajout du robot à la liste de ceux à retirer
                     robotsARetirer.append(robot)
 
+        #Suppression des robots qui se sont crashés
         for r in robotsARetirer:
             self.retirerRobot(r)
 
@@ -155,16 +160,20 @@ class Simulation :
         #Comportement des robots
         for robot in self._robotsList:
             if (self.getDistanceFromRobot(robot) > 100):
+                #Rééquilibrage si les deux roues ne tournent pas à la même vitesse
                 if(robot.vitesseGauche > robot.vitesseDroite):
                     robot.vitesseDroite += 100
                 elif(robot.vitesseDroite > robot.vitesseGauche):
                     robot.vitesseGauche += 100
                 else:
-                    robot.vitesse = robot.vitesseGauche + 600
+                    #Augmentation de la vitesse des deux roues
+                    robot.vitesse = robot.vitesseGauche + 400
             else:
                 if (robot.vitesseGauche + robot.vitesseDroite)/2 > 30:
+                    #Ralentissement à l'approche du mur
                     robot.vitesse = robot.vitesseGauche - 30000/(self.getDistanceFromRobot(robot)+1)
                 else:
+                    #Rotation pour éviter l'obstacle
                     robot.vitesseGauche += 360
 
             robot.actualiser(dT)

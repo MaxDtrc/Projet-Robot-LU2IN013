@@ -191,13 +191,16 @@ class Robot:
         :param dT: différence de temps (en seconde)
         :returns: rien, changement in place
         """
+        #Calcul de la vitesse en cm/s du robot
         vG = self._vitesseGauche/360 * pi * self._tailleRoues
         vD = self._vitesseDroite/360 * pi * self._tailleRoues
 
         a = radians(self._angle)
+        #Mise à jour de ses coordonnées (déplacement autour du centre de rotation du robot)
         self._posX += ((vG + vD)/2) * cos(a) * dT
         self._posY -= ((vG + vD)/2) * sin(a) * dT
-        a+=(vD - vG)/self._rayon * dT
+        #Mise à jour de l'angle
+        a += (vD - vG)/self._rayon * dT
         self._angle = degrees(a)
         self._angle %= 360
 
@@ -388,8 +391,11 @@ class ObstacleRectangle(Obstacle):
         x = robot.x
         y = robot.y
 
+        #Calcul des distances x et y entre le centre du robot et le rectangle
         dx = abs(self._posX - x) - (self._longueur * 0.5)
         dy = abs(self._posY - y) - (self._largeur * 0.5)
+
+        #On vérifie si ces distances sont plus petites que le rayon du robot (avec une marge d'erreur de 0.2)
         if sqrt((dx * (dx > 0)) ** 2 + (dy * (dy > 0)) ** 2) - robot.rayon < 0.2:
             return 1
         else:
@@ -443,8 +449,11 @@ class ObstacleRond(Obstacle):
         posXRobot = robot.x
         posYRobot = robot.y
         rayonRobot = robot.rayon
+
+        #Calcul de la distance entre le centre du robot et le centre du cercle
         distance = sqrt(pow((self._posX - posXRobot), 2) + pow((self._posY - posYRobot), 2))
 
+        #On vérifie si cette distance est inférieure à la somme des deux rayons (avec une marge d'erreur de 0.2)
         return (distance - rayonRobot - self._rayon <= 0.2) 
 
     def estDedans(self, x: int, y: int):

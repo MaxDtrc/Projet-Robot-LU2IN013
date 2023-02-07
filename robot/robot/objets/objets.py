@@ -1,4 +1,4 @@
-from math import cos, sin, radians, degrees, sqrt
+from math import cos, sin, radians, degrees, sqrt, pi
 from abc import ABC, abstractmethod
 import numpy as np
 
@@ -8,7 +8,7 @@ class Robot:
     """
 
     #Constructeur
-    def __init__(self, nom: str, posX: float, posY: float, angle: float, r: float = 10, vMax: float = 10):
+    def __init__(self, nom: str, posX: float, posY: float, angle: float, t: float, r: float = 10, vMax: float = 10):
         """
         Constructeur de la classe Robot
 
@@ -17,6 +17,7 @@ class Robot:
         :param posY: position y du robot
         :param rayon: rayon du robot
         :param angle: orientation du robot (en degrés)
+        :param tailleRoue: diamètre des roues (en cm)
         :param vitesseGauche: vitesse de la roue gauche
         :param vitesseDroite: vitesse de la roue droite
         :param vitesseMax: vitesse maximum des roues
@@ -26,6 +27,7 @@ class Robot:
         self._posY = posY
         self._rayon = r
         self._angle = angle
+        self._tailleRoues = t
         self._vitesseGauche = 0
         self._vitesseDroite = 0
         self._vitesseMax = vMax
@@ -147,35 +149,39 @@ class Robot:
         """
         Actualise la vitesse de la roue droite
 
-        :param v: vitesse à ajouter
+        :param v: vitesse (en degrés de rotation par seconde)
         :returns: rien, changement in place
         """
-        if(v > self._vitesseMax):
+        dps = v/360 * pi * self._tailleRoues
+
+        if(dps > self._vitesseMax):
             self._vitesseDroite = self._vitesseMax
-        elif(v < -self._vitesseMax):
+        elif(dps < -self._vitesseMax):
             self._vitesseDroite = -self._vitesseMax
         else:
-            self._vitesseDroite = v
+            self._vitesseDroite = dps
 
     def setVitesseGauche(self, v: float):
         """
         Actualise la vitesse de la roue gauche
 
-        :param v: vitesse à ajouter
+        :param v: vitesse (en degrés de rotation par seconde)
         :returns: rien, changement in place
         """
-        if(v > self._vitesseMax):
+        dps = v/360 * pi * self._tailleRoues
+
+        if(dps > self._vitesseMax):
             self._vitesseGauche = self._vitesseMax
-        elif(v < -self._vitesseMax):
+        elif(dps < -self._vitesseMax):
             self._vitesseGauche = -self._vitesseMax
         else:
-            self._vitesseGauche = v
+            self._vitesseGauche = dps
 
     def setVitesse(self, v: float):
         """
         Actualise la vitesse des deux roues
 
-        :param v: vitesse à ajouter
+        :param v: vitesse (en degrés de rotation par seconde)
         :returns: rien, changement in place
         """
         self.setVitesseDroite(v)

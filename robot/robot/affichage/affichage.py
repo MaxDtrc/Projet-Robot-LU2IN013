@@ -32,8 +32,10 @@ class Affichage :
         """
         e = self._echelle
         if (isinstance(obstacle, o.ObstacleRectangle)):
+            #Affichage d'un obstacle rectangle
             pygame.draw.rect(self._screen, COULEUR_OBSTACLES, (obstacle.x*e + self._screen.get_size()[0]/2 - obstacle.longueur*e/2, obstacle.y*e + self._screen.get_size()[1]/2 - obstacle.largeur*e/2, obstacle.longueur*e, obstacle.largeur*e))
         elif (isinstance(obstacle, o.ObstacleRond)):
+            #Affichage d'un obstacle rond
             pygame.draw.circle(self._screen, COULEUR_OBSTACLES, (obstacle.x*e + self._screen.get_size()[0]/2, obstacle.y*e + self._screen.get_size()[0]/2), obstacle.rayon*e)
 
     def _afficherRobot(self, robot: o.Robot):

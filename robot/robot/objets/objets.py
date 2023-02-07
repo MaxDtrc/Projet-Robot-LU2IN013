@@ -355,6 +355,7 @@ class ObstacleRectangle(Obstacle):
         :param posX: position x du centre de l'obstacle 
         :param posY: position y du centre de l'obstacle
         :param longueur: longueur des côtés de l'obstacle
+        :param largeur: largeur des côtés de l'obstacle
         """
         Obstacle.__init__(self, nom, posX, posY)
         self._longueur = longueur

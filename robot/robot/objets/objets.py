@@ -15,11 +15,9 @@ class Robot:
         :param nom: nom du robot
         :param posX: position x du robot
         :param posY: position y du robot
-        :param rayon: rayon du robot
         :param angle: orientation du robot (en degrés)
-        :param tailleRoue: diamètre des roues (en cm)
-        :param vitesseGauche: vitesse de la roue gauche
-        :param vitesseDroite: vitesse de la roue droite
+        :param t: diamètre des roues (en cm)
+        :param r: rayon du robot
         :param vitesseMax: vitesse maximum des roues
         """
         self._nom = nom

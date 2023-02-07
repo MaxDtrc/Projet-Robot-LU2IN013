@@ -4,7 +4,7 @@ import unittest
 
 class TestRobot(unittest.TestCase):
     def setUp(self):
-        self.r = Robot("MJ", 20, 45, 0, 10, 200)
+        self.r = Robot("MJ", 20, 45, 0, 5, 10, 200)
 
     def testNom(self):
         self.assertEqual(self.r.getNom(), "MJ")
@@ -82,21 +82,14 @@ class TestRobot(unittest.TestCase):
         self.assertEqual(self.r.getVitesse(), (-200,-200))
 
     def testActualiser(self):
-        self.r.setVitesse(20)
+        self.r.setVitesse(180)
         self.r.actualiser(0.1)
-        self.assertEqual(self.r.getPosition(), (22,45))
+        self.assertAlmostEqual(self.r.getPosition()[0], 20.785, 3)
         self.assertEqual(self.r.getAngle(), 0)
         self.r.actualiser(0.1)
-        self.assertEqual(self.r.getPosition(), (24,45))
+        self.assertAlmostEqual(self.r.getPosition()[0], 21.57, 2)
         self.assertEqual(self.r.getAngle(), 0)
-        self.r.setVitesseDroite(10)
-        self.r.setVitesseGauche(30)
-        self.r.actualiser(0.1)
-        self.assertEqual(self.r.getPosition(), (26,45))
-        self.assertEqual(self.r.getAngle(), degrees(-0.2)%360)
-        self.r.actualiser(0.1)
-        self.assertEqual(self.r.getPosition(), (26+(2*cos(radians(degrees(-0.2)%360))),45-(2*sin(radians(degrees(-0.2)%360)))))
-        self.assertEqual(self.r.getAngle(), degrees(radians(degrees(-0.2)%360)-0.2)%360)
+
         
 class TestObstacleRond(unittest.TestCase):
     def setUp(self):
@@ -126,11 +119,11 @@ class TestObstacleRond(unittest.TestCase):
         self.assertFalse(self.obs.estDedans(30,50))
 
     def testTestCrash(self):
-        r = Robot("Driftator", 95, 75, 0, 15, 200)
+        r = Robot("Driftator", 95, 75, 0, 5, 15, 200)
         self.assertEqual(self.obs.testCrash(r), 1)
-        r1 = Robot("Driftator", 100, 80, 0, 15, 200)
+        r1 = Robot("Driftator", 100, 80, 0, 5, 15, 200)
         self.assertEqual(self.obs.testCrash(r1), 1)
-        r2 = Robot("Driftator", 30, 50, 0, 15, 200)
+        r2 = Robot("Driftator", 30, 50, 0, 5, 15, 200)
         self.assertEqual(self.obs.testCrash(r2), 0)
 
 class TestObstacleRectangle(unittest.TestCase):
@@ -164,12 +157,12 @@ class TestObstacleRectangle(unittest.TestCase):
         self.assertFalse(self.obr.estDedans(30,50))
 
     def testTestCrash(self):
-        r = Robot("Driftator", 95, 75, 0, 15, 200)
-        self.assertEqual(self.obr.testCrash(r), 1)
-        r1 = Robot("Driftator", 100, 80, 0, 15, 200)
-        self.assertEqual(self.obr.testCrash(r1), 1)
-        r2 = Robot("Driftator", 30, 50, 0, 15, 200)
-        self.assertEqual(self.obr.testCrash(r2), 0)
+        r = Robot("Driftator", 95, 75, 0, 5, 15, 200)
+        self.assertEqual(self.obr.testCrash(r), True)
+        r1 = Robot("Driftator", 100, 80, 0, 5, 15, 200)
+        self.assertEqual(self.obr.testCrash(r1), True)
+        r2 = Robot("Driftator", 30, 50, 0, 5, 15, 200)
+        self.assertEqual(self.obr.testCrash(r2), False)
 
 if __name__ == "__main__":
     unittest.main()

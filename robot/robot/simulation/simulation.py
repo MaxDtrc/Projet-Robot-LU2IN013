@@ -53,7 +53,15 @@ class Simulation :
         """
         self._robotsList.pop(index)
 
-    def setTerrain(self, terrain : o.Terrain):
+    @property
+    def terrain(self):
+        """
+        :returns : le Terrain affecté à la variable Terrain de la simulation
+        """
+        return self._terrain
+
+    @terrain.setter
+    def terrain(self, terrain : o.Terrain):
         """
         Affecte le terrain passé en paramètre à la variable Terrain de la simulation
 
@@ -61,19 +69,15 @@ class Simulation :
         """
         self._terrain = terrain
 
-    def getTerrain(self):
-        """
-        :returns : le Terrain affecté à la variable Terrain de la simulation
-        """
-        return self._terrain
-
-    def getNombreDeRobots(self):
+    @property
+    def nombreDeRobots(self):
         """
         :returns : le nombre de robots présents dans la simulation
         """
         return len(self._robotsList)
         
-    def getRobot(self, index : int):
+    @property
+    def robot(self, index : int):
         """
         :param index : l'index du robot à renvoyer
         :returns : le robot correspondant à l'index passé en paramètre dans le tableau de robots

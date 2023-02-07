@@ -74,7 +74,7 @@ class Affichage :
 
             #Affichage du capteur de distance
             if self._afficherDistance:
-                pygame.draw.line(self._screen, (255, 0, 0), ((r.x + cos(radians(r.getAngle())) * r.rayon)*e + t.getSizeX()*e/2, (r.y + sin(radians(-r.getAngle())) * r.rayon)*e + t.getSizeY()*e/2), (simulation.lastPosX*e  + t.getSizeX()*e/2, simulation.lastPosY*e  + t.getSizeY()*e/2))
+                pygame.draw.line(self._screen, (255, 0, 0), ((r.x + cos(radians(r.angle)) * r.rayon)*e + t.sizeX*e/2, (r.y + sin(radians(-r.angle)) * r.rayon)*e + t.sizeY*e/2), (simulation.lastPosX*e  + t.sizeX*e/2, simulation.lastPosY*e  + t.sizeY*e/2))
         for i in range(0, t.getNombreObstacles()):
             self._afficherObstacle(t.getObstacle(i))
 

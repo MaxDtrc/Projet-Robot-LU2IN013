@@ -16,7 +16,7 @@ simulation = r.Simulation()
 simulation.chargerJson('test.json')
 
 #Initialisation de l'affichage
-a = r.Affichage(simulation, 1.5)
+a = r.Affichage(simulation, 1.5, True)
 
 #Definition de la "précision temporelle"
 dT = 0.1
@@ -30,7 +30,7 @@ while enMarche:
         
     #Apparition d'un robot si aucun présent
     if(simulation.getNombreDeRobots() == 0):
-        simulation.ajouterRobot(r.Robot("robot", 0, 0, random.randint(0, 360), 7, 15, 100))
+        simulation.ajouterRobot(r.Robot("robot", 0, 0, random.randint(0, 360), 7, 15, 10000))
 
     simulation.actualiser(dT) #Actualisation de la simulation
     a.afficherSimulation(simulation) #Affichage de la simulation

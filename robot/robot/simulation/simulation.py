@@ -156,15 +156,15 @@ class Simulation :
         for robot in self._robotsList:
             if (self.getDistanceFromRobot(robot) > 100):
                 if(robot.vitesseGauche > robot.vitesseDroite):
-                    robot.vitesseDroite += 14
+                    robot.vitesseDroite += 100
                 elif(robot.vitesseDroite > robot.vitesseGauche):
-                    robot.vitesseGauche += 14
+                    robot.vitesseGauche += 100
                 else:
-                    robot.vitesse = robot.vitesseGauche + 7
+                    robot.vitesse = robot.vitesseGauche + 600
             else:
                 if (robot.vitesseGauche + robot.vitesseDroite)/2 > 30:
-                    robot.vitesse = robot.vitesseGauche - 1000/(self.getDistanceFromRobot(robot)+1)
+                    robot.vitesse = robot.vitesseGauche - 30000/(self.getDistanceFromRobot(robot)+1)
                 else:
-                    robot.vitesseGauche += 20
+                    robot.vitesseGauche += 360
 
             robot.actualiser(dT)

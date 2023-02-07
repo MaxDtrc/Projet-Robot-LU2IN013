@@ -73,43 +73,43 @@ class Robot:
         """
         return self._rayon
 
-    @property
-    def posRoueGauche(self):
+
+    def getPosRoueGauche(self):
         """
         :returns: un tuple contenant la position absolue de la roue gauche
         """
         return (cos(radians(self._angle + 90)) * self._rayon + self._posX, sin(radians(self._angle + 90)) * self._rayon + self._posY)
 
-    @property
+
     def posRoueGaucheX(self):
         """
         :returns: la position X de la roue gauche
         """
         return self.getPosRoueGauche()[0]
 
-    @property
+
     def posRoueGaucheY(self):
         """
         :returns: la position Y de la roue gauche
         """
         return self.getPosRoueGauche()[1]
 
-    @property
-    def posRoueDroite(self):
+
+    def getPosRoueDroite(self):
         """
         :returns: un tuple contenant la position absolue de la roue droite
         """
         return (cos(radians(self._angle - 90)) * self._rayon + self._posX, sin(radians(self._angle - 90)) * self._rayon + self._posY)
 
-    @property
-    def posRoueDroiteX(self):
+
+    def getPosRoueDroiteX(self):
         """
         :returns: la position X de la roue droite
         """
         return self.getPosRoueDroite()[0]
 
-    @property
-    def posRoueDroiteY(self):
+
+    def getPosRoueDroiteY(self):
         """
         :returns: la position Y de la roue droite
         """
@@ -120,24 +120,16 @@ class Robot:
         """
         :returns: la vitesse de la roue gauche (en degrés de rotation par seconde)
         """
-<<<<<<< HEAD
-        dps = (self._vitesseGauche * 360)/(pi * self._tailleRoues)
-
-        return dps
+        return self._vitesseGauche
     
     @vitesseGauche.setter
-    def vitesseGauche(self, dps: float):
+    def vitesseGauche(self, v: float):
         """
         Actualise la vitesse de la roue gauche
-=======
-        return self._vitesseGauche
->>>>>>> 5166d006e19679b6d65cbf3f3a745dea08f70a15
 
-        :param dps: vitesse (en degrés de rotation par seconde)
-        :returns: rien, changement in place
+        :param v: vitesse (en degrés de rotation par seconde)
+        :returns: rien
         """
-        v = dps/360 * pi * self._tailleRoues
-
         if(v > self._vitesseMax):
             self._vitesseGauche = self._vitesseMax
         elif(v < -self._vitesseMax):
@@ -153,15 +145,13 @@ class Robot:
         return self._vitesseDroite
 
     @vitesseDroite.setter
-    def vitesseDroite(self, dps: float):
+    def vitesseDroite(self, v: float):
         """
         Actualise la vitesse de la roue droite
 
-        :param dps: vitesse (en degrés de rotation par seconde)
-        :returns: rien, changement in place
+        :param v: vitesse (en degrés de rotation par seconde)
+        :returns: rien
         """
-        v = dps/360 * pi * self._tailleRoues
-
         if(v > self._vitesseMax):
             self._vitesseDroite = self._vitesseMax
         elif(v < -self._vitesseMax):
@@ -177,22 +167,22 @@ class Robot:
         return (self._vitesseGauche, self._vitesseDroite)
     
     @vitesse.setter
-    def vitesse(self, dps: float):
+    def vitesse(self, v: float):
         """
         Actualise la vitesse des deux roues
 
-        :param dps: vitesse (en degrés de rotation par seconde)
+        :param v: vitesse (en degrés de rotation par seconde)
         :returns: rien, changement in place
         """
-        self.setVitesseDroite(dps)
-        self.setVitesseGauche(dps)
+        self.vitesseDroite = v
+        self.vitesseGauche = v
     
     @property
     def info(self):
         """
         :returns: les informations sur le robot sous forme  de string
         """
-        return ("VitG: "+str(format(self.getVitesseGauche(),'.2f'))+"\tVitD: "+str(format(self.getVitesseDroite(),'.2f'))+"\tAngle: "+str(format(self.getAngle(),'.2f')))
+        return ("VitG: "+str(format(self._vitesseGauche,'.2f'))+"\tVitD: "+str(format(self._vitesseDroite,'.2f'))+"\tAngle: "+str(format(self._angle,'.2f')))
 
     #Contrôle du robot
     def actualiser(self, dT: float):
@@ -212,46 +202,6 @@ class Robot:
         self._angle = degrees(a)
         self._angle %= 360
 
-<<<<<<< HEAD
-=======
-    def setVitesseDroite(self, v: float):
-        """
-        Actualise la vitesse de la roue droite
-
-        :param v: vitesse (en degrés de rotation par seconde)
-        :returns: rien, changement in place
-        """
-        if(v > self._vitesseMax):
-            self._vitesseDroite = self._vitesseMax
-        elif(v < -self._vitesseMax):
-            self._vitesseDroite = -self._vitesseMax
-        else:
-            self._vitesseDroite = v
-
-    def setVitesseGauche(self, v: float):
-        """
-        Actualise la vitesse de la roue gauche
-
-        :param v: vitesse (en degrés de rotation par seconde)
-        :returns: rien, changement in place
-        """
-        if(v > self._vitesseMax):
-            self._vitesseGauche = self._vitesseMax
-        elif(v < -self._vitesseMax):
-            self._vitesseGauche = -self._vitesseMax
-        else:
-            self._vitesseGauche = v
-
-    def setVitesse(self, v: float):
-        """
-        Actualise la vitesse des deux roues
-
-        :param v: vitesse (en degrés de rotation par seconde)
-        :returns: rien, changement in place
-        """
-        self.setVitesseDroite(v)
-        self.setVitesseGauche(v)
->>>>>>> 5166d006e19679b6d65cbf3f3a745dea08f70a15
 
 
 class Obstacle(ABC): 

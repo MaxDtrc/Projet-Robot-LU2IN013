@@ -31,88 +31,118 @@ class Robot:
         self._vitesseMax = vMax
 
     #Getters
-    def getPosition(self):
+    @property
+    def position(self):
         """
         :returns: tuple contenant la position (x, y) du robot
         """
         return (self._posX, self._posY)
 
-    def getX(self):
+    @property
+    def x(self):
         """
         :returns: la position x du robot
         """
         return self._posX
     
-    def getY(self):
+    @property
+    def y(self):
         """
         :returns: la position y du robot
         """
         return self._posY
 
-    def getNom(self):
+    @property
+    def nom(self):
         """
         :returns: le nom du robot
         """
         return self._nom
-        
-    def getAngle(self):
+
+    @property
+    def angle(self):
         """
         :returns: l'angle d'orientation du robot (en degrés)
         """
         return self._angle
 
-    def getRayon(self):
+    @property
+    def rayon(self):
         """
         :returns: le rayon du robot
         """
         return self._rayon
 
-    def getPosRoueGauche(self):
+    @property
+    def posRoueGauche(self):
         """
         :returns: un tuple contenant la position absolue de la roue gauche
         """
         return (cos(radians(self._angle + 90)) * self._rayon + self._posX, sin(radians(self._angle + 90)) * self._rayon + self._posY)
 
-    def getPosRoueGaucheX(self):
+    @property
+    def posRoueGaucheX(self):
         """
         :returns: la position X de la roue gauche
         """
         return self.getPosRoueGauche()[0]
 
-    def getPosRoueGaucheY(self):
+    @property
+    def posRoueGaucheY(self):
         """
         :returns: la position Y de la roue gauche
         """
         return self.getPosRoueGauche()[1]
 
-    def getPosRoueDroite(self):
+    @property
+    def posRoueDroite(self):
         """
         :returns: un tuple contenant la position absolue de la roue droite
         """
         return (cos(radians(self._angle - 90)) * self._rayon + self._posX, sin(radians(self._angle - 90)) * self._rayon + self._posY)
 
-    def getPosRoueDroiteX(self):
+    @property
+    def posRoueDroiteX(self):
         """
         :returns: la position X de la roue droite
         """
         return self.getPosRoueDroite()[0]
 
-    def getPosRoueDroiteY(self):
+    @property
+    def posRoueDroiteY(self):
         """
         :returns: la position Y de la roue droite
         """
         return self.getPosRoueDroite()[1]
 
-
-    def getVitesseGauche(self):
+    @property
+    def vitesseGauche(self):
         """
         :returns: la vitesse de la roue gauche (en degrés de rotation par seconde)
         """
         dps = (self._vitesseGauche * 360)/(pi * self._tailleRoues)
 
         return dps
+    
+    @vitesseGauche.setter
+    def vitesseGauche(self, dps: float):
+        """
+        Actualise la vitesse de la roue gauche
 
-    def getVitesseDroite(self):
+        :param dps: vitesse (en degrés de rotation par seconde)
+        :returns: rien, changement in place
+        """
+        v = dps/360 * pi * self._tailleRoues
+
+        if(v > self._vitesseMax):
+            self._vitesseGauche = self._vitesseMax
+        elif(v < -self._vitesseMax):
+            self._vitesseGauche = -self._vitesseMax
+        else:
+            self._vitesseGauche = v
+
+    @property
+    def vitesseDroite(self):
         """
         :returns: la vitesse de la roue droite (en degrés de rotation par seconde)
         """
@@ -120,13 +150,43 @@ class Robot:
 
         return dps
 
-    def getVitesse(self):
+    @vitesseDroite.setter
+    def vitesseDroite(self, dps: float):
+        """
+        Actualise la vitesse de la roue droite
+
+        :param dps: vitesse (en degrés de rotation par seconde)
+        :returns: rien, changement in place
+        """
+        v = dps/360 * pi * self._tailleRoues
+
+        if(v > self._vitesseMax):
+            self._vitesseDroite = self._vitesseMax
+        elif(v < -self._vitesseMax):
+            self._vitesseDroite = -self._vitesseMax
+        else:
+            self._vitesseDroite = v
+
+    @property
+    def vitesse(self):
         """
         :returns: la vitesse du robot sous la forme d'un tuple (vitesse roue gauche, vitesse roue droite, en degrés de rotation par seconde)
         """
         return (self.getVitesseGauche(), self.getVitesseDroite())
     
-    def getInfo(self):
+    @vitesse.setter
+    def vitesse(self, dps: float):
+        """
+        Actualise la vitesse des deux roues
+
+        :param dps: vitesse (en degrés de rotation par seconde)
+        :returns: rien, changement in place
+        """
+        self.setVitesseDroite(dps)
+        self.setVitesseGauche(dps)
+    
+    @property
+    def info(self):
         """
         :returns: les informations sur le robot sous forme  de string
         """
@@ -147,47 +207,6 @@ class Robot:
         self._angle = degrees(a)
         self._angle %= 360
 
-    def setVitesseDroite(self, dps: float):
-        """
-        Actualise la vitesse de la roue droite
-
-        :param dps: vitesse (en degrés de rotation par seconde)
-        :returns: rien, changement in place
-        """
-        v = dps/360 * pi * self._tailleRoues
-
-        if(v > self._vitesseMax):
-            self._vitesseDroite = self._vitesseMax
-        elif(v < -self._vitesseMax):
-            self._vitesseDroite = -self._vitesseMax
-        else:
-            self._vitesseDroite = v
-
-    def setVitesseGauche(self, dps: float):
-        """
-        Actualise la vitesse de la roue gauche
-
-        :param dps: vitesse (en degrés de rotation par seconde)
-        :returns: rien, changement in place
-        """
-        v = dps/360 * pi * self._tailleRoues
-
-        if(v > self._vitesseMax):
-            self._vitesseGauche = self._vitesseMax
-        elif(v < -self._vitesseMax):
-            self._vitesseGauche = -self._vitesseMax
-        else:
-            self._vitesseGauche = v
-
-    def setVitesse(self, dps: float):
-        """
-        Actualise la vitesse des deux roues
-
-        :param dps: vitesse (en degrés de rotation par seconde)
-        :returns: rien, changement in place
-        """
-        self.setVitesseDroite(dps)
-        self.setVitesseGauche(dps)
 
 
 class Obstacle(ABC): 
@@ -220,33 +239,23 @@ class Obstacle(ABC):
         Méthode abstraite qui détermine si le point de coordonnée (x, y) se trouve dans la surface de l'obstacle
         """
         pass
-        
-    def getNom(self):
+
+    @property   
+    def nom(self):
         """
         :returns: le nom de l'obstacle
         """
         return self._nom
   
-
-    def getPosition(self):
+    @property
+    def position(self):
         """
         :returns: un tuple contenant la position (x, y) de l'obstacle
         """
         return (self._posX, self._posY)
 
-    def getX(self):
-        """
-        :returns: la position x du centre de l'obstacle
-        """
-        return self._posX
-    
-    def getY(self):
-        """
-        :returns: la position y du centre de l'obstacle
-        """
-        return self._posY
-        
-    def setPosition(self, pX : float, pY: float):
+    @position.setter
+    def position(self, pX : float, pY: float):
         """
         Modifie la position d'un obstacle
 
@@ -256,6 +265,22 @@ class Obstacle(ABC):
         """
         self._posX = pX
         self._posY = pY
+
+    @property
+    def x(self):
+        """
+        :returns: la position x du centre de l'obstacle
+        """
+        return self._posX
+
+    @property
+    def y(self):
+        """
+        :returns: la position y du centre de l'obstacle
+        """
+        return self._posY
+        
+    
 
 
 
@@ -279,20 +304,22 @@ class Terrain:
         else:
             self._listeObstacles = obstaclesList
 
-    
-    def getSize(self):
+    @property
+    def size(self):
         """
         :returns: un tuple correspondant à la taille du terrain (sizeX, sizeY)
         """
         return (self._sizeX, self._sizeY)
 
-    def getSizeX(self):
+    @property
+    def sizeX(self):
         """
         :returns: la taille X du terrain
         """
         return self._sizeX
 
-    def getSizeY(self):
+    @property
+    def sizeY(self):
         """
         :returns: la taille Y du terrain
         """
@@ -308,13 +335,15 @@ class Terrain:
 
         self._listeObstacles.append(obstacle)
 
-    def getNombreObstacles(self):
+    @property
+    def nombreObstacles(self):
         """
         :returns: le nombre d'obstacles sur le terrain
         """
         return len(self._listeObstacles)
 
-    def getObstacle(self, index: int):
+    @property
+    def obstacle(self, index: int):
         """
         :param index: index de l'obstacle à renvoyer
         :returns: l'obstacle correspondant à l'index passé en paramètre dans le tableau des obstacles
@@ -341,13 +370,15 @@ class ObstacleRectangle(Obstacle):
         self._longueur = longueur
         self._largeur = largeur
 
-    def getLongueur(self):
+    @property
+    def longueur(self):
         """
         :returns: la longueur du rectangle
         """
         return self._longueur
 
-    def getLargeur(self):
+    @property
+    def largeur(self):
         """
         :returns: la largeur du rectangle
         """
@@ -404,7 +435,8 @@ class ObstacleRond(Obstacle):
         Obstacle.__init__(self, nom, posX, posY)
         self._rayon = rayon
 
-    def getRayon(self):
+    @property
+    def rayon(self):
         return self._rayon
 
         

@@ -81,14 +81,14 @@ class Robot:
         return (cos(radians(self._angle + 90)) * self._rayon + self._posX, sin(radians(self._angle + 90)) * self._rayon + self._posY)
 
 
-    def posRoueGaucheX(self):
+    def getPosRoueGaucheX(self):
         """
         :returns: la position X de la roue gauche
         """
         return self.getPosRoueGauche()[0]
 
 
-    def posRoueGaucheY(self):
+    def getPosRoueGaucheY(self):
         """
         :returns: la position Y de la roue gauche
         """
@@ -177,8 +177,7 @@ class Robot:
         self.vitesseDroite = v
         self.vitesseGauche = v
     
-    @property
-    def info(self):
+    def getInfo(self):
         """
         :returns: les informations sur le robot sous forme  de string
         """
@@ -242,15 +241,13 @@ class Obstacle(ABC):
         """
         return self._nom
   
-    @property
-    def position(self):
+    def getPosition(self):
         """
         :returns: un tuple contenant la position (x, y) de l'obstacle
         """
         return (self._posX, self._posY)
 
-    @position.setter
-    def position(self, pX : float, pY: float):
+    def setPosition(self, pX : float, pY: float):
         """
         Modifie la position d'un obstacle
 
@@ -330,15 +327,13 @@ class Terrain:
 
         self._listeObstacles.append(obstacle)
 
-    @property
-    def nombreObstacles(self):
+    def getNombreObstacles(self):
         """
         :returns: le nombre d'obstacles sur le terrain
         """
         return len(self._listeObstacles)
 
-    @property
-    def obstacle(self, index: int):
+    def getObstacle(self, index: int):
         """
         :param index: index de l'obstacle à renvoyer
         :returns: l'obstacle correspondant à l'index passé en paramètre dans le tableau des obstacles
@@ -389,12 +384,12 @@ class ObstacleRectangle(Obstacle):
     	:returns: 1 si crash, 0 sinon
     	"""
 
-        x = robot.getX()
-        y = robot.getY()
+        x = robot.x
+        y = robot.y
 
         dx = abs(self._posX - x) - (self._longueur * 0.5)
         dy = abs(self._posY - y) - (self._largeur * 0.5)
-        if sqrt((dx * (dx > 0)) ** 2 + (dy * (dy > 0)) ** 2) - robot.getRayon() < 0.2:
+        if sqrt((dx * (dx > 0)) ** 2 + (dy * (dy > 0)) ** 2) - robot.rayon < 0.2:
             return 1
         else:
             return 0
@@ -444,9 +439,9 @@ class ObstacleRond(Obstacle):
     	:returns: 1 si crash, 0 sinon
     	"""
 
-        posXRobot = robot.getX()
-        posYRobot = robot.getY()
-        rayonRobot = robot.getRayon()
+        posXRobot = robot.x
+        posYRobot = robot.y
+        rayonRobot = robot.rayon
         distance = sqrt(pow((self._posX - posXRobot), 2) + pow((self._posY - posYRobot), 2))
 
         return (distance - rayonRobot - self._rayon <= 0.2) 

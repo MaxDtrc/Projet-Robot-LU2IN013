@@ -25,7 +25,7 @@ terrain.ajouterObstacle(r.ObstacleRectangle("mur2", -249, 0, 3, 500))
 terrain.ajouterObstacle(r.ObstacleRectangle("mur3", 0, 249, 500, 3))
 terrain.ajouterObstacle(r.ObstacleRectangle("mur4", 0, -249, 500, 3))
 
-simulation.setTerrain(terrain)
+simulation.terrain = terrain
 
 #Initialisation de l'affichage
 a = r.Affichage(simulation, 1.5)

@@ -69,15 +69,13 @@ class Simulation :
         """
         self._terrain = terrain
 
-    @property
-    def nombreDeRobots(self):
+    def getNombreDeRobots(self):
         """
         :returns : le nombre de robots présents dans la simulation
         """
         return len(self._robotsList)
         
-    @property
-    def robot(self, index : int):
+    def getRobot(self, index : int):
         """
         :param index : l'index du robot à renvoyer
         :returns : le robot correspondant à l'index passé en paramètre dans le tableau de robots

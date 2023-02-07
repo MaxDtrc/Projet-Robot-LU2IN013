@@ -18,3 +18,11 @@ Taches faites :
 - Modification dans la classe Simulation du déplacement du robot pour correspondre aux nouvelles méthodes de déplacement
 - Ajout d'un attribut "echelle" à la classe Simulation permettant de modifier la taille de l'affichage
 - MAJ du capteur de distance (désormais il capte depuis l'avant du robot et plus depuis le centre), affichage ne marche toujours que pour 1 robot
+- Modification des getters et setters
+- Ajout d'une méthode pour charger des objets à partir d'un fichier JSON
+- Remplacement des vitesses par des vitesses angulaires
+- Restructuration du code sous forme de modules
+- Définition d'une échelle de temps et d'espace (temps : 1 = 1seconde, espace : 1 = 1cm)
+- Modification du nom des fichiers
+- Ajout de commentaires
+- Restructuration des commentaires

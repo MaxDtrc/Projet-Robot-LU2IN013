@@ -129,6 +129,7 @@ class Simulation :
                     #Enregistrement des dernières valeurs observées (utiles pour du débogage ou l'affichage du rayon par exemple)
                     self.lastPosX = posRayon[0] #On enregistre la dernière position X du rayon
                     self.lastPosY = posRayon[1] #On enregistre la dernière position Y du rayon
+                    print("Distance calculée par le capteur:", distance)
                     return distance
             
 
@@ -167,7 +168,7 @@ class Simulation :
                     robot.vitesseGauche += 100
                 else:
                     #Augmentation de la vitesse des deux roues
-                    robot.vitesse = robot.vitesseGauche + 400
+                    robot.vitesse = robot.vitesseGauche + 200
             else:
                 if (robot.vitesseGauche + robot.vitesseDroite)/2 > 30:
                     #Ralentissement à l'approche du mur

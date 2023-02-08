@@ -1,5 +1,19 @@
 Compte rendu semaine 4
+- Fichiers .gitignore manquants pour éviter les pycache
+- Fonction (pas méthodes) pour charger Json
+- Retirer setters/getters terrain (attribut public)
+- Simulation: déplacer mouvement dans une classe IA
+- Changer angles en degrés par des angles en radians
+- Mettre max au lieu au de if else
+- if instance c'est pas terrible (mettre id à la place)
+- Rendre affichage et simulation asynchrone
 - 
+
+
+Objectifs:
+- Faire un controler pour contrôler le vrai robot en même temps que l'API du vrai robot
+- Faire une simulation sans obstacles pour montrer les fonctionnalités une par une
+- Changer les vitesses "aléatoires"
 
 Taches faites :
 - Génération de la documentation

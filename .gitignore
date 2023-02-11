@@ -1,1 +1,2 @@
-robot/.gitignore
+__pycache__/
+*.pyc

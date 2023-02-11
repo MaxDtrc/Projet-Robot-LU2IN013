@@ -1,4 +1,6 @@
+Semaine du 08/02/2023
 Compte rendu semaine 4
+
 - Fichiers .gitignore manquants pour éviter les pycache
 - Fonction (pas méthodes) pour charger Json
 - Retirer setters/getters terrain (attribut public)

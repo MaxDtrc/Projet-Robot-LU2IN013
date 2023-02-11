@@ -1,4 +1,3 @@
-from robot2IN013 import Robot2IN013
 
 class implemSimulation:
     
@@ -68,7 +67,7 @@ class implemVraiVie:
         return self._r.get_distance()
 
 class controleur:
-    def __init__(self, implementation):
+    def __init__(self, implementation = None):
         """
         Initialisation du controleur
 

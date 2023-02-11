@@ -1,17 +1,15 @@
 import robot as r
 
-#Initialisation du controleur
+#Instantiation du controleur
 controleur = r.controleur()
 
 try:
     from robot2IN013 import Robot2IN013
+
+    #Initialisation du controleur
     implem = r.implemVraiVie(Robot2IN013())
     controleur.changerImplementation(implem)
 except ImportError:
-    import pygame
-    import time
-    import random
-
     #Definition de la taille du terrain
     tailleTerrainX = 510
     tailleTerrainY = 510
@@ -27,8 +25,12 @@ except ImportError:
 
     #Initialisation de l'affichage
     a = r.Affichage(simulation, 60, 1.5, True)
+
+    #Initialisation du controleur
     implem = r.implemSimulation(simulation.getRobot(0), simulation)
     controleur.changerImplementation(implem)
+
+    #Start des tread de la simulation
     simulation.start()
     a.start()  
 

@@ -16,10 +16,12 @@ simulation = r.Simulation()
 simulation.chargerJson('test.json')
 
 #Initialisation de l'affichage
-a = r.Affichage(simulation, 1.5, True)
+a = r.Affichage(simulation, 60, 1.5, True)
 
 #Definition de la "précision temporelle"
 dT = 0.1
+
+a.start()
 
 #Boucle principale
 enMarche = True
@@ -33,6 +35,5 @@ while enMarche:
         simulation.ajouterRobot(r.Robot("robot", 0, 0, random.randint(0, 360), 7, 15, 10000))
 
     simulation.actualiser(dT) #Actualisation de la simulation
-    a.afficherSimulation(simulation) #Affichage de la simulation
     time.sleep(dT)
 

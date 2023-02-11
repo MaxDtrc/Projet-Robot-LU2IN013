@@ -12,6 +12,8 @@
             "vitesseMax": 10000
         }
     ],
+    "obstaclesRonds" : [],
+    "obstaclesRectangles" : [],
     
     "terrain": {
         "tailleX": 510,

@@ -21,7 +21,7 @@ except ImportError:
     simulation = r.Simulation(dT)
 
     #Creation du terrain
-    simulation.chargerJson('test.json')
+    simulation.chargerJson('config.json')
 
     #Initialisation de l'affichage
     a = r.Affichage(simulation, 60, 1.5, True)

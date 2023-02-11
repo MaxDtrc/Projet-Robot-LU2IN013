@@ -1,12 +1,18 @@
 from threading import Thread
+import time
 
 class IA(Thread):
-
     def __init__(self, controleur):
         super(IA, self).__init__()
         self._controleur = controleur
-        self._vitesseG = None
-        self._vitesseD = None
 
     def run(self):
-        pass
+        while True:
+            self.step()
+            time.sleep(0.1)
+        
+
+    def step(self):
+        self._controleur.setVitesseGauche(1000)
+        self._controleur.setVitesseDroite(1000)
+        self._controleur.getDistance()

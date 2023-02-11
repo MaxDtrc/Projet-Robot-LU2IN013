@@ -1,21 +1,24 @@
 from .. import objets as o
 from math import cos, sin, radians, degrees
-import pygame
 import json
+from threading import Thread
+import time
 
-class Simulation : 
+class Simulation(Thread): 
     """
     Classe représentant la simulation
     """
 
-    def __init__(self, robotsList : list = None, terrain : o.Terrain = None):
+    def __init__(self, dT: int, robotsList : list = None, terrain : o.Terrain = None):
         """
         Constructeur de la classe Simulation
 
         :param robotsList : Liste de robots
         :param terrain : Le terrain
         """
-        
+        super(Simulation, self).__init__()
+
+        self._dT = dT
         if robotsList is None : 
             self._robotsList = []
         else:
@@ -24,6 +27,11 @@ class Simulation :
 
         self.lastPosX = 0
         self.lastPosY = 0
+
+    def run(self):
+        while True:
+            self.actualiser()
+            time.sleep(self._dT)
     
     def chargerJson(self, fichier : str):
         """
@@ -137,7 +145,7 @@ class Simulation :
             newPosRayon = (posRayon[0] + tickRayon * dirVect[0], posRayon[1] + tickRayon * dirVect[1])
             posRayon = newPosRayon
 
-    def actualiser(self, dT : float):
+    def actualiser(self):
         """
         Actualise la simulation selon le temps dT écoulé depuis la dernière actualisation
 
@@ -176,4 +184,4 @@ class Simulation :
                     #Rotation pour éviter l'obstacle
                     robot.vitesseGauche += 360
 
-            robot.actualiser(dT)
+            robot.actualiser(self._dT)

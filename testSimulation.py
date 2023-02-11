@@ -8,9 +8,12 @@ import random
 #Definition de la taille du terrain
 tailleTerrainX = 510
 tailleTerrainY = 510
+
+#Definition de la "précision temporelle"
+dT = 0.1
     
 #Creation de la simulation
-simulation = r.Simulation()
+simulation = r.Simulation(dT)
 
 #Creation du terrain
 simulation.chargerJson('test.json')
@@ -18,9 +21,9 @@ simulation.chargerJson('test.json')
 #Initialisation de l'affichage
 a = r.Affichage(simulation, 60, 1.5, True)
 
-#Definition de la "précision temporelle"
-dT = 0.1
 
+
+simulation.start()
 a.start()
 
 #Boucle principale
@@ -34,6 +37,5 @@ while enMarche:
     if(simulation.getNombreDeRobots() == 0):
         simulation.ajouterRobot(r.Robot("robot", 0, 0, random.randint(0, 360), 7, 15, 10000))
 
-    simulation.actualiser(dT) #Actualisation de la simulation
     time.sleep(dT)
 

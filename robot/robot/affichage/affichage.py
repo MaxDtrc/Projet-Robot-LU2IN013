@@ -1,5 +1,4 @@
 import pygame
-import random
 from math import radians, cos, sin
 import os
 from threading import Thread

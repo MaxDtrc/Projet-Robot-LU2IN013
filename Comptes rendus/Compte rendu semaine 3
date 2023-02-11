@@ -1,4 +1,6 @@
+Semaine du 01/02/2023
 Compte rendu semaine 3
+
 - Ajouter la démo du capteur distance dans notre simulation
 - Utiliser des modules
 - La méthode accélerer() n' est pas utile ici, on utilisera plutôt setVitesseRoueDroite() et setVitesseRoueGauche()

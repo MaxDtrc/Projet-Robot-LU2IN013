@@ -9,7 +9,7 @@ class Robot(Thread):
     """
 
     #Constructeur
-    def __init__(self, nom: str, posX: float, posY: float, angle: float, t: float, r: float = 10, vMax: float = 10, dT: float = 0.1):
+    def __init__(self, nom: str, posX: float, posY: float, angle: float, t: float, r: float = 10, vG: float = 0, vD: float = 0, vMax: float = 10, dT: float = 0.1):
         """
         Constructeur de la classe Robot
 
@@ -29,8 +29,8 @@ class Robot(Thread):
         self._rayon = r
         self._angle = angle
         self._tailleRoues = t
-        self._vitesseGauche = 0
-        self._vitesseDroite = 0
+        self._vitesseGauche = vG
+        self._vitesseDroite = vD
         self._vitesseMax = vMax
 
     def run(self):

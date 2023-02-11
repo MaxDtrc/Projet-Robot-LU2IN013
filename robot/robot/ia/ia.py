@@ -13,6 +13,4 @@ class IA(Thread):
         
 
     def step(self):
-        self._controleur.setVitesseGauche(1000)
-        self._controleur.setVitesseDroite(1000)
-        self._controleur.getDistance()
+        pass

@@ -58,7 +58,7 @@ class Simulation(Thread):
 
             #Importation et initialisation des robots
             for rob in data['robots'] :
-                r = o.Robot(rob['nom'], rob['posX'], rob['posY'], rob['angle'], rob['tailleRoues'], rob['rayon'], rob['vitesseMax'])
+                r = o.Robot(rob['nom'], rob['posX'], rob['posY'], rob['angle'], rob['tailleRoues'], rob['rayon'], rob['vitesseGauche'], rob['vitesseDroite'], rob['vitesseMax'])
                 r.start()
                 self.ajouterRobot(r)
                 

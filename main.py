@@ -18,21 +18,22 @@ except ImportError:
     dT = 0.1
         
     #Creation de la simulation
-    simulation = r.Simulation(dT)
+    s = r.Simulation(dT)
 
     #Creation du terrain
-    simulation.chargerJson('config.json')
+    s.chargerJson('config.json')
 
     #Initialisation de l'affichage
-    a = r.Affichage(simulation, 60, 1.5, True)
+    a = r.Affichage(s, 60, 1.5, False)
 
     #Initialisation du controleur
-    implem = r.implemSimulation(simulation.getRobot(0), simulation)
+    implem = r.implemSimulation(s.getRobot(0), s)
     controleur.changerImplementation(implem)
 
     #Start des tread de la simulation
-    simulation.start()
+    s.start()
     a.start()  
 
+#Lancement de l'IA du robot
 ia = r.IA(controleur)
 ia.start()

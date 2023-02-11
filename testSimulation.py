@@ -35,7 +35,9 @@ while enMarche:
         
     #Apparition d'un robot si aucun présent
     if(simulation.getNombreDeRobots() == 0):
-        simulation.ajouterRobot(r.Robot("robot", 0, 0, random.randint(0, 360), 7, 15, 10000))
-
+        rob = r.Robot("robot", 0, 0, random.randint(0, 360), 7, 15, 10000)
+        rob.start()
+        simulation.ajouterRobot(rob)
+        
     time.sleep(dT)
 

@@ -1,14 +1,15 @@
 from math import cos, sin, radians, degrees, sqrt, pi
 from abc import ABC, abstractmethod
-import numpy as np
+from threading import Thread
+import time
 
-class Robot:
+class Robot(Thread):
     """
     Classe représentant un robot
     """
 
     #Constructeur
-    def __init__(self, nom: str, posX: float, posY: float, angle: float, t: float, r: float = 10, vMax: float = 10):
+    def __init__(self, nom: str, posX: float, posY: float, angle: float, t: float, r: float = 10, vMax: float = 10, dT: float = 0.1):
         """
         Constructeur de la classe Robot
 
@@ -20,6 +21,8 @@ class Robot:
         :param r: rayon du robot
         :param vitesseMax: vitesse maximum des roues (en degrés de rotation par seconde)
         """
+        super(Robot, self).__init__()
+        self._dT = dT
         self._nom = nom
         self._posX = posX
         self._posY = posY
@@ -29,6 +32,11 @@ class Robot:
         self._vitesseGauche = 0
         self._vitesseDroite = 0
         self._vitesseMax = vMax
+
+    def run(self):
+        while True:
+            self.actualiser()
+            time.sleep(self._dT)
 
     #Getters
     @property
@@ -184,7 +192,7 @@ class Robot:
         return ("VitG: "+str(format(self._vitesseGauche,'.2f'))+"\tVitD: "+str(format(self._vitesseDroite,'.2f'))+"\tAngle: "+str(format(self._angle,'.2f')))
 
     #Contrôle du robot
-    def actualiser(self, dT: float):
+    def actualiser(self):
         """
         Actualise la position et l'angle du robot selon le temps dT écoulé depuis la dernière actualisation
 
@@ -197,10 +205,10 @@ class Robot:
 
         a = radians(self._angle)
         #Mise à jour de ses coordonnées (déplacement autour du centre de rotation du robot)
-        self._posX += ((vG + vD)/2) * cos(a) * dT
-        self._posY -= ((vG + vD)/2) * sin(a) * dT
+        self._posX += ((vG + vD)/2) * cos(a) * self._dT
+        self._posY -= ((vG + vD)/2) * sin(a) * self._dT
         #Mise à jour de l'angle
-        a += (vD - vG)/self._rayon * dT
+        a += (vD - vG)/self._rayon * self._dT
         self._angle = degrees(a)
         self._angle %= 360
 

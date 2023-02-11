@@ -59,7 +59,9 @@ class Simulation(Thread):
             #Importation et initialisation des robots
             for rob in data['robots'] :
                 r = o.Robot(rob['nom'], rob['posX'], rob['posY'], rob['angle'], rob['tailleRoues'], rob['rayon'], rob['vitesseMax'])
+                r.start()
                 self.ajouterRobot(r)
+                
 
     def ajouterRobot(self, robot : o.Robot):
         """
@@ -183,5 +185,3 @@ class Simulation(Thread):
                 else:
                     #Rotation pour éviter l'obstacle
                     robot.vitesseGauche += 360
-
-            robot.actualiser(self._dT)

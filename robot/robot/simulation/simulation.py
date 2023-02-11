@@ -165,23 +165,3 @@ class Simulation(Thread):
         #Suppression des robots qui se sont crashés
         for r in robotsARetirer:
             self.retirerRobot(r)
-
-
-        #Comportement des robots
-        for robot in self._robotsList:
-            if (self.getDistanceFromRobot(robot) > 100):
-                #Rééquilibrage si les deux roues ne tournent pas à la même vitesse
-                if(robot.vitesseGauche > robot.vitesseDroite):
-                    robot.vitesseDroite += 100
-                elif(robot.vitesseDroite > robot.vitesseGauche):
-                    robot.vitesseGauche += 100
-                else:
-                    #Augmentation de la vitesse des deux roues
-                    robot.vitesse = robot.vitesseGauche + 400
-            else:
-                if (robot.vitesseGauche + robot.vitesseDroite)/2 > 30:
-                    #Ralentissement à l'approche du mur
-                    robot.vitesse = robot.vitesseGauche - 30000/(self.getDistanceFromRobot(robot)+1)
-                else:
-                    #Rotation pour éviter l'obstacle
-                    robot.vitesseGauche += 360

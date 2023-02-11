@@ -12,6 +12,7 @@
             "vitesseMax": 10000
         }
     ],
+    "obstaclesRonds" : [],
     "obstaclesRectangles" : [
         
         {

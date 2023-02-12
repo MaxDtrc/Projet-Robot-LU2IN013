@@ -400,10 +400,8 @@ class ObstacleRectangle(Obstacle):
         dy = abs(self._posY - y) - (self._largeur * 0.5)
 
         #On vérifie si ces distances sont plus petites que le rayon du robot (avec une marge d'erreur de 0.2)
-        if sqrt((dx * (dx > 0)) ** 2 + (dy * (dy > 0)) ** 2) - robot.rayon < 0.2:
-            return 1
-        else:
-            return 0
+        return sqrt((dx * (dx > 0)) ** 2 + (dy * (dy > 0)) ** 2) - robot.rayon < 0.2
+
 
 
     def estDedans(self, x : int, y : int):
@@ -414,10 +412,7 @@ class ObstacleRectangle(Obstacle):
         :param y: coordonnée Y
         :returns: True si le point (x,y) se trouve dans l'obstacle
         """
-        if self._posX - self._longueur/2 <= x <= self._posX + self._longueur/2 and self._posY - self._largeur/2 <= y <= self._posY + self._largeur/2:
-            return True
-        else:
-            return False
+        return self._posX - self._longueur/2 <= x <= self._posX + self._longueur/2 and self._posY - self._largeur/2 <= y <= self._posY + self._largeur/2
 
 class ObstacleRond(Obstacle): 
     """

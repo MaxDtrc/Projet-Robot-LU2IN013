@@ -15,16 +15,16 @@ except ImportError:
     tailleTerrainY = 510
 
     #Definition de la "précision temporelle"
-    dT = 0.1
+    dT = 0.01
         
     #Creation de la simulation
     s = r.Simulation(dT)
 
     #Creation du terrain
-    s.chargerJson('config/config_immobile.json')
+    s.chargerJson('config/config_immobile.json', dT)
 
     #Initialisation de l'affichage
-    a = r.Affichage(s, 60, 1.5, False)
+    a = r.Affichage(s, 30, 5, True)
 
     #Initialisation du controleur
     implem = r.implemSimulation(s.getRobot(0), s)
@@ -35,5 +35,5 @@ except ImportError:
     a.start()  
 
 #Lancement de l'IA du robot
-ia = r.IA(controleur)
+ia = r.IA(controleur, dT)
 ia.start()

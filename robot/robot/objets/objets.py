@@ -9,7 +9,7 @@ class Robot(Thread):
     """
 
     #Constructeur
-    def __init__(self, nom: str, posX: float, posY: float, angle: float, t: float, r: float = 10, vG: float = 0, vD: float = 0, vMax: float = 10, dT: float = 0.1):
+    def __init__(self, nom: str, posX: float, posY: float, angle: float, t: float, r: float = 10, vG: float = 0, vD: float = 0, vMax: float = 10, dT: float = 0.01):
         """
         Constructeur de la classe Robot
 
@@ -22,7 +22,7 @@ class Robot(Thread):
         :param vitesseMax: vitesse maximum des roues (en degrés de rotation par seconde)
         """
         super(Robot, self).__init__()
-        self._dT = dT
+        self._wait = dT
         self._nom = nom
         self._posX = posX
         self._posY = posY
@@ -35,8 +35,12 @@ class Robot(Thread):
 
     def run(self):
         while True:
+            self._lastTime = time.time()
+            time.sleep(self._wait)
+            self._dT = time.time() - self._lastTime
             self.actualiser()
-            time.sleep(self._dT)
+            
+
 
     #Getters
     @property
@@ -209,7 +213,6 @@ class Robot(Thread):
 
         #Mise à jour de l'angle
         self._angle += (vD - vG)/(self._rayon * 2) * self._dT
-
 
 class Obstacle(ABC): 
     """

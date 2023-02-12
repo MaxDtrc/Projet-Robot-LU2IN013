@@ -33,11 +33,12 @@ class Simulation(Thread):
             self.actualiser()
             time.sleep(self._dT)
     
-    def chargerJson(self, fichier : str):
+    def chargerJson(self, fichier : str, dT: int):
         """
         Crée les objets à partir d'un fichier json passé en paramètre
 
         :param fichier : le fichier json à charger
+        :param dT : précision temporelle des robots
         """
         with open(fichier) as json_file:
             data = json.load(json_file)
@@ -58,7 +59,7 @@ class Simulation(Thread):
 
             #Importation et initialisation des robots
             for rob in data['robots'] :
-                r = o.Robot(rob['nom'], rob['posX'], rob['posY'], radians(rob['angle']), rob['diametreRoues'], rob['rayon'], rob['vitesseGauche'], rob['vitesseDroite'], rob['vitesseMax'])
+                r = o.Robot(rob['nom'], rob['posX'], rob['posY'], radians(rob['angle']), rob['diametreRoues'], rob['rayon'], rob['vitesseGauche'], rob['vitesseDroite'], rob['vitesseMax'], dT)
                 r.start()
                 self.ajouterRobot(r)
                 

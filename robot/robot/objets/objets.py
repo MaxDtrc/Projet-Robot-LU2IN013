@@ -28,10 +28,10 @@ class Robot(Thread):
         self._posY = posY
         self._rayon = r
         self._angle = radians(angle)
-        self._tailleRoues = t
+        self.tailleRoues = t
         self._vitesseGauche = vG
         self._vitesseDroite = vD
-        self._vitesseMax = vMax
+        self.vitesseMax = vMax
 
     def run(self):
         while True:
@@ -142,10 +142,10 @@ class Robot(Thread):
         :param v: vitesse (en degrés de rotation par seconde)
         :returns: rien
         """
-        if(v < -self._vitesseMax):
-            self._vitesseGauche = -self._vitesseMax
+        if(v < -self.vitesseMax):
+            self._vitesseGauche = -self.vitesseMax
         else:
-            self._vitesseGauche = min(v,self._vitesseMax)
+            self._vitesseGauche = min(v,self.vitesseMax)
 
     @property
     def vitesseDroite(self):
@@ -162,10 +162,10 @@ class Robot(Thread):
         :param v: vitesse (en degrés de rotation par seconde)
         :returns: rien
         """
-        if(v < -self._vitesseMax):
-            self._vitesseDroite = -self._vitesseMax
+        if(v < -self.vitesseMax):
+            self._vitesseDroite = -self.vitesseMax
         else:
-            self._vitesseDroite = min(v,self._vitesseMax)
+            self._vitesseDroite = min(v,self.vitesseMax)
 
     @property
     def vitesse(self):
@@ -200,8 +200,8 @@ class Robot(Thread):
         :returns: rien, changement in place
         """
         #Calcul de la vitesse en cm/s du robot
-        vG = self._vitesseGauche/360.0 * pi * self._tailleRoues
-        vD = self._vitesseDroite/360.0 * pi * self._tailleRoues
+        vG = self._vitesseGauche/360.0 * pi * self.tailleRoues
+        vD = self._vitesseDroite/360.0 * pi * self.tailleRoues
 
         #Mise à jour de ses coordonnées (déplacement autour du centre de rotation du robot)
         self._posX += ((vG + vD)/2) * cos(self._angle) * self._dT

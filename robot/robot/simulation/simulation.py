@@ -154,3 +154,48 @@ def chargerJson(fichier : str, dT: int):
             simulation.ajouterRobot(r)
         
     return simulation
+
+def enregistrerJson(fichier:str, simulation):
+
+    d = dict()
+    d["terrain"] = dict()
+    d["terrain"]["tailleX"] = simulation.terrain.sizeX
+    d["terrain"]["tailleY"] = simulation.terrain.sizeY
+
+    d["ObstaclesRonds"] =[]
+    d["ObstaclesRectangles"] =[]
+    for i in range (0, simulation.terrain.getNombreObstacles()):
+        obsdic = dict()
+        o = simulation.terrain.getObstacle(i)
+        if (o.type == 1) :
+            obsdic["nom"] = o.nom
+            obsdic["posX"] = o.x
+            obsdic["posY"] = o.y
+            obsdic["rayon"] = o.rayon
+            d["ObstaclesRonds"].append(obsdic)
+        elif (o.type == 0) :
+            obsdic["nom"] = o.nom
+            obsdic["posX"] = o.x
+            obsdic["posY"] = o.y
+            obsdic["longueur"] = o.longueur
+            obsdic["largeur"] = o.largeur
+            d["ObstaclesRectangles"].append(obsdic)
+
+    d["robot"] = []
+
+    for i in range(0, simulation.getNombreDeRobots()):
+        robdic = dict()
+        r = simulation.getRobot(i)
+        robdic["nom"] = r.nom
+        robdic["posX"] = r.x
+        robdic["posY"] = r.y
+        robdic["angle"] = r.angle
+        robdic["diametreRoues"] = r.tailleRoues
+        robdic["rayon"] = r.rayon
+        robdic["vitesseGauche"] = r.vitesseGauche
+        robdic["vitesseDroite"] = r.vitesseDroite
+        robdic["vitesseMax"] = r.vitesseMax
+        d["robot"].append(robdic)
+   
+    with open(fichier, "w") as json_file:
+        json_file.write(json.dumps(d, indent=4))

@@ -7,14 +7,13 @@ TAILLE_ROUES = 7
 RAYON_ROBOT = 5
 
 
+
 class IA(Thread):
-    def __init__(self, controleur, dT = 0.01):
+    def __init__(self, controleur, strat, dT = 0.01):
         super(IA, self).__init__()
         self._controleur = controleur
-        #Liste des stratégies à réaliser (pour l'instant en boucle)
-        #self.strategies = [AvancerDroit(controleur, 20, 720), TournerDroite(controleur, 90, 90)]
-        self.strategies = [ApprocherMur(controleur)] 
-        self.boucler = False
+        self.strategies = strat[0]
+        self.boucler = strat[1]
         self.currentStrat = -1
         self._wait = dT
 
@@ -30,9 +29,7 @@ class IA(Thread):
         
     def step(self):
         if self.strategies[self.currentStrat].stop() or self.currentStrat == -1:
-            #On passe à la stratégie suivante
-            print("Changement de stratégie")
-            #On arrête la stratégie "proprement"
+            #On arrête la stratégie "proprement" et on passe à la stratégie suivante
             if self.currentStrat != -1: self.strategies[self.currentStrat].end()
             self.currentStrat += 1
             if self.currentStrat >= len(self.strategies):

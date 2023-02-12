@@ -1,1 +1,1 @@
-from .ia import IA
+from .ia import IA, AvancerDroit, ApprocherMur, TournerDroite

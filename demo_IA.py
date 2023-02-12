@@ -9,9 +9,13 @@ try:
     #Initialisation du controleur
     implem = r.implemVraiVie(Robot2IN013())
     controleur.changerImplementation(implem)
-
-    strats = [([r.AvancerDroit(controleur, 50, 720), r.TournerDroite(controleur, 90, 90)], True), ([r.ApprocherMur(controleur)], False)]
 except ImportError:
+    #Choix de la stratégie
+    select = -1
+    print("Liste des stratégies:\n1: Tracer une carré (WIP)\n2: Approcher le mur")
+    while select < 1 or select > 2:
+        select = int(input("Choisissez la stratégie à charger: "))
+
     #Definition de la "précision temporelle"
     dT = 0.01
 
@@ -29,11 +33,10 @@ except ImportError:
 
     #Start des threads de la simulation
     s.start()
-    a.start()
-
+    a.start()  
 
 
 
 #Lancement de l'IA du robot
-ia = r.IA(controleur, strats[1], dT)
+ia = r.IA(controleur, strats[select - 1], dT)
 ia.start()

@@ -1,17 +1,17 @@
 from threading import Thread
 import time
-from math import pi, degrees, radians
+from math import pi, degrees
 
 
 TAILLE_ROUES = 5
-RAYON_ROBOT = 7
+RAYON_ROBOT = 15
 
 
 class IA(Thread):
-    def __init__(self, controleur, dT = 0.01):
+    def __init__(self, controleur, dT = 0.1):
         super(IA, self).__init__()
         self._controleur = controleur
-        self.strategies = [AvancerDroit(controleur, 100, 720), TournerDroite(controleur, 90, 90)] #Liste des stratégies à réaliser (pour l'instant en boucle)
+        self.strategies = [AvancerDroit(controleur, 100, 1080), TournerDroite(controleur, 90, 90)] #Liste des stratégies à réaliser (pour l'instant en boucle)
         self.currentStrat = -1
         self._dT = dT
 
@@ -29,9 +29,9 @@ class IA(Thread):
             if self.currentStrat >= len(self.strategies):
                 self.currentStrat = 0
             self.strategies[self.currentStrat].start()
-        
-        #Step de la stratégie
-        self.strategies[self.currentStrat].step(self._dT)
+        else:
+            #Step de la stratégie
+            self.strategies[self.currentStrat].step(self._dT)
     
 
 class AvancerDroit:

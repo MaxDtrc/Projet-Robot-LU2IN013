@@ -24,7 +24,7 @@ except ImportError:
     s.chargerJson('config/config_immobile.json')
 
     #Initialisation de l'affichage
-    a = r.Affichage(s, 60, 1.5, True)
+    a = r.Affichage(s, 60, 1.5, False)
 
     #Initialisation du controleur
     implem = r.implemSimulation(s.getRobot(0), s)

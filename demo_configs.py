@@ -11,9 +11,6 @@ tailleTerrainY = 510
 
 #Definition de la "précision temporelle"
 dT = 0.01
-        
-#Creation de la simulation
-s = r.Simulation(dT)
 
 #Chargement des configs
 i = 1
@@ -27,7 +24,7 @@ while select < 1 or select > i:
     select = int(input("Choisissez la configuration à charger: "))
 
 
-s.chargerJson("config/" + os.listdir('config')[select-1], dT)
+s = r.chargerJson("config/" + os.listdir('config')[select-1], dT)
 
 #Initialisation de l'affichage
 a = r.Affichage(s, 30, 1.5, False)

@@ -129,9 +129,9 @@ class Simulation(Thread):
         :returns : la distance jusqu'au prochain obstacle
         """
         dirVect = (cos(robot.angle), sin(-robot.angle))
-        posRayon = (robot.x + dirVect[0], robot.y + dirVect[1])
+        posRayon = (robot.x + dirVect[0] * robot.rayon, robot.y + dirVect[1] * robot.rayon)
         distance = 0
-        tickRayon = 0.1
+        tickRayon = 0.2
 
         while distance < self._terrain.sizeX * self._terrain.sizeY: #Limite pour pas que le rayon n'avance à l'infini
             #Detection des obstacles

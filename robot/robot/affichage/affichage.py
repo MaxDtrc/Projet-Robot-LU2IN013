@@ -43,10 +43,10 @@ class Affichage(Thread):
         :param obstacle : Obstacle à afficher
         """
         e = self._echelle
-        if (isinstance(obstacle, o.ObstacleRectangle)):
+        if (obstacle.type == 0):
             #Affichage d'un obstacle rectangle
             pygame.draw.rect(self._screen, COULEUR_OBSTACLES, (obstacle.x*e + self._screen.get_size()[0]/2 - obstacle.longueur*e/2, obstacle.y*e + self._screen.get_size()[1]/2 - obstacle.largeur*e/2, obstacle.longueur*e, obstacle.largeur*e))
-        elif (isinstance(obstacle, o.ObstacleRond)):
+        elif (obstacle.type == 1):
             #Affichage d'un obstacle rond
             pygame.draw.circle(self._screen, COULEUR_OBSTACLES, (obstacle.x*e + self._screen.get_size()[0]/2, obstacle.y*e + self._screen.get_size()[0]/2), obstacle.rayon*e)
 

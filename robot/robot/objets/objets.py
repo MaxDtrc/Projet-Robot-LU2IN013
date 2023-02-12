@@ -367,6 +367,7 @@ class ObstacleRectangle(Obstacle):
         Obstacle.__init__(self, nom, posX, posY)
         self._longueur = longueur
         self._largeur = largeur
+        self.type = 0
 
     @property
     def longueur(self):
@@ -430,6 +431,7 @@ class ObstacleRond(Obstacle):
         """
         Obstacle.__init__(self, nom, posX, posY)
         self._rayon = rayon
+        self.type = 1
 
     @property
     def rayon(self):

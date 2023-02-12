@@ -8,7 +8,7 @@
             "tailleRoues": 7,
             "rayon": 15,
             "vitesseGauche": 100,
-            "vitesseDroite": 300,
+            "vitesseDroite": 120,
             "vitesseMax": 10000
         }
     ],

@@ -7,7 +7,7 @@
             "angle": 45,
             "tailleRoues": 7,
             "rayon": 15,
-            "vitesseGauche": 300,
+            "vitesseGauche": 120,
             "vitesseDroite": 100,
             "vitesseMax": 10000
         }

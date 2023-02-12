@@ -1,5 +1,5 @@
 from .. import objets as o
-from math import cos, sin, radians, degrees
+from math import cos, sin, radians
 import json
 from threading import Thread
 import time
@@ -58,7 +58,7 @@ class Simulation(Thread):
 
             #Importation et initialisation des robots
             for rob in data['robots'] :
-                r = o.Robot(rob['nom'], rob['posX'], rob['posY'], rob['angle'], rob['tailleRoues'], rob['rayon'], rob['vitesseGauche'], rob['vitesseDroite'], rob['vitesseMax'])
+                r = o.Robot(rob['nom'], rob['posX'], rob['posY'], radians(rob['angle']), rob['diametreRoues'], rob['rayon'], rob['vitesseGauche'], rob['vitesseDroite'], rob['vitesseMax'])
                 r.start()
                 self.ajouterRobot(r)
                 
@@ -127,7 +127,7 @@ class Simulation(Thread):
         :param terrain : Terrain
         :returns : la distance jusqu'au prochain obstacle
         """
-        dirVect = (cos(radians(robot.angle)), sin(radians(-robot.angle)))
+        dirVect = (cos(robot.angle), sin(-robot.angle))
         posRayon = (robot.x + dirVect[0], robot.y + dirVect[1])
         distance = 0
         tickRayon = 0.1

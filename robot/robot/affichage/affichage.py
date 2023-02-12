@@ -1,5 +1,5 @@
 import pygame
-from math import radians, cos, sin
+from math import radians, cos, sin, degrees
 import os
 from threading import Thread
 import time
@@ -60,10 +60,10 @@ class Affichage(Thread):
         #Image de base
         os.chdir(os.path.dirname(os.path.abspath(__file__)))
         image_pas_tournee = pygame.image.load("robot.png").convert_alpha()
-        image_pas_tournee = pygame.transform.scale(image_pas_tournee, (image_pas_tournee.get_width()*e, image_pas_tournee.get_height()*e))
+        image_pas_tournee = pygame.transform.scale(image_pas_tournee, (image_pas_tournee.get_width()/15 * robot.rayon *e, image_pas_tournee.get_height()/15 * robot.rayon *e))
         
         #Image que l'on tourne en fonction de l'angle du robot
-        image = pygame.transform.rotate(image_pas_tournee, robot.angle)
+        image = pygame.transform.rotate(image_pas_tournee, degrees(robot.angle))
 
         #Affichage du robot sur le self._screen
         pygame.draw.circle(self._screen, COULEUR_ROBOT, (robot.x*e + self._screen.get_size()[0]/2, robot.y*e + self._screen.get_size()[0]/2), robot.rayon*e)
@@ -88,7 +88,7 @@ class Affichage(Thread):
 
             #Affichage du capteur de distance
             if self._afficherDistance:
-                pygame.draw.line(self._screen, (255, 0, 0), ((r.x + cos(radians(r.angle)) * r.rayon)*e + t.sizeX*e/2, (r.y + sin(radians(-r.angle)) * r.rayon)*e + t.sizeY*e/2), (self._simulation.lastPosX*e  + t.sizeX*e/2, self._simulation.lastPosY*e  + t.sizeY*e/2))
+                pygame.draw.line(self._screen, (255, 0, 0), ((r.x + cos(r.angle) * r.rayon)*e + t.sizeX*e/2, (r.y + sin(-r.angle) * r.rayon)*e + t.sizeY*e/2), (self._simulation.lastPosX*e  + t.sizeX*e/2, self._simulation.lastPosY*e  + t.sizeY*e/2))
         for i in range(0, t.getNombreObstacles()):
             self._afficherObstacle(t.getObstacle(i))
 

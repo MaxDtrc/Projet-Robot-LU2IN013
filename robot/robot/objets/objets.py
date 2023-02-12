@@ -27,7 +27,7 @@ class Robot(Thread):
         self._posX = posX
         self._posY = posY
         self._rayon = r
-        self._angle = angle
+        self._angle = radians(angle)
         self._tailleRoues = t
         self._vitesseGauche = vG
         self._vitesseDroite = vD
@@ -86,7 +86,7 @@ class Robot(Thread):
         """
         :returns: un tuple contenant la position absolue de la roue gauche
         """
-        return (cos(radians(self._angle + 90)) * self._rayon + self._posX, sin(radians(self._angle + 90)) * self._rayon + self._posY)
+        return (cos(self._angle + pi/2) * self._rayon + self._posX, sin(self._angle + pi/2) * self._rayon + self._posY)
 
 
     def getPosRoueGaucheX(self):
@@ -107,7 +107,7 @@ class Robot(Thread):
         """
         :returns: un tuple contenant la position absolue de la roue droite
         """
-        return (cos(radians(self._angle - 90)) * self._rayon + self._posX, sin(radians(self._angle - 90)) * self._rayon + self._posY)
+        return (cos(self._angle - pi/2) * self._rayon + self._posX, sin(self._angle - pi/2) * self._rayon + self._posY)
 
 
     def getPosRoueDroiteX(self):
@@ -200,18 +200,15 @@ class Robot(Thread):
         :returns: rien, changement in place
         """
         #Calcul de la vitesse en cm/s du robot
-        vG = self._vitesseGauche/360 * pi * self._tailleRoues
-        vD = self._vitesseDroite/360 * pi * self._tailleRoues
+        vG = self._vitesseGauche/360.0 * pi * self._tailleRoues
+        vD = self._vitesseDroite/360.0 * pi * self._tailleRoues
 
-        a = radians(self._angle)
         #Mise à jour de ses coordonnées (déplacement autour du centre de rotation du robot)
-        self._posX += ((vG + vD)/2) * cos(a) * self._dT
-        self._posY -= ((vG + vD)/2) * sin(a) * self._dT
-        #Mise à jour de l'angle
-        a += (vD - vG)/self._rayon * self._dT
-        self._angle = degrees(a)
-        self._angle %= 360
+        self._posX += ((vG + vD)/2) * cos(self._angle) * self._dT
+        self._posY -= ((vG + vD)/2) * sin(self._angle) * self._dT
 
+        #Mise à jour de l'angle
+        self._angle += (vD - vG)/(self._rayon * 2) * self._dT
 
 
 class Obstacle(ABC): 

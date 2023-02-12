@@ -142,12 +142,10 @@ class Robot(Thread):
         :param v: vitesse (en degrés de rotation par seconde)
         :returns: rien
         """
-        if(v > self._vitesseMax):
-            self._vitesseGauche = self._vitesseMax
-        elif(v < -self._vitesseMax):
+        if(v < -self._vitesseMax):
             self._vitesseGauche = -self._vitesseMax
         else:
-            self._vitesseGauche = v
+            self._vitesseGauche = min(v,self._vitesseMax)
 
     @property
     def vitesseDroite(self):
@@ -164,12 +162,10 @@ class Robot(Thread):
         :param v: vitesse (en degrés de rotation par seconde)
         :returns: rien
         """
-        if(v > self._vitesseMax):
-            self._vitesseDroite = self._vitesseMax
-        elif(v < -self._vitesseMax):
+        if(v < -self._vitesseMax):
             self._vitesseDroite = -self._vitesseMax
         else:
-            self._vitesseDroite = v
+            self._vitesseDroite = min(v,self._vitesseMax)
 
     @property
     def vitesse(self):

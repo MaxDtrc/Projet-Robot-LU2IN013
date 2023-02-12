@@ -21,16 +21,16 @@ except ImportError:
     s = r.Simulation(dT)
 
     #Creation du terrain
-    s.chargerJson('config.json')
+    s.chargerJson('config/config_immobile.json')
 
     #Initialisation de l'affichage
-    a = r.Affichage(s, 60, 1.5, False)
+    a = r.Affichage(s, 60, 1.5, True)
 
     #Initialisation du controleur
     implem = r.implemSimulation(s.getRobot(0), s)
     controleur.changerImplementation(implem)
 
-    #Start des tread de la simulation
+    #Start des threads de la simulation
     s.start()
     a.start()  
 

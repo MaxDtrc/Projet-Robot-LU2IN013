@@ -16,12 +16,9 @@ except ImportError:
 
     #Definition de la "précision temporelle"
     dT = 0.01
-        
-    #Creation de la simulation
-    s = r.Simulation(dT)
 
     #Creation du terrain
-    s.chargerJson('config/config_immobile.json', dT)
+    s = r.chargerJson('config/config_immobile.json', dT)
 
     #Initialisation de l'affichage
     a = r.Affichage(s, 30, 5, True)

@@ -23,7 +23,7 @@ class Simulation(Thread):
             self._robotsList = []
         else:
             self._robotsList = robotsList
-        self._terrain = terrain
+        self.terrain = terrain
 
         self.lastPosX = 0
         self.lastPosY = 0
@@ -31,38 +31,7 @@ class Simulation(Thread):
     def run(self):
         while True:
             self.actualiser()
-            time.sleep(self._dT)
-    
-    def chargerJson(self, fichier : str, dT: int):
-        """
-        Crée les objets à partir d'un fichier json passé en paramètre
-
-        :param fichier : le fichier json à charger
-        :param dT : précision temporelle des robots
-        """
-        with open(fichier) as json_file:
-            data = json.load(json_file)
-        
-            #Importation et initialisation du terrain
-            t = data['terrain'] 
-            self._terrain = o.Terrain(t['tailleX'], t['tailleY'])
-
-            #Importation et initialisation des obstacles ronds
-            for oR in data['obstaclesRonds'] :
-                ob = o.ObstacleRond(oR['nom'], oR['posX'], oR['posY'], oR['rayon'])
-                self._terrain.ajouterObstacle(ob)
-
-            #Importation et initialisation des obstacles rectangles
-            for oRect in data['obstaclesRectangles'] :
-                ob = o.ObstacleRectangle(oRect['nom'], oRect['posX'], oRect['posY'], oRect['longueur'], oRect['largeur'])
-                self._terrain.ajouterObstacle(ob)
-
-            #Importation et initialisation des robots
-            for rob in data['robots'] :
-                r = o.Robot(rob['nom'], rob['posX'], rob['posY'], rob['angle'], rob['diametreRoues'], rob['rayon'], rob['vitesseGauche'], rob['vitesseDroite'], rob['vitesseMax'], dT)
-                r.start()
-                self.ajouterRobot(r)
-                
+            time.sleep(self._dT)             
 
     def ajouterRobot(self, robot : o.Robot):
         """
@@ -91,22 +60,6 @@ class Simulation(Thread):
         :param index : l'index du robot à enlever
         """
         self._robotsList.pop(index)
-
-    @property
-    def terrain(self):
-        """
-        :returns : le Terrain affecté à la variable Terrain de la simulation
-        """
-        return self._terrain
-
-    @terrain.setter
-    def terrain(self, terrain : o.Terrain):
-        """
-        Affecte le terrain passé en paramètre à la variable Terrain de la simulation
-
-        :param terrain : le terrain à affecter
-        """
-        self._terrain = terrain
 
     def getNombreDeRobots(self):
         """
@@ -166,3 +119,38 @@ class Simulation(Thread):
         #Suppression des robots qui se sont crashés
         for r in robotsARetirer:
             self.retirerRobot(r)
+
+    def chargerJson(fichier : str, dT: int):
+        """
+        Crée les objets à partir d'un fichier json passé en paramètre
+
+        :param fichier : le fichier json à charger
+        :param dT : précision temporelle des robots
+        """
+
+        simulation = Simulation(dT)
+        
+        with open(fichier) as json_file:
+            data = json.load(json_file)
+        
+            #Importation et initialisation du terrain
+            t = data['terrain'] 
+            simulation.terrain = o.Terrain(t['tailleX'], t['tailleY'])
+
+            #Importation et initialisation des obstacles ronds
+            for oR in data['obstaclesRonds'] :
+                ob = o.ObstacleRond(oR['nom'], oR['posX'], oR['posY'], oR['rayon'])
+                simulation.terrain.ajouterObstacle(ob)
+
+            #Importation et initialisation des obstacles rectangles
+            for oRect in data['obstaclesRectangles'] :
+                ob = o.ObstacleRectangle(oRect['nom'], oRect['posX'], oRect['posY'], oRect['longueur'], oRect['largeur'])
+                simulation.terrain.ajouterObstacle(ob)
+
+            #Importation et initialisation des robots
+            for rob in data['robots'] :
+                r = o.Robot(rob['nom'], rob['posX'], rob['posY'], rob['angle'], rob['diametreRoues'], rob['rayon'], rob['vitesseGauche'], rob['vitesseDroite'], rob['vitesseMax'], dT)
+                r.start()
+                simulation.ajouterRobot(r)
+        
+        return simulation

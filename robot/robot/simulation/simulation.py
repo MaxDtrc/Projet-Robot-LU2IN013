@@ -156,7 +156,12 @@ def chargerJson(fichier : str, dT: int):
     return simulation
 
 def enregistrerJson(fichier:str, simulation):
+    """
+    Crée un fichier où sont enregistrées les données de la simulation
 
+    :param fichier : le nom du fichier dans lequel écrire les données
+    :param simulation : la simulation à enregistrer
+    """
     d = dict()
     d["terrain"] = dict()
     d["terrain"]["tailleX"] = simulation.terrain.sizeX

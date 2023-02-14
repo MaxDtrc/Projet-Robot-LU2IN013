@@ -18,16 +18,14 @@ class IA(Thread):
         self.strategies = strat[0]
         self.boucler = strat[1]
         self.currentStrat = -1
-        self._wait = dT
+        self._dT = dT
 
     def run(self):
         if len(self.strategies) != 0:
             self.running = True
             while self.running:
                 #Etape suivante
-                self._lastTime = time.time()
-                time.sleep(self._wait)
-                self._dT = time.time() - self._lastTime
+                time.sleep(self._dT)
                 self.step()
         
     def step(self):
@@ -44,10 +42,10 @@ class IA(Thread):
                     return
             #Initialisation de la stratégie
             self.strategies[self.currentStrat].start()
-
-        #Step de la stratégie
-        self.strategies[self.currentStrat].step(self._dT)
-    
+        else:
+            #Step de la stratégie
+            self.strategies[self.currentStrat].step(self._dT)
+        
 
 class AvancerDroit:
     """
@@ -64,7 +62,8 @@ class AvancerDroit:
 
     def stop(self):
         #On avance tant qu'on n'est pas trop près d'un mur/qu'on n' a pas suffisement avancé
-        return self.parcouru > self.distance or self._controleur.getDistance() < 10 
+        self._controleur.getDistance()
+        return self.parcouru > self.distance
 
     def step(self, dT: float):
         #Calcul de la distance parcourue
@@ -97,18 +96,15 @@ class TournerDroite:
 
     def start(self):
         self.parcouru = 0
+        self._controleur.getDecalage()
 
     def stop(self):
         #On tourne tant qu'on n'a pas dépassé l'angle
         return self.parcouru < self.angle 
         
-    def step(self, dT: float):
-        #Calcul des vitesses gauches et droites en distance
-        vG = self.v/360.0 * pi * TAILLE_ROUES
-        vD = -vG
-
+    def step(self, dT : float):
         #Calcul de la distance parcourue
-        self.parcouru += (vD - vG)/(RAYON_ROBOT * 2) * dT
+        self.parcouru += self._controleur.getDecalage()
 
         if self.stop():
             self.end()

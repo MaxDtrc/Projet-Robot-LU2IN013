@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from threading import Thread
 import time
 
-class Robot(Thread):
+class Robot:
     """
     Classe représentant un robot
     """
@@ -21,8 +21,8 @@ class Robot(Thread):
         :param r: rayon du robot
         :param vitesseMax: vitesse maximum des roues (en degrés de rotation par seconde)
         """
-        super(Robot, self).__init__()
-        self._wait = dT
+        #super(Robot, self).__init__()
+        self._dT = dT
         self._nom = nom
         self._posX = posX
         self._posY = posY
@@ -32,13 +32,12 @@ class Robot(Thread):
         self._vitesseGauche = vG
         self._vitesseDroite = vD
         self.vitesseMax = vMax
+        self._decalageA = 0 #décalage de l'angle par rapport à la dernière obtention
 
-    def run(self):
+    """def run(self):
         while True:
-            self._lastTime = time.time()
-            time.sleep(self._wait)
-            self._dT = time.time() - self._lastTime
-            self.actualiser()
+            time.sleep(self._dT)
+            self.actualiser()"""
             
 
 
@@ -204,11 +203,27 @@ class Robot(Thread):
         vD = self._vitesseDroite/360.0 * pi * self.tailleRoues
 
         #Mise à jour de ses coordonnées (déplacement autour du centre de rotation du robot)
-        self._posX += ((vG + vD)/2) * cos(self._angle) * self._dT
-        self._posY -= ((vG + vD)/2) * sin(self._angle) * self._dT
+        x = ((vG + vD)/2) * cos(self._angle) * self._dT
+        y = ((vG + vD)/2) * sin(self._angle) * self._dT
+        self._posX += x
+        self._posY -= y
 
-        #Mise à jour de l'angle
-        self._angle += (vD - vG)/(self._rayon * 2) * self._dT
+        #Mise à jour de l'angle et
+        a = (vD - vG)/(self._rayon * 2) * self._dT
+        self._angle += a
+        self._decalageA += a
+
+    def getDecalage(self):
+        """
+        Renvoi le décalage de l'angle du robot depuis le dernier appel de la fonction et le remet à 0
+
+        :returns: le décalage de l'angle du robot depuis le dernier appel
+        """
+        
+        res = self._decalageA
+        self._decalageA = 0
+        return res
+
 
 class Obstacle(ABC): 
     """

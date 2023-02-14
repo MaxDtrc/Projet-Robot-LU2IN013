@@ -29,7 +29,7 @@ except ImportError:
     implem = r.implemSimulation(s.getRobot(0), s)
     controleur.changerImplementation(implem)
 
-    strats = [([r.AvancerDroit(controleur, 50, 720), r.TournerDroite(controleur, 90, 90)], True), ([r.ApprocherMur(controleur)], False)]
+    strats = [([r.AvancerDroit(controleur, 50, 720), r.TournerDroite(controleur, 90, 45)], True), ([r.ApprocherMur(controleur, 2)], False)]
 
     #Start des threads de la simulation
     s.start()

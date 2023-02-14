@@ -32,6 +32,9 @@ class implemSimulation:
         """
         return self._s.getDistanceFromRobot(self._r)
 
+    def getDecalage(self):
+        return self._r.getDecalage()
+
 
         
 
@@ -65,6 +68,9 @@ class implemVraiVie:
         :returns: la distance entre le robot et l'obstacle
         """
         return self._r.get_distance()
+    
+    def getDecalage(self):
+        return self._r.get_motor_position()
 
 class controleur:
     def __init__(self, implementation = None):

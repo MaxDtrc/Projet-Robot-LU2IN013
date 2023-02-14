@@ -1,2 +1,2 @@
-from .ia import IA, AvancerDroit, ApprocherMur, TournerDroite
+from .ia import IA, AvancerDroit, ApprocherMur, TournerDroite, chargerIA
 from .controleur import controleur, implemSimulation, implemVraiVie

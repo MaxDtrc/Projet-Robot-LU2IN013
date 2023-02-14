@@ -6,6 +6,30 @@ from math import pi, radians, degrees
 TAILLE_ROUES = 7
 RAYON_ROBOT = 5
 
+def chargerIA(fichier: str, controleur):
+    """
+    Création d'une séquence d'IA depuis un fichier
+    
+    :param fichier: nom du fichier
+    :param controleur: controleur pour l'IA
+    """
+    loop = False
+    lst = []
+    with open(fichier, 'r') as f:
+        l = f.readline()
+        while l:
+            t = l.split(" ")
+            match t[0]:
+                case "avancer":
+                    lst.append(AvancerDroit(controleur, int(t[1]), int(t[2])))
+                case "tourner_droite":
+                    lst.append(TournerDroite(controleur, int(t[1]), int(t[2])))
+                case "approcher_mur":
+                    lst.append(ApprocherMur(controleur, int(t[1])))
+                case "boucler":
+                    loop = True
+            l = f.readline()
+    return (lst, loop)
 
 
 class IA(Thread):

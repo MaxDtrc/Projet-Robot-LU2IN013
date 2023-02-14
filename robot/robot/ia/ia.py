@@ -9,6 +9,9 @@ RAYON_ROBOT = 5
 
 
 class IA(Thread):
+    """
+    Classe représentant l'IA
+    """
     def __init__(self, controleur, strat, dT = 0.01):
         super(IA, self).__init__()
         self._controleur = controleur
@@ -47,6 +50,9 @@ class IA(Thread):
     
 
 class AvancerDroit:
+    """
+    Classe représentant l'ia permettant d'avancer droit
+    """
     def __init__(self, controleur, distance, v):
         self._controleur = controleur
         self.distance = distance
@@ -80,6 +86,9 @@ class AvancerDroit:
         self._controleur.setVitesseDroite(self.v)
 
 class TournerDroite:
+    """
+    Classe représentant l'ia permettant de tourner à droite
+    """
     def __init__(self, controleur, angle, v):
         self._controleur = controleur
         self.angle = radians(-angle)
@@ -116,17 +125,21 @@ class TournerDroite:
         self._controleur.setVitesseDroite(-self.v)
 
 class ApprocherMur:
-    def __init__(self, controleur):
+    """
+    Classe représentant l'ia permettant d'approcher un mur jusqu'à une certaine distance
+    """
+    def __init__(self, controleur, distance):
         self._controleur = controleur
         self.v = 0
+        self.d = distance
 
     def start(self):
         #Aucune initialisation
         pass
 
     def stop(self):
-        #Avance jusqu'à être le plus prêt possible du mur
-        return self._controleur.getDistance() < 2
+        #Avance vers le mur jusqu'à être à la distance donnée
+        return self._controleur.getDistance() < self.d
 
     def step(self, dT: float):
         #Calcul de la distance au mur

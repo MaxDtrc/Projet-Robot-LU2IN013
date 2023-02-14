@@ -1,57 +1,37 @@
-from .. import objets as o
-from math import cos, sin, radians, degrees
-import pygame
+from . import objets as o
+from math import cos, sin, radians
 import json
+from threading import Thread
+import time
 
-class Simulation : 
+class Simulation(Thread): 
     """
     Classe représentant la simulation
     """
 
-    def __init__(self, robotsList : list = None, terrain : o.Terrain = None):
+    def __init__(self, dT: int, robotsList : list = None, terrain : o.Terrain = None):
         """
         Constructeur de la classe Simulation
 
         :param robotsList : Liste de robots
         :param terrain : Le terrain
         """
-        
+        super(Simulation, self).__init__()
+
+        self._dT = dT
         if robotsList is None : 
             self._robotsList = []
         else:
             self._robotsList = robotsList
-        self._terrain = terrain
+        self.terrain = terrain
 
         self.lastPosX = 0
         self.lastPosY = 0
-    
-    def chargerJson(self, fichier : str):
-        """
-        Crée les objets à partir d'un fichier json passé en paramètre
 
-        :param fichier : le fichier json à charger
-        """
-        with open(fichier) as json_file:
-            data = json.load(json_file)
-        
-            #Importation et initialisation du terrain
-            t = data['terrain'] 
-            self._terrain = o.Terrain(t['tailleX'], t['tailleY'])
-
-            #Importation et initialisation des obstacles ronds
-            for oR in data['obstaclesRonds'] :
-                ob = o.ObstacleRond(oR['nom'], oR['posX'], oR['posY'], oR['rayon'])
-                self._terrain.ajouterObstacle(ob)
-
-            #Importation et initialisation des obstacles rectangles
-            for oRect in data['obstaclesRectangles'] :
-                ob = o.ObstacleRectangle(oRect['nom'], oRect['posX'], oRect['posY'], oRect['longueur'], oRect['largeur'])
-                self._terrain.ajouterObstacle(ob)
-
-            #Importation et initialisation des robots
-            for rob in data['robots'] :
-                r = o.Robot(rob['nom'], rob['posX'], rob['posY'], rob['angle'], rob['tailleRoues'], rob['rayon'], rob['vitesseMax'])
-                self.ajouterRobot(r)
+    def run(self):
+        while True:
+            self.actualiser()
+            time.sleep(self._dT)             
 
     def ajouterRobot(self, robot : o.Robot):
         """
@@ -81,22 +61,6 @@ class Simulation :
         """
         self._robotsList.pop(index)
 
-    @property
-    def terrain(self):
-        """
-        :returns : le Terrain affecté à la variable Terrain de la simulation
-        """
-        return self._terrain
-
-    @terrain.setter
-    def terrain(self, terrain : o.Terrain):
-        """
-        Affecte le terrain passé en paramètre à la variable Terrain de la simulation
-
-        :param terrain : le terrain à affecter
-        """
-        self._terrain = terrain
-
     def getNombreDeRobots(self):
         """
         :returns : le nombre de robots présents dans la simulation
@@ -117,15 +81,15 @@ class Simulation :
         :param terrain : Terrain
         :returns : la distance jusqu'au prochain obstacle
         """
-        dirVect = (cos(radians(robot.angle)), sin(radians(-robot.angle)))
-        posRayon = (robot.x + dirVect[0], robot.y + dirVect[1])
+        dirVect = (cos(robot.angle), sin(-robot.angle))
+        posRayon = (robot.x + dirVect[0] * robot.rayon, robot.y + dirVect[1] * robot.rayon)
         distance = 0
-        tickRayon = 0.1
+        tickRayon = 0.2
 
-        while distance < self._terrain.sizeX * self._terrain.sizeY: #Limite pour pas que le rayon n'avance à l'infini
+        while distance < self.terrain.sizeX * self.terrain.sizeY: #Limite pour pas que le rayon n'avance à l'infini
             #Detection des obstacles
-            for i in range(0, self._terrain.getNombreObstacles()):
-                if self._terrain.getObstacle(i).estDedans(posRayon[0], posRayon[1]):
+            for i in range(0, self.terrain.getNombreObstacles()):
+                if self.terrain.getObstacle(i).estDedans(posRayon[0], posRayon[1]):
                     #Enregistrement des dernières valeurs observées (utiles pour du débogage ou l'affichage du rayon par exemple)
                     self.lastPosX = posRayon[0] #On enregistre la dernière position X du rayon
                     self.lastPosY = posRayon[1] #On enregistre la dernière position Y du rayon
@@ -138,7 +102,7 @@ class Simulation :
             newPosRayon = (posRayon[0] + tickRayon * dirVect[0], posRayon[1] + tickRayon * dirVect[1])
             posRayon = newPosRayon
 
-    def actualiser(self, dT : float):
+    def actualiser(self):
         """
         Actualise la simulation selon le temps dT écoulé depuis la dernière actualisation
 
@@ -148,16 +112,20 @@ class Simulation :
         #Test du crash
         robotsARetirer = []
         for robot in self._robotsList:
-            for i in range(0, self._terrain.getNombreObstacles()):
-                if(self._terrain.getObstacle(i).testCrash(robot)):
+            for i in range(0, self.terrain.getNombreObstacles()):
+                if(self.terrain.getObstacle(i).testCrash(robot)):
                     #Ajout du robot à la liste de ceux à retirer
                     robotsARetirer.append(robot)
 
         #Suppression des robots qui se sont crashés
         for r in robotsARetirer:
             self.retirerRobot(r)
+        
 
+        for r in self._robotsList:
+            r.actualiser()
 
+<<<<<<< HEAD
         #Comportement des robots
         for robot in self._robotsList:
             if (self.getDistanceFromRobot(robot) > 100):
@@ -176,5 +144,89 @@ class Simulation :
                 else:
                     #Rotation pour éviter l'obstacle
                     robot.vitesseGauche += 360
+=======
+def chargerJson(fichier : str, dT: int):
+    """
+    Crée les objets à partir d'un fichier json passé en paramètre
+>>>>>>> Dev
 
-            robot.actualiser(dT)
+    :param fichier : le fichier json à charger
+    :param dT : précision temporelle des robots
+    """
+
+    simulation = Simulation(dT)
+        
+    with open(fichier) as json_file:
+        data = json.load(json_file)
+        
+        #Importation et initialisation du terrain
+        t = data['terrain'] 
+        simulation.terrain = o.Terrain(t['tailleX'], t['tailleY'])
+
+        #Importation et initialisation des obstacles ronds
+        for oR in data['obstaclesRonds'] :
+            ob = o.ObstacleRond(oR['nom'], oR['posX'], oR['posY'], oR['rayon'])
+            simulation.terrain.ajouterObstacle(ob)
+
+        #Importation et initialisation des obstacles rectangles
+        for oRect in data['obstaclesRectangles'] :
+            ob = o.ObstacleRectangle(oRect['nom'], oRect['posX'], oRect['posY'], oRect['longueur'], oRect['largeur'])
+            simulation.terrain.ajouterObstacle(ob)
+
+        #Importation et initialisation des robots
+        for rob in data['robots'] :
+            r = o.Robot(rob['nom'], rob['posX'], rob['posY'], rob['angle'], rob['diametreRoues'], rob['rayon'], rob['vitesseGauche'], rob['vitesseDroite'], rob['vitesseMax'], dT)
+            #r.start()
+            simulation.ajouterRobot(r)
+        
+    return simulation
+
+def enregistrerJson(fichier:str, simulation):
+    """
+    Crée un fichier où sont enregistrées les données de la simulation
+
+    :param fichier : le nom du fichier dans lequel écrire les données
+    :param simulation : la simulation à enregistrer
+    """
+    d = dict()
+    d["terrain"] = dict()
+    d["terrain"]["tailleX"] = simulation.terrain.sizeX
+    d["terrain"]["tailleY"] = simulation.terrain.sizeY
+
+    d["obstaclesRonds"] =[]
+    d["obstaclesRectangles"] =[]
+    for i in range (0, simulation.terrain.getNombreObstacles()):
+        obsdic = dict()
+        o = simulation.terrain.getObstacle(i)
+        if (o.type == 1) :
+            obsdic["nom"] = o.nom
+            obsdic["posX"] = o.x
+            obsdic["posY"] = o.y
+            obsdic["rayon"] = o.rayon
+            d["obstaclesRonds"].append(obsdic)
+        elif (o.type == 0) :
+            obsdic["nom"] = o.nom
+            obsdic["posX"] = o.x
+            obsdic["posY"] = o.y
+            obsdic["longueur"] = o.longueur
+            obsdic["largeur"] = o.largeur
+            d["obstaclesRectangles"].append(obsdic)
+
+    d["robots"] = []
+
+    for i in range(0, simulation.getNombreDeRobots()):
+        robdic = dict()
+        r = simulation.getRobot(i)
+        robdic["nom"] = r.nom
+        robdic["posX"] = r.x
+        robdic["posY"] = r.y
+        robdic["angle"] = r.angle
+        robdic["diametreRoues"] = r.tailleRoues
+        robdic["rayon"] = r.rayon
+        robdic["vitesseGauche"] = r.vitesseGauche
+        robdic["vitesseDroite"] = r.vitesseDroite
+        robdic["vitesseMax"] = r.vitesseMax
+        d["robots"].append(robdic)
+   
+    with open(fichier, "w") as json_file:
+        json_file.write(json.dumps(d, indent=4))

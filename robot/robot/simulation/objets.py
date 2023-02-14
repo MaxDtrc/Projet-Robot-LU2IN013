@@ -1,6 +1,7 @@
 from math import cos, sin, radians, degrees, sqrt, pi
 from abc import ABC, abstractmethod
-import numpy as np
+from threading import Thread
+import time
 
 class Robot:
     """
@@ -8,7 +9,7 @@ class Robot:
     """
 
     #Constructeur
-    def __init__(self, nom: str, posX: float, posY: float, angle: float, t: float, r: float = 10, vMax: float = 10):
+    def __init__(self, nom: str, posX: float, posY: float, angle: float, t: float, r: float = 10, vG: float = 0, vD: float = 0, vMax: float = 10, dT: float = 0.01):
         """
         Constructeur de la classe Robot
 
@@ -20,15 +21,25 @@ class Robot:
         :param r: rayon du robot
         :param vitesseMax: vitesse maximum des roues (en degrés de rotation par seconde)
         """
+        #super(Robot, self).__init__()
+        self._dT = dT
         self._nom = nom
         self._posX = posX
         self._posY = posY
         self._rayon = r
-        self._angle = angle
-        self._tailleRoues = t
-        self._vitesseGauche = 0
-        self._vitesseDroite = 0
-        self._vitesseMax = vMax
+        self._angle = radians(angle)
+        self.tailleRoues = t
+        self._vitesseGauche = vG
+        self._vitesseDroite = vD
+        self.vitesseMax = vMax
+        self._decalageA = 0 #décalage de l'angle par rapport à la dernière obtention
+
+    """def run(self):
+        while True:
+            time.sleep(self._dT)
+            self.actualiser()"""
+            
+
 
     #Getters
     @property
@@ -78,7 +89,7 @@ class Robot:
         """
         :returns: un tuple contenant la position absolue de la roue gauche
         """
-        return (cos(radians(self._angle + 90)) * self._rayon + self._posX, sin(radians(self._angle + 90)) * self._rayon + self._posY)
+        return (cos(self._angle + pi/2) * self._rayon + self._posX, sin(self._angle + pi/2) * self._rayon + self._posY)
 
 
     def getPosRoueGaucheX(self):
@@ -99,7 +110,7 @@ class Robot:
         """
         :returns: un tuple contenant la position absolue de la roue droite
         """
-        return (cos(radians(self._angle - 90)) * self._rayon + self._posX, sin(radians(self._angle - 90)) * self._rayon + self._posY)
+        return (cos(self._angle - pi/2) * self._rayon + self._posX, sin(self._angle - pi/2) * self._rayon + self._posY)
 
 
     def getPosRoueDroiteX(self):
@@ -130,12 +141,10 @@ class Robot:
         :param v: vitesse (en degrés de rotation par seconde)
         :returns: rien
         """
-        if(v > self._vitesseMax):
-            self._vitesseGauche = self._vitesseMax
-        elif(v < -self._vitesseMax):
-            self._vitesseGauche = -self._vitesseMax
+        if(v < -self.vitesseMax):
+            self._vitesseGauche = -self.vitesseMax
         else:
-            self._vitesseGauche = v
+            self._vitesseGauche = min(v,self.vitesseMax)
 
     @property
     def vitesseDroite(self):
@@ -152,12 +161,10 @@ class Robot:
         :param v: vitesse (en degrés de rotation par seconde)
         :returns: rien
         """
-        if(v > self._vitesseMax):
-            self._vitesseDroite = self._vitesseMax
-        elif(v < -self._vitesseMax):
-            self._vitesseDroite = -self._vitesseMax
+        if(v < -self.vitesseMax):
+            self._vitesseDroite = -self.vitesseMax
         else:
-            self._vitesseDroite = v
+            self._vitesseDroite = min(v,self.vitesseMax)
 
     @property
     def vitesse(self):
@@ -184,7 +191,7 @@ class Robot:
         return ("VitG: "+str(format(self._vitesseGauche,'.2f'))+"\tVitD: "+str(format(self._vitesseDroite,'.2f'))+"\tAngle: "+str(format(self._angle,'.2f')))
 
     #Contrôle du robot
-    def actualiser(self, dT: float):
+    def actualiser(self):
         """
         Actualise la position et l'angle du robot selon le temps dT écoulé depuis la dernière actualisation
 
@@ -192,18 +199,30 @@ class Robot:
         :returns: rien, changement in place
         """
         #Calcul de la vitesse en cm/s du robot
-        vG = self._vitesseGauche/360 * pi * self._tailleRoues
-        vD = self._vitesseDroite/360 * pi * self._tailleRoues
+        vG = self._vitesseGauche/360.0 * pi * self.tailleRoues
+        vD = self._vitesseDroite/360.0 * pi * self.tailleRoues
 
-        a = radians(self._angle)
         #Mise à jour de ses coordonnées (déplacement autour du centre de rotation du robot)
-        self._posX += ((vG + vD)/2) * cos(a) * dT
-        self._posY -= ((vG + vD)/2) * sin(a) * dT
-        #Mise à jour de l'angle
-        a += (vD - vG)/self._rayon * dT
-        self._angle = degrees(a)
-        self._angle %= 360
+        x = ((vG + vD)/2) * cos(self._angle) * self._dT
+        y = ((vG + vD)/2) * sin(self._angle) * self._dT
+        self._posX += x
+        self._posY -= y
 
+        #Mise à jour de l'angle et
+        a = (vD - vG)/(self._rayon * 2) * self._dT
+        self._angle += a
+        self._decalageA += a
+
+    def getDecalage(self):
+        """
+        Renvoi le décalage de l'angle du robot depuis le dernier appel de la fonction et le remet à 0
+
+        :returns: le décalage de l'angle du robot depuis le dernier appel
+        """
+        
+        res = self._decalageA
+        self._decalageA = 0
+        return res
 
 
 class Obstacle(ABC): 
@@ -363,6 +382,7 @@ class ObstacleRectangle(Obstacle):
         Obstacle.__init__(self, nom, posX, posY)
         self._longueur = longueur
         self._largeur = largeur
+        self.type = 0
 
     @property
     def longueur(self):
@@ -396,10 +416,8 @@ class ObstacleRectangle(Obstacle):
         dy = abs(self._posY - y) - (self._largeur * 0.5)
 
         #On vérifie si ces distances sont plus petites que le rayon du robot (avec une marge d'erreur de 0.2)
-        if sqrt((dx * (dx > 0)) ** 2 + (dy * (dy > 0)) ** 2) - robot.rayon < 0.2:
-            return 1
-        else:
-            return 0
+        return sqrt((dx * (dx > 0)) ** 2 + (dy * (dy > 0)) ** 2) - robot.rayon < 0.2
+
 
 
     def estDedans(self, x : int, y : int):
@@ -410,10 +428,7 @@ class ObstacleRectangle(Obstacle):
         :param y: coordonnée Y
         :returns: True si le point (x,y) se trouve dans l'obstacle
         """
-        if self._posX - self._longueur/2 <= x <= self._posX + self._longueur/2 and self._posY - self._largeur/2 <= y <= self._posY + self._largeur/2:
-            return True
-        else:
-            return False
+        return self._posX - self._longueur/2 <= x <= self._posX + self._longueur/2 and self._posY - self._largeur/2 <= y <= self._posY + self._largeur/2
 
 class ObstacleRond(Obstacle): 
     """
@@ -431,6 +446,7 @@ class ObstacleRond(Obstacle):
         """
         Obstacle.__init__(self, nom, posX, posY)
         self._rayon = rayon
+        self.type = 1
 
     @property
     def rayon(self):

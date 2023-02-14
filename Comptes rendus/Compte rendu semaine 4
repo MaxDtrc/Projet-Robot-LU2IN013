@@ -31,3 +31,9 @@ Taches faites :
 - Remplacement des angles de degrés vers radians
 - Multiples séances communes
 - Génération de la documentation
+
+Taches inachevées:
+- Génération d'une documentation complète
+- Manque de certains tests unitaires
+- L'IA chargée de faire faire un carré au robot n'est pas achevée (décalage à chaque rotation)
+- Le controleur n'est pas complet (manque de fonctions permettant d'obtenir de combien ont tourné les moteurs depuis le dernier appel)

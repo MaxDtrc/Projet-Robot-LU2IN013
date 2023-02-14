@@ -1,4 +1,4 @@
-from .. import objets as o
+from . import objets as o
 from math import cos, sin, radians
 import json
 from threading import Thread

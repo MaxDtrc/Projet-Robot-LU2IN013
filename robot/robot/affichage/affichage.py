@@ -4,7 +4,6 @@ import os
 from threading import Thread
 import time
 
-from .. import objets as o
 from .. import simulation as s
 
 
@@ -36,7 +35,7 @@ class Affichage(Thread):
             self.afficherSimulation()
             time.sleep(1./self._fps)
 
-    def _afficherObstacle(self, obstacle : o.Obstacle):
+    def _afficherObstacle(self, obstacle : s.Obstacle):
         """
         Affiche un obstacle sur la fenêtre
         
@@ -50,7 +49,7 @@ class Affichage(Thread):
             #Affichage d'un obstacle rond
             pygame.draw.circle(self._screen, COULEUR_OBSTACLES, (obstacle.x*e + self._screen.get_size()[0]/2, obstacle.y*e + self._screen.get_size()[0]/2), obstacle.rayon*e)
 
-    def _afficherRobot(self, robot: o.Robot):
+    def _afficherRobot(self, robot: s.Robot):
         """
         Affiche un robot sur la fenêtre
         

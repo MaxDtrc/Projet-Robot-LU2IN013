@@ -1,0 +1,29 @@
+Semaine du 15/02/2023
+Compte rendu semaine 5
+
+- revoir unité échelle de la simulation
+- tracer carré au sol
+- décalage carré -> jouer sur le delta t
+- faire des tests unitaires de haut niveau
+- retirer la vitesse des roues dans les json -> timestep
+- enlever les while true dans la simulation et dans l affichage pour eviter les CTRL+C (try, stop, flag)
+- définir plus de stratégies : stratégie conditionnelle et stratégie de boucle
+- modifier nom des variables plus explicites
+- IA trop élévé
+- trop de lignes dans except mettre try/flag plutot
+- tourner droite ? tourner sur place plutot
+- IA approche_mur n est pas bien implémentée, il y a trop de calculs
+- fichier .json pour IA au lieu des .txt
+- modifier parser à chaque fois -> utiliser fonction eval(string) en python 
+- chaque objet propre réprésentation car c est moche là
+- hardparse pour l IA qu on charge
+- class Decorator sur robot qui calcul decalage_angle + distance : robot avec les possibilités du robot uniquement
+- le robot ne sait pas de combien il a avancé, c est l IA qui peut l estimer
+
+
+Objectifs:
+- Se renseigner sur l implementation de la 3D 
+
+
+Taches faites :
+- 

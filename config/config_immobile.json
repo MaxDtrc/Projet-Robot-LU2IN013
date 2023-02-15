@@ -5,8 +5,8 @@
             "posX": -20,
             "posY": -20,
             "angle": 0,
-            "diametreRoues": 7,
-            "rayon": 5,
+            "diametreRoues": 6.65,
+            "rayon": 5.85,
             "vitesseGauche": 0,
             "vitesseDroite": 0,
             "vitesseMax": 10000

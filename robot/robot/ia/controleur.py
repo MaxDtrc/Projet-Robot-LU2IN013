@@ -70,7 +70,8 @@ class implemVraiVie:
         return self._r.get_distance()
     
     def getDecalage(self):
-        return self._r.get_motor_position()
+        pass
+        #A DEFINIR
 
 class controleur:
     def __init__(self, implementation = None):

@@ -93,7 +93,7 @@ class Simulation(Thread):
                     #Enregistrement des dernières valeurs observées (utiles pour du débogage ou l'affichage du rayon par exemple)
                     self.lastPosX = posRayon[0] #On enregistre la dernière position X du rayon
                     self.lastPosY = posRayon[1] #On enregistre la dernière position Y du rayon
-                    print("Distance calculée par le capteur:", distance)
+                    #print("Distance calculée par le capteur:", distance)
                     return distance
             
 

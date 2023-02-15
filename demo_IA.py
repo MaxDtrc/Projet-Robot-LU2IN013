@@ -7,7 +7,7 @@ try:
     from robot2IN013 import Robot2IN013
 
     #Initialisation du controleur
-    implem = r.implemVraiVie(Robot2IN013())
+    implem = r.implemVraiVie(r.GetDecalageReel(Robot2IN013()))
     controleur.changerImplementation(implem)
 except ImportError:
     #Choix de la stratégie
@@ -26,7 +26,7 @@ except ImportError:
     a = r.Affichage(s, 30, 5, False)
 
     #Initialisation du controleur
-    implem = r.implemSimulation(s.getRobot(0), s)
+    implem = r.implemSimulation(r.GetDecalageSim(s.getRobot(0)), s)
     controleur.changerImplementation(implem)
 
     strats = [r.chargerIA("ia_carre.txt", controleur), r.chargerIA("ia_approcher_mur.txt", controleur)]

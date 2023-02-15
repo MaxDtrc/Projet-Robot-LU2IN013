@@ -91,6 +91,7 @@ class AvancerDroit:
 
     def step(self, dT: float):
         #Calcul de la distance parcourue
+        print(self.parcouru)
         self.parcouru += self.v/360 * pi * TAILLE_ROUES * dT
 
         if self.stop(): 

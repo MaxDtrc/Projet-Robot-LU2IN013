@@ -166,6 +166,14 @@ class Robot:
         else:
             self._vitesseDroite = min(v,self.vitesseMax)
 
+
+    #TEMPORAIRE - ERREUR A CORRIGER
+    def setVG(self, v):
+        self.vitesseGauche = v
+    def setVD(self, v):
+        self.vitesseDroite = v
+
+
     @property
     def vitesse(self):
         """
@@ -211,18 +219,9 @@ class Robot:
         #Mise à jour de l'angle et
         a = (vD - vG)/(self._rayon * 2) * self._dT
         self._angle += a
-        self._decalageA += a
 
-    def getDecalage(self):
-        """
-        Renvoi le décalage de l'angle du robot depuis le dernier appel de la fonction et le remet à 0
 
-        :returns: le décalage de l'angle du robot depuis le dernier appel
-        """
-        
-        res = self._decalageA
-        self._decalageA = 0
-        return res
+
 
 
 class Obstacle(ABC): 

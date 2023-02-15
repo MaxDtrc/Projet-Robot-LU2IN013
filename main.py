@@ -7,10 +7,10 @@ try:
     from robot2IN013 import Robot2IN013
 
     #Initialisation du controleur
-    implem = r.implemVraiVie(Robot2IN013())
+    implem = r.implemVraiVie(r.GetDecalageReel(Robot2IN013()))
     controleur.changerImplementation(implem)
 
-    strats = [([r.AvancerDroit(controleur, 50, 720), r.TournerDroite(controleur, 90, 90)], True), ([r.ApprocherMur(controleur)], False)]
+    strats = [r.chargerIA("ia_carre.txt", controleur), r.chargerIA("ia_approcher_mur.txt", controleur)]
 except ImportError:
     #Definition de la "précision temporelle"
     dT = 0.01
@@ -22,7 +22,7 @@ except ImportError:
     a = r.Affichage(s, 30, 5, True)
 
     #Initialisation du controleur
-    implem = r.implemSimulation(s.getRobot(0), s)
+    implem = r.implemSimulation(r.GetDecalageSim(s.getRobot(0)), s)
     controleur.changerImplementation(implem)
 
     strats = [r.chargerIA(controleur, "ia_carre.txt"), r.chargerIA(controleur, "ia_approcher_mur.txt")]

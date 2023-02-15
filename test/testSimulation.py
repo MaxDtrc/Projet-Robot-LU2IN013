@@ -1,5 +1,5 @@
-from robot.simulation.objets import Robot, Obstacle, ObstacleRectangle, ObstacleRond, Terrain
-from robot.simulation.simulation import Simulation
+from ..robot.robot.simulation.objets import Robot, Obstacle, ObstacleRectangle, ObstacleRond, Terrain
+from ..robot.robot.simulation.simulation import Simulation
 import unittest
 
 class TestSimulation(unittest.TestCase):
@@ -8,7 +8,7 @@ class TestSimulation(unittest.TestCase):
         terrain = Terrain(10,10)
         robot1 = Robot("Andrew", 0, 0, 0, 5, 10, 200)
         liste_robot=[robot1]
-        self.s = Simulation(10,liste_robot,terrain)
+        self.s = Simulation(1,liste_robot,terrain)
 
     def TestGetNombreDeRobots(self):
         self.assertEqual(self.s.getNombreDeRobots(),1)

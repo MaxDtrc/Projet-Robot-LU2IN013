@@ -79,7 +79,7 @@ class Simulation(Thread):
     def getDistanceFromRobot(self, robot: o.Robot):
         """ 
         :param terrain : Terrain
-        :returns : la distance jusqu'au prochain obstacle
+        :returns : la distance jusqu'au prochain obstacle (en mm)
         """
         dirVect = (cos(robot.angle), sin(-robot.angle))
         posRayon = (robot.x + dirVect[0] * robot.rayon, robot.y + dirVect[1] * robot.rayon)
@@ -93,8 +93,8 @@ class Simulation(Thread):
                     #Enregistrement des dernières valeurs observées (utiles pour du débogage ou l'affichage du rayon par exemple)
                     self.lastPosX = posRayon[0] #On enregistre la dernière position X du rayon
                     self.lastPosY = posRayon[1] #On enregistre la dernière position Y du rayon
-                    #print("Distance calculée par le capteur:", distance)
-                    return distance
+
+                    return distance * 10
             
 
             #On augmente la distance et on fait avancer le rayon

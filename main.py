@@ -1,7 +1,7 @@
 import robot as driftator
 
 #Instantiation du controleur
-controleur = drif.controleur()
+controleur = driftator.controleur()
 
 try:
     from robot2IN013 import Robot2IN013

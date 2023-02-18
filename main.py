@@ -25,7 +25,7 @@ except ImportError:
     implem = driftator.implemSimulation(driftator.GetDecalageSim(simulation.getRobot(0)), simulation)
     controleur.changerImplementation(implem)
 
-    strats = [driftator.chargerIA(controleur, "ia_carre.txt"), driftator.chargerIA(controleur, "ia_approcher_mur.txt")]
+    strats = [driftator.chargerIA("ia_carre.txt", controleur), driftator.chargerIA("ia_approcher_mur.txt", controleur)]
 
     #Start des threads de la simulation
     simulation.start()

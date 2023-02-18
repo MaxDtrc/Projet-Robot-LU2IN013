@@ -94,7 +94,7 @@ class Simulation(Thread):
                     self.lastPosX = posRayon[0] #On enregistre la dernière position X du rayon
                     self.lastPosY = posRayon[1] #On enregistre la dernière position Y du rayon
 
-                    return distance * 10
+                    return distance
             
 
             #On augmente la distance et on fait avancer le rayon

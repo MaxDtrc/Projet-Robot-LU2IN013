@@ -1,7 +1,5 @@
-from math import cos, sin, radians, degrees, sqrt, pi
+from math import cos, sin, radians, sqrt, pi
 from abc import ABC, abstractmethod
-from threading import Thread
-import time
 
 class Robot:
     """

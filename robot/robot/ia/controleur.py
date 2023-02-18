@@ -1,4 +1,5 @@
 from math import pi
+import time 
 
 class implemSimulation:
     
@@ -141,6 +142,6 @@ class GetDecalageReel(Decorator):
         dG = d[0] * diamRoue * pi
         dD = d[1] * diamRoue * pi
 
-        angle = (dD - dG)/(rayonRobot * 2) * self._dT
+        angle = (dD - dG)/(rayonRobot * 2)
 
         return angle

@@ -32,7 +32,7 @@ class Robot:
         self._vitesseGauche = vG
         self._vitesseDroite = vD
         self.vitesseMax = vMax
-        self._decalageA = 0 #décalage de l'angle par rapport à la dernière obtention
+        
 
     """def run(self):
         while True:

@@ -82,6 +82,7 @@ class AvancerDroit:
         self.parcouru = 0
 
     def start(self):
+        self._controleur.getDistanceParcourue() #Reinitialisation
         self.parcouru = 0
 
     def stop(self):
@@ -91,8 +92,7 @@ class AvancerDroit:
 
     def step(self, dT: float):
         #Calcul de la distance parcourue
-        print(self.parcouru)
-        self.parcouru += self.v/360 * pi * TAILLE_ROUES * dT
+        self.parcouru += self._controleur.getDistanceParcourue()
 
         if self.stop(): 
             self.end()
@@ -121,7 +121,7 @@ class TournerDroite:
 
     def start(self):
         self.parcouru = 0
-        self._controleur.getDecalage()
+        self._controleur.getDecalageAngle()
 
     def stop(self):
         #On tourne tant qu'on n'a pas dépassé l'angle
@@ -129,7 +129,7 @@ class TournerDroite:
         
     def step(self, dT : float):
         #Calcul de la distance parcourue
-        self.parcouru += self._controleur.getDecalage()
+        self.parcouru += self._controleur.getDecalageAngle()
 
         if self.stop():
             self.end()

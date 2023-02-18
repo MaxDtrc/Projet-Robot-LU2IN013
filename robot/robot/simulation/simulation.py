@@ -25,6 +25,8 @@ class Simulation(Thread):
             self._robotsList = robotsList
         self.terrain = terrain
 
+        #Dernier point détecté par le capteur de distance et s'il a été appelé
+        self.capteurDistanceAppele = False 
         self.lastPosX = 0
         self.lastPosY = 0
 
@@ -91,6 +93,7 @@ class Simulation(Thread):
             for i in range(0, self.terrain.getNombreObstacles()):
                 if self.terrain.getObstacle(i).estDedans(posRayon[0], posRayon[1]):
                     #Enregistrement des dernières valeurs observées (utiles pour du débogage ou l'affichage du rayon par exemple)
+                    self.capteurDistanceAppele = True
                     self.lastPosX = posRayon[0] #On enregistre la dernière position X du rayon
                     self.lastPosY = posRayon[1] #On enregistre la dernière position Y du rayon
 
@@ -124,6 +127,8 @@ class Simulation(Thread):
 
         for r in self._robotsList:
             r.actualiser()
+
+        
 
 def chargerJson(fichier : str, dT: int):
     """

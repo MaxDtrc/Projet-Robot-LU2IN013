@@ -86,8 +86,9 @@ class Affichage(Thread):
             self._afficherRobot(r)
 
             #Affichage du capteur de distance
-            if self._afficherDistance:
+            if self._afficherDistance and self._simulation.capteurDistanceAppele:
                 pygame.draw.line(self._screen, (255, 0, 0), ((r.x + cos(r.angle) * r.rayon)*e + t.sizeX*e/2, (r.y + sin(-r.angle) * r.rayon)*e + t.sizeY*e/2), (self._simulation.lastPosX*e  + t.sizeX*e/2, self._simulation.lastPosY*e  + t.sizeY*e/2))
+                self._simulation.capteurDistanceAppele = False
         for i in range(0, t.getNombreObstacles()):
             self._afficherObstacle(t.getObstacle(i))
 

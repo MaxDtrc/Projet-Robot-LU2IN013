@@ -24,6 +24,7 @@ class Affichage(Thread):
         self._echelle = echelle
         self._afficherDistance = afficherDistance
         self._afficherTrace = afficherTrace
+        self.tailleTrace = 2
 
         #Init de pygame
         pygame.init()
@@ -74,7 +75,7 @@ class Affichage(Thread):
 
         if self._afficherTrace:
             #affichage du tracé du robot sur la surface
-            pygame.draw.circle(self._trace, BLACK, (robot.x*e + self._trace.get_size()[0]/2, robot.y*e + self._trace.get_size()[0]/2), 3)
+            pygame.draw.circle(self._trace, BLACK, (robot.x*e + self._trace.get_size()[0]/2, robot.y*e + self._trace.get_size()[0]/2), self.tailleTrace)
 
 
     def afficherSimulation(self):

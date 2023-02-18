@@ -1,13 +1,13 @@
-import robot as r
+import robot as driftator
 
 #Instantiation du controleur
-controleur = r.controleur()
+controleur = driftator.controleur()
 
 try:
     from robot2IN013 import Robot2IN013
 
     #Initialisation du controleur
-    implem = r.implemVraiVie(r.GetDecalageReel(Robot2IN013()))
+    implem = driftator.implemVraiVie(driftator.GetDecalageReel(Robot2IN013()))
     controleur.changerImplementation(implem)
 except ImportError:
     #Choix de la stratégie
@@ -20,20 +20,20 @@ except ImportError:
     dT = 0.01
 
     #Creation du terrain
-    s = r.chargerJson('config/config_immobile.json', dT)
+    simulation = driftator.chargerJson('config/config_immobile.json', dT)
 
     #Initialisation de l'affichage
-    a = r.Affichage(s, 30, 5, False)
+    affichage = driftator.Affichage(simulation, 30, 5, False)
 
     #Initialisation du controleur
-    implem = r.implemSimulation(r.GetDecalageSim(s.getRobot(0)), s)
+    implem = driftator.implemSimulation(driftator.GetDecalageSim(simulation.getRobot(0)), simulation)
     controleur.changerImplementation(implem)
 
-    strats = [r.chargerIA("ia_carre.txt", controleur), r.chargerIA("ia_approcher_mur.txt", controleur)]
+    strats = [driftator.chargerIA("ia_carre.txt", controleur), driftator.chargerIA("ia_approcher_mur.txt", controleur)]
 
     #Start des threads de la simulation
-    s.start()
-    a.start()  
+    simulation.start()
+    affichage.start()  
 
 
 

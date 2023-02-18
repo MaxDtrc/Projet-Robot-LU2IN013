@@ -19,7 +19,7 @@ except ImportError:
     simulation = driftator.chargerJson('config/config_immobile.json', dT)
 
     #Initialisation de l'affichage
-    affichage = driftator.Affichage(simulation, 30, 5, True)
+    affichage = driftator.Affichage(simulation, 30, 5, True, True)
 
     #Initialisation du controleur
     implem = driftator.implemSimulation(driftator.GetDecalageSim(simulation.getRobot(0)), simulation)

@@ -1,9 +1,9 @@
-import robot as r
+import robot as driftator
 import os
 
 
 #Instantiation du controleur
-controleur = r.controleur()
+controleur = driftator.controleur()
 
 #Definition de la taille du terrain
 tailleTerrainX = 510
@@ -24,15 +24,15 @@ while select < 1 or select > i:
     select = int(input("Choisissez la configuration à charger: "))
 
 
-s = r.chargerJson("config/" + os.listdir('config')[select-1], dT)
+simulation = driftator.chargerJson("config/" + os.listdir('config')[select-1], dT)
 
 #Initialisation de l'affichage
-a = r.Affichage(s, 30, 1.5, False)
+affichage = driftator.Affichage(simulation, 30, 1.5, False)
 
 #Initialisation du controleur
-implem = r.implemSimulation(s.getRobot(0), s)
+implem = driftator.implemSimulation(simulation.getRobot(0), simulation)
 controleur.changerImplementation(implem)
 
 #Start des threads de la simulation
-s.start()
-a.start()  
+simulation.start()
+affichage.start()  

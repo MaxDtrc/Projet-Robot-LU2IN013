@@ -35,5 +35,5 @@ except ImportError:
 
 
 #Lancement de l'IA du robot
-ia = r.IA(controleur, strats[1], dT)
+ia = driftator.IA(controleur, strats[1], dT)
 ia.start()

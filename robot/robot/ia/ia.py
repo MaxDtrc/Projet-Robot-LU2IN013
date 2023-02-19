@@ -226,3 +226,39 @@ class IACondition:
     def end(self):
         self._ia1.end()
         self._ia2.end()
+
+class IAWhile:
+    """
+    Classe permettant de réaliser une ia tant qu'une condition est vérifiée
+    """
+    def __init__(self, controleur, ia, condition):
+        """
+        Paramètres
+        :param controleur: controleur du robot
+        :param ia: ia à appeler si la condition est vérifiée
+        :param condition: fonction de la condition qui renvoie un booléen
+        """
+        self._controleur = controleur
+        self.v = 0
+        self._ia = ia
+        self._condition = condition
+
+    def start(self):
+        #Initialisation des 2 sous IA
+        self._ia.start()
+        pass
+
+    def stop(self):
+        #Arrêt si l'une des deux IA est
+        return self._ia.stop() or self._condition
+
+    def step(self, dT: float):
+        if self.stop(): 
+            self.end()
+            return
+        else:
+            if self._condition():
+                self._ia.step()
+    
+    def end(self):
+        self._ia.end()

@@ -13,7 +13,7 @@ try:
     strats = [driftator.chargerIA("ia_carre.txt", controleur), driftator.chargerIA("ia_approcher_mur.txt", controleur)]
 except ImportError:
     #Definition de la "précision temporelle"
-    dT = 0.001
+    dT = 0.005
 
     #Creation du terrain
     simulation = driftator.chargerJson('config/config_immobile.json', dT)

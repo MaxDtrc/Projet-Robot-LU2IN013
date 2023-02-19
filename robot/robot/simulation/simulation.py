@@ -18,7 +18,7 @@ class Simulation(Thread):
         """
         super(Simulation, self).__init__()
 
-        self._dT = dT
+        self._wait = dT
         if robotsList is None : 
             self._robotsList = []
         else:
@@ -32,7 +32,9 @@ class Simulation(Thread):
 
     def run(self):
         while True:
-            time.sleep(self._dT)
+            self._lastTime = time.time()
+            time.sleep(self._wait)
+            self._dT = time.time() - self._lastTime
             self.actualiser()            
 
     def ajouterRobot(self, robot : o.Robot):

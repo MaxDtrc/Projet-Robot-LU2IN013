@@ -42,14 +42,16 @@ class IA(Thread):
         self.strategies = strat[0]
         self.boucler = strat[1]
         self.currentStrat = -1
-        self._dT = dT
+        self._wait = dT
 
     def run(self):
         if len(self.strategies) != 0:
             self.running = True
             while self.running:
                 #Etape suivante
-                time.sleep(self._dT)
+                self._lastTime = time.time()
+                time.sleep(self._wait)
+                self._dT = time.time() - self._lastTime
                 self.step()
         
     def step(self):

@@ -184,3 +184,45 @@ class ApprocherMur:
         #Avancer droit: on met la même vitesse à gauche et à droite
         self._controleur.setVitesseGauche(self.v)
         self._controleur.setVitesseDroite(self.v)
+
+class IACondition:
+    """
+    Classe permettant de réaliser une ia conditionnelle
+    """
+    def __init__(self, controleur, ia1, ia2, condition):
+        """
+        Paramètres
+        :param controleur: controleur du robot
+        :param ia1: ia à appeler si la condition est vérifiée
+        :param ia2: ia à appeler si la condition n'est pas vérifiée
+        :param condition: fonction de la condition qui renvoie un booléen
+        """
+        self._controleur = controleur
+        self.v = 0
+        self._ia1 = ia1
+        self._ia2 = ia2
+        self._condition = condition
+
+    def start(self):
+        #Initialisation des 2 sous IA
+        self._ia1.start()
+        self._ia2.start()
+        pass
+
+    def stop(self):
+        #Arrêt si l'une des deux IA est
+        return self._ia1.stop() or self._ia2.stop()
+
+    def step(self, dT: float):
+        if self.stop(): 
+            self.end()
+            return
+        else:
+            if self._condition():
+                self._ia1.step()
+            else:
+                self._ia2.step()
+    
+    def end(self):
+        self._ia1.end()
+        self._ia2.end()

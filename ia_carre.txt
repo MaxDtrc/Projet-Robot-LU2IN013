@@ -1,3 +1,0 @@
-avancer 30 180
-tourner_droite 90 60
-boucler

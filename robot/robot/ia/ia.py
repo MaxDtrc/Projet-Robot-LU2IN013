@@ -6,13 +6,11 @@ from math import pi, radians, degrees
 TAILLE_ROUES = 7
 RAYON_ROBOT = 5
 
-def chargerIA(fichier: str, controleur):
-    """
+"""def chargerIA(fichier: str, controleur):
     Création d'une séquence d'IA depuis un fichier
     
     :param fichier: nom du fichier
     :param controleur: controleur pour l'IA
-    """
     loop = False
     lst = []
     with open(fichier, 'r') as f:
@@ -29,7 +27,7 @@ def chargerIA(fichier: str, controleur):
                 case "boucler":
                     loop = True
             l = f.readline()
-    return (lst, loop)
+    return (lst, loop)"""
 
 
 class IA(Thread):
@@ -70,9 +68,9 @@ class IA(Thread):
             self.strategies[self.currentStrat].start()
         else:
             #Step de la stratégie
-            self.strategies[self.currentStrat].step(self._dT)
-        
+            self.strategies[self.currentStrat].step(self._dT)        
 
+#IA Basiques
 class AvancerDroit:
     """
     Classe représentant l'ia permettant d'avancer droit
@@ -147,6 +145,43 @@ class TournerDroite:
         self._controleur.setVitesseGauche(self.v)
         self._controleur.setVitesseDroite(-self.v)
 
+class TournerGauche:
+    """
+    Classe représentant l'ia permettant de tourner à gauche
+    """
+    def __init__(self, controleur, angle, v):
+        self._controleur = controleur
+        self.angle = radians(angle)
+        self.v = v
+        self.parcouru = 0
+
+    def start(self):
+        self.parcouru = 0
+        self._controleur.getDecalageAngle()
+
+    def stop(self):
+        #On tourne tant qu'on n'a pas dépassé l'angle
+        return self.parcouru > self.angle 
+        
+    def step(self, dT : float):
+        #Calcul de la distance parcourue
+        self.parcouru += self._controleur.getDecalageAngle()
+
+        if self.stop():
+            self.end()
+            return
+
+        self.avancer()
+
+    def end(self):
+        self._controleur.setVitesseGauche(0)
+        self._controleur.setVitesseDroite(0)
+
+    def avancer(self):
+        self._controleur.setVitesseGauche(-self.v)
+        self._controleur.setVitesseDroite(self.v)
+
+
 class ApprocherMur:
     """
     Classe représentant l'ia permettant d'approcher un mur jusqu'à une certaine distance
@@ -185,6 +220,7 @@ class ApprocherMur:
         self._controleur.setVitesseGauche(self.v)
         self._controleur.setVitesseDroite(self.v)
 
+#IA complexes
 class IACondition:
     """
     Classe permettant de réaliser une ia conditionnelle
@@ -218,10 +254,10 @@ class IACondition:
             self.end()
             return
         else:
-            if self._condition():
-                self._ia1.step()
+            if self._condition(self._controleur):
+                self._ia1.step(dT)
             else:
-                self._ia2.step()
+                self._ia2.step(dT)
     
     def end(self):
         self._ia1.end()
@@ -250,15 +286,15 @@ class IAWhile:
 
     def stop(self):
         #Arrêt si l'une des deux IA est
-        return self._ia.stop() or self._condition
+        return self._ia.stop() or not self._condition(self._controleur)
 
     def step(self, dT: float):
         if self.stop(): 
             self.end()
             return
         else:
-            if self._condition():
-                self._ia.step()
+            if self._condition(self._controleur):
+                self._ia.step(dT)
     
     def end(self):
         self._ia.end()

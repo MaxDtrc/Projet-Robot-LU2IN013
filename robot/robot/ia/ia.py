@@ -52,10 +52,7 @@ class IA(Thread):
                 self._dT = time.time() - self._lastTime
                 self.step()
 
-    def stop(self):
-        self._controleur.running = False
-        self._controleur.setVitesseGauche(0)
-        self._controleur.setVitesseDroite(0)
+
         
     def step(self):
         if self.strategies[self.currentStrat].stop() or self.currentStrat == -1:

@@ -37,6 +37,8 @@ class implemSimulation:
     def reset(self):
         pass
 
+    
+
     def __getattr__(self, name):
         return getattr(self._r, name)
 
@@ -103,6 +105,11 @@ class controleur:
         """
 
         self._imp = newImp
+
+    def stop_ia_thread(self):
+        self.running = False
+        self.setVitesseGauche(0)
+        self.setVitesseDroite(0)
 
     def __getattr__(self, name):
         return getattr(self._imp, name)

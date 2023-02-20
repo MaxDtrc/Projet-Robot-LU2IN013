@@ -118,7 +118,7 @@ class Affichage(Thread):
             if event.type == pygame.QUIT:
                 pygame.display.quit()
                 pygame.quit()
-                self._simulation.stop()
-                self._controleur.stop()
-                self.stop()
-                exit()
+                self._simulation.stop() #On arrête la simulation
+                self._controleur.stop_ia_thread() #On arrête l'ia
+                self.stop() #On arrête l'affichage
+                exit() #On arrête.

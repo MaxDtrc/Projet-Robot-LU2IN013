@@ -65,6 +65,7 @@ class IA(Thread):
                     self.running = False
                     return
             #Initialisation de la stratégie
+            self._controleur.reset()
             self.strategies[self.currentStrat].start()
         else:
             #Step de la stratégie

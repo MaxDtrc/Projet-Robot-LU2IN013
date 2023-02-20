@@ -51,16 +51,16 @@ except ImportError:
         return controleur.getDistance() > 10
 
     strat1 = ([driftator.ia.IACondition(controleur, driftator.ia.AvancerDroit(controleur, 10, 270), driftator.ia.TournerDroite(controleur, 10, 50), cond2)], True) #Tourne quand près du mur
-    strat2 = ([driftator.ia.IAWhile(controleur, driftator.ia.AvancerDroit(controleur, 10, 270), cond1)], True) #Avance vers le mur tant que pas trop près
+    strat2 = ([driftator.ia.IAWhile(controleur, driftator.ia.AvancerDroit(controleur, 10, 180), cond2)], True) #Avance vers le mur tant que pas trop près
     
-    strat3 = ([driftator.ia.AvancerDroit(controleur, 30, 270), 
+    strat3 = ([driftator.ia.AvancerDroit(controleur, 10, 270), 
                driftator.ia.TournerGauche(controleur, 72, 270),
-               driftator.ia.AvancerDroit(controleur, 30, 270),
+               driftator.ia.AvancerDroit(controleur, 10, 270),
                driftator.ia.TournerDroite(controleur, 144, 270)], True)
-
-
-
-    strats = [strat1, strat2, strat3]
+    
+    strat4 = ([driftator.ia.AvancerDroit(controleur, 15, 270), driftator.ia.TournerDroite(controleur, 90, 180)], True)
+    
+    strats = [strat1, strat2, strat3, strat4]
 
     #Start des threads de la simulation
     simulation.start()

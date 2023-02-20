@@ -1,6 +1,4 @@
 from math import pi, sqrt
-import time 
-
 class implemSimulation:
     
     def __init__(self, robot, simulation):
@@ -36,6 +34,9 @@ class implemSimulation:
         """
         return self._s.getDistanceFromRobot(self._r)
 
+    def reset(self):
+        pass
+
     def __getattr__(self, name):
         return getattr(self._r, name)
 
@@ -44,6 +45,10 @@ class implemSimulation:
 class implemVraiVie:
     def __init__(self, robot):
         self._r = robot
+
+        #Reset de l'origine de la position
+        self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
+        self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
 
     def setVitesseGauche(self, v: float):
         """
@@ -71,6 +76,10 @@ class implemVraiVie:
         :returns: la distance entre le robot et l'obstacle (en cm)
         """
         return self._r.get_distance() / 10
+
+    def reset(self):
+        self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
+        self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
 
     def __getattr__(self, name):
         return getattr(self._r, name)
@@ -143,7 +152,6 @@ class GetDecalageSim(Decorator):
 class GetDecalageReel(Decorator):
     def __init__(self, robot):
         Decorator.__init__(self, robot)
-        self._decalage = (0, 0)
 
     def __getattr__(self, name):
         return getattr(self.robot, name)
@@ -155,13 +163,12 @@ class GetDecalageReel(Decorator):
         :returns: le décalage de l'angle du robot depuis le dernier appel
         """
 
-        diamRoue = 66.5
-        rayonRobot = 58.55
+        diamRoue = 6.65
+        rayonRobot = 5.855
 
         posRoues = self.get_motor_position()
 
-        d = (posRoues[0] - self._decalage[0], posRoues[1] - self._decalage[1])
-        self._decalage = posRoues
+        d = posRoues()
 
         dG = d[0]/360 * diamRoue * pi
         dD = d[1]/360 * diamRoue * pi
@@ -177,11 +184,12 @@ class GetDecalageReel(Decorator):
         :returns: la distance parcourue par le robot
         """
 
-        diamRoue = 66.5
+        diamRoue = 6.65
         posRoues = self.get_motor_position()
 
         d = (posRoues[0] + posRoues[1])/2
 
+        #Reset de l'origine de la pos
         self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
         self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
 

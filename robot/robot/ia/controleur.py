@@ -144,7 +144,6 @@ class GetDecalageReel(Decorator):
     def __init__(self, robot):
         Decorator.__init__(self, robot)
         self._decalage = (0, 0)
-        self._distance = 0
 
     def __getattr__(self, name):
         return getattr(self.robot, name)
@@ -156,16 +155,16 @@ class GetDecalageReel(Decorator):
         :returns: le décalage de l'angle du robot depuis le dernier appel
         """
 
-        diamRoue = 6.65
-        rayonRobot = 5.85
+        diamRoue = 66.5
+        rayonRobot = 58.55
 
         posRoues = self.get_motor_position()
 
         d = (posRoues[0] - self._decalage[0], posRoues[1] - self._decalage[1])
         self._decalage = posRoues
 
-        dG = d[0] * diamRoue * pi
-        dD = d[1] * diamRoue * pi
+        dG = d[0]/360 * diamRoue * pi
+        dD = d[1]/360 * diamRoue * pi
 
         angle = (dD - dG)/(rayonRobot * 2)
 
@@ -178,11 +177,12 @@ class GetDecalageReel(Decorator):
         :returns: la distance parcourue par le robot
         """
 
-        diamRoue = 6.65
-
+        diamRoue = 66.5
         posRoues = self.get_motor_position()
 
-        d = (posRoues[0] + posRoues[1])/2 - self._distance
-        self._decalage = (posRoues[0] + posRoues[1])/2
+        d = (posRoues[0] + posRoues[1])/2
 
-        return d * diamRoue * pi
+        self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
+        self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
+
+        return d/360 * diamRoue * pi 

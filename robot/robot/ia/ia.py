@@ -44,13 +44,18 @@ class IA(Thread):
 
     def run(self):
         if len(self.strategies) != 0:
-            self.running = True
-            while self.running:
+            self._controleur.running = True
+            while self._controleur.running:
                 #Etape suivante
                 self._lastTime = time.time()
                 time.sleep(self._wait)
                 self._dT = time.time() - self._lastTime
                 self.step()
+
+    def stop(self):
+        self._controleur.running = False
+        self._controleur.setVitesseGauche(0)
+        self._controleur.setVitesseDroite(0)
         
     def step(self):
         if self.strategies[self.currentStrat].stop() or self.currentStrat == -1:
@@ -89,7 +94,6 @@ class AvancerDroit:
 
     def stop(self):
         #On avance tant qu'on n'est pas trop près d'un mur/qu'on n' a pas suffisement avancé
-        self._controleur.getDistance()
         return self.parcouru > self.distance
 
     def step(self, dT: float):

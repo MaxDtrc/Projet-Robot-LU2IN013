@@ -31,11 +31,15 @@ class Simulation(Thread):
         self.lastPosY = 0
 
     def run(self):
-        while True:
+        self.running = True
+        while self.running:
             self._lastTime = time.time()
             time.sleep(self._wait)
             self._dT = time.time() - self._lastTime
             self.actualiser()            
+
+    def stop(self):
+        self.running = False
 
     def ajouterRobot(self, robot : o.Robot):
         """

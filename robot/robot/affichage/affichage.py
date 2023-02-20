@@ -12,7 +12,7 @@ COULEUR_ROBOT = (255, 165, 165)
 BLACK = (0, 0, 0)
 
 class Affichage(Thread):
-    def __init__(self, simulation : s.Simulation, fps: int, echelle: int = 1, afficherDistance: bool = False, afficherTrace: bool = False):
+    def __init__(self, simulation : s.Simulation, controleur, fps: int, echelle: int = 1, afficherDistance: bool = False, afficherTrace: bool = False):
         """
         Constructeur de la classe affichage
         
@@ -20,6 +20,7 @@ class Affichage(Thread):
         """
         super(Affichage, self).__init__()
         self._simulation = simulation
+        self._controleur = controleur
         self._fps = fps
         self._echelle = echelle
         self._afficherDistance = afficherDistance
@@ -36,9 +37,13 @@ class Affichage(Thread):
         
 
     def run(self):
-        while True:
+        self.running = True
+        while self.running:
             self.afficherSimulation()
             time.sleep(1./self._fps)
+
+    def stop(self):
+        self.running = False
 
     def _afficherObstacle(self, obstacle : s.Obstacle):
         """
@@ -107,3 +112,13 @@ class Affichage(Thread):
 
         #Actualisation de l'écran
         pygame.display.update()
+        
+        #Fermeture de la fenêtre
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.display.quit()
+                pygame.quit()
+                self._simulation.stop()
+                self._controleur.stop()
+                self.stop()
+                exit()

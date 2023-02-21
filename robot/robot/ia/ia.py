@@ -19,7 +19,7 @@ RAYON_ROBOT = 5
             t = l.split(" ")
             match t[0]:
                 case "avancer":
-                    lst.append(AvancerDroit(controleur, int(t[1]), int(t[2])))
+                    lst.append(Avancer(controleur, int(t[1]), int(t[2])))
                 case "tourner_droite":
                     lst.append(TournerDroite(controleur, int(t[1]), int(t[2])))
                 case "approcher_mur":
@@ -55,16 +55,18 @@ class IA(Thread):
 
         
     def step(self):
-        if self.strategies[self.currentStrat].stop() or self.currentStrat == -1:
+        if self.currentStrat == -1 or self.strategies[self.currentStrat].stop():
             #On arrête la stratégie "proprement" et on passe à la stratégie suivante
-            if self.currentStrat != -1: self.strategies[self.currentStrat].end()
+            if self.currentStrat != -1: 
+                self.strategies[self.currentStrat].end()
             self.currentStrat += 1
             if self.currentStrat >= len(self.strategies):
                 if self.boucler:
                     #On repasse à la première stratégie
                     self.currentStrat = 0
                 else:
-                    self.running = False
+                    self.currentStrat = 0
+                    self._controleur.running = False
                     return
             #Initialisation de la stratégie
             self._controleur.reset()
@@ -75,43 +77,6 @@ class IA(Thread):
 
 
 #IA Basiques
-class AvancerDroit:
-    """
-    Classe représentant l'ia permettant d'avancer droit
-    """
-    def __init__(self, controleur, distance, v):
-        self._controleur = controleur
-        self.distance = distance
-        self.v = v
-        self.parcouru = 0
-
-    def start(self):
-        self._controleur.getDistanceParcourue() #Reinitialisation
-        self.parcouru = 0
-
-    def stop(self):
-        #On avance tant qu'on n'est pas trop près d'un mur/qu'on n' a pas suffisement avancé
-        return self.parcouru > self.distance
-
-    def step(self, dT: float):
-        #Calcul de la distance parcourue
-        self.parcouru += self._controleur.getDistanceParcourue()
-
-        if self.stop(): 
-            self.end()
-            return
-
-        self.avancer()
-
-    def end(self):
-        self._controleur.setVitesseGauche(0)
-        self._controleur.setVitesseDroite(0)
-
-    def avancer(self):
-        #Avancer droit: on met la même vitesse à gauche et à droite
-        self._controleur.setVitesseGauche(self.v)
-        self._controleur.setVitesseDroite(self.v)
-
 class ReculerDroit:
     """
     Classe représentant l'ia permettant d'avancer droit
@@ -151,14 +116,59 @@ class ReculerDroit:
         self._controleur.setVitesseGauche(-self.v)
         self._controleur.setVitesseDroite(-self.v)
 
-class TournerDroite:
+class Avancer:
+    """
+    Classe représentant l'ia permettant d'avancer droit
+    """
+    def __init__(self, controleur, distance, v, angle = 0):
+        self._controleur = controleur
+        self.distance = distance
+        self.angle = angle
+        self.v = v
+        self.parcouru = 0
+
+    def start(self):
+        self._controleur.getDistanceParcourue() #Reinitialisation
+        self.parcouru = 0
+
+    def stop(self):
+        #On avance tant qu'on n'est pas trop près d'un mur/qu'on n' a pas suffisement avancé
+        return self.parcouru > self.distance
+
+    def step(self, dT: float):
+        #Calcul de la distance parcourue
+        self.parcouru += abs(self._controleur.getDistanceParcourue())
+
+        if self.stop(): 
+            self.end()
+            return
+
+        self.avancer()
+
+    def end(self):
+        self._controleur.setVitesseGauche(0)
+        self._controleur.setVitesseDroite(0)
+
+    def avancer(self):
+        #Avancer selon l'angle et la vitesse
+        if self.angle <= 0:
+            self._controleur.setVitesseGauche(self.v * (1 + self.angle/100))
+            self._controleur.setVitesseDroite(self.v)
+        else:
+            self._controleur.setVitesseGauche(self.v)
+            self._controleur.setVitesseDroite(self.v * (1 - self.angle/100))
+
+class TournerSurPlace:
     """
     Classe représentant l'ia permettant de tourner à droite
     """
     def __init__(self, controleur, angle, v):
         self._controleur = controleur
-        self.angle = radians(-angle)
-        self.v = v
+        self.angle = radians(angle)
+        if angle >= 0:
+            self.v = v
+        else:
+            self.v = -v
         self.parcouru = 0
 
     def start(self):
@@ -167,11 +177,11 @@ class TournerDroite:
 
     def stop(self):
         #On tourne tant qu'on n'a pas dépassé l'angle
-        return self.parcouru < self.angle 
+        return self.parcouru > abs(self.angle) 
         
     def step(self, dT : float):
         #Calcul de la distance parcourue
-        self.parcouru += self._controleur.getDecalageAngle()
+        self.parcouru += abs(self._controleur.getDecalageAngle())
 
         if self.stop():
             self.end()
@@ -186,43 +196,6 @@ class TournerDroite:
     def avancer(self):
         self._controleur.setVitesseGauche(self.v)
         self._controleur.setVitesseDroite(-self.v)
-
-class TournerGauche:
-    """
-    Classe représentant l'ia permettant de tourner à gauche
-    """
-    def __init__(self, controleur, angle, v):
-        self._controleur = controleur
-        self.angle = radians(angle)
-        self.v = v
-        self.parcouru = 0
-
-    def start(self):
-        self.parcouru = 0
-        self._controleur.getDecalageAngle()
-
-    def stop(self):
-        #On tourne tant qu'on n'a pas dépassé l'angle
-        return self.parcouru > self.angle 
-        
-    def step(self, dT : float):
-        #Calcul de la distance parcourue
-        self.parcouru += self._controleur.getDecalageAngle()
-
-        if self.stop():
-            self.end()
-            return
-
-        self.avancer()
-
-    def end(self):
-        self._controleur.setVitesseGauche(0)
-        self._controleur.setVitesseDroite(0)
-
-    def avancer(self):
-        self._controleur.setVitesseGauche(-self.v)
-        self._controleur.setVitesseDroite(self.v)
-
 
 class ApprocherMur:
     """

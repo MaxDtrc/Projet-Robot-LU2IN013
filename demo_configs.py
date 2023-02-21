@@ -27,7 +27,7 @@ while select < 1 or select > i:
 simulation = driftator.chargerJson("config/" + os.listdir('config')[select-1], dT)
 
 #Initialisation de l'affichage
-affichage = driftator.Affichage(simulation, 30, 1.5, False)
+affichage = driftator.Affichage(simulation, controleur, 30, 1.5, False)
 
 #Initialisation du controleur
 implem = driftator.implemSimulation(simulation.getRobot(0), simulation)

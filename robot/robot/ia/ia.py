@@ -98,7 +98,6 @@ class Avancer:
 
     def step(self, dT: float):
         #Calcul de la distance parcourue
-        print(self.parcouru)
         self.parcouru += abs(self._controleur.getDistanceParcourue())
 
         if self.stop(): 
@@ -114,7 +113,6 @@ class Avancer:
     def avancer(self):
         #Avancer selon l'angle et la vitesse
         if self.angle <= 0:
-            print(self.v * (1 + self.angle/100.0), self.v)
             self._controleur.setVitesseGauche(self.v * (1 + self.angle/100.0))
             self._controleur.setVitesseDroite(self.v)
         else:

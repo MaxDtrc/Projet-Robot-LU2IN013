@@ -159,6 +159,8 @@ class GetDecalageSim(Decorator):
 class GetDecalageReel(Decorator):
     def __init__(self, robot):
         Decorator.__init__(self, robot)
+        self._offset = (0, 0)
+        self._offsetAngle = (0, 0)
 
     def __getattr__(self, name):
         return getattr(self.robot, name)
@@ -173,14 +175,14 @@ class GetDecalageReel(Decorator):
         diamRoue = 6.65
         rayonRobot = 5.855
 
-        posRoues = self.get_motor_position()
+        d = self.get_motor_position()
 
-        d = posRoues()
-
-        dG = d[0]/360 * diamRoue * pi
-        dD = d[1]/360 * diamRoue * pi
+        dG = (d[0] - self._offsetAngle[0])/360 * diamRoue * pi
+        dD = (d[1] - self._offsetAngle[1])/360 * diamRoue * pi
 
         angle = (dD - dG)/(rayonRobot * 2)
+
+        self._offsetAngle = d
 
         return angle
 
@@ -194,10 +196,11 @@ class GetDecalageReel(Decorator):
         diamRoue = 6.65
         posRoues = self.get_motor_position()
 
-        d = (posRoues[0] + posRoues[1])/2
+        d = (posRoues[0] - self._offset[0] + posRoues[1] - self._offset[1])/2
+
+        self._offset = posRoues
 
         #Reset de l'origine de la pos
-        self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
-        self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
+       
 
         return d/360 * diamRoue * pi 

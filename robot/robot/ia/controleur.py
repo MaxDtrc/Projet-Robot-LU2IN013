@@ -1,5 +1,4 @@
-from math import pi
-
+from math import pi, sqrt
 class implemSimulation:
     
     def __init__(self, robot, simulation):
@@ -31,19 +30,27 @@ class implemSimulation:
         """
         Retourne la distance entre le robot et l'obstacle
 
-        :returns: la distance entre le robot et l'obstacle
+        :returns: la distance entre le robot et l'obstacle (en cm)
         """
         return self._s.getDistanceFromRobot(self._r)
 
-    def getDecalage(self):
-        return self._r.getDecalage()
+    def reset(self):
+        pass
 
+    
+
+    def __getattr__(self, name):
+        return getattr(self._r, name)
 
         
 
 class implemVraiVie:
     def __init__(self, robot):
         self._r = robot
+
+        #Reset de l'origine de la position
+        self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
+        self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
 
     def setVitesseGauche(self, v: float):
         """
@@ -68,13 +75,17 @@ class implemVraiVie:
         """
         Retourne la distance entre le robot et l'obstacle
 
-        :returns: la distance entre le robot et l'obstacle
+        :returns: la distance entre le robot et l'obstacle (en cm)
         """
-        return self._r.get_distance()
+        return self._r.get_distance() / 10
+
+    def reset(self):
+        self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
+        self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
+
+    def __getattr__(self, name):
+        return getattr(self._r, name)
     
-    def getDecalage(self):
-        pass
-        #A DEFINIR
 
 class controleur:
     def __init__(self, implementation = None):
@@ -95,6 +106,11 @@ class controleur:
 
         self._imp = newImp
 
+    def stop_ia_thread(self):
+        self.running = False
+        self.setVitesseGauche(0)
+        self.setVitesseDroite(0)
+
     def __getattr__(self, name):
         return getattr(self._imp, name)
 
@@ -108,11 +124,13 @@ class Decorator:
 class GetDecalageSim(Decorator):
     def __init__(self, robot):
         Decorator.__init__(self, robot)
+        self._decalageA = 0 #décalage de l'angle par rapport à la dernière obtention
+        self._pos = (0, 0)
 
     def __getattr__(self, name):
         return getattr(self.robot, name)
 
-    def getDecalage(self):
+    def getDecalageAngle(self):
         """
         Renvoi le décalage de l'angle du robot depuis le dernier appel de la fonction et le remet à 0
 
@@ -122,15 +140,30 @@ class GetDecalageSim(Decorator):
         self._decalageA = self._angle
         return res
 
+    def getDistanceParcourue(self):
+        """
+        Renvoi la distance parcourue par le robot
+
+        :returns: la distance parcourue par le robot
+        """
+
+        newPos = (self.x, self.y)
+        d = (newPos[0] - self._pos[0], newPos[1] - self._pos[1])
+        self._pos = newPos
+
+        dP = sqrt(d[0]**2 + d[1]**2)
+
+        return dP
+
+
 class GetDecalageReel(Decorator):
     def __init__(self, robot):
         Decorator.__init__(self, robot)
-        self._decalage = (0, 0)
 
     def __getattr__(self, name):
         return getattr(self.robot, name)
 
-    def getDecalage(self):
+    def getDecalageAngle(self):
         """
         Renvoi le décalage de l'angle du robot depuis le dernier appel de la fonction et le remet à 0
 
@@ -138,16 +171,33 @@ class GetDecalageReel(Decorator):
         """
 
         diamRoue = 6.65
-        rayonRobot = 5.85
+        rayonRobot = 5.855
 
         posRoues = self.get_motor_position()
 
-        d = posRoues - self._decalage
-        self._decalage = posRoues
+        d = posRoues()
 
-        dG = d[0] * diamRoue * pi
-        dD = d[1] * diamRoue * pi
+        dG = d[0]/360 * diamRoue * pi
+        dD = d[1]/360 * diamRoue * pi
 
-        angle = (dD - dG)/(rayonRobot * 2) * self._dT
+        angle = (dD - dG)/(rayonRobot * 2)
 
         return angle
+
+    def getDistanceParcourue(self):
+        """
+        Renvoi la distance parcourue par le robot
+
+        :returns: la distance parcourue par le robot
+        """
+
+        diamRoue = 6.65
+        posRoues = self.get_motor_position()
+
+        d = (posRoues[0] + posRoues[1])/2
+
+        #Reset de l'origine de la pos
+        self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
+        self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
+
+        return d/360 * diamRoue * pi 

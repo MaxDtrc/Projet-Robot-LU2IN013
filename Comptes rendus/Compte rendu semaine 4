@@ -27,7 +27,7 @@ Taches faites :
 - Ecriture d'une fonction pour enregistrer l'état du robot dans un fichier JSON
 - Creation de thread pour plusieurs classes (Affichage, Simulation, Robot et IA)
 - Ajout d'un fichier .gitignore
-- Realisation d'une classe ApprocherMur, AvancerDroit, TournerDroite (IA)
+- Realisation d'une classe ApprocherMur, Avancer, TournerDroite (IA)
 - Remplacement des angles de degrés vers radians
 - Multiples séances communes
 

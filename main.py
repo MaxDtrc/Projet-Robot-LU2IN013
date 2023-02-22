@@ -1,39 +1,37 @@
-import robot as r
+import robot as driftator
 
 #Instantiation du controleur
-controleur = r.controleur()
+controleur = driftator.ia.controleur()
 
 try:
     from robot2IN013 import Robot2IN013
 
     #Initialisation du controleur
-    implem = r.implemVraiVie(r.GetDecalageReel(Robot2IN013()))
+    implem = driftator.ia.implemVraiVie(driftator.ia.GetDecalageReel(Robot2IN013()))
     controleur.changerImplementation(implem)
 
-    strats = [r.chargerIA("ia_carre.txt", controleur), r.chargerIA("ia_approcher_mur.txt", controleur)]
+    strats = [(driftator.ia.Avancer(controleur, 100, 10), True)]
 except ImportError:
     #Definition de la "précision temporelle"
-    dT = 0.01
+    dT = 0.005
 
     #Creation du terrain
-    s = r.chargerJson('config/config_immobile.json', dT)
-
-    #Initialisation de l'affichage
-    a = r.Affichage(s, 30, 5, True)
+    simulation = driftator.simulation.chargerJson('config/config_immobile.json', dT)
 
     #Initialisation du controleur
-    implem = r.implemSimulation(r.GetDecalageSim(s.getRobot(0)), s)
+    implem = driftator.ia.implemSimulation(driftator.ia.GetDecalageSim(simulation.getRobot(0)), simulation)
     controleur.changerImplementation(implem)
 
-    strats = [r.chargerIA(controleur, "ia_carre.txt"), r.chargerIA(controleur, "ia_approcher_mur.txt")]
+    #Initialisation de l'affichage
+    affichage = driftator.affichage.Affichage(simulation, controleur,  240, 7, True, True)
+
+    strats = [([driftator.ia.Avancer(controleur, 10, 10, 0)], False)]
 
     #Start des threads de la simulation
-    s.start()
-    a.start()
-
-
+    simulation.start()
+    affichage.start()
 
 
 #Lancement de l'IA du robot
-ia = r.IA(controleur, strats[1], dT)
+ia = driftator.ia.IA(controleur, strats[0], dT)
 ia.start()

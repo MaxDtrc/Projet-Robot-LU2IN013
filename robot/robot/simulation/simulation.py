@@ -18,20 +18,28 @@ class Simulation(Thread):
         """
         super(Simulation, self).__init__()
 
-        self._dT = dT
+        self._wait = dT
         if robotsList is None : 
             self._robotsList = []
         else:
             self._robotsList = robotsList
         self.terrain = terrain
 
+        #Dernier point détecté par le capteur de distance et s'il a été appelé
+        self.capteurDistanceAppele = False 
         self.lastPosX = 0
         self.lastPosY = 0
 
     def run(self):
-        while True:
-            time.sleep(self._dT)
+        self.running = True
+        while self.running:
+            self._lastTime = time.time()
+            time.sleep(self._wait)
+            self._dT = time.time() - self._lastTime
             self.actualiser()            
+
+    def stop(self):
+        self.running = False
 
     def ajouterRobot(self, robot : o.Robot):
         """
@@ -79,7 +87,7 @@ class Simulation(Thread):
     def getDistanceFromRobot(self, robot: o.Robot):
         """ 
         :param terrain : Terrain
-        :returns : la distance jusqu'au prochain obstacle
+        :returns : la distance jusqu'au prochain obstacle (en mm)
         """
         dirVect = (cos(robot.angle), sin(-robot.angle))
         posRayon = (robot.x + dirVect[0] * robot.rayon, robot.y + dirVect[1] * robot.rayon)
@@ -91,9 +99,10 @@ class Simulation(Thread):
             for i in range(0, self.terrain.getNombreObstacles()):
                 if self.terrain.getObstacle(i).estDedans(posRayon[0], posRayon[1]):
                     #Enregistrement des dernières valeurs observées (utiles pour du débogage ou l'affichage du rayon par exemple)
+                    self.capteurDistanceAppele = True
                     self.lastPosX = posRayon[0] #On enregistre la dernière position X du rayon
                     self.lastPosY = posRayon[1] #On enregistre la dernière position Y du rayon
-                    #print("Distance calculée par le capteur:", distance)
+
                     return distance
             
 
@@ -124,6 +133,8 @@ class Simulation(Thread):
 
         for r in self._robotsList:
             r.actualiser()
+
+        
 
 def chargerJson(fichier : str, dT: int):
     """

@@ -1,10 +1,10 @@
 from math import cos, sin, radians, degrees, sqrt
-from robot import Robot, Obstacle, ObstacleRectangle, ObstacleRond
+from robot import Robot, ObstacleRectangle, ObstacleRond
 import unittest
 
 class TestRobot(unittest.TestCase):
     def setUp(self):
-        self.r = Robot("MJ", 20, 45, 0, 5, 10, 200)
+        self.r = Robot("MJ", 20, 45, 0, 5, 10, 200, 0, 200, 0.1)
 
     def testNom(self):
         self.assertEqual(self.r.nom, "MJ")
@@ -46,10 +46,10 @@ class TestRobot(unittest.TestCase):
         self.assertEqual(self.r.vitesseDroite, 0)
 
     def testGetVitesseGauche(self):
-        self.assertEqual(self.r.vitesseGauche, 0)
+        self.assertEqual(self.r.vitesseGauche, 200)
        
     def testGetInfo(self):
-        self.assertEqual(self.r.getInfo(),"VitG: 0.00\tVitD: 0.00\tAngle: 0.00")
+        self.assertEqual(self.r.getInfo(),"VitG: 200.00\tVitD: 0.00\tAngle: 0.00")
     
     def testSetVitesseDroite(self):
         self.r.vitesseDroite = 250
@@ -83,10 +83,10 @@ class TestRobot(unittest.TestCase):
 
     def testActualiser(self):
         self.r.vitesse = 180
-        self.r.actualiser(0.1)
+        self.r.actualiser()
         self.assertAlmostEqual(self.r.position[0], 20.785, 3)
         self.assertEqual(self.r.angle, 0)
-        self.r.actualiser(0.1)
+        self.r.actualiser()
         self.assertAlmostEqual(self.r.position[0], 21.57, 2)
         self.assertEqual(self.r.angle, 0)
 

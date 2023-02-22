@@ -77,45 +77,6 @@ class IA(Thread):
 
 
 #IA Basiques
-class ReculerDroit:
-    """
-    Classe représentant l'ia permettant d'avancer droit
-    """
-    def __init__(self, controleur, distance, v):
-        self._controleur = controleur
-        self.distance = distance
-        self.v = v
-        self.parcouru = 0
-
-    def start(self):
-        self._controleur.getDistanceParcourue() #Reinitialisation
-        self.parcouru = 0
-
-    def stop(self):
-        #On avance tant qu'on n'est pas trop près d'un mur/qu'on n' a pas suffisement avancé
-        print(self.parcouru)
-        self._controleur.getDistance()
-        return -self.parcouru > self.distance
-
-    def step(self, dT: float):
-        #Calcul de la distance parcourue
-        self.parcouru += self._controleur.getDistanceParcourue()
-
-        if self.stop(): 
-            self.end()
-            return
-
-        self.avancer()
-
-    def end(self):
-        self._controleur.setVitesseGauche(0)
-        self._controleur.setVitesseDroite(0)
-
-    def avancer(self):
-        #Avancer droit: on met la même vitesse à gauche et à droite
-        self._controleur.setVitesseGauche(-self.v)
-        self._controleur.setVitesseDroite(-self.v)
-
 class Avancer:
     """
     Classe représentant l'ia permettant d'avancer droit
@@ -197,43 +158,6 @@ class TournerSurPlace:
         self._controleur.setVitesseGauche(self.v)
         self._controleur.setVitesseDroite(-self.v)
 
-class ApprocherMur:
-    """
-    Classe représentant l'ia permettant d'approcher un mur jusqu'à une certaine distance
-    """
-    def __init__(self, controleur, distance):
-        self._controleur = controleur
-        self.v = 0
-        self.d = distance
-
-    def start(self):
-        #Aucune initialisation
-        pass
-
-    def stop(self):
-        #Avance vers le mur jusqu'à être à la distance donnée
-        return self._controleur.getDistance() < self.d
-
-    def step(self, dT: float):
-        #Calcul de la distance au mur
-        distance = self._controleur.getDistance()
-
-        if self.stop(): 
-            self.end()
-            return
-        else:
-            #Calcul de la vitesse en conséquence
-            self.v = distance * 2
-            self.avancer()
-    
-    def end(self):
-        self._controleur.setVitesseGauche(0)
-        self._controleur.setVitesseDroite(0)
-
-    def avancer(self):
-        #Avancer droit: on met la même vitesse à gauche et à droite
-        self._controleur.setVitesseGauche(self.v)
-        self._controleur.setVitesseDroite(self.v)
 
 #IA complexes
 class IACondition:

@@ -40,43 +40,43 @@ except ImportError:
 
 #Liste des IA
 def cond1(controleur):
-        return controleur.getDistance() > 2
+    return controleur.getDistance() > 2
     
 def cond2(controleur):
-        return controleur.getDistance() > 50
+    return controleur.getDistance() > 50
 
 #Tourne quand près du mur
 strat1 = ([driftator.ia.IACondition(controleur, driftator.ia.Avancer(controleur, 10, 600), driftator.ia.Avancer(controleur, 10, 900, 50), cond2)], True) 
     
-    #Avance vers le mur tant que pas trop près
+#Avance vers le mur tant que pas trop près
 strat2 = ([driftator.ia.IAWhile(controleur, driftator.ia.Avancer(controleur, 10, 270), cond1)], True) 
     
-    #Dessine une étoile
+#Dessine une étoile
 strat3 = ([driftator.ia.Avancer(controleur, 20, 180), 
-               driftator.ia.TournerSurPlace(controleur, -72, 270),
-               driftator.ia.Avancer(controleur, 20, 180),
-               driftator.ia.TournerSurPlace(controleur, 144, 270)], True)
+            driftator.ia.TournerSurPlace(controleur, -72, 270),
+            driftator.ia.Avancer(controleur, 20, 180),
+            driftator.ia.TournerSurPlace(controleur, 144, 270)], True)
     
-    #Dessine un carré
+#Dessine un carré
 strat4 = ([driftator.ia.Avancer(controleur, 20, 180),
            driftator.ia.TournerSurPlace(controleur, 90, 180)], True)
     
-    #Trace un cercle
+#Trace un cercle
 strat5 = ([driftator.ia.Avancer(controleur, 100, 360, -40)], True)
 
-    #Trace un dessin mystère
+#Trace un dessin mystère
 strat6 = ([driftator.ia.Avancer(controleur, 110, 360, -50), 
-               driftator.ia.TournerSurPlace(controleur, -40, 300),
-               driftator.ia.Avancer(controleur, 42, 360, -50),
-               driftator.ia.TournerSurPlace(controleur, -80, 300),
-               driftator.ia.Avancer(controleur, 42, 360, -50),
-               driftator.ia.TournerSurPlace(controleur, -80, 300),
-               driftator.ia.Avancer(controleur, 42, 360, -50),
-               driftator.ia.TournerSurPlace(controleur, -80, 300),
-               driftator.ia.Avancer(controleur, 42, 360, -50),
-               driftator.ia.TournerSurPlace(controleur, -80, 300),
-               driftator.ia.Avancer(controleur, 42, 360, -50),
-               driftator.ia.TournerSurPlace(controleur, -80, 300)], False)
+            driftator.ia.TournerSurPlace(controleur, -40, 300),
+            driftator.ia.Avancer(controleur, 42, 360, -50),
+            driftator.ia.TournerSurPlace(controleur, -80, 300),
+            driftator.ia.Avancer(controleur, 42, 360, -50),
+            driftator.ia.TournerSurPlace(controleur, -80, 300),
+            driftator.ia.Avancer(controleur, 42, 360, -50),
+            driftator.ia.TournerSurPlace(controleur, -80, 300),
+            driftator.ia.Avancer(controleur, 42, 360, -50),
+            driftator.ia.TournerSurPlace(controleur, -80, 300),
+            driftator.ia.Avancer(controleur, 42, 360, -50),
+            driftator.ia.TournerSurPlace(controleur, -80, 300)], False)
     
 strats = [strat1, strat2, strat3, strat4, strat5, strat6]
 

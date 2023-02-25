@@ -1,12 +1,16 @@
 Semaine du 22/02/2023
 Compte rendu semaine 6
 
-- 
-
+- interrompre le tracé du carré avec un ou plusieurs obstacles
+- probleme avec le parametre dT dans actualiser qui n est pas donné en paramètre lors de l appel de la fonction
+- soit ce doit etre la simulation qui passe le dT en paramètre soit le mettre directement dans le robot
+- faire des fonctions auxiliaires avec différents paramétrages : par exemple notre fonction tracerCercle prends trop de paramètre actuellement
+- pour les strats -> dico plutôt que liste ?
+- problème matériel entre les différents robots -> réfléchir à une possible calibration
 
 Objectifs:
-- 
-
+- gestion de la caméra -> utilisation de la fonction getImage()
+- simulation de l environnement en 3D
 
 Taches faites :
 - 

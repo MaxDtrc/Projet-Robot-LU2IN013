@@ -41,6 +41,7 @@ class IA(Thread):
         self.boucler = strat[1]
         self.currentStrat = -1
         self._wait = dT
+        
 
     def run(self):
         if len(self.strategies) != 0:
@@ -53,7 +54,6 @@ class IA(Thread):
                 self.step()
 
 
-        
     def step(self):
         if self.currentStrat == -1 or self.strategies[self.currentStrat].stop():
             #On arrête la stratégie "proprement" et on passe à la stratégie suivante
@@ -89,7 +89,7 @@ class Avancer:
         self.parcouru = 0
 
     def start(self):
-        self._controleur.getDistanceParcourue() #Reinitialisation
+        self._controleur.getDistanceParcourue() #Reinitialisation$
         self.parcouru = 0
 
     def stop(self):
@@ -98,6 +98,7 @@ class Avancer:
 
     def step(self, dT: float):
         #Calcul de la distance parcourue
+      
         self.parcouru += abs(self._controleur.getDistanceParcourue())
 
         if self.stop(): 
@@ -107,8 +108,17 @@ class Avancer:
         self.avancer()
 
     def end(self):
+        img = self._controleur.get_image()
+        print(img)
+
+        from PIL import Image
+        im = Image.fromarray(img)
+        im.save("photo.jpeg")
+
+
         self._controleur.setVitesseGauche(0)
         self._controleur.setVitesseDroite(0)
+        
 
     def avancer(self):
         #Avancer selon l'angle et la vitesse

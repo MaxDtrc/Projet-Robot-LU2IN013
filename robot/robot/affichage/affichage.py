@@ -1,8 +1,20 @@
+
+
 import pygame
 from math import radians, cos, sin, degrees
 import os
 from threading import Thread
 import time
+
+
+
+from math import pi, sin, cos
+
+from direct.showbase.ShowBase import ShowBase
+from direct.task import Task
+from direct.actor.Actor import Actor
+from direct.interval.IntervalGlobal import Sequence
+from panda3d.core import Point3
 
 from .. import simulation as s
 
@@ -122,3 +134,96 @@ class Affichage(Thread):
                 self._controleur.stop_ia_thread() #On arrête l'ia
                 self.stop() #On arrête l'affichage
                 exit() #On arrête.
+
+
+class Affichage3d(Thread):
+    def __init__(self, simulation : s.Simulation, controleur, fps: int, echelle: int = 1, afficherDistance: bool = False, afficherTrace: bool = False):
+        """
+        Constructeur de la classe affichage
+        
+        :param simulation : Simulation concernée par cet affichage
+        """
+        super(Affichage3d, self).__init__()
+        self._simulation = simulation
+        self._controleur = controleur
+        self._fps = fps
+        self._echelle = echelle
+        self._afficherDistance = afficherDistance
+        self._afficherTrace = afficherTrace
+        self.tailleTrace = 2
+
+        self.app = MyApp()
+        
+
+    def run(self):
+        self.running = True
+        while self.running:
+            self.afficherSimulation()
+            time.sleep(1./self._fps)
+
+    def stop(self):
+        self.running = False
+
+    def _afficherObstacle(self, obstacle : s.Obstacle):
+        """
+        Affiche un obstacle sur la fenêtre
+        
+        :param obstacle : Obstacle à afficher
+        """
+        pass
+
+    def _afficherRobot(self, robot: s.Robot):
+        """
+        Affiche un robot sur la fenêtre
+        
+        :param robot : Robot à afficher
+        """
+
+        self.app.pandaActor.setPos(robot.x, -robot.y, 0)
+        self.app.pandaActor.setHpr(degrees(robot.angle) + 90, 0, 0)
+
+
+    def afficherSimulation(self):
+        """
+        Affiche l'ensemble de la simulation sur la fenêtre
+        
+        :param simulation : simulation à afficher
+        """
+        #Affichage des objets
+        t = self._simulation.terrain
+        for i in range(0, self._simulation.getNombreDeRobots()):
+            r = self._simulation.getRobot(i)
+            self._afficherRobot(r)
+
+
+class MyApp(ShowBase):
+    def __init__(self):
+        ShowBase.__init__(self)
+
+        # Disable the camera trackball controls.
+        self.disableMouse()
+
+        # Load the environment model.
+        self.scene = self.loader.loadModel("models/environment")
+        # Reparent the model to render.
+        self.scene.reparentTo(self.render)
+        # Apply scale and position transforms on the model.
+        self.scene.setScale(0.25, 0.25, 0.25)
+        self.scene.setPos(8, 42, 0)
+
+        # Add the spinCameraTask procedure to the task manager.
+        self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
+
+        # Load and transform the panda actor.
+        self.pandaActor = Actor("models/panda-model",
+                                {"walk": "models/panda-walk4"})
+        self.pandaActor.setScale(0.005, 0.005, 0.005)
+        self.pandaActor.reparentTo(self.render)
+        # Loop its animation.
+        self.pandaActor.loop("walk")
+
+    # Define a procedure to move the camera.
+    def spinCameraTask(self, task):
+        self.camera.setPos(0, 0, 100)
+        self.camera.setHpr(0, -90, 0)
+        return Task.cont

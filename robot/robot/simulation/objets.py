@@ -7,7 +7,7 @@ class Robot:
     """
 
     #Constructeur
-    def __init__(self, nom: str, posX: float, posY: float, angle: float, t: float, r: float = 10, vG: float = 0, vD: float = 0, vMax: float = 10, dT: float = 0.01):
+    def __init__(self, nom: str, posX: float, posY: float, angle: float, t: float, r: float = 10, vG: float = 0, vD: float = 0, vMax: float = 10):
         """
         Constructeur de la classe Robot
 
@@ -17,10 +17,11 @@ class Robot:
         :param angle: orientation du robot (en degrés)
         :param t: diamètre des roues (en cm)
         :param r: rayon du robot
-        :param vitesseMax: vitesse maximum des roues (en degrés de rotation par seconde)
+        :param vitesseMax: vitesse maximum des roues
+         
+           (en degrés de rotation par seconde)
         """
         #super(Robot, self).__init__()
-        self._dT = dT
         self._nom = nom
         self._posX = posX
         self._posY = posY
@@ -197,7 +198,7 @@ class Robot:
         return ("VitG: "+str(format(self._vitesseGauche,'.2f'))+"\tVitD: "+str(format(self._vitesseDroite,'.2f'))+"\tAngle: "+str(format(self._angle,'.2f')))
 
     #Contrôle du robot
-    def actualiser(self):
+    def actualiser(self, dT):
         """
         Actualise la position et l'angle du robot selon le temps dT écoulé depuis la dernière actualisation
 
@@ -209,13 +210,13 @@ class Robot:
         vD = self._vitesseDroite/360.0 * pi * self.tailleRoues
 
         #Mise à jour de ses coordonnées (déplacement autour du centre de rotation du robot)
-        x = ((vG + vD)/2) * cos(self._angle) * self._dT
-        y = ((vG + vD)/2) * sin(self._angle) * self._dT
+        x = ((vG + vD)/2) * cos(self._angle) * dT
+        y = ((vG + vD)/2) * sin(self._angle) * dT
         self._posX += x
         self._posY -= y
 
         #Mise à jour de l'angle et
-        a = (vD - vG)/(self._rayon * 2) * self._dT
+        a = (vD - vG)/(self._rayon * 2) * dT
         self._angle += a
 
 

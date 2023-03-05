@@ -1,5 +1,5 @@
 import robot as driftator
-
+import time
 #Instantiation du controleur
 controleur = driftator.ia.controleur()
 
@@ -10,10 +10,12 @@ try:
     implem = driftator.ia.implemVraiVie(driftator.ia.GetDecalageReel(Robot2IN013()))
     controleur.changerImplementation(implem)
 
+    
+
     strats = [(driftator.ia.Avancer(controleur, 100, 10), True)]
 except ImportError:
     #Definition de la "précision temporelle"
-    dT = 0.005
+    dT = 0.001
 
     #Creation du terrain
     simulation = driftator.simulation.chargerJson('config/config_immobile.json', dT)

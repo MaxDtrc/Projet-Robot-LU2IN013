@@ -118,6 +118,9 @@ class Simulation(Thread):
         :param dT : différence de temps (en seconde)
         """
 
+        for r in self._robotsList:
+            r.actualiser(self._dT)
+
         #Test du crash
         robotsARetirer = []
         for robot in self._robotsList:
@@ -129,10 +132,7 @@ class Simulation(Thread):
         #Suppression des robots qui se sont crashés
         for r in robotsARetirer:
             self.retirerRobot(r)
-        
-
-        for r in self._robotsList:
-            r.actualiser()
+    
 
         
 
@@ -165,7 +165,7 @@ def chargerJson(fichier : str, dT: int):
 
         #Importation et initialisation des robots
         for rob in data['robots'] :
-            r = o.Robot(rob['nom'], rob['posX'], rob['posY'], rob['angle'], rob['diametreRoues'], rob['rayon'], rob['vitesseGauche'], rob['vitesseDroite'], rob['vitesseMax'], dT)
+            r = o.Robot(rob['nom'], rob['posX'], rob['posY'], rob['angle'], rob['diametreRoues'], rob['rayon'], rob['vitesseGauche'], rob['vitesseDroite'], rob['vitesseMax'])
             #r.start()
             simulation.ajouterRobot(r)
         

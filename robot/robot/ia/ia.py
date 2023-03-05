@@ -54,6 +54,7 @@ class IA(Thread):
         if not self.strategie.stop():
             self.strategie.step(self._dT)
         else:
+            self.strategie.end()
             self._controleur.running = False   
 
 

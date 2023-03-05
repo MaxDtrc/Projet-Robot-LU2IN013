@@ -2,8 +2,8 @@
     "robots": [
         {
             "nom": "robot1",
-            "posX": 20,
-            "posY": 20,
+            "posX": -20,
+            "posY": -20,
             "angle": 0,
             "diametreRoues": 6.65,
             "rayon": 5.85,

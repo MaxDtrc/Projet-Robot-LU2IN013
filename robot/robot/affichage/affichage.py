@@ -16,9 +16,9 @@ from direct.actor.Actor import Actor
 from direct.interval.IntervalGlobal import Sequence
 from panda3d.core import Point3
 
-from panda3d.core import loadPrcFileData
+from panda3d.core import loadPrcFileData, OrthographicLens
 
-loadPrcFileData("", "win-size 1280 720")
+loadPrcFileData("", "win-size 720 720")
 
 from .. import simulation as s
 
@@ -153,6 +153,19 @@ class Affichage3d(Thread):
         self._fps = fps
 
         self.app = MyApp()
+
+
+        #Affichage des obstacles
+        for i in range(self._simulation.terrain.getNombreObstacles()):
+            o = self._simulation.terrain.getObstacle(i)
+
+            mdl = self.app.loader.loadModel("cube.obj")
+            mdl.setPos(o._posX, o._posY, 0)
+            mdl.setScale(o._longueur/2, o._largeur/2, 10)
+            mdl.reparentTo(self.app.render)
+
+            print("modele ajouté", len(self.app.obsList))
+            self.app.obsList.append(mdl)
         
 
     def run(self):
@@ -216,18 +229,20 @@ class MyApp(ShowBase):
 
         # Load and transform the panda actor.
         os.chdir(os.path.dirname(os.path.abspath(__file__)))
-        
         self.pandaActor = Actor("robot/robot/affichage/Blazing_Banana/banana.obj" )
-
-        self.pandaActor.setScale(1, 1, 1)
-
+        self.pandaActor.setScale(2, 2, 2)
         self.pandaActor.reparentTo(self.render)
+
+        self.obsList = list()
+        lens = OrthographicLens()
+        lens.setFilmSize(160, 160)  # Or whatever is appropriate for your scene
+        self.cam.node().setLens(lens)
 
         # Loop its animation.
         self.pandaActor.loop("walk")
 
     # Define a procedure to move the camera.
     def spinCameraTask(self, task):
-        self.camera.setPos(0, 0, 100)
+        self.camera.setPos(0, 0, 350)
         self.camera.setHpr(0, -90, 0)
         return Task.cont

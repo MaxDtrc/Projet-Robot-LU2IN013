@@ -108,14 +108,6 @@ class Avancer:
         self.avancer()
 
     def end(self):
-        img = self._controleur.get_image()
-        print(img)
-
-        from PIL import Image
-        im = Image.fromarray(img)
-        im.save("photo.jpeg")
-
-
         self._controleur.setVitesseGauche(0)
         self._controleur.setVitesseDroite(0)
         

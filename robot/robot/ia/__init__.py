@@ -1,2 +1,2 @@
-from .ia import IA, Avancer, TournerSurPlace, IACondition, IAWhile, IAFor
+from .ia import IA, Avancer, TournerSurPlace, IACondition, IAWhile, IAFor, IASeq
 from .controleur import controleur, implemSimulation, implemVraiVie, GetDecalageReel, GetDecalageSim

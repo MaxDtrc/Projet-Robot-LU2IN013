@@ -37,43 +37,24 @@ class IA(Thread):
     def __init__(self, controleur, strat, dT = 0.01):
         super(IA, self).__init__()
         self._controleur = controleur
-        self.strategies = strat[0]
-        self.boucler = strat[1]
-        self.currentStrat = -1
+        self.strategie = strat
         self._wait = dT
 
     def run(self):
-        if len(self.strategies) != 0:
-            self._controleur.running = True
-            while self._controleur.running:
-                #Etape suivante
-                self._lastTime = time.time()
-                time.sleep(self._wait)
-                self._dT = time.time() - self._lastTime
-                self.step()
+        self.strategie.start()
+        self._controleur.running = True
+        while self._controleur.running:
+            #Etape suivante
+            self._lastTime = time.time()
+            time.sleep(self._wait)
+            self._dT = time.time() - self._lastTime
+            self.step()
 
-
-        
     def step(self):
-        if self.currentStrat == -1 or self.strategies[self.currentStrat].stop():
-            #On arrête la stratégie "proprement" et on passe à la stratégie suivante
-            if self.currentStrat != -1: 
-                self.strategies[self.currentStrat].end()
-            self.currentStrat += 1
-            if self.currentStrat >= len(self.strategies):
-                if self.boucler:
-                    #On repasse à la première stratégie
-                    self.currentStrat = 0
-                else:
-                    self.currentStrat = 0
-                    self._controleur.running = False
-                    return
-            #Initialisation de la stratégie
-            self._controleur.reset()
-            self.strategies[self.currentStrat].start()
+        if not self.strategie.stop():
+            self.strategie.step(self._dT)
         else:
-            #Step de la stratégie
-            self.strategies[self.currentStrat].step(self._dT)        
+            self._controleur.running = False   
 
 
 #IA Basiques
@@ -295,13 +276,17 @@ class IAWhile:
         self._condition = condition
 
     def start(self):
-        #Initialisation des 2 sous IA
+        #Initialisation de la sous IA
         self._ia.start()
         pass
 
     def stop(self):
-        #Arrêt si l'une des deux IA est
-        return self._ia.stop() or not self._condition(self._controleur)
+        #Arrêt si la condition n'est pas vérifiée
+        if not self._condition(self._controleur):
+            return True
+        elif self._ia.stop():
+            self._ia.end()
+            self._ia.start()
 
     def step(self, dT: float):
         if self.stop(): 
@@ -355,3 +340,43 @@ class IAFor:
     
     def end(self):
         self._ia.end()
+
+class IASeq:
+    """
+    Classe permettant de réaliser une séquence d'IA
+    """
+    def __init__(self, controleur, iaList):
+        """
+        Paramètres
+        :param controleur: controleur du robot
+        :param ia: ia à appeler si la condition est vérifiée
+        :param condition: fonction de la condition qui renvoie un booléen
+        """
+        self._controleur = controleur
+        self.v = 0
+        self._iaList = iaList.copy()
+
+    def start(self):
+        #Initialisation de la sous ia 1
+        self._i = 0
+        self._iaList[self._i].start()
+
+    def stop(self):
+        #Arrêt si l'une des deux IA est
+        if self._iaList[self._i].stop():
+            if(self._i >= len(self._iaList) - 1):
+                return True
+            else:
+                self._iaList[self._i].end()
+                self._i += 1
+                self._iaList[self._i].start()
+
+    def step(self, dT: float):
+        if self.stop(): 
+            self.end()
+            return
+        else:
+            self._iaList[self._i].step(dT)
+    
+    def end(self):
+        self._iaList[self._i].end()

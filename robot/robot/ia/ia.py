@@ -313,3 +313,45 @@ class IAWhile:
     
     def end(self):
         self._ia.end()
+
+class IAFor:
+    """
+    Classe permettant de réaliser une ia un certain nombre de fois
+    """
+    def __init__(self, controleur, ia, nbIter):
+        """
+        Paramètres
+        :param controleur: controleur du robot
+        :param ia: ia à appeler si la condition est vérifiée
+        :param condition: fonction de la condition qui renvoie un booléen
+        """
+        self._controleur = controleur
+        self.v = 0
+        self._ia = ia
+        self._nbIter = nbIter
+
+    def start(self):
+        #Initialisation des 2 sous IA
+        self._i = 0
+        self._ia.start()
+        pass
+
+    def stop(self):
+        #Arrêt si l'une des deux IA est
+        if self._ia.stop():
+            self._i += 1
+            if(self._i >= self._nbIter):
+                return True
+            else:
+                self._ia.end()
+                self._ia.start()
+
+    def step(self, dT: float):
+        if self.stop(): 
+            self.end()
+            return
+        else:
+            self._ia.step(dT)
+    
+    def end(self):
+        self._ia.end()

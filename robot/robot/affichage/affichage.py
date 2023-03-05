@@ -16,6 +16,10 @@ from direct.actor.Actor import Actor
 from direct.interval.IntervalGlobal import Sequence
 from panda3d.core import Point3
 
+from panda3d.core import loadPrcFileData
+
+loadPrcFileData("", "win-size 1280 720")
+
 from .. import simulation as s
 
 
@@ -137,7 +141,7 @@ class Affichage(Thread):
 
 
 class Affichage3d(Thread):
-    def __init__(self, simulation : s.Simulation, controleur, fps: int, echelle: int = 1, afficherDistance: bool = False, afficherTrace: bool = False):
+    def __init__(self, simulation : s.Simulation, controleur, fps: int):
         """
         Constructeur de la classe affichage
         
@@ -147,10 +151,6 @@ class Affichage3d(Thread):
         self._simulation = simulation
         self._controleur = controleur
         self._fps = fps
-        self._echelle = echelle
-        self._afficherDistance = afficherDistance
-        self._afficherTrace = afficherTrace
-        self.tailleTrace = 2
 
         self.app = MyApp()
         
@@ -180,7 +180,7 @@ class Affichage3d(Thread):
         """
 
         self.app.pandaActor.setPos(robot.x, -robot.y, 0)
-        self.app.pandaActor.setHpr(degrees(robot.angle) + 90, 0, 0)
+        self.app.pandaActor.setHpr(degrees(robot.angle) + 90, 90, 0)
 
 
     def afficherSimulation(self):
@@ -203,22 +203,26 @@ class MyApp(ShowBase):
         # Disable the camera trackball controls.
         self.disableMouse()
 
-        # Load the environment model.
+        """# Load the environment model.
         self.scene = self.loader.loadModel("models/environment")
         # Reparent the model to render.
         self.scene.reparentTo(self.render)
         # Apply scale and position transforms on the model.
         self.scene.setScale(0.25, 0.25, 0.25)
-        self.scene.setPos(8, 42, 0)
+        self.scene.setPos(8, 42, 0)"""
 
         # Add the spinCameraTask procedure to the task manager.
         self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
 
         # Load and transform the panda actor.
-        self.pandaActor = Actor("models/panda-model",
-                                {"walk": "models/panda-walk4"})
-        self.pandaActor.setScale(0.005, 0.005, 0.005)
+        os.chdir(os.path.dirname(os.path.abspath(__file__)))
+        
+        self.pandaActor = Actor("robot/robot/affichage/Blazing_Banana/banana.obj" )
+
+        self.pandaActor.setScale(1, 1, 1)
+
         self.pandaActor.reparentTo(self.render)
+
         # Loop its animation.
         self.pandaActor.loop("walk")
 

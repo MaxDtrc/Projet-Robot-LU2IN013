@@ -23,7 +23,7 @@ except ImportError:
     controleur.changerImplementation(implem)
 
     #Initialisation de l'affichage
-    affichage = driftator.affichage.Affichage3d(simulation, controleur,  240, 7, True, True)
+    affichage = driftator.affichage.Affichage3d(simulation, controleur,  240)
 
     def cond(controleur):
         return controleur.getDistance() > 5

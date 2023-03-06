@@ -213,21 +213,10 @@ class MyApp(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
 
-        # Disable the camera trackball controls.
         self.disableMouse()
 
-        """# Load the environment model.
-        self.scene = self.loader.loadModel("models/environment")
-        # Reparent the model to render.
-        self.scene.reparentTo(self.render)
-        # Apply scale and position transforms on the model.
-        self.scene.setScale(0.25, 0.25, 0.25)
-        self.scene.setPos(8, 42, 0)"""
-
-        # Add the spinCameraTask procedure to the task manager.
         self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
 
-        # Load and transform the panda actor.
         os.chdir(os.path.dirname(os.path.abspath(__file__)))
         self.pandaActor = Actor("robot/robot/affichage/Blazing_Banana/banana.obj" )
         self.pandaActor.setScale(2, 2, 2)
@@ -235,13 +224,11 @@ class MyApp(ShowBase):
 
         self.obsList = list()
         lens = OrthographicLens()
-        lens.setFilmSize(160, 160)  # Or whatever is appropriate for your scene
+        lens.setFilmSize(160, 160)
         self.cam.node().setLens(lens)
 
-        # Loop its animation.
         self.pandaActor.loop("walk")
 
-    # Define a procedure to move the camera.
     def spinCameraTask(self, task):
         self.camera.setPos(0, 0, 350)
         self.camera.setHpr(0, -90, 0)

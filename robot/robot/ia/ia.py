@@ -38,7 +38,7 @@ class IA(Thread):
         super(IA, self).__init__()
         self._controleur = controleur
         self.strategie = strat
-        self._wait = dT
+        self._wait = dT/10
 
     def run(self):
         self.strategie.start()

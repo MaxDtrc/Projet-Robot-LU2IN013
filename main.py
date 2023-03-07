@@ -5,7 +5,7 @@ controleur = driftator.ia.controleur()
 
 
 #Definition de la "précision temporelle"
-dT = 0.0000001
+dT = 0.0000000001
 
 try:
     from robot2IN013 import Robot2IN013

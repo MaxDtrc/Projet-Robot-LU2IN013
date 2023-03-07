@@ -34,7 +34,7 @@ class IA(Thread):
     """
     Classe représentant l'IA
     """
-    def __init__(self, controleur, strat, dT = 0.01):
+    def __init__(self, controleur, strat, dT):
         super(IA, self).__init__()
         self._controleur = controleur
         self.strategie = strat
@@ -156,6 +156,7 @@ class TournerSurPlace:
     def start(self):
         self.parcouru = 0
         self._controleur.getDecalageAngle()
+        print("début:", self._controleur._decalageA)
 
     def stop(self):
         #On tourne tant qu'on n'a pas dépassé l'angle
@@ -163,8 +164,9 @@ class TournerSurPlace:
         
     def step(self, dT : float):
         #Calcul de la distance parcourue
-        self.parcouru += abs(self._controleur.getDecalageAngle())
-
+        a = abs(self._controleur.getDecalageAngle())
+        self.parcouru += a
+        
         if self.stop():
             self.end()
             return
@@ -363,21 +365,22 @@ class IASeq:
         self._iaList[self._i].start()
 
     def stop(self):
-        #Arrêt si l'une des deux IA est
+        #Passage à l'ia suivante si fini
         if self._iaList[self._i].stop():
             if(self._i >= len(self._iaList) - 1):
                 return True
-            else:
-                self._iaList[self._i].end()
-                self._i += 1
-                self._iaList[self._i].start()
+                
 
     def step(self, dT: float):
         if self.stop(): 
             self.end()
             return
-        else:
-            self._iaList[self._i].step(dT)
+        elif self._iaList[self._i].stop():
+            self._iaList[self._i].end()
+            self._i += 1
+            self._iaList[self._i].start()
+            
+        self._iaList[self._i].step(dT)
     
     def end(self):
         self._iaList[self._i].end()

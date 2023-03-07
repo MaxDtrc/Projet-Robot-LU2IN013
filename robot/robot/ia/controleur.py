@@ -124,7 +124,7 @@ class Decorator:
 class GetDecalageSim(Decorator):
     def __init__(self, robot):
         Decorator.__init__(self, robot)
-        self._decalageA = 0 #décalage de l'angle par rapport à la dernière obtention
+        self._decalageA = 0 #dernier angle obtenu
         self._pos = (0, 0)
 
     def __getattr__(self, name):
@@ -170,8 +170,8 @@ class GetDecalageReel(Decorator):
         :returns: le décalage de l'angle du robot depuis le dernier appel
         """
 
-        diamRoue = 6.65
-        rayonRobot = 5.855
+        diamRoue = self.WHEEL_DIAMETER/10
+        rayonRobot = self.WHEEL_BASE_WIDTH/20
 
         posRoues = self.get_motor_position()
 

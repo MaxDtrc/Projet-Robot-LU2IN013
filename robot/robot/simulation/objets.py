@@ -1,13 +1,16 @@
 from math import cos, sin, radians, sqrt, pi
 from abc import ABC, abstractmethod
+import time
+from threading import Thread
 
-class Robot:
+
+class Robot(Thread):
     """
     Classe représentant un robot
     """
 
     #Constructeur
-    def __init__(self, nom: str, posX: float, posY: float, angle: float, t: float, r: float = 10, vG: float = 0, vD: float = 0, vMax: float = 10):
+    def __init__(self, nom: str, posX: float, posY: float, angle: float, t: float, r: float = 10, vG: float = 0, vD: float = 0, vMax: float = 10, dT = 0.0001):
         """
         Constructeur de la classe Robot
 
@@ -21,7 +24,7 @@ class Robot:
          
            (en degrés de rotation par seconde)
         """
-        #super(Robot, self).__init__()
+        super(Robot, self).__init__()
         self._nom = nom
         self._posX = posX
         self._posY = posY
@@ -31,12 +34,19 @@ class Robot:
         self._vitesseGauche = vG
         self._vitesseDroite = vD
         self.vitesseMax = vMax
+        self._wait = dT
         
 
-    """def run(self):
-        while True:
-            time.sleep(self._dT)
-            self.actualiser()"""
+    def run(self):
+        self.running = True
+        while self.running:
+            self._lastTime = time.time()
+            time.sleep(self._wait)
+            self._dT = time.time() - self._lastTime
+            self.actualiser()            
+
+    def stop(self):
+        self.running = False
             
 
 
@@ -198,7 +208,7 @@ class Robot:
         return ("VitG: "+str(format(self._vitesseGauche,'.2f'))+"\tVitD: "+str(format(self._vitesseDroite,'.2f'))+"\tAngle: "+str(format(self._angle,'.2f')))
 
     #Contrôle du robot
-    def actualiser(self, dT):
+    def actualiser(self):
         """
         Actualise la position et l'angle du robot selon le temps dT écoulé depuis la dernière actualisation
 
@@ -206,17 +216,18 @@ class Robot:
         :returns: rien, changement in place
         """
         #Calcul de la vitesse en cm/s du robot
+
         vG = self._vitesseGauche/360.0 * pi * self.tailleRoues
         vD = self._vitesseDroite/360.0 * pi * self.tailleRoues
 
         #Mise à jour de ses coordonnées (déplacement autour du centre de rotation du robot)
-        x = ((vG + vD)/2) * cos(self._angle) * dT
-        y = ((vG + vD)/2) * sin(self._angle) * dT
+        x = ((vG + vD)/2) * cos(self._angle) * self._dT
+        y = ((vG + vD)/2) * sin(self._angle) * self._dT
         self._posX += x
         self._posY -= y
 
         #Mise à jour de l'angle et
-        a = (vD - vG)/(self._rayon * 2) * dT
+        a = (vD - vG)/(self._rayon * 2) * self._dT
         self._angle += a
 
 

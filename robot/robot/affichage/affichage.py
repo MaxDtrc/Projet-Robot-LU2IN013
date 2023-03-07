@@ -164,6 +164,13 @@ class Affichage3d(Thread):
             mdl.setScale(o._longueur/2, o._largeur/2, 10)
             mdl.reparentTo(self.app.render)
 
+
+
+            #mdl.setColor(0, 1, 0, 1.0)
+
+            #mdl.setColorScale(0, 1, 0, 1.0)
+
+
             print("modele ajouté", len(self.app.obsList))
             self.app.obsList.append(mdl)
         
@@ -195,6 +202,8 @@ class Affichage3d(Thread):
         self.app.pandaActor.setPos(robot.x, -robot.y, 0)
         self.app.pandaActor.setHpr(degrees(robot.angle) + 90, 90, 0)
 
+        #self.app.camera.setPos(robot.x, -robot.y, 5)
+        #self.app.camera.setHpr(degrees(robot.angle), 0, 0)
 
     def afficherSimulation(self):
         """

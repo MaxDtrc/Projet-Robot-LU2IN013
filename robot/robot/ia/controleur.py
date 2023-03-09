@@ -201,3 +201,20 @@ class GetDecalageReel(Decorator):
         self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
 
         return d/360 * diamRoue * pi 
+    
+
+class Variables(Decorator):
+    def __init__(self, robot):
+        self._variables = dict()
+        Decorator.__init__(self, robot)
+
+    def getVar(self, nom):
+        return self._variables[nom]
+    
+    def setVar(self, nom, val):
+        self._variables[nom] = val
+
+    def __getattr__(self, name):
+        return getattr(self.robot, name)
+
+    

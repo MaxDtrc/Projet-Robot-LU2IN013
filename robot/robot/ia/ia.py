@@ -456,8 +456,6 @@ class IAPrint:
     def end(self):
         pass
 
-
-
 #Parser d'IA
 def readIA(ia, c):
     i = 0
@@ -659,7 +657,6 @@ def readIA(ia, c):
             
         
     return IASeq(c, seq)
-
 
 def openIA(fichier, c, dT):
     with open(fichier, 'r') as f:

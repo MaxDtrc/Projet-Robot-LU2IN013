@@ -37,7 +37,7 @@ class Simulation(Thread):
             time.sleep(self._wait)
             self._dT = time.time() - self._lastTime
             self.actualiser()            
-
+            
     def stop(self):
         self.running = False
 

@@ -1,9 +1,9 @@
 
 
 import pygame
-from math import radians, cos, sin, degrees
+from math import cos, sin, degrees
 import os
-from threading import Thread
+from threading import Thread, enumerate
 import time
 
 
@@ -139,7 +139,6 @@ class Affichage(Thread):
                 self.stop() #On arrête l'affichage
                 exit() #On arrête.
 
-
 class Affichage3d(Thread):
     def __init__(self, simulation : s.Simulation, controleur, fps: int):
         """
@@ -154,35 +153,33 @@ class Affichage3d(Thread):
 
         self.app = MyApp()
 
-
         #Affichage des obstacles
         for i in range(self._simulation.terrain.getNombreObstacles()):
             o = self._simulation.terrain.getObstacle(i)
 
-            mdl = self.app.loader.loadModel("cube.obj")
+            mdl = self.app.loader.loadModel(os.path.dirname(os.path.abspath(__file__)) + "/models/cube/cube.obj")
             mdl.setPos(o._posX, o._posY, 0)
             mdl.setScale(o._longueur/2, o._largeur/2, 10)
             mdl.reparentTo(self.app.render)
 
-
-
-            #mdl.setColor(0, 1, 0, 1.0)
-
-            #mdl.setColorScale(0, 1, 0, 1.0)
-
-
-            print("modele ajouté", len(self.app.obsList))
             self.app.obsList.append(mdl)
-        
+
 
     def run(self):
-        self.running = True
-        while self.running:
+        self.app.running = True
+        while self.app.running:
             self.afficherSimulation()
             time.sleep(1./self._fps)
+        self.stop()
+        print("c'est finiiii")
 
     def stop(self):
-        self.running = False
+        self._simulation.stop() #On arrête la simulation
+        self._controleur.stop_ia_thread() #On arrête l'ia
+
+        self.app.destroy() #on arrête l'app
+
+        return #on arrête
 
     def _afficherObstacle(self, obstacle : s.Obstacle):
         """
@@ -226,8 +223,7 @@ class MyApp(ShowBase):
 
         self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
 
-        os.chdir(os.path.dirname(os.path.abspath(__file__)))
-        self.pandaActor = Actor("robot/robot/affichage/Blazing_Banana/banana.obj" )
+        self.pandaActor = Actor(os.path.dirname(os.path.abspath(__file__)) + "/models/Blazing_Banana/banana.obj" )
         self.pandaActor.setScale(2, 2, 2)
         self.pandaActor.reparentTo(self.render)
 
@@ -242,3 +238,7 @@ class MyApp(ShowBase):
         self.camera.setPos(0, 0, 350)
         self.camera.setHpr(0, -90, 0)
         return Task.cont
+    
+    def userExit(self):
+        self.running = False
+        self.shutdown()

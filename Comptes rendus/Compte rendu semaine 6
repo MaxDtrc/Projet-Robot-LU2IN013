@@ -13,4 +13,11 @@ Objectifs:
 - simulation de l environnement en 3D
 
 Taches faites :
-- 
+- Test avec la camera du robot, prise de plusieurs images
+- Ajout d'une IA "for" permettant de répéter une IA
+- Ajout d'une IA "Seq" permettant de réaliser des séquences
+d'IA
+- Debut d'une simulation 3d (avec Panda3d), ajout
+de la classe Affichage3d et premières méthodes (afficherObstacleRectangle, afficherRobot)
+- Recherche sur un moyen de détecter la balise -> test avec OpenCV
+

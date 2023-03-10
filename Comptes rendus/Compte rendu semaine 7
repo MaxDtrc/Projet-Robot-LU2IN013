@@ -1,0 +1,15 @@
+Semaine du 8/02/2023
+Compte rendu semaine 7
+
+Objectifs:
+- Pouvoir déterminer la position de la balise sur
+les images prises par la camera 3d
+- Simplifier la création d'IA complexes pour le robot
+- Améliorer la simulation 3d
+
+Taches faites :
+- Ajout d'une fonction openIA permettant de lire une IA
+depuis un fichier .ia (syntaxe détaillée sur le readme)
+- Ajout d'un décorateur Variables pour la classe robot
+lui permettant d'enregistrer des variables
+- Ajout de 2 nouvelles IA: IACond et IAGererVariable permettant de vérifier des conditions et de gérer les variables enregistrées par le robot

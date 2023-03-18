@@ -6,17 +6,16 @@ import os
 from threading import Thread, enumerate
 import time
 
-
-
 from math import pi, sin, cos
 
+#Panda3d
 from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 from direct.actor.Actor import Actor
 from direct.interval.IntervalGlobal import Sequence
 from panda3d.core import Point3
 
-from panda3d.core import loadPrcFileData, OrthographicLens
+from panda3d.core import loadPrcFileData, OrthographicLens, TextureStage
 
 loadPrcFileData("", "win-size 720 720")
 
@@ -153,6 +152,51 @@ class Affichage3d(Thread):
 
         self.app = MyApp()
 
+
+        #Affichage du terrain
+        mdl = self.app.loader.loadModel(os.path.dirname(os.path.abspath(__file__)) + "/models/cube/cube.obj")
+        mdl.setPos(0, 0, -2)
+        mdl.setScale(self._simulation.terrain.sizeX/2, self._simulation.terrain.sizeY/2, 2)
+
+        mdl.reparentTo(self.app.render)
+
+        
+        
+        ts = TextureStage('ts')
+        txt = self.app.loader.loadTexture(os.path.dirname(os.path.abspath(__file__)) + "/models/cube/WoodFloor040_1K_Color_1.png")
+        mdl.setTexture(ts, txt)
+        mdl.setTexScale(ts, 10, 10)
+
+        self.app.obsList.append(mdl)
+
+        self._afficherObstacles()
+
+
+
+
+
+
+    def run(self):
+        self.app.running = True
+        while self.app.running:
+            self.afficherSimulation()
+            time.sleep(1./self._fps)
+        self.stop()
+
+    def stop(self):
+        self._simulation.stop() #On arrête la simulation
+        self._controleur.stop_ia_thread() #On arrête l'ia
+
+        self.app.destroy() #on arrête l'app
+
+        return #on arrête
+
+    def _afficherObstacles(self):
+        """
+        Affiche un obstacle sur la fenêtre
+        
+        :param obstacle : Obstacle à afficher
+        """
         #Affichage des obstacles
         for i in range(self._simulation.terrain.getNombreObstacles()):
             o = self._simulation.terrain.getObstacle(i)
@@ -164,31 +208,6 @@ class Affichage3d(Thread):
 
             self.app.obsList.append(mdl)
 
-
-    def run(self):
-        self.app.running = True
-        while self.app.running:
-            self.afficherSimulation()
-            time.sleep(1./self._fps)
-        self.stop()
-        print("c'est finiiii")
-
-    def stop(self):
-        self._simulation.stop() #On arrête la simulation
-        self._controleur.stop_ia_thread() #On arrête l'ia
-
-        self.app.destroy() #on arrête l'app
-
-        return #on arrête
-
-    def _afficherObstacle(self, obstacle : s.Obstacle):
-        """
-        Affiche un obstacle sur la fenêtre
-        
-        :param obstacle : Obstacle à afficher
-        """
-        pass
-
     def _afficherRobot(self, robot: s.Robot):
         """
         Affiche un robot sur la fenêtre
@@ -198,6 +217,9 @@ class Affichage3d(Thread):
 
         self.app.pandaActor.setPos(robot.x, -robot.y, 0)
         self.app.pandaActor.setHpr(degrees(robot.angle) + 90, 90, 0)
+
+        self.app.camera.setPos(robot.x, -robot.y, 4.5)
+        self.app.camera.setHpr(degrees(robot.angle) - 90, 0, 0)
 
         #self.app.camera.setPos(robot.x, -robot.y, 5)
         #self.app.camera.setHpr(degrees(robot.angle), 0, 0)
@@ -228,15 +250,15 @@ class MyApp(ShowBase):
         self.pandaActor.reparentTo(self.render)
 
         self.obsList = list()
-        lens = OrthographicLens()
+        """lens = OrthographicLens()
         lens.setFilmSize(160, 160)
-        self.cam.node().setLens(lens)
+        self.cam.node().setLens(lens)"""
 
         self.pandaActor.loop("walk")
 
     def spinCameraTask(self, task):
-        self.camera.setPos(0, 0, 350)
-        self.camera.setHpr(0, -90, 0)
+        #self.camera.setPos(0, 0, 350)
+        #self.camera.setHpr(0, -90, 0)
         return Task.cont
     
     def userExit(self):

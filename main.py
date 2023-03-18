@@ -1,5 +1,4 @@
 import robot as driftator
-from threading import Thread, enumerate
 
 #Instantiation du controleur
 controleur = driftator.ia.controleur()
@@ -27,7 +26,7 @@ def chargerImplemSimulation():
     controleur.changerImplementation(implem)
 
     #Chargement de l'IA
-    ia = driftator.ia.openIA("test.ia", controleur, dT)
+    ia = driftator.ia.openIA("test2.ia", controleur, dT)
     ia.start()
 
     #Initialisation de l'affichage

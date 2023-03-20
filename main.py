@@ -1,4 +1,4 @@
-import robot as driftator
+import driftator
 
 #Instantiation du controleur
 controleur = driftator.ia.controleur()

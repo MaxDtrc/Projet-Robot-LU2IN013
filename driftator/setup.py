@@ -7,5 +7,5 @@ setup(name='driftator',
       author='Driftator',
       author_email='',
       license='Aucune',
-      packages=['robot'],
+      packages=['driftator'],
       zip_safe=False)

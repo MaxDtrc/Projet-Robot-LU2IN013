@@ -17,19 +17,18 @@ from direct.gui.OnscreenText import OnscreenText
 
 from panda3d.core import Point3, Filename
 
-from panda3d.core import loadPrcFileData, OrthographicLens, TextureStage, Spotlight, PerspectiveLens, PointLight
+from panda3d.core import loadPrcFileData, OrthographicLens, TextureStage, PointLight
 
 loadPrcFileData("", "win-size 720 720")
 
 from .. import simulation as s
 
-
+#Initialisation de variables globales
 COULEUR_OBSTACLES = (65, 0, 55)
 COULEUR_ROBOT = (255, 165, 165)
 BLACK = (0, 0, 0)
 
-path = os.path.dirname(os.path.realpath(__file__))
-path = Filename.fromOsSpecific(path).getFullpath()
+path = Filename.fromOsSpecific(os.path.dirname(os.path.realpath(__file__))).getFullpath()
 
 
 
@@ -40,6 +39,11 @@ class Affichage(Thread):
         Constructeur de la classe affichage
         
         :param simulation : Simulation concernée par cet affichage
+        :param controleur : Controleur concernée par cet affichage
+        :param fps : Le nombre d'fps de la simulation
+        :param echelle : Echelle de la simulation
+        :param afficherDistance : Booleen pour afficher la distance entre le robot et les obstacles
+        :param afficherTrace : Booleen pour choisir si le robot laisse une trace sur son passage
         """
         super(Affichage, self).__init__()
         self._simulation = simulation
@@ -109,7 +113,6 @@ class Affichage(Thread):
         """
         Affiche l'ensemble de la simulation sur la fenêtre
         
-        :param simulation : simulation à afficher
         """
         e = self._echelle
 
@@ -146,18 +149,14 @@ class Affichage(Thread):
                 exit() #On arrête.
 
 
-
-
-
-
-
-
 class Affichage3d(Thread):
     def __init__(self, simulation : s.Simulation, controleur, fps: int):
         """
         Constructeur de la classe affichage
         
         :param simulation : Simulation concernée par cet affichage
+        :param controleur : Controleur concernée par cet affichage
+        :param fps : Le nombre d'fps de la simulation
         """
         super(Affichage3d, self).__init__()
         self._simulation = simulation
@@ -176,15 +175,17 @@ class Affichage3d(Thread):
         plnp.setPos(0, 50, 100)
         self.app.render.setLight(plnp)
 
-        #Ajout d'un texte pour les controles
+        #Ajout d'un texte pour les touches
         textObject = OnscreenText(text='Appuyer sur q pour changer de POV', pos=(0.6, 0.9), scale=0.04, fg=(255,255,255,1), shadow = (0,0,0,1))
 
-        #Affichage du terrain
+        #Affichage des murs
         mdl = self.app.loader.loadModel(path + "/models/cube/cube.obj")
         mdl.setPos(0, 0, -2)
         mdl.setScale(self._simulation.terrain.sizeX/2, self._simulation.terrain.sizeY/2, 2)
 
         mdl.reparentTo(self.app.render)
+
+        #Affichage du sol
 
         ts = TextureStage('ts')
         txt = self.app.loader.loadTexture(path + "/models/cube/WoodFloor040_1K_Color_1.png")
@@ -214,7 +215,6 @@ class Affichage3d(Thread):
         """
         Affiche un obstacle sur la fenêtre
         
-        :param obstacle : Obstacle à afficher
         """
         #Affichage des obstacles
         for i in range(self._simulation.terrain.getNombreObstacles()):
@@ -237,6 +237,7 @@ class Affichage3d(Thread):
         self.app.robotModel.setPos(robot.x, -robot.y, 0)
         self.app.robotModel.setHpr(degrees(robot.angle) + 90, 90, 0)
 
+        #Changement de pov en appuyant sur q
         if keyboard.is_pressed('q'):
             while keyboard.is_pressed('q'):
                 pass
@@ -249,14 +250,10 @@ class Affichage3d(Thread):
             self.app.camera.setPos(0, 0, 350)
             self.app.camera.setHpr(0, -90, 0)
 
-        #self.app.camera.setPos(robot.x, -robot.y, 5)
-        #self.app.camera.setHpr(degrees(robot.angle), 0, 0)
-
     def afficherSimulation(self):
         """
         Affiche l'ensemble de la simulation sur la fenêtre
         
-        :param simulation : simulation à afficher
         """
         #Affichage des objets
         t = self._simulation.terrain
@@ -277,15 +274,10 @@ class MyApp(ShowBase):
         self.robotModel.reparentTo(self.render)
 
         self.obsList = list()
-        """lens = OrthographicLens()
-        lens.setFilmSize(160, 160)
-        self.cam.node().setLens(lens)"""
 
         self.robotModel.loop("walk")
 
     def spinCameraTask(self, task):
-        """self.camera.setPos(0, 0, 350)
-        self.camera.setHpr(0, -90, 0)"""
         return Task.cont
     
     def userExit(self):

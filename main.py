@@ -22,24 +22,20 @@ def chargerImplemSimulation():
     simulation = driftator.simulation.chargerJson('config/config_immobile.json', dT)
 
     #Initialisation du controleur
-    
+    implem = driftator.ia.implemSimulation(driftator.ia.Variables(driftator.ia.GetDecalageSim(simulation.getRobot(0))), simulation)
+    controleur.changerImplementation(implem)
 
     #Chargement de l'IA
     ia = driftator.ia.openIA("test2.ia", controleur, dT)
     ia.start()
-
-    implem = driftator.ia.implemSimulation(driftator.ia.Variables(driftator.ia.GetDecalageSim(simulation.getRobot(0))), simulation)
-    controleur.changerImplementation(implem)
 
     #Initialisation de l'affichage
     if sim2d:
         affichage = driftator.affichage.Affichage(simulation, controleur,  360, 5, True, True)
     if sim3d:
         affichage3d = driftator.affichage.Affichage3d(simulation, controleur,  240)
+        controleur.set_a(affichage3d)
         
-    
-    
-
     #Start des threads de la simulation
     simulation.start()
 

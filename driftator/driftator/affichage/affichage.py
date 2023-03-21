@@ -4,6 +4,7 @@ import os
 from threading import Thread, enumerate
 import time
 import sys
+import keyboard
 
 from math import pi, sin, cos
 
@@ -12,9 +13,11 @@ from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 from direct.actor.Actor import Actor
 from direct.interval.IntervalGlobal import Sequence
+from direct.gui.OnscreenText import OnscreenText
+
 from panda3d.core import Point3, Filename
 
-from panda3d.core import loadPrcFileData, OrthographicLens, TextureStage
+from panda3d.core import loadPrcFileData, OrthographicLens, TextureStage, Spotlight, PerspectiveLens, PointLight
 
 loadPrcFileData("", "win-size 720 720")
 
@@ -160,8 +163,21 @@ class Affichage3d(Thread):
         self._simulation = simulation
         self._controleur = controleur
         self._fps = fps
+        self.pov = True
 
         self.app = MyApp()
+
+        #Ajout de la lumière
+        plight = PointLight('plight')
+        plight.setShadowCaster(True, 256, 256)
+        self.app.render.setShaderAuto()
+        plight.setColor((1, 1, 1, 1))
+        plnp = self.app.render.attachNewNode(plight)
+        plnp.setPos(0, 50, 100)
+        self.app.render.setLight(plnp)
+
+        #Ajout d'un texte pour les controles
+        textObject = OnscreenText(text='Appuyer sur q pour changer de POV', pos=(0.6, 0.9), scale=0.04, fg=(255,255,255,1), shadow = (0,0,0,1))
 
         #Affichage du terrain
         mdl = self.app.loader.loadModel(path + "/models/cube/cube.obj")
@@ -221,8 +237,17 @@ class Affichage3d(Thread):
         self.app.robotModel.setPos(robot.x, -robot.y, 0)
         self.app.robotModel.setHpr(degrees(robot.angle) + 90, 90, 0)
 
-        self.app.camera.setPos(robot.x, -robot.y, 4.5)
-        self.app.camera.setHpr(degrees(robot.angle) - 90, 0, 0)
+        if keyboard.is_pressed('q'):
+            while keyboard.is_pressed('q'):
+                pass
+            self.pov = not self.pov
+
+        if self.pov:
+            self.app.camera.setPos(robot.x, -robot.y, 4.5)
+            self.app.camera.setHpr(degrees(robot.angle) - 90, 0, 0)
+        else:
+            self.app.camera.setPos(0, 0, 350)
+            self.app.camera.setHpr(0, -90, 0)
 
         #self.app.camera.setPos(robot.x, -robot.y, 5)
         #self.app.camera.setHpr(degrees(robot.angle), 0, 0)
@@ -259,8 +284,8 @@ class MyApp(ShowBase):
         self.robotModel.loop("walk")
 
     def spinCameraTask(self, task):
-        #self.camera.setPos(0, 0, 350)
-        #self.camera.setHpr(0, -90, 0)
+        """self.camera.setPos(0, 0, 350)
+        self.camera.setHpr(0, -90, 0)"""
         return Task.cont
     
     def userExit(self):

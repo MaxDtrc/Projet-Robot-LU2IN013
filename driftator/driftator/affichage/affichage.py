@@ -28,6 +28,9 @@ BLACK = (0, 0, 0)
 path = os.path.dirname(os.path.realpath(__file__))
 path = Filename.fromOsSpecific(path).getFullpath()
 
+
+
+
 class Affichage(Thread):
     def __init__(self, simulation : s.Simulation, controleur, fps: int, echelle: int = 1, afficherDistance: bool = False, afficherTrace: bool = False):
         """
@@ -139,6 +142,13 @@ class Affichage(Thread):
                 self.stop() #On arrête l'affichage
                 exit() #On arrête.
 
+
+
+
+
+
+
+
 class Affichage3d(Thread):
     def __init__(self, simulation : s.Simulation, controleur, fps: int):
         """
@@ -153,7 +163,6 @@ class Affichage3d(Thread):
 
         self.app = MyApp()
 
-
         #Affichage du terrain
         mdl = self.app.loader.loadModel(path + "/models/cube/cube.obj")
         mdl.setPos(0, 0, -2)
@@ -161,8 +170,6 @@ class Affichage3d(Thread):
 
         mdl.reparentTo(self.app.render)
 
-        
-        
         ts = TextureStage('ts')
         txt = self.app.loader.loadTexture(path + "/models/cube/WoodFloor040_1K_Color_1.png")
         mdl.setTexture(ts, txt)
@@ -171,11 +178,6 @@ class Affichage3d(Thread):
         self.app.obsList.append(mdl)
 
         self._afficherObstacles()
-
-
-
-
-
 
     def run(self):
         self.app.running = True
@@ -216,8 +218,8 @@ class Affichage3d(Thread):
         :param robot : Robot à afficher
         """
 
-        self.app.pandaActor.setPos(robot.x, -robot.y, 0)
-        self.app.pandaActor.setHpr(degrees(robot.angle) + 90, 90, 0)
+        self.app.robotModel.setPos(robot.x, -robot.y, 0)
+        self.app.robotModel.setHpr(degrees(robot.angle) + 90, 90, 0)
 
         self.app.camera.setPos(robot.x, -robot.y, 4.5)
         self.app.camera.setHpr(degrees(robot.angle) - 90, 0, 0)
@@ -237,7 +239,6 @@ class Affichage3d(Thread):
             r = self._simulation.getRobot(i)
             self._afficherRobot(r)
 
-
 class MyApp(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
@@ -246,16 +247,16 @@ class MyApp(ShowBase):
 
         self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
 
-        self.pandaActor = Actor(path + "/models/Blazing_Banana/banana.obj" )
-        self.pandaActor.setScale(2, 2, 2)
-        self.pandaActor.reparentTo(self.render)
+        self.robotModel = Actor(path + "/models/Blazing_Banana/banana.obj" )
+        self.robotModel.setScale(2, 2, 2)
+        self.robotModel.reparentTo(self.render)
 
         self.obsList = list()
         """lens = OrthographicLens()
         lens.setFilmSize(160, 160)
         self.cam.node().setLens(lens)"""
 
-        self.pandaActor.loop("walk")
+        self.robotModel.loop("walk")
 
     def spinCameraTask(self, task):
         #self.camera.setPos(0, 0, 350)

@@ -6,28 +6,7 @@ from math import pi, radians, degrees
 TAILLE_ROUES = 7
 RAYON_ROBOT = 5
 
-"""def chargerIA(fichier: str, controleur):
-    Création d'une séquence d'IA depuis un fichier
-    
-    :param fichier: nom du fichier
-    :param controleur: controleur pour l'IA
-    loop = False
-    lst = []
-    with open(fichier, 'r') as f:
-        l = f.readline()
-        while l:
-            t = l.split(" ")
-            match t[0]:
-                case "avancer":
-                    lst.append(Avancer(controleur, int(t[1]), int(t[2])))
-                case "tourner_droite":
-                    lst.append(TournerDroite(controleur, int(t[1]), int(t[2])))
-                case "approcher_mur":
-                    lst.append(ApprocherMur(controleur, int(t[1])))
-                case "boucler":
-                    loop = True
-            l = f.readline()
-    return (lst, loop)"""
+
 
 
 class IA(Thread):
@@ -58,10 +37,22 @@ class IA(Thread):
             self._controleur.running = False
 
 
+
+
+
+
+
+
+
 #IA de déplacement
 class Avancer:
     """
     Classe représentant l'ia permettant d'avancer droit
+
+    :param controleur: controleur du robot
+    :param distance: distance (cm) dont le robot doit avancer
+    :param v: vitesse (tour de roue/s)
+    :param angle: angle de la trajectoire du robot (pourcentage de -100 à 100)
     """
     def __init__(self, controleur, distance, v, angle = 0):
         self._controleur = controleur
@@ -104,6 +95,10 @@ class Avancer:
 class TournerSurPlace:
     """
     Classe représentant l'ia permettant de tourner à droite
+
+    :param controleur: controleur du robot
+    :param angle: angle (degré) de rotation
+    :param v: vitesse (tour de roue/s)
     """
     def __init__(self, controleur, angle, v):
         self._controleur = controleur
@@ -141,7 +136,19 @@ class TournerSurPlace:
         self._controleur.setVitesseGauche(self.v)
         self._controleur.setVitesseDroite(-self.v)
 
-#IA constructionnelles
+
+
+
+
+
+
+
+
+
+
+
+
+#IA complexes
 class IAIf:
     """
     Classe permettant de réaliser une ia conditionnelle
@@ -243,7 +250,7 @@ class IAFor:
         Paramètres
         :param controleur: controleur du robot
         :param ia: ia à appeler si la condition est vérifiée
-        :param condition: fonction de la condition qui renvoie un booléen
+        :param nbIter: nombre de fois que l'ia doit être effectuée
         """
         self._controleur = controleur
         self.v = 0
@@ -251,8 +258,14 @@ class IAFor:
         self._nbIter = nbIter
 
     def start(self):
-        #Initialisation des 2 sous IA
+        #Initialisation de i
         self._i = 0
+
+        #Substitution de la variable
+        self._vars = [self._nbIter]
+        substituerVariables(self, 0)
+        
+        self._max = int(self._vars[0])
         self._ia.start()
         pass
 
@@ -260,7 +273,7 @@ class IAFor:
         #Arrêt si l'une des deux IA est
         if self._ia.stop():
             self._i += 1
-            if(self._i >= self._nbIter):
+            if(self._i >= self._max):
                 return True
             else:
                 self._ia.end()
@@ -284,8 +297,7 @@ class IASeq:
         """
         Paramètres
         :param controleur: controleur du robot
-        :param ia: ia à appeler si la condition est vérifiée
-        :param condition: fonction de la condition qui renvoie un booléen
+        :param iaList: liste des ia à effectuer
         """
         self._controleur = controleur
         self.v = 0
@@ -317,7 +329,45 @@ class IASeq:
     def end(self):
         self._iaList[self._i].end()
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 #IA complémentaires
+
+
+def substituerVariables(ia, i):
+    """
+    Fonctions auxiliaire permettant de remplacer les variables par leur valeurs
+    """
+    try:
+        #L'élément est une valeur
+        parsed = float(ia._vars[i])
+    except:
+        #L'élément est un nom de variable
+
+        #Si appel au capteur de distance, on le met à jour
+        if(ia._vars[i] == "capteur_distance"):
+            ia._controleur._variables["capteur_distance"] = ia._controleur.getDistance()
+        if(ia._vars[i] == "capteur_balise"):
+            ia._controleur._variables["capteur_balise"] = ia._controleur.getBalisePosition()
+
+        #On substitue la variable à sa valeur
+        if(ia._vars[i] not in ['(', ')', '==', '!=', '<', '>', '<=', '>=', '+', '-', '/', '*', '%', '//']):
+            ia._vars[i] = str(ia._controleur._variables[ia._vars[i]])
+
+
+
+
 class IACondition:
     """
     Classe permettant de réaliser une condition pour une IA
@@ -344,19 +394,7 @@ class IACondition:
     def step(self):
         if not self.stop():
             for i in range(len(self._vars)):
-                try:
-                    #L'élément est une valeur
-                    parsed = float(self._vars[i])
-                except:
-                    #L'élément est un nom de variable
-
-                    #Si appel au capteur de distance, on le met à jour
-                    if(self._vars[i] == "capteur_distance"):
-                        self._controleur._variables["capteur_distance"] = self._controleur.getDistance()
-
-                    #On substitue la variable à sa valeur
-                    if(self._vars[i] not in ['(', ')', '==', '!=', '<', '>', '<=', '>=', '+', '-', '/', '*', '%', '//', 'and', 'or']):
-                        self._vars[i] = str(self._controleur._variables[self._vars[i]])
+                substituerVariables(self, i)
 
             self.resultat = eval(' '.join(self._vars))
     
@@ -389,19 +427,7 @@ class IAGererVariable:
     def step(self, dT):
         if not self.stop():
             for i in range(2, len(self._vars)):
-                try:
-                    #L'élément est une valeur
-                    parsed = float(self._vars[i])
-                except:
-                    #L'élément est un nom de variable
-
-                    #Si appel au capteur de distance, on le met à jour
-                    if(self._vars[i] == "capteur_distance"):
-                        self._controleur._variables["capteur_distance"] = self._controleur.getDistance()
-
-                    #On substitue la variable à sa valeur
-                    if(self._vars[i] not in ['(', ')', '==', '!=', '<', '>', '<=', '>=', '+', '-', '/', '*', '%', '//']):
-                        self._vars[i] = str(self._controleur._variables[self._vars[i]])
+                substituerVariables(self, i)
 
             self._controleur._variables[self._args[0]] = eval(''.join(self._vars[2:]))
             self.effectue = True
@@ -435,19 +461,7 @@ class IAPrint:
     def step(self, dT):
         if not self.stop():
             for i in range(len(self._vars)):
-                try:
-                    #L'élément est une valeur
-                    parsed = float(self._vars[i])
-                except:
-                    #L'élément est un nom de variable
-
-                    #Si appel au capteur de distance, on le met à jour
-                    if(self._vars[i] == "capteur_distance"):
-                        self._controleur._variables["capteur_distance"] = self._controleur.getDistance()
-
-                    #On substitue la variable à sa valeur
-                    if(self._vars[i] not in ['(', ')', '==', '!=', '<', '>', '<=', '>=', '+', '-', '/', '*', '%', '//']):
-                        self._vars[i] = str(self._controleur._variables[self._vars[i]])
+                substituerVariables(self, i)
 
             #Affichage
             print(eval(''.join(self._vars)))
@@ -455,211 +469,3 @@ class IAPrint:
 
     def end(self):
         pass
-
-#Parser d'IA
-def readIA(ia, c):
-    i = 0
-    seq = []
-    while(i < len(ia)):
-        #Commentaire ou blanc
-        if ia[i] == '\n' or (len(ia[i]) > 2 and ia[i][:2] == '//'):
-            i+=1
-        
-        #Instruction "avancer"
-        elif len(ia[i]) >= 7 and ia[i][:7] == 'avancer':
-            #Découpage de la commande
-            instr = ia[i].split(' ')
-
-            #Creation des variables
-            d = 0
-            v = 0
-            a = 0
-            
-            #Lecture de la commande
-            for j in instr[1:]:
-                #suppression du \n
-                if j[-1] == '\n':
-                    j = j[:-2]
-                
-                #Lecture des jiables
-                if j[0] == 'd':
-                    d = float(j[2:])
-                elif j[0] == 'v':
-                    v = float(j[2:])
-                elif j[0] == 'a':
-                    a = float(j[2:])
-
-            #Ajout de la commande
-            seq.append(Avancer(c, d, v, a))
-            i+=1
-        
-        #Instruction "tourner"
-        elif len(ia[i]) >= 7 and ia[i][:7] == 'tourner':
-            #Découpage de la commande
-            instr = ia[i].split(' ')
-
-            #Creation des variables
-            a = 0
-            v = 0
-            
-            #Lecture de la commande
-            for j in instr[1:]:
-                #suppression du \n
-                if j[-1] == '\n':
-                    j = j[:-2]
-                
-                #Lecture des jiables
-                if j[0] == 'a':
-                    a = float(j[2:])
-                elif j[0] == 'v':
-                    v = float(j[2:])
-
-            #Ajout de la commande
-            seq.append(TournerSurPlace(c, a, v))
-            i+=1
-        
-        #Instruction "For"
-        elif len(ia[i]) >= 3 and ia[i][:3] == 'for':
-            #Lecture du nombre de fois à repeter
-            nb = int(ia[i].split('(')[1].split(')')[0])
-
-            #Lecture des instructions
-            i+=1
-            nbParenthOuverte = 0
-            tabBloc = []
-            while ia[i][0] != '}' or nbParenthOuverte != 0:
-                #Suppression des indentations:
-                while(ia[i][0] == ' '):
-                    ia[i] = ia[i][1:]
-
-                #Detection d'une parenthèse ouvrante
-                if(len(ia[i]) >= 2 and ia[i][-2] == '{'):
-                    nbParenthOuverte += 1
-
-                #Detection d'une parenthèse fermante
-                if(len(ia[i]) >= 2 and ia[i][-2] == '}'):
-                    nbParenthOuverte += -1
-
-                #Ajout de la commande
-                tabBloc.append(ia[i])
-                i+=1
-            blocIA = readIA(tabBloc, c)
-
-            #Ajout de la commande
-            seq.append(IAFor(c, blocIA, nb))
-            i+=1
-        
-        #Instruction "If"
-        elif len(ia[i]) >= 2 and ia[i][:2] == 'if':
-            #Lecture de la condition
-            cond = ia[i].split('(')[1].split(')')[0].split(' ')
-            
-            #Creation de la condition
-            iaCond = IACondition(c, cond)
-
-            #Lecture des deux blocs
-            i+=1
-            nbParenthOuverte = 0
-            tabBloc = []
-            while ia[i][0] != '}' or nbParenthOuverte != 0:
-                #Suppression des indentations:
-                while(ia[i][0] == ' '):
-                    ia[i] = ia[i][1:]
-
-                #Detection d'une parenthèse ouvrante
-                if(len(ia[i]) >= 2 and ia[i][-2] == '{'):
-                    nbParenthOuverte += 1
-
-                #Detection d'une parenthèse fermante
-                if(len(ia[i]) >= 2 and ia[i][-2] == '}'):
-                    nbParenthOuverte += -1
-
-                #Ajout de la commande
-                tabBloc.append(ia[i])
-                i+=1
-            blocIA1 = readIA(tabBloc, c)
-
-            i+=2
-            tabBloc = []
-            while ia[i][0] != '}' or nbParenthOuverte != 0:
-                #Suppression des indentations:
-                while(ia[i][0] == ' '):
-                    ia[i] = ia[i][1:]
-
-                #Detection d'une parenthèse ouvrante
-                if(len(ia[i]) >= 2 and ia[i][-2] == '{'):
-                    nbParenthOuverte += 1
-
-                #Detection d'une parenthèse fermante
-                if(len(ia[i]) >= 2 and ia[i][-2] == '}'):
-                    nbParenthOuverte += -1
-
-                #Ajout de la commande
-                tabBloc.append(ia[i])
-                i+=1
-            blocIA2 = readIA(tabBloc, c)
-
-            #Ajout de la condition
-            seq.append(IAIf(c, blocIA1, blocIA2, iaCond))
-            i+=1
-        
-        #Instruction "While"
-        elif len(ia[i]) >= 5 and ia[i][:5] == 'while':
-            #Lecture de la condition
-            cond = ia[i].split('(')[1].split(')')[0].split(' ')
-            
-            #Creation de la condition
-            iaCond = IACondition(c, cond)
-
-            #Lecture des deux blocs
-            i+=1
-            nbParenthOuverte = 0
-            tabBloc = []
-            while ia[i][0] != '}' or nbParenthOuverte != 0:
-                #Suppression des indentations:
-                while(ia[i][0] == ' '):
-                    ia[i] = ia[i][1:]
-
-                #Detection d'une parenthèse ouvrante
-                if(len(ia[i]) >= 2 and ia[i][-2] == '{'):
-                    nbParenthOuverte += 1
-
-                #Detection d'une parenthèse fermante
-                if(len(ia[i]) >= 2 and ia[i][-2] == '}'):
-                    nbParenthOuverte += -1
-
-                #Ajout de la commande
-                tabBloc.append(ia[i])
-                i+=1
-            blocIA = readIA(tabBloc, c)
-
-            #Ajout de la condition
-            seq.append(IAWhile(c, blocIA, iaCond))
-            i+=1
-             
-        #Print
-        elif len(ia[i]) >= 5 and ia[i][:5] == 'print':
-            #Lecture de la definition de variable et suppression du ;
-            instr = ia[i].split('(')[1].split(')')[0].split(' ')
-
-            #Ajout de l'instruction
-            seq.append(IAPrint(c, instr))
-            i+=1
-
-        #Definition de variable
-        elif (len(ia[i].split(' ')) >= 1 and ia[i].split(' ')[1] == '='):
-            #Lecture de la definition de variable et suppression du ;
-            instr = ia[i][:-2].split(" ")
-
-            #Ajout de l'instruction
-            seq.append(IAGererVariable(c, instr))
-            i+=1
-            
-        
-    return IASeq(c, seq)
-
-def openIA(fichier, c, dT):
-    with open(fichier, 'r') as f:
-        s = f.readlines()
-    return IA(c, readIA(s, c), dT)
-        

@@ -1,9 +1,12 @@
 from math import pi, sqrt
+from .position_balise import getPosBalise
+
 class implemSimulation:
     
-    def __init__(self, robot, simulation):
+    def __init__(self, robot, simulation, affichage3d = None):
         self._r = robot
         self._s = simulation
+        self._a = affichage3d
 
     def setVitesseGauche(self, v: float):
         """
@@ -33,6 +36,23 @@ class implemSimulation:
         :returns: la distance entre le robot et l'obstacle (en cm)
         """
         return self._s.getDistanceFromRobot(self._r)
+    
+    def set_a(self, a):
+        print("oui")
+        self._a = a
+
+
+    def getBalisePosition(self):
+        """
+        Retourne la position x de la balise sur l'image captée par la camera
+        """
+        print(self._a)
+        if self._a != None:
+            self._a.app.screenshot("screenshot_test.png", False)
+        
+
+        #CONVERSION DE l'IMAGE ET APPEL DE LA FONCTION RENVOYANT LA POSITION DE LA BALISE
+
 
     def reset(self):
         pass
@@ -78,6 +98,17 @@ class implemVraiVie:
         :returns: la distance entre le robot et l'obstacle (en cm)
         """
         return self._r.get_distance() / 10
+    
+    def getBalisePosition(self):
+        """
+        Retourne la position x de la balise sur l'image captée par la camera
+        """
+        img = self._r.get_image()
+        
+        #CONVERSION DE l'IMAGE ET APPEL DE LA FONCTION RENVOYANT LA POSITION DE LA BALISE
+
+
+        
 
     def reset(self):
         self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])

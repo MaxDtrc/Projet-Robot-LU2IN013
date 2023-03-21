@@ -2,3 +2,5 @@ __pycache__/
 *.pyc
 driftator.egg-info/
 driftator/driftator/.DS_Store
+driftator/driftator/affichage/.DS_Store
+driftator/driftator/affichage/models/.DS_Store

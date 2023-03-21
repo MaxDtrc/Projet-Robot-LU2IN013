@@ -38,7 +38,6 @@ class implemSimulation:
         return self._s.getDistanceFromRobot(self._r)
     
     def set_a(self, a):
-        print("oui")
         self._a = a
 
 

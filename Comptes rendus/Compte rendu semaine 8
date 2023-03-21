@@ -7,4 +7,9 @@ les images prises par la camera
 - Améliorer la simulation 3d
 
 Taches faites :
--
+- Ajout de la POV du robot
+- Ajout de lumière et d'ombres dans la simulation 3D
+- Ajout d'une touche pour changer de POV pendant la simulation
+- Réparer la branche main sur le github
+- Faire un parser d'ia
+- Ecrire le readme

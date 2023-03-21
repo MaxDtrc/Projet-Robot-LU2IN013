@@ -1,10 +1,9 @@
-
-
 import pygame
 from math import cos, sin, degrees
 import os
 from threading import Thread, enumerate
 import time
+import sys
 
 from math import pi, sin, cos
 
@@ -13,7 +12,7 @@ from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 from direct.actor.Actor import Actor
 from direct.interval.IntervalGlobal import Sequence
-from panda3d.core import Point3
+from panda3d.core import Point3, Filename
 
 from panda3d.core import loadPrcFileData, OrthographicLens, TextureStage
 
@@ -25,6 +24,9 @@ from .. import simulation as s
 COULEUR_OBSTACLES = (65, 0, 55)
 COULEUR_ROBOT = (255, 165, 165)
 BLACK = (0, 0, 0)
+
+path = os.path.dirname(os.path.realpath(__file__))
+path = Filename.fromOsSpecific(path).getFullpath()
 
 class Affichage(Thread):
     def __init__(self, simulation : s.Simulation, controleur, fps: int, echelle: int = 1, afficherDistance: bool = False, afficherTrace: bool = False):
@@ -82,8 +84,7 @@ class Affichage(Thread):
         """
         e = self._echelle
         #Image de base
-        os.chdir(os.path.dirname(os.path.abspath(__file__)))
-        image_pas_tournee = pygame.image.load("robot.png").convert_alpha()
+        image_pas_tournee = pygame.image.load(os.path.dirname(os.path.realpath(__file__)) + "/robot.png").convert_alpha()
         image_pas_tournee = pygame.transform.scale(image_pas_tournee, (image_pas_tournee.get_width()/15 * robot.rayon *e, image_pas_tournee.get_height()/15 * robot.rayon *e))
         
         #Image que l'on tourne en fonction de l'angle du robot
@@ -154,7 +155,7 @@ class Affichage3d(Thread):
 
 
         #Affichage du terrain
-        mdl = self.app.loader.loadModel(os.path.dirname(os.path.abspath(__file__)) + "/models/cube/cube.obj")
+        mdl = self.app.loader.loadModel(path + "/models/cube/cube.obj")
         mdl.setPos(0, 0, -2)
         mdl.setScale(self._simulation.terrain.sizeX/2, self._simulation.terrain.sizeY/2, 2)
 
@@ -163,7 +164,7 @@ class Affichage3d(Thread):
         
         
         ts = TextureStage('ts')
-        txt = self.app.loader.loadTexture(os.path.dirname(os.path.abspath(__file__)) + "/models/cube/WoodFloor040_1K_Color_1.png")
+        txt = self.app.loader.loadTexture(path + "/models/cube/WoodFloor040_1K_Color_1.png")
         mdl.setTexture(ts, txt)
         mdl.setTexScale(ts, 10, 10)
 
@@ -201,7 +202,7 @@ class Affichage3d(Thread):
         for i in range(self._simulation.terrain.getNombreObstacles()):
             o = self._simulation.terrain.getObstacle(i)
 
-            mdl = self.app.loader.loadModel(os.path.dirname(os.path.abspath(__file__)) + "/models/cube/cube.obj")
+            mdl = self.app.loader.loadModel(path + "/models/cube/cube.obj")
             mdl.setPos(o._posX, o._posY, 0)
             mdl.setScale(o._longueur/2, o._largeur/2, 10)
             mdl.reparentTo(self.app.render)
@@ -245,7 +246,7 @@ class MyApp(ShowBase):
 
         self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
 
-        self.pandaActor = Actor(os.path.dirname(os.path.abspath(__file__)) + "/models/Blazing_Banana/banana.obj" )
+        self.pandaActor = Actor(path + "/models/Blazing_Banana/banana.obj" )
         self.pandaActor.setScale(2, 2, 2)
         self.pandaActor.reparentTo(self.render)
 

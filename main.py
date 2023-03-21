@@ -36,7 +36,7 @@ def chargerImplemSimulation():
         affichage = driftator.affichage.Affichage(simulation, controleur,  360, 5, True, True)
     if sim3d:
         affichage3d = driftator.affichage.Affichage3d(simulation, controleur,  240)
-        controleur.set_a(affichage3d)
+        
     
     
 

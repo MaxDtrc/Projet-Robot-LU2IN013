@@ -4,8 +4,8 @@ import os
 from threading import Thread, enumerate
 import time
 import sys
-import keyboard
-
+from pynput.keyboard import Key, Listener, KeyCode
+from pynput import keyboard
 from math import pi, sin, cos
 
 #Panda3d
@@ -29,6 +29,23 @@ COULEUR_ROBOT = (255, 165, 165)
 BLACK = (0, 0, 0)
 
 path = Filename.fromOsSpecific(os.path.dirname(os.path.realpath(__file__))).getFullpath()
+
+#Code pour le listener du clavier
+current = set()
+
+#Variable globale pour changer de pov dans la simulation du robot
+POV = True
+
+
+def on_press(key):
+    global POV
+    if hasattr(key,'char'):
+        if key.char == "q":
+            POV = not POV
+
+l = keyboard.Listener(on_press=on_press)
+
+l.start()
 
 
 
@@ -162,7 +179,6 @@ class Affichage3d(Thread):
         self._simulation = simulation
         self._controleur = controleur
         self._fps = fps
-        self.pov = True
 
         self.app = MyApp()
 
@@ -238,12 +254,10 @@ class Affichage3d(Thread):
         self.app.robotModel.setHpr(degrees(robot.angle) + 90, 90, 0)
 
         #Changement de pov en appuyant sur q
-        if keyboard.is_pressed('q'):
-            while keyboard.is_pressed('q'):
-                pass
-            self.pov = not self.pov
 
-        if self.pov:
+        global POV
+
+        if POV:
             self.app.camera.setPos(robot.x, -robot.y, 4.5)
             self.app.camera.setHpr(degrees(robot.angle) - 90, 0, 0)
         else:

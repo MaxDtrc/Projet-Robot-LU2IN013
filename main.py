@@ -8,7 +8,7 @@ dT = 0.001
 
 #Variables d'affichage
 sim2d = True
-sim3d = False
+sim3d = True
 
 def chargerImplemVraieVie():
     #Initialisation du controleur
@@ -26,12 +26,12 @@ def chargerImplemSimulation():
     controleur.changerImplementation(implem)
 
     #Chargement de l'IA
-    ia = driftator.ia.openIA("test.ia", controleur, dT)
+    ia = driftator.ia.openIA("test2.ia", controleur, dT)
     ia.start()
 
     #Initialisation de l'affichage
     if sim2d:
-        affichage = driftator.affichage.Affichage(simulation, controleur,  360, 5, True, True)
+        affichage = driftator.affichage.Affichage(simulation, controleur,  360, 5, True, False)
     if sim3d:
         affichage3d = driftator.affichage.Affichage3d(simulation, controleur,  240)
         controleur.set_a(affichage3d)

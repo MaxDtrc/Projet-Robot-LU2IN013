@@ -221,7 +221,7 @@ class Affichage3d(Thread):
             o = self._simulation.terrain.getObstacle(i)
 
             mdl = self.app.loader.loadModel(path + "/models/cube/cube.obj")
-            mdl.setPos(o._posX, o._posY, 0)
+            mdl.setPos(o._posX, -o._posY, 0)
             mdl.setScale(o._longueur/2, o._largeur/2, 10)
             mdl.reparentTo(self.app.render)
 

@@ -20,12 +20,15 @@ lower_green = np.array([40, 70, 80])
 upper_green = np.array([70, 255, 255])
 
 
-def getPosBalise(img):
+def getPosBalise():
     """
     Renvoie la position détectée de la balise sur l'image
     
     :param img: image à analyser
     """
+
+    img = cv2.imread("camera.png")
+
 
     #On la convertit pour avoir les données des couleurs
     image = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)

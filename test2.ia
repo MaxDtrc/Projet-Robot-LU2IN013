@@ -1,17 +1,14 @@
-//Debut du programme
-
-
-
-//Condition sur la variable a
-
 while(1 == 1){
-    if(capteur_distance > 50){
-        avancer d=100 v=800 a=0;
+    if(capteur_balise < 320){
+        avancer d=10 v=360 a=-10;
     }
     else{
-        avancer d=100 v=600 a=70;
+        if(capteur_balise == 0){
+            print(1)
+        }
+        else{
+            avancer d=10 v=360 a=10;
+        }
     }
 }
-
-
 //Fin du programme

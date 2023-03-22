@@ -1,5 +1,7 @@
 from math import pi, sqrt
 from .position_balise import getPosBalise
+from PIL import Image
+
 
 class implemSimulation:
     
@@ -45,12 +47,13 @@ class implemSimulation:
         """
         Retourne la position x de la balise sur l'image captée par la camera
         """
-        print(self._a)
+        #print(self._a)
         if self._a != None:
-            self._a.app.screenshot("screenshot_test.png", False)
+            self._a.app.screenshot("camera.png", False)
         
 
         #CONVERSION DE l'IMAGE ET APPEL DE LA FONCTION RENVOYANT LA POSITION DE LA BALISE
+        return getPosBalise()
 
 
     def reset(self):
@@ -105,7 +108,11 @@ class implemVraiVie:
         img = self._r.get_image()
         
         #CONVERSION DE l'IMAGE ET APPEL DE LA FONCTION RENVOYANT LA POSITION DE LA BALISE
+        im = Image.fromarray(img)
 
+        im.save("camera.png")
+
+        return getPosBalise()
 
         
 

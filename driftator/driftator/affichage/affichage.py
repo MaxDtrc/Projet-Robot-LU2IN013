@@ -213,7 +213,7 @@ class Affichage3d(Thread):
         cylindre.reparentTo(self.app.render)
 
         #Ajout de la balise
-        balise=self.app.loader.loadModel(path+"/models/cube/balise.obj")
+        balise=self.app.loader.loadModel(path+"/models/cube/baliseV2.obj")
         #texb = self.app.loader.loadTexture(path+"/models/Skydome3D/cube/balise.png")
         #balise.setTexture(texb)
         balise.setPos(10, 30, 30)

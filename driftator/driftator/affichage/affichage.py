@@ -200,7 +200,6 @@ class Affichage3d(Thread):
         mdl.reparentTo(self.app.render)
 
         #Ajout du ciel
-        
         skydome = self.app.loader.loadModel(path+"/models/Skydome3D/Skydome.obj")
         tex = self.app.loader.loadTexture(path+"/models/Skydome3D/Skydome.png")
         skydome.setTexture(tex)

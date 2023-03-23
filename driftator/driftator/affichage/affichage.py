@@ -206,6 +206,12 @@ class Affichage3d(Thread):
         skydome.reparentTo(self.app.render)
         skydome.setHpr(90, 90, 0)
 
+        #Ajout d'un cylindre
+        cylindre=self.app.loader.loadModel(path+"/models/cylinder.obj")
+        cylindre.setPos(0, 0, 0)
+        cylindre.setScale(10)
+        cylindre.reparentTo(self.app.render)
+
         #Affichage du sol
         ts = TextureStage('ts')
         txt = self.app.loader.loadTexture(path + "/models/cube/WoodFloor040_1K_Color_1.png")

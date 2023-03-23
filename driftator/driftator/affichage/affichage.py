@@ -9,15 +9,13 @@ import keyboard
 from math import pi, sin, cos
 
 #Panda3d
+from direct.stdpy import thread
 from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 from direct.actor.Actor import Actor
 from direct.interval.IntervalGlobal import Sequence
 from direct.gui.OnscreenText import OnscreenText
-
-from panda3d.core import Point3, Filename
-
-from panda3d.core import loadPrcFileData, OrthographicLens, TextureStage, PointLight
+from panda3d.core import Point3, Filename, loadPrcFileData, OrthographicLens, TextureStage, PointLight
 
 loadPrcFileData("", "win-size 720 720")
 
@@ -33,7 +31,7 @@ path = Filename.fromOsSpecific(os.path.dirname(os.path.realpath(__file__))).getF
 
 
 
-class Affichage(Thread):
+class Affichage():
     def __init__(self, simulation : s.Simulation, controleur, fps: int, echelle: int = 1, afficherDistance: bool = False, afficherTrace: bool = False):
         """
         Constructeur de la classe affichage
@@ -45,7 +43,7 @@ class Affichage(Thread):
         :param afficherDistance : Booleen pour afficher la distance entre le robot et les obstacles
         :param afficherTrace : Booleen pour choisir si le robot laisse une trace sur son passage
         """
-        super(Affichage, self).__init__()
+        #super(Affichage, self).__init__()
         self._simulation = simulation
         self._controleur = controleur
         self._fps = fps
@@ -186,7 +184,6 @@ class Affichage3d(Thread):
         mdl.reparentTo(self.app.render)
 
         #Affichage du sol
-
         ts = TextureStage('ts')
         txt = self.app.loader.loadTexture(path + "/models/cube/WoodFloor040_1K_Color_1.png")
         mdl.setTexture(ts, txt)
@@ -260,6 +257,7 @@ class Affichage3d(Thread):
         for i in range(0, self._simulation.getNombreDeRobots()):
             r = self._simulation.getRobot(i)
             self._afficherRobot(r)
+
 
 class MyApp(ShowBase):
     def __init__(self):

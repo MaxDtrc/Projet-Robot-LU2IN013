@@ -6,9 +6,8 @@ controleur = driftator.ia.controleur()
 #Definition de la "précision temporelle"
 dT = 0.001
 
-#Variables d'affichage
-sim2d = True
-sim3d = True
+#Variables d'affichage (1 = 2d, 2 = 3d)
+simView = 1
 
 def chargerImplemVraieVie():
     #Initialisation du controleur
@@ -30,28 +29,29 @@ def chargerImplemSimulation():
     ia.start()
 
     #Initialisation de l'affichage
-    if sim2d:
-        affichage = driftator.affichage.Affichage(simulation, controleur,  360, 5, True, False)
-    if sim3d:
+    if simView == 1:
+        affichage2d = driftator.affichage.Affichage(simulation, controleur,  360, 5, True, False)
+    elif simView == 2:
         affichage3d = driftator.affichage.Affichage3d(simulation, controleur,  240)
         controleur.set_a(affichage3d)
         
     #Start des threads de la simulation
     simulation.start()
 
-    #Start des thread de l'affichage
-    if sim2d:
-        affichage.start()
-    if sim3d:
+    #Lancement de l'affichage (dans le thread principal)
+    if simView == 1:
+        affichage2d.run()
+    elif simView == 2:
         affichage3d.start()
         affichage3d.app.run()
-
-
+    
+        
 try:
     from robot2IN013 import Robot2IN013
     chargerImplemVraieVie()
 
 except ImportError:
     chargerImplemSimulation()
+    
 
 

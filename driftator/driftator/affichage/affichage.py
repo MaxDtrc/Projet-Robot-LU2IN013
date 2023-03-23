@@ -212,6 +212,15 @@ class Affichage3d(Thread):
         cylindre.setScale(10)
         cylindre.reparentTo(self.app.render)
 
+        #Ajout de la balise
+        balise=self.app.loader.loadModel(path+"/models/cube/balise.obj")
+        #texb = self.app.loader.loadTexture(path+"/models/Skydome3D/cube/balise.png")
+        #balise.setTexture(texb)
+        balise.setPos(10, 30, 30)
+        balise.setScale(1)
+        balise.reparentTo(self.app.render)
+
+
         #Affichage du sol
         ts = TextureStage('ts')
         txt = self.app.loader.loadTexture(path + "/models/cube/WoodFloor040_1K_Color_1.png")

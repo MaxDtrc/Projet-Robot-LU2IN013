@@ -1,17 +1,8 @@
-//Debut du programme
-
-
-
-//Condition sur la variable a
-
 while(1 == 1){
-    if(capteur_distance > 50){
-        avancer d=100 v=800 a=0;
+    if(capteur_distance < 70){
+        avancer d=100 v=700 a=80;
     }
     else{
-        avancer d=100 v=600 a=70;
+        avancer d=100 v=700 a=0;
     }
 }
-
-
-//Fin du programme

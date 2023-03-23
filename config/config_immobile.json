@@ -14,7 +14,20 @@
     ],
     "obstaclesRonds" : [],
     "obstaclesRectangles" : [
-        
+        {
+            "nom": "obsrect1",
+            "posX": 50,
+            "posY": -50,
+            "longueur": 30,
+            "largeur": 30
+        },
+        {
+            "nom": "obsrect2",
+            "posX": -50,
+            "posY": 50,
+            "longueur": 30,
+            "largeur": 30
+        },
         {
             "nom": "mur1",
             "posX": 74,

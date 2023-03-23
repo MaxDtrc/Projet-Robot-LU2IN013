@@ -207,13 +207,13 @@ class Affichage3d(Thread):
         skydome.setHpr(90, 90, 0)
 
         #Ajout d'un cylindre
-        cylindre=self.app.loader.loadModel(path+"/models/cylinder.obj")
+        cylindre=self.app.loader.loadModel(path+"/models/cube/cylinder.obj")
         cylindre.setPos(0, 0, 0)
         cylindre.setScale(10)
         cylindre.reparentTo(self.app.render)
 
         #Ajout de la balise
-        balise=self.app.loader.loadModel(path+"/models/cube/Balise.obj")
+        balise=self.app.loader.loadModel(path+"/models/cube/balise.obj")
         #texb = self.app.loader.loadTexture(path+"/models/Skydome3D/cube/balise.png")
         #balise.setTexture(texb)
         balise.setPos(0, 30, 30)

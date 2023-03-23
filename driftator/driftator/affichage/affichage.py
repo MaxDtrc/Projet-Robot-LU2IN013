@@ -199,6 +199,14 @@ class Affichage3d(Thread):
 
         mdl.reparentTo(self.app.render)
 
+        #Ajout du ciel
+        
+        skydome = self.app.loader.loadModel(path+"/models/Skydome3D/Skydome.obj")
+        tex = self.app.loader.loadTexture(path+"/models/Skydome3D/Skydome.png")
+        skydome.setTexture(tex)
+        skydome.reparentTo(self.app.render)
+        skydome.setHpr(90, 90, 0)
+
         #Affichage du sol
         ts = TextureStage('ts')
         txt = self.app.loader.loadTexture(path + "/models/cube/WoodFloor040_1K_Color_1.png")

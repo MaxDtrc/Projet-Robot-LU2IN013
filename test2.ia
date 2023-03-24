@@ -1,8 +1,10 @@
 while(1 == 1){
-    if(capteur_distance < 70){
-        avancer d=100 v=700 a=80;
+    d = capteur_distance;
+    if(d < 60){
+        angle = 100 - d;
+        avancer d=7 v=700 a=angle;
     }
     else{
-        avancer d=100 v=700 a=0;
+        avancer d=7 v=500 a=0;
     }
 }

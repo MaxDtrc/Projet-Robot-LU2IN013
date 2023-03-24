@@ -15,7 +15,7 @@ from direct.task import Task
 from direct.actor.Actor import Actor
 from direct.interval.IntervalGlobal import Sequence
 from direct.gui.OnscreenText import OnscreenText
-from panda3d.core import Point3, Filename, loadPrcFileData, OrthographicLens, TextureStage, PointLight
+from panda3d.core import Point3, Filename, loadPrcFileData, TextureStage, PointLight, DirectionalLight, Spotlight, AmbientLight
 
 loadPrcFileData("", "win-size 720 720")
 
@@ -184,10 +184,29 @@ class Affichage3d(Thread):
         plight = PointLight('plight')
         plight.setShadowCaster(True, 256, 256)
         self.app.render.setShaderAuto()
-        plight.setColor((1, 1, 1, 1))
+        plight.setColor((0.5, 0.5, 0.5, 1))
         plnp = self.app.render.attachNewNode(plight)
-        plnp.setPos(0, 50, 100)
+        plnp.setPos(0, 0, 100)
         self.app.render.setLight(plnp)
+
+        """self.light = self.app.render.attachNewNode(Spotlight("Spot"))
+        self.light.node().setScene(self.app.render)
+        self.light.node().setShadowCaster(True)
+        self.light.node().showFrustum()
+        self.light.node().getLens().setFov(160)
+        self.light.node().getLens().setNearFar(10, 400)
+        self.light.node().setColor((1, 1, 1, 1))
+        self.light.setHpr(120, -30, 0)
+        self.light.setPos(60, 60, 50)
+        self.app.render.setLight(self.light)"""
+
+        self.alight = self.app.render.attachNewNode(AmbientLight("Ambient"))
+        self.alight.node().setColor((0.4, 0.4, 0.4, 1))
+        self.app.render.setLight(self.alight)
+
+        # Important! Enable the shader generator.
+        self.app.render.setShaderAuto()
+        
 
         #Ajout d'un texte pour les touches
         textObject = OnscreenText(text='Appuyer sur q pour changer de POV', pos=(0.6, 0.9), scale=0.04, fg=(255,255,255,1), shadow = (0,0,0,1))
@@ -260,7 +279,7 @@ class Affichage3d(Thread):
                 #Affichage d'un obstacle rond
                 mdl = self.app.loader.loadModel(path + "/models/cylindre/cylinder.obj")
                 mdl.setPos(o._posX, -o._posY, 0)
-                mdl.setScale(o._rayon/2, o._rayon/2, 10)
+                mdl.setScale(o._rayon, o._rayon, 10)
                 mdl.reparentTo(self.app.render)
                 self.app.obsList.append(mdl)
 

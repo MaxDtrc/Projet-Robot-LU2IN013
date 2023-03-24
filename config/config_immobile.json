@@ -17,13 +17,13 @@
             "nom": "obs1",
             "posX": 50,
             "posY": 50,
-            "rayon": 30
+            "rayon": 15
         },
         {
             "nom": "obs2",
             "posX": -50,
             "posY": -50,
-            "rayon": 30
+            "rayon": 15
         }
     ],
     "obstaclesRectangles" : [

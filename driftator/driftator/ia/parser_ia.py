@@ -15,9 +15,9 @@ def readIA(ia, c):
             instr = ia[i].split(' ')
 
             #Creation des variables
-            d = 0
-            v = 0
-            a = 0
+            d = None
+            v = None
+            a = None
             
             #Lecture de la commande
             for j in instr[1:]:
@@ -27,11 +27,11 @@ def readIA(ia, c):
                 
                 #Lecture des variables
                 if j[0] == 'd':
-                    d = float(j[2:])
+                    d = j[2:]
                 elif j[0] == 'v':
-                    v = float(j[2:])
+                    v = j[2:]
                 elif j[0] == 'a':
-                    a = float(j[2:])
+                    a = j[2:]
 
             #Ajout de la commande
             seq.append(Avancer(c, d, v, a))
@@ -43,8 +43,8 @@ def readIA(ia, c):
             instr = ia[i].split(' ')
 
             #Creation des variables
-            a = 0
-            v = 0
+            a = None
+            v = None
             
             #Lecture de la commande
             for j in instr[1:]:
@@ -54,9 +54,9 @@ def readIA(ia, c):
                 
                 #Lecture des variables
                 if j[0] == 'a':
-                    a = float(j[2:])
+                    a = j[2:]
                 elif j[0] == 'v':
-                    v = float(j[2:])
+                    v = j[2:]
 
             #Ajout de la commande
             seq.append(TournerSurPlace(c, a, v))

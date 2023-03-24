@@ -56,14 +56,24 @@ class Avancer:
     """
     def __init__(self, controleur, distance, v, angle = 0):
         self._controleur = controleur
-        self.distance = distance
-        self.angle = angle
+        self.d = distance
+        self.a = angle
         self.v = v
         self.parcouru = 0
 
     def start(self):
         self._controleur.getDistanceParcourue() #Reinitialisation
         self.parcouru = 0
+
+        #Substitution des variables
+        self._vars = [self.d, self.a, self.v]
+        for i in range(3):
+            substituerVariables(self, i)
+        self.distance = float(self._vars[0])
+        self.angle = float(self._vars[1])
+        self.vitesse = float(self._vars[2])
+        
+        
 
     def stop(self):
         #On avance tant qu'on n'est pas trop près d'un mur/qu'on n' a pas suffisement avancé
@@ -86,11 +96,11 @@ class Avancer:
     def avancer(self):
         #Avancer selon l'angle et la vitesse
         if self.angle <= 0:
-            self._controleur.setVitesseGauche(self.v * (1 + self.angle/100))
-            self._controleur.setVitesseDroite(self.v)
+            self._controleur.setVitesseGauche(self.vitesse * (1 + self.angle/100))
+            self._controleur.setVitesseDroite(self.vitesse)
         else:
-            self._controleur.setVitesseGauche(self.v)
-            self._controleur.setVitesseDroite(self.v * (1 - self.angle/100))
+            self._controleur.setVitesseGauche(self.vitesse)
+            self._controleur.setVitesseDroite(self.vitesse * (1 - self.angle/100))
 
 class TournerSurPlace:
     """
@@ -102,7 +112,7 @@ class TournerSurPlace:
     """
     def __init__(self, controleur, angle, v):
         self._controleur = controleur
-        self.angle = radians(angle)
+        self.a = radians(angle)
         if angle >= 0:
             self.v = v
         else:
@@ -112,6 +122,13 @@ class TournerSurPlace:
     def start(self):
         self.parcouru = 0
         self._controleur.getDecalageAngle()
+
+        #Substitution des variables
+        self._vars = [self.a, self.v]
+        for i in range(2):
+            substituerVariables(self, i)
+        self.angle = float(self._vars[0])
+        self.vitesse = float(self._vars[1])
         
     def stop(self):
         #On tourne tant qu'on n'a pas dépassé l'angle
@@ -133,8 +150,8 @@ class TournerSurPlace:
         self._controleur.setVitesseDroite(0)
 
     def avancer(self):
-        self._controleur.setVitesseGauche(self.v)
-        self._controleur.setVitesseDroite(-self.v)
+        self._controleur.setVitesseGauche(self.vitesse)
+        self._controleur.setVitesseDroite(-self.vitesse)
 
 
 

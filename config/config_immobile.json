@@ -12,7 +12,20 @@
             "vitesseMax": 10000
         }
     ],
-    "obstaclesRonds" : [],
+    "obstaclesRonds" : [
+        {
+            "nom": "obs1",
+            "posX": 50,
+            "posY": 50,
+            "rayon": 30
+        },
+        {
+            "nom": "obs2",
+            "posX": -50,
+            "posY": -50,
+            "rayon": 30
+        }
+    ],
     "obstaclesRectangles" : [
         {
             "nom": "obsrect1",

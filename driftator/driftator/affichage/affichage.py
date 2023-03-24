@@ -206,14 +206,8 @@ class Affichage3d(Thread):
         skydome.reparentTo(self.app.render)
         skydome.setHpr(90, 90, 0)
 
-        #Ajout d'un cylindre
-        cylindre=self.app.loader.loadModel(path+"/models/cube/cylinder.obj")
-        cylindre.setPos(0, 0, 0)
-        cylindre.setScale(10)
-        cylindre.reparentTo(self.app.render)
-
         #Ajout de la balise
-        balise=self.app.loader.loadModel(path+"/models/cube/balise.obj")
+        balise=self.app.loader.loadModel(path+"/models/balise/balise.obj")
         #texb = self.app.loader.loadTexture(path+"/models/Skydome3D/cube/balise.png")
         #balise.setTexture(texb)
         balise.setPos(0, 30, 30)
@@ -224,7 +218,7 @@ class Affichage3d(Thread):
 
         #Affichage du sol
         ts = TextureStage('ts')
-        txt = self.app.loader.loadTexture(path + "/models/cube/WoodFloor040_1K_Color_1.png")
+        txt = self.app.loader.loadTexture(path + "/models/cube/tex.png")
         mdl.setTexture(ts, txt)
         mdl.setTexScale(ts, 10, 10)
 
@@ -255,13 +249,20 @@ class Affichage3d(Thread):
         #Affichage des obstacles
         for i in range(self._simulation.terrain.getNombreObstacles()):
             o = self._simulation.terrain.getObstacle(i)
-
-            mdl = self.app.loader.loadModel(path + "/models/cube/cube.obj")
-            mdl.setPos(o._posX, -o._posY, 0)
-            mdl.setScale(o._longueur/2, o._largeur/2, 10)
-            mdl.reparentTo(self.app.render)
-
-            self.app.obsList.append(mdl)
+            if o.type == 0:
+                #Affichage d'un obstacle rectangle
+                mdl = self.app.loader.loadModel(path + "/models/cube/cube.obj")
+                mdl.setPos(o._posX, -o._posY, 0)
+                mdl.setScale(o._longueur/2, o._largeur/2, 10)
+                mdl.reparentTo(self.app.render)
+                self.app.obsList.append(mdl)
+            elif o.type == 1:
+                #Affichage d'un obstacle rond
+                mdl = self.app.loader.loadModel(path + "/models/cylindre/cylinder.obj")
+                mdl.setPos(o._posX, -o._posY, 0)
+                mdl.setScale(o._rayon/2, o._rayon/2, 10)
+                mdl.reparentTo(self.app.render)
+                self.app.obsList.append(mdl)
 
     def _afficherRobot(self, robot: s.Robot):
         """

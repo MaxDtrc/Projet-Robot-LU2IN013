@@ -112,11 +112,8 @@ class TournerSurPlace:
     """
     def __init__(self, controleur, angle, v):
         self._controleur = controleur
-        self.a = radians(angle)
-        if angle >= 0:
-            self.v = v
-        else:
-            self.v = -v
+        self.a = angle
+        self.v = v
         self.parcouru = 0
 
     def start(self):
@@ -127,9 +124,13 @@ class TournerSurPlace:
         self._vars = [self.a, self.v]
         for i in range(2):
             substituerVariables(self, i)
-        self.angle = float(self._vars[0])
-        self.vitesse = float(self._vars[1])
-        
+            
+        self.angle = radians(float(self._vars[0]))
+        if self.angle >= 0:
+            self.vitesse = float(self._vars[1])
+        else:
+            self.vitesse = -float(self._vars[1])
+
     def stop(self):
         #On tourne tant qu'on n'a pas dépassé l'angle
         return self.parcouru > abs(self.angle) 

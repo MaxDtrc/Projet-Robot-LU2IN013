@@ -1,4 +1,4 @@
-import robot
+import driftator_sim as robot
 import unittest
 
 class TestSimulation(unittest.TestCase):

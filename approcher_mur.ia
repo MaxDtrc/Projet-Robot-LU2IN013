@@ -1,0 +1,4 @@
+//Approcher mur
+while(capteur_distance > 8){
+    avancer d=10 v=500 a=0;
+}

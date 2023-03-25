@@ -1,0 +1,5 @@
+//Tracer carré
+for (4){
+    avancer d=50 v=500 a=0;
+    tourner a=90 v=90;
+}

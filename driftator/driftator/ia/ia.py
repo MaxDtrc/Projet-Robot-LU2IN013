@@ -1,6 +1,6 @@
 from threading import Thread
 import time
-from math import pi, radians, degrees
+from math import pi, radians
 
 
 TAILLE_ROUES = 7

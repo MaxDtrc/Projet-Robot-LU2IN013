@@ -1,8 +1,6 @@
 import numpy as np
 import cv2
 
-from direct.showbase.ShowBase import ShowBase
-
 #On définit les bornes de valeurs HSV des différentes couleurs pour la reconnaissance 
 lower_yellow = np.array([20, 100, 100])
 upper_yellow = np.array([30, 255, 255])

@@ -9,5 +9,5 @@ def start(strat, dT = 0.001):
     controleur.changerImplem(implem)
 
     #Lancement de l'IA
-    strat = ia.openIA(strat, controleur, dT)
+    strat = ia.openIA("main_test_ia/"+strat, controleur, dT)
     strat.start()

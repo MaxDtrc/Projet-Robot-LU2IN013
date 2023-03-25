@@ -189,17 +189,6 @@ class Affichage3d(Thread):
         plnp.setPos(0, 0, 100)
         self.app.render.setLight(plnp)
 
-        """self.light = self.app.render.attachNewNode(Spotlight("Spot"))
-        self.light.node().setScene(self.app.render)
-        self.light.node().setShadowCaster(True)
-        self.light.node().showFrustum()
-        self.light.node().getLens().setFov(160)
-        self.light.node().getLens().setNearFar(10, 400)
-        self.light.node().setColor((1, 1, 1, 1))
-        self.light.setHpr(120, -30, 0)
-        self.light.setPos(60, 60, 50)
-        self.app.render.setLight(self.light)"""
-
         self.alight = self.app.render.attachNewNode(AmbientLight("Ambient"))
         self.alight.node().setColor((0.4, 0.4, 0.4, 1))
         self.app.render.setLight(self.alight)
@@ -229,8 +218,8 @@ class Affichage3d(Thread):
         balise=self.app.loader.loadModel(path+"/models/balise/balise.obj")
         #texb = self.app.loader.loadTexture(path+"/models/Skydome3D/cube/balise.png")
         #balise.setTexture(texb)
-        balise.setPos(0, 30, 30)
-        balise.setHpr(90, 180, 90)
+        balise.setPos(0, 70, 5)
+        balise.setHpr(-90, 0, 0)
         balise.setScale(1)
         balise.reparentTo(self.app.render)
 

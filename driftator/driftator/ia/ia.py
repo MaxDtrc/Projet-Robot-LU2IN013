@@ -380,7 +380,7 @@ def substituerVariables(ia, i):
             ia._controleur._variables["capteur_balise"] = ia._controleur.getBalisePosition()
 
         #On substitue la variable à sa valeur
-        if(ia._vars[i] not in ['(', ')', '==', '!=', '<', '>', '<=', '>=', '+', '-', '/', '*', '%', '//']):
+        if(ia._vars[i] not in ['(', ')', '==', '!=', '<', '>', '<=', '>=', '+', '-', '/', '*', '%', '//', "and", "or"]):
             ia._vars[i] = str(ia._controleur._variables[ia._vars[i]])
 
 

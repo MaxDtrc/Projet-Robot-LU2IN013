@@ -1,0 +1,29 @@
+//Debut du programme
+avancer d=50 v=500 a=0;
+tourner a=90 v=90;
+
+//On avance jusqu'au mur
+while(capteur_distance > 15){
+    avancer d=10 v=500 a=0;
+}
+
+//Arrivé près du mur on fait demi tour
+for(9){
+    tourner a=10 v=360;
+}
+
+//Initialisation de la variable a
+a = 5 * 10 - 45;
+
+//Affichage de a + 2 dans la console
+print(a + 2)
+
+//Condition sur la variable a
+if(a > 3 and 5 + 2 < 3){
+    tourner a=-10 v=360;
+}
+else{
+    tourner a=10 v=360;
+}
+
+//Fin du programme

@@ -11,7 +11,7 @@ def start(strat, simView = 1, dT = 0.001):
     controleur.changerImplementation(implem)
 
     #Chargement de l'IA
-    strat = driftator.ia.openIA(strat, controleur, dT)
+    strat = driftator.ia.openIA("main_test_ia/"+strat, controleur, dT)
     strat.start()
 
     #Initialisation de l'affichage

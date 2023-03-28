@@ -22,3 +22,4 @@ Taches faites :
 - restructuration du code : .Création d un deuxieme package "driftator_sim" qui contient uniquement les classes concernant l implémentation de la
                             simulation pour le controleur, ainsi que les classes d affichage et de simulation
                             .Le package "driftator", quant à lui, ne contient plus que les classes communes pour le robot IRL (principalement classe IA)
+- modifications légères du controleur du robot dans le but de corriger un problème au niveau des vitesses des roues

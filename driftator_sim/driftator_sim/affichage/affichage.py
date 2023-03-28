@@ -300,9 +300,12 @@ class Affichage3d(Thread):
         """
         #Affichage des objets
         t = self._simulation.terrain
-        for i in range(0, self._simulation.getNombreDeRobots()):
-            r = self._simulation.getRobot(i)
-            self._afficherRobot(r)
+        if(self._simulation.getNombreDeRobots() > 0):
+            for i in range(0, self._simulation.getNombreDeRobots()):
+                r = self._simulation.getRobot(i)
+                self._afficherRobot(r)
+        else:
+                self.app.robotModel.removeNode()
 
 
 class MyApp(ShowBase):

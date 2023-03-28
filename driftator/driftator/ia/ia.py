@@ -1,6 +1,6 @@
 from threading import Thread
 import time
-from math import pi, radians
+from math import pi, radians, degrees
 
 
 TAILLE_ROUES = 7
@@ -60,9 +60,10 @@ class Avancer:
         self.a = angle
         self.v = v
         self.parcouru = 0
+        self.lastStep = 0
 
     def start(self):
-        self._controleur.getDistanceParcourue() #Reinitialisation
+        self._controleur.getDistanceParcourue(self) #Reinitialisation
         self.parcouru = 0
 
         #Substitution des variables
@@ -72,6 +73,8 @@ class Avancer:
         self.distance = float(self._vars[0])
         self.angle = float(self._vars[1])
         self.vitesse = float(self._vars[2])
+
+        self.avancer()
         
         
 
@@ -81,13 +84,13 @@ class Avancer:
 
     def step(self, dT: float):
         #Calcul de la distance parcourue
-        self.parcouru += abs(self._controleur.getDistanceParcourue())
+        self.parcouru += abs(self._controleur.getDistanceParcourue()) - abs(self.lastStep)
 
         if self.stop(): 
             self.end()
             return
 
-        self.avancer()
+        
 
     def end(self):
         self._controleur.setVitesseGauche(0)
@@ -114,11 +117,13 @@ class TournerSurPlace:
         self._controleur = controleur
         self.a = angle
         self.v = v
+        self.lastStep = 0
         self.parcouru = 0
 
+
     def start(self):
+        self._controleur.getDecalageAngle(self)
         self.parcouru = 0
-        self._controleur.getDecalageAngle()
 
         #Substitution des variables
         self._vars = [self.a, self.v]
@@ -131,20 +136,22 @@ class TournerSurPlace:
         else:
             self.vitesse = -float(self._vars[1])
 
+        self.avancer()
+
     def stop(self):
         #On tourne tant qu'on n'a pas dépassé l'angle
-        return self.parcouru > abs(self.angle) 
+        return self.parcouru > abs(self.angle)
         
     def step(self, dT : float):
         #Calcul de la distance parcourue
         a = abs(self._controleur.getDecalageAngle())
-        self.parcouru += a
-        
+        self.parcouru += a - self.lastStep
+
         if self.stop():
             self.end()
             return
 
-        self.avancer()
+        
 
     def end(self):
         self._controleur.setVitesseGauche(0)

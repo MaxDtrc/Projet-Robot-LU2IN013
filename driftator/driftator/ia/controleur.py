@@ -1,4 +1,4 @@
-from math import pi
+from math import pi, degrees, radians
 from .position_balise import getPosBalise
 from PIL import Image
 
@@ -102,7 +102,7 @@ class GetDecalageReel(Decorator):
     def __getattr__(self, name):
         return getattr(self.robot, name)
 
-    def getDecalageAngle(self):
+    def getDecalageAngle(self, ia):
         """
         Renvoi le décalage de l'angle du robot depuis le dernier appel de la fonction et le remet à 0
 
@@ -114,30 +114,38 @@ class GetDecalageReel(Decorator):
 
         posRoues = self.get_motor_position()
 
-        d = posRoues()
+        d = posRoues
 
         dG = d[0]/360 * diamRoue * pi
         dD = d[1]/360 * diamRoue * pi
 
         angle = (dD - dG)/(rayonRobot * 2)
 
+        if(angle != 0):
+            #Test: remplacer la commande offeset_motor_encoder par une sauvegarde "manuelle"
+            ia.lastStep = (d[0], d[1])
+            #self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
+            #self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
+
         return angle
 
-    def getDistanceParcourue(self):
+    def getDistanceParcourue(self, ia):
         """
         Renvoi la distance parcourue par le robot
 
         :returns: la distance parcourue par le robot
         """
 
-        diamRoue = 6.65
+        diamRoue = self.WHEEL_DIAMETER/10
         posRoues = self.get_motor_position()
 
         d = (posRoues[0] + posRoues[1])/2
 
         #Reset de l'origine de la pos
-        self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
-        self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
+        #Test: remplacer la commande offeset_motor_encoder par une sauvegarde "manuelle"
+        ia.lastStep = d
+        #self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
+        #self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
 
         return d/360 * diamRoue * pi 
     

@@ -74,7 +74,7 @@ class GetDecalageSim(driftator.ia.Decorator):
     def __getattr__(self, name):
         return getattr(self.robot, name)
 
-    def getDecalageAngle(self):
+    def getDecalageAngle(self, ia):
         """
         Renvoi le décalage de l'angle du robot depuis le dernier appel de la fonction et le remet à 0
 
@@ -84,7 +84,7 @@ class GetDecalageSim(driftator.ia.Decorator):
         self._decalageA = self._angle
         return res
 
-    def getDistanceParcourue(self):
+    def getDistanceParcourue(self, ia):
         """
         Renvoi la distance parcourue par le robot
 

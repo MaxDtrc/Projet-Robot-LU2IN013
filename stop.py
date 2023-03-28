@@ -1,6 +1,6 @@
 #Variables d'affichage (1 = 2d, 2 = 3d)
 simView = 2
-strategie = "main.ia"
+strategie = "stop.ia"
 
 try:
     import driftator

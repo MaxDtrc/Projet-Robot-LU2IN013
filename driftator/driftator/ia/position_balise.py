@@ -1,5 +1,5 @@
 import numpy as np
-import cv2
+#import cv2
 
 #On définit les bornes de valeurs HSV des différentes couleurs pour la reconnaissance 
 lower_yellow = np.array([20, 100, 100])

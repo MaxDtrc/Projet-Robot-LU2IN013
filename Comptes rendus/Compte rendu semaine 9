@@ -12,4 +12,13 @@ Objectifs:
 - utiliser keyboard n est pas satisfaisant
 
 Taches faites :
-- 
+- passer pygame dans le thread principal
+- possibilité de mettre des variables dans les instructions du parser d IA
+- ajout d obstacles cyclindriques
+- maj des fichiers de configuration
+- ajout d un ciel
+- nouvelle facon de modifier le POV de la simulation 3D (sans utiliser keyboard)
+- libération du fichier main.py
+- restructuration du code : .Création d un deuxieme package "driftator_sim" qui contient uniquement les classes concernant l implémentation de la
+                            simulation pour le controleur, ainsi que les classes d affichage et de simulation
+                            .Le package "driftator", quant à lui, ne contient plus que les classes communes pour le robot IRL (principalement classe IA)

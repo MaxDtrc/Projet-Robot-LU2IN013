@@ -123,7 +123,7 @@ class GetDecalageReel(Decorator):
 
         if(angle != 0):
             #Test: remplacer la commande offeset_motor_encoder par une sauvegarde "manuelle"
-            ia.lastStep = (d[0], d[1])
+            ia.lastStep = angle
             #self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
             #self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
 
@@ -143,7 +143,7 @@ class GetDecalageReel(Decorator):
 
         #Reset de l'origine de la pos
         #Test: remplacer la commande offeset_motor_encoder par une sauvegarde "manuelle"
-        ia.lastStep = d
+        ia.lastStep = d/360 * diamRoue * pi
         #self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
         #self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
 

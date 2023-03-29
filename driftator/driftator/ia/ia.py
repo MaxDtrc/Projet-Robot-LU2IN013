@@ -81,15 +81,18 @@ class Avancer:
 
     def stop(self):
         #On avance tant qu'on n'est pas trop près d'un mur/qu'on n' a pas suffisement avancé
-        return self.parcouru > self.distance
+        return self.parcouru >= self.distance
 
     def step(self, dT: float):
         #Calcul de la distance parcourue
-        self.parcouru += abs(self._controleur.getDistanceParcourue(self)) - abs(self.lastStep)
+        d = abs(self.lastStep)
+        self.parcouru += abs(self._controleur.getDistanceParcourue(self)) - d
 
         if self.stop(): 
             self.end()
             return
+        
+        #self.avancer()
 
         
 
@@ -145,14 +148,16 @@ class TournerSurPlace:
         
     def step(self, dT : float):
         #Calcul de la distance parcourue
+        d = abs(self.lastStep)
         a = abs(self._controleur.getDecalageAngle(self))
-        self.parcouru += a - self.lastStep
+        if(a != 0):
+            self.parcouru += a - d
 
         if self.stop():
             self.end()
             return
 
-        
+        self.avancer()
 
     def end(self):
         self._controleur.setVitesseGauche(0)
@@ -221,7 +226,6 @@ class IAIf:
     def end(self):
         self._ia1.end()
         self._ia2.end()
-
 class IAWhile:
     """
     Classe permettant de réaliser une ia tant qu'une condition est vérifiée
@@ -425,7 +429,7 @@ class IACondition:
                 substituerVariables(self, i)
 
             self.resultat = eval(' '.join(self._vars))
-    
+
     def end(self):
         pass
 

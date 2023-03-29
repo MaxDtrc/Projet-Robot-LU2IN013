@@ -1,1 +1,14 @@
-avancer d=100000 v=500 a=0;
+print(12)
+while(1 == 1){
+    d = capteur_distance;
+    print(0)
+    if(d > 10){
+        avancer d=10 v=100 a=0;
+        print(1)
+    }
+    else{
+        avancer d=0 v=0 a=0;
+        print(2)
+    }
+    print(3)
+}

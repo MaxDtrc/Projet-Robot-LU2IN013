@@ -1,4 +1,4 @@
-def start(strat, dT = 0.01):
+def start(strat, dT = 0.001):
     from . import ia
     #Importation de la librairie du robot
     from robot2IN013 import Robot2IN013

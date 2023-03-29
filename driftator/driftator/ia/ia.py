@@ -92,7 +92,7 @@ class Avancer:
             self.end()
             return
         
-        #self.avancer()
+        self.avancer()
 
         
 

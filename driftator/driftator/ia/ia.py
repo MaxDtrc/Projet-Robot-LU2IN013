@@ -1,6 +1,7 @@
 from threading import Thread
 import time
 from math import pi, radians, degrees
+from random import randint
 
 
 TAILLE_ROUES = 7
@@ -380,11 +381,13 @@ def substituerVariables(ia, i):
     except:
         #L'élément est un nom de variable
 
-        #Si appel au capteur de distance, on le met à jour
+        #Variables custom
         if(ia._vars[i] == "capteur_distance"):
             ia._controleur._variables["capteur_distance"] = ia._controleur.getDistance()
         if(ia._vars[i] == "capteur_balise"):
             ia._controleur._variables["capteur_balise"] = ia._controleur.getBalisePosition()
+        if(ia._vars[i] == "random"):
+            ia._controleur._variables["random"] = randint(0, 10000000)
 
         #On substitue la variable à sa valeur
         if(ia._vars[i] not in ['(', ')', '==', '!=', '<', '>', '<=', '>=', '+', '-', '/', '*', '%', '//', "and", "or"]):

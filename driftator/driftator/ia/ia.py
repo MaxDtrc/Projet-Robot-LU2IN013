@@ -84,7 +84,7 @@ class Avancer:
 
     def step(self, dT: float):
         #Calcul de la distance parcourue
-        self.parcouru += abs(self._controleur.getDistanceParcourue()) - abs(self.lastStep)
+        self.parcouru += abs(self._controleur.getDistanceParcourue(self)) - abs(self.lastStep)
 
         if self.stop(): 
             self.end()
@@ -144,7 +144,7 @@ class TournerSurPlace:
         
     def step(self, dT : float):
         #Calcul de la distance parcourue
-        a = abs(self._controleur.getDecalageAngle())
+        a = abs(self._controleur.getDecalageAngle(self))
         self.parcouru += a - self.lastStep
 
         if self.stop():

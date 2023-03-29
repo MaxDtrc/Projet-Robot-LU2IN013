@@ -16,7 +16,7 @@ def start(strat, config, simView = 1, dT = 0.01):
 
     #Initialisation de l'affichage
     if simView == 1:
-        affichage2d = affichage.Affichage(simulation, controleur,  360, 5, True, False)
+        affichage2d = affichage.Affichage(simulation, controleur,  360, 5, True, True)
     elif simView == 2:
         affichage3d = affichage.Affichage3d(simulation, controleur,  240)
         controleur.set_a(affichage3d)

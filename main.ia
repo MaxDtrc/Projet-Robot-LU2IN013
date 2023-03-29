@@ -1,9 +1,5 @@
-while(1 == 1){
-    if(capteur_distance > 7
-    ){
-        avancer d=5000 v=200 a=0;
-    }
-    else{
-        avancer d=10 v=0 a=0;
-    }
+//Tracer carré
+for (4){
+    avancer d=20 v=200 a=0;
+    tourner a=90 v=60;
 }

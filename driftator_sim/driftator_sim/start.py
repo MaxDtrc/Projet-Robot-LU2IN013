@@ -5,14 +5,14 @@ def start(strat, config, simView = 1, dT = 0.01):
     #Creation de la simulation
     simulation = simulation.chargerJson(config, dT)
 
-    #Initialisation du controleur
-    controleur = driftator.ia.controleur()
-    implem = ia.implemSimulation(driftator.ia.Variables(ia.GetDecalageSim(simulation.getRobot(0))), simulation)
-    controleur.changerImplementation(implem)
-
-    #Chargement de l'IA
-    strat = driftator.ia.openIA(strat, controleur, dT)
-    strat.start()
+    for i in range(0, simulation.getNombreDeRobots()):
+        #Initialisation du controleur
+        controleur = driftator.ia.controleur()
+        implem = ia.implemSimulation(driftator.ia.Variables(ia.GetDecalageSim(simulation.getRobot(i))), simulation)
+        controleur.changerImplementation(implem)
+        #Chargement de l'IA
+        strat1 = driftator.ia.openIA(strat, controleur, dT)
+        strat1.start()
 
     #Initialisation de l'affichage
     if simView == 1:

@@ -1,9 +1,9 @@
-def start(strat, simView = 1, dT = 0.01):
+def start(strat, config, simView = 1, dT = 0.01):
     import driftator
     from . import simulation, affichage, ia
     
     #Creation de la simulation
-    simulation = simulation.chargerJson('config/config_immobile.json', dT)
+    simulation = simulation.chargerJson(config, dT)
 
     #Initialisation du controleur
     controleur = driftator.ia.controleur()

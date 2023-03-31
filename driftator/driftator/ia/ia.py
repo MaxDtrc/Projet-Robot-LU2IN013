@@ -4,11 +4,6 @@ from math import pi, radians, degrees
 from random import randint
 
 
-TAILLE_ROUES = 7
-RAYON_ROBOT = 5
-
-
-
 
 class IA(Thread):
     """
@@ -205,12 +200,14 @@ class IAIf:
             self._ia = self._ia1
         else:
             self._ia = self._ia2
-        self._ia.start()
+
+        if(self._ia != None):
+            self._ia.start()
 
 
     def stop(self):
         #Arrêt si l'une des deux IA est finie
-        return self._ia.stop()
+        return self._ia == None or self._ia.stop()
 
     def step(self, dT: float):
         if self.stop(): 
@@ -220,7 +217,8 @@ class IAIf:
             self._ia.step(dT)
     
     def end(self):
-        self._ia.stop()
+        if self._ia != None:
+            self._ia.stop()
 
 #IA complexes
 class IAAlterner:

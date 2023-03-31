@@ -123,30 +123,37 @@ def readIA(ia, c):
                 i+=1
             blocIA1 = readIA(tabBloc, c)
 
-            i+=2
-            tabBloc = []
-            while ia[i][0] != '}' or nbParenthOuverte != 0:
-                #Suppression des indentations:
-                while(ia[i][0] == ' '):
-                    ia[i] = ia[i][1:]
-
-                #Detection d'une parenthèse ouvrante
-                if(len(ia[i]) >= 2 and ia[i][-2] == '{'):
-                    nbParenthOuverte += 1
-
-                #Detection d'une parenthèse fermante
-                if(len(ia[i]) >= 2 and ia[i][-2] == '}'):
-                    nbParenthOuverte += -1
-
-                #Ajout de la commande
-                tabBloc.append(ia[i])
+            blocIA2 = None
+            i += 1
+            if(ia[i] == "else{"):
                 i+=1
-            blocIA2 = readIA(tabBloc, c)
+                tabBloc = []
+                while ia[i][0] != '}' or nbParenthOuverte != 0:
+                    #Suppression des indentations:
+                    while(ia[i][0] == ' '):
+                        ia[i] = ia[i][1:]
 
+                    #Detection d'une parenthèse ouvrante
+                    if(len(ia[i]) >= 2 and ia[i][-2] == '{'):
+                        nbParenthOuverte += 1
+
+                    #Detection d'une parenthèse fermante
+                    if(len(ia[i]) >= 2 and ia[i][-2] == '}'):
+                        nbParenthOuverte += -1
+
+                    #Ajout de la commande
+                    tabBloc.append(ia[i])
+                    i+=1
+                blocIA2 = readIA(tabBloc, c)
+            else:
+                i -= 1
+            
+            
             #Ajout de la condition
             seq.append(IAIf(c, blocIA1, blocIA2, iaCond))
             i+=1
 
+        #IA Alterner
         elif len(ia[i]) >= 8 and ia[i][:2] == 'alterner':
             #Lecture de la condition
             cond = ia[i].split('(')[1].split(')')[0].split(' ')

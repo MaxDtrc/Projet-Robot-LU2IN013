@@ -19,7 +19,7 @@ a = 5 * 10 - 45;
 print(a + 2)
 
 //Condition sur la variable a
-if(a > 3 and 5 + 2 < 3){
+alterner(a > 3 and 5 + 2 < 3){
     tourner a=-10 v=360;
 }
 else{

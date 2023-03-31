@@ -1,5 +1,5 @@
 simView = 1
-strategie = "main.ia"
+strategie = "demo_ia/test2.ia"
 config = "config/config_obst.json"
 
 try:

@@ -154,7 +154,7 @@ def readIA(ia, c):
             i+=1
 
         #IA Alterner
-        elif len(ia[i]) >= 8 and ia[i][:2] == 'alterner':
+        elif len(ia[i]) >= 8 and ia[i][:8] == 'alterner':
             #Lecture de la condition
             cond = ia[i].split('(')[1].split(')')[0].split(' ')
             

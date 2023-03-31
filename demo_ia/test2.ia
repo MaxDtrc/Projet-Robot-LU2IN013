@@ -1,6 +1,6 @@
 while(1 == 1){
     d = capteur_distance;
-    if(d < 70){
+    alterner(d < 70){
         r = random % 10 - 5;
         angle = 100 - d + r;
         avancer d=7 v=700 a=angle;

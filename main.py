@@ -1,6 +1,6 @@
-simView = 2
+simView = 1
 strategie = "main.ia"
-config = "config/config_sans_obst.json"
+config = "config/config_obst.json"
 
 try:
     import driftator
@@ -9,3 +9,7 @@ try:
 except ImportError:
     import driftator_sim
     driftator_sim.start(strategie, config, simView)
+
+
+
+    

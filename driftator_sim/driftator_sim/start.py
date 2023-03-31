@@ -1,4 +1,4 @@
-def start(strat, config, simView = 1, dT = 0.01):
+def start(strat, config, simView = 1, dT = 0.0001):
     import driftator
     from . import simulation, affichage, ia
     

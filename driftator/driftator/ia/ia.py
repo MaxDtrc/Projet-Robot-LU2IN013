@@ -182,7 +182,7 @@ class TournerSurPlace:
 #IA complexes
 class IAIf:
     """
-    Classe permettant de réaliser une ia conditionnelle
+    Classe permettant de réaliser un "if"
     """
     def __init__(self, controleur, ia1, ia2, condition):
         """
@@ -193,7 +193,49 @@ class IAIf:
         :param condition: IACondition correspondant à la condition du if
         """
         self._controleur = controleur
-        self.v = 0
+        self._ia1 = ia1
+        self._ia2 = ia2
+        self._condition = condition
+
+    def start(self):
+        #Initialisation des 2 sous IA
+        self._condition.start()
+        self._condition.step()
+        if(self._condition.resultat):
+            self._ia = self._ia1
+        else:
+            self._ia = self._ia2
+        self._ia.start()
+
+
+    def stop(self):
+        #Arrêt si l'une des deux IA est finie
+        return self._ia.stop()
+
+    def step(self, dT: float):
+        if self.stop(): 
+                self.end()
+                return
+        else:
+            self._ia.step(dT)
+    
+    def end(self):
+        self._ia.stop()
+
+#IA complexes
+class IAAlterner:
+    """
+    Classe permettant de réaliser une ia conditionnelle (réalise un step d'une des deux IA selon la condition)
+    """
+    def __init__(self, controleur, ia1, ia2, condition):
+        """
+        Paramètres
+        :param controleur: controleur du robot
+        :param ia1: ia à appeler si la condition est vérifiée
+        :param ia2: ia à appeler si la condition n'est pas vérifiée
+        :param condition: IACondition correspondant à la condition 
+        """
+        self._controleur = controleur
         self._ia1 = ia1
         self._ia2 = ia2
         self._condition = condition
@@ -226,6 +268,9 @@ class IAIf:
     def end(self):
         self._ia1.end()
         self._ia2.end()
+
+
+
 class IAWhile:
     """
     Classe permettant de réaliser une ia tant qu'une condition est vérifiée

@@ -5,6 +5,9 @@ Objectifs:
 - Refusionner les packages "driftator" et "driftator_sim"
 - Améliorer le code des IA qui est trop lourd
 - Commencer à revoir le code de la détection de balise
+- Problème avec la distance_parcourue sur toutes les IA / Problème de concurrence entre IA
+- Le dT dans l IA ne sert à rien --> on peut le retirer en principe
+- On ne doit pas passer self en paramètre, ce n est pas propre dutout
 
 
 Taches faites :

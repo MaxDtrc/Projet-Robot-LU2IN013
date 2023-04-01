@@ -1,2 +1,2 @@
 from . import ia
-from .start import start
+from .start import startRobot, startSimulation

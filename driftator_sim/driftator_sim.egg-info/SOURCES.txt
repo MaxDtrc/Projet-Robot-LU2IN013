@@ -1,8 +1,0 @@
-setup.py
-driftator_sim/__init__.py
-driftator_sim/start.py
-driftator_sim.egg-info/PKG-INFO
-driftator_sim.egg-info/SOURCES.txt
-driftator_sim.egg-info/dependency_links.txt
-driftator_sim.egg-info/not-zip-safe
-driftator_sim.egg-info/top_level.txt

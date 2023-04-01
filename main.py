@@ -1,6 +1,6 @@
 import driftator
 
-simView = 2
+simView = 1
 strategie = "demo_ia/test2.ia"
 config = "config/config_obst.json"
 

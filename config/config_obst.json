@@ -10,6 +10,17 @@
             "vitesseGauche": 0,
             "vitesseDroite": 0,
             "vitesseMax": 10000
+        },
+        {
+            "nom": "robot2",
+            "posX": 0,
+            "posY": -60,
+            "angle": 90,
+            "diametreRoues": 6.65,
+            "rayon": 5.85,
+            "vitesseGauche": 0,
+            "vitesseDroite": 0,
+            "vitesseMax": 10000
         }
     ],
     "obstaclesRonds" : [

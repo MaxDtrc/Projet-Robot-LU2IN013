@@ -22,6 +22,7 @@ class Robot():
          
            (en degrés de rotation par seconde)
         """
+        self.type = -1
         self._nom = nom
         self._posX = posX
         self._posY = posY
@@ -188,6 +189,41 @@ class Robot():
         :returns: les informations sur le robot sous forme  de string
         """
         return ("VitG: "+str(format(self._vitesseGauche,'.2f'))+"\tVitD: "+str(format(self._vitesseDroite,'.2f'))+"\tAngle: "+str(format(self._angle,'.2f')))
+
+    def testCrash(self, robot):
+        """
+    	Méthode qui détermine si le robot passé en paramètres est en collision avec ce robot
+        #Marge d erreur de 0.2
+
+        :param robot: robot sur lequel s'applique le test du crash avec un obstacle
+    	:returns: 1 si crash, 0 sinon
+    	"""
+
+        #Renvoie faux si les deux robots sont les mêmes
+        if robot._nom == self._nom:
+            return False
+        
+        posXRobot = robot.x
+        posYRobot = robot.y
+        rayonRobot = robot.rayon
+
+        #Calcul de la distance entre le centre du robot et le centre du cercle
+        distance = sqrt(pow((self._posX - posXRobot), 2) + pow((self._posY - posYRobot), 2))
+
+        #On vérifie si cette distance est inférieure à la somme des deux rayons (avec une marge d'erreur de 0.2)
+        return (distance - rayonRobot - self._rayon <= 0.2)
+    
+    def estDedans(self, x: int, y: int):
+        """
+        Méthode qui détermine si le point de coordonnée (x, y) se trouve dans la surface de l'obstacle
+
+        :param x: coordonnée X
+        :param y: coordonnée Y
+        :returns: True si le point (x,y) se trouve dans l'obstacle
+        """
+        return sqrt((self._posX - x)**2 + (self._posY - y)**2) < self._rayon
+
+    
 
     #Contrôle du robot
     def actualiser(self, dT):

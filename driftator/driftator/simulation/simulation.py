@@ -168,6 +168,7 @@ def chargerJson(fichier : str, dT: int):
         for rob in data['robots'] :
             r = o.Robot(rob['nom'], rob['posX'], rob['posY'], rob['angle'], rob['diametreRoues'], rob['rayon'], rob['vitesseGauche'], rob['vitesseDroite'], rob['vitesseMax'])
             simulation.ajouterRobot(r)
+            simulation.terrain.ajouterObstacle(r)
         
     return simulation
 

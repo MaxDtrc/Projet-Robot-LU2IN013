@@ -26,8 +26,8 @@ def startSimulation(strat, config, simView = 1, dT = 0.0001):
         implem = ia.implemSimulation(ia.Variables(ia.GetDecalageSim(sim.getRobot(i))), sim)
         controleur.changerImplementation(implem)
         #Chargement de l'IA
-        strat = ia.openIA(strat, controleur, dT)
-        strat.start()
+        strategie = ia.openIA(strat, controleur, dT)
+        strategie.start()
 
     #Initialisation de l'affichage
     if simView == 1:

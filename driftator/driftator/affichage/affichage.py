@@ -140,8 +140,11 @@ class Affichage():
         #Affichage des objets
         t = self._simulation.terrain
         for i in range(0, self._simulation.getNombreDeRobots()):
-            r = self._simulation.getRobot(i)
-            self._afficherRobot(r)
+            try:
+                r = self._simulation.getRobot(i)
+                self._afficherRobot(r)
+            except:
+                print("Le robot à afficher n'existe plus")
 
             #Affichage du capteur de distance
             if self._afficherDistance and self._simulation.capteurDistanceAppele:

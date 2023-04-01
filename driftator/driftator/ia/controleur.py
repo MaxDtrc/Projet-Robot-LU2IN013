@@ -1,6 +1,7 @@
 from math import pi, sqrt
 from .position_balise import getPosBalise
 from PIL import Image
+from random import randint
 
 
 class implemVraiVie:
@@ -51,11 +52,9 @@ class implemVraiVie:
 
         return getPosBalise()
 
-        
-
-    def reset(self):
-        self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
-        self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
+    def stop(self):
+        self._r.set_motor_dps(1, 0)
+        self._r.set_motor_dps(2, 0)
 
     def __getattr__(self, name):
         return getattr(self._r, name)
@@ -114,8 +113,9 @@ class implemSimulation:
         return getPosBalise()
 
 
-    def reset(self):
-        pass
+    def stop(self):
+        self._r.setVG(0)
+        self._r.setVD(0)
 
     
 
@@ -166,7 +166,7 @@ class GetDecalageReel(Decorator):
     def __getattr__(self, name):
         return getattr(self.robot, name)
 
-    def getDecalageAngle(self, ia):
+    def getDecalageAngle(self):
         """
         Renvoi le décalage de l'angle du robot depuis le dernier appel de la fonction et le remet à 0
 
@@ -184,16 +184,16 @@ class GetDecalageReel(Decorator):
         dD = d[1]/360 * diamRoue * pi
 
         angle = (dD - dG)/(rayonRobot * 2)
-
+        ancienAngle = self.lastStep
         if(angle != 0):
             #Test: remplacer la commande offeset_motor_encoder par une sauvegarde "manuelle"
-            ia.lastStep = angle
+            self.lastStep = angle
             #self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
             #self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
 
-        return angle
+        return angle - ancienAngle
 
-    def getDistanceParcourue(self, ia):
+    def getDistanceParcourue(self):
         """
         Renvoi la distance parcourue par le robot
 
@@ -204,14 +204,16 @@ class GetDecalageReel(Decorator):
         posRoues = self.get_motor_position()
 
         d = (posRoues[0] + posRoues[1])/2
+        distance = d/360 * diamRoue * pi
+        ancienneDistance = self.lastStep
 
         #Reset de l'origine de la pos
         #Test: remplacer la commande offeset_motor_encoder par une sauvegarde "manuelle"
-        ia.lastStep = d/360 * diamRoue * pi
+        ia.lastStep = distance
         #self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
         #self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
 
-        return d/360 * diamRoue * pi 
+        return distance - ancienneDistance
     
 class GetDecalageSim(Decorator):
     def __init__(self, robot):
@@ -222,7 +224,7 @@ class GetDecalageSim(Decorator):
     def __getattr__(self, name):
         return getattr(self.robot, name)
 
-    def getDecalageAngle(self, ia):
+    def getDecalageAngle(self):
         """
         Renvoi le décalage de l'angle du robot depuis le dernier appel de la fonction et le remet à 0
 
@@ -232,7 +234,7 @@ class GetDecalageSim(Decorator):
         self._decalageA = self._angle
         return res
 
-    def getDistanceParcourue(self, ia):
+    def getDistanceParcourue(self):
         """
         Renvoi la distance parcourue par le robot
 
@@ -250,9 +252,9 @@ class GetDecalageSim(Decorator):
 
 
 class Variables(Decorator):
-    def __init__(self, robot):
+    def __init__(self, ctrl):
         self._variables = dict()
-        Decorator.__init__(self, robot)
+        Decorator.__init__(self, ctrl)
 
     def getVar(self, nom):
         return self._variables[nom]
@@ -260,5 +262,58 @@ class Variables(Decorator):
     def setVar(self, nom, val):
         self._variables[nom] = val
 
-    def __getattr__(self, name):
-        return getattr(self.robot, name)
+    def substituerVariables(self, vars):
+        """
+        Fonctions auxiliaire permettant de remplacer les variables par leur valeurs
+        """
+        for i in range(len(vars)):
+            try:
+                #L'élément est une valeur
+                parsed = float(vars[i])
+            except:
+                #Variables custom
+                if(vars[i] == "capteur_distance"):
+                    self._variables["capteur_distance"] = self.getDistance()
+                if(vars[i] == "capteur_balise"):
+                    self._variables["capteur_balise"] = self.getBalisePosition()
+                if(vars[i] == "random"):
+                    self._variables["random"] = randint(0, 10000000)
+
+                #On substitue la variable à sa valeur
+                if(vars[i] not in ['(', ')', '==', '!=', '<', '>', '<=', '>=', '+', '-', '/', '*', '%', '//', "and", "or"]):
+                    vars[i] = str(self._variables[vars[i]])
+
+    def evaluerCondition(self, args):
+        """
+        Fonction évaluant la condition passée en paramètres
+        
+        :param args: arguments de la condition
+        :returns: True si la condition est vérifiée, False sinon
+        """
+        args = args.copy()
+        self.substituerVariables(args)
+        return(eval(" ".join(args)))
+    
+    def affecterValeur(self, args):
+        """
+        Fonction permettant d'affecter une valeur à une variable
+
+        :param args: arguments de l'affectation
+        """
+        varAChanger = args[0]
+        args = args.copy()[2:]
+        self.substituerVariables(args)
+        self._variables[varAChanger] = eval(" ".join(args))
+
+    def printVariable(self, args):
+        """
+        Fonction permettant d'afficher une variable dans la console
+        
+        :param args: arguments du print
+        """
+        args = args.copy()
+        self.substituerVariables(args)
+        print(eval(" ".join(args)))
+
+
+

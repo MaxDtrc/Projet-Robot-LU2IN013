@@ -4,8 +4,8 @@ def startRobot(strat, dT = 0.001):
     from robot2IN013 import Robot2IN013
 
     #Initialisation du controleur
-    controleur = ia.controleur()
-    implem = ia.implemVraiVie(ia.GetDecalageReel(ia.Variables(Robot2IN013())))
+    controleur = ia.Variables(ia.controleur())
+    implem = ia.implemVraiVie(ia.GetDecalageReel(Robot2IN013()))
     controleur.changerImplementation(implem)
 
     #Lancement de l'IA
@@ -22,8 +22,8 @@ def startSimulation(strat, config, simView = 1, dT = 0.0001):
 
     for i in range(0, sim.getNombreDeRobots()):
         #Initialisation du controleur
-        controleur = ia.controleur()
-        implem = ia.implemSimulation(ia.Variables(ia.GetDecalageSim(sim.getRobot(i))), sim)
+        controleur = ia.Variables(ia.controleur())
+        implem = ia.implemSimulation(ia.GetDecalageSim(sim.getRobot(i)), sim)
         controleur.changerImplementation(implem)
         #Chargement de l'IA
         strategie = ia.openIA(strat, controleur, dT)

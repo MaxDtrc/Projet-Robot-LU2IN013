@@ -13,7 +13,7 @@ class IA(Thread):
         super(IA, self).__init__()
         self._controleur = controleur
         self.strategie = strat
-        self._wait = dT/10
+        self._wait = dT
 
     def run(self):
         self.strategie.start()
@@ -27,14 +27,10 @@ class IA(Thread):
 
     def step(self):
         if not self.strategie.stop():
-            self.strategie.step(self._dT)
+            self.strategie.step()
         else:
-            self.strategie.end()
+            self._controleur.stop()
             self._controleur.running = False
-
-
-
-
 
 
 
@@ -56,44 +52,30 @@ class Avancer:
         self.a = angle
         self.v = v
         self.parcouru = 0
-        self.lastStep = 0
 
     def start(self):
-        self._controleur.getDistanceParcourue(self) #Reinitialisation
+        self._controleur.getDistanceParcourue() #Reinitialisation
         self.parcouru = 0
 
         #Substitution des variables
         self._vars = [self.d, self.a, self.v]
-        for i in range(3):
-            substituerVariables(self, i)
+        self._controleur.substituerVariables(self._vars)
         self.distance = float(self._vars[0])
         self.angle = float(self._vars[1])
         self.vitesse = float(self._vars[2])
 
         self.avancer()
-        
-        
 
     def stop(self):
         #On avance tant qu'on n'est pas trop près d'un mur/qu'on n' a pas suffisement avancé
         return self.parcouru >= self.distance
 
-    def step(self, dT: float):
+    def step(self):
         #Calcul de la distance parcourue
-        d = abs(self.lastStep)
-        self.parcouru += abs(self._controleur.getDistanceParcourue(self)) - d
+        self.parcouru += abs(self._controleur.getDistanceParcourue())
 
-        if self.stop(): 
-            self.end()
-            return
-        
         self.avancer()
 
-        
-
-    def end(self):
-        self._controleur.setVitesseGauche(0)
-        self._controleur.setVitesseDroite(0)
 
     def avancer(self):
         #Avancer selon l'angle et la vitesse
@@ -116,24 +98,20 @@ class TournerSurPlace:
         self._controleur = controleur
         self.a = angle
         self.v = v
-        self.lastStep = 0
         self.parcouru = 0
 
 
     def start(self):
-        self._controleur.getDecalageAngle(self)
+        self._controleur.getDecalageAngle()
         self.parcouru = 0
 
         #Substitution des variables
         self._vars = [self.a, self.v]
-        for i in range(2):
-            substituerVariables(self, i)
-            
+        self._controleur.substituerVariables(self._vars)
+
         self.angle = radians(float(self._vars[0]))
-        if self.angle >= 0:
-            self.vitesse = float(self._vars[1])
-        else:
-            self.vitesse = -float(self._vars[1])
+        self.vitesse = float(self._vars[1]) if self.angle >= 0 else -float(self._vars[1])
+
 
         self.avancer()
 
@@ -141,35 +119,14 @@ class TournerSurPlace:
         #On tourne tant qu'on n'a pas dépassé l'angle
         return self.parcouru > abs(self.angle)
         
-    def step(self, dT : float):
+    def step(self):
         #Calcul de la distance parcourue
-        d = abs(self.lastStep)
-        a = abs(self._controleur.getDecalageAngle(self))
-        if(a != 0):
-            self.parcouru += a - d
-
-        if self.stop():
-            self.end()
-            return
-
+        self.parcouru += abs(self._controleur.getDecalageAngle())
         self.avancer()
-
-    def end(self):
-        self._controleur.setVitesseGauche(0)
-        self._controleur.setVitesseDroite(0)
 
     def avancer(self):
         self._controleur.setVitesseGauche(self.vitesse)
         self._controleur.setVitesseDroite(-self.vitesse)
-
-
-
-
-
-
-
-
-
 
 
 
@@ -194,9 +151,7 @@ class IAIf:
 
     def start(self):
         #Initialisation des 2 sous IA
-        self._condition.start()
-        self._condition.step()
-        if(self._condition.resultat):
+        if self._controleur.evaluerCondition(self._condition):
             self._ia = self._ia1
         else:
             self._ia = self._ia2
@@ -209,16 +164,9 @@ class IAIf:
         #Arrêt si l'une des deux IA est finie
         return self._ia == None or self._ia.stop()
 
-    def step(self, dT: float):
-        if self.stop(): 
-                self.end()
-                return
-        else:
-            self._ia.step(dT)
+    def step(self):
+        self._ia.step()
     
-    def end(self):
-        if self._ia != None:
-            self._ia.stop()
 
 #IA complexes
 class IAAlterner:
@@ -240,7 +188,6 @@ class IAAlterner:
 
     def start(self):
         #Initialisation des 2 sous IA
-        self._condition.start()
         self._ia1.start()
         self._ia2.start()
         pass
@@ -249,23 +196,12 @@ class IAAlterner:
         #Arrêt si l'une des deux IA est finie
         return self._ia1.stop() or self._ia2.stop()
 
-    def step(self, dT: float):
-        if not self._condition.stop():
-            self._condition.step()
+    def step(self):
+        if self._controleur.evaluerCondition(self._condition):
+            self._ia1.step()
         else:
-            if self.stop(): 
-                self.end()
-                return
-            else:
-                if self._condition.resultat:
-                    self._ia1.step(dT)
-                else:
-                    self._ia2.step(dT)
-            self._condition.start()
-    
-    def end(self):
-        self._ia1.end()
-        self._ia2.end()
+            self._ia2.step()
+
 
 
 
@@ -286,33 +222,22 @@ class IAWhile:
 
     def start(self):
         #Initialisation de la sous IA
-        self._condition.start()
         self._ia.start()
         pass
 
     def stop(self):
         #Arrêt si la condition n'est pas vérifiée
-        if not self._condition.stop():
-            self._condition.step()
-        if not self._condition.resultat:
-            return True
-        self._condition.start()
+        return not self._controleur.evaluerCondition(self._condition)
+        
+    def step(self):
+        #Reset de l'IA
+        if self._ia.stop():
+            self._ia.start()
 
-    def step(self, dT: float):
-        if self.stop(): 
-            self.end()
-            return
-        else:
-            #Reset de l'IA
-            if self._ia.stop():
-                self._ia.end()
-                self._ia.start()
-
-            #Step
-            self._ia.step(dT)
+        #Step
+        self._ia.step()
     
-    def end(self):
-        self._ia.end()
+
 
 class IAFor:
     """
@@ -336,7 +261,7 @@ class IAFor:
 
         #Substitution de la variable
         self._vars = [self._nbIter]
-        substituerVariables(self, 0)
+        self._controleur.substituerVariables(self)
         
         self._max = int(self._vars[0])
         self._ia.start()
@@ -352,15 +277,9 @@ class IAFor:
                 self._ia.end()
                 self._ia.start()
 
-    def step(self, dT: float):
-        if self.stop(): 
-            self.end()
-            return
-        else:
-            self._ia.step(dT)
-    
-    def end(self):
-        self._ia.end()
+    def step(self):
+        self._ia.step()
+
 
 class IASeq:
     """
@@ -374,11 +293,13 @@ class IASeq:
         """
         self._controleur = controleur
         self.v = 0
+        self._i = -1
         self._iaList = iaList.copy()
 
     def start(self):
         #Initialisation de la sous ia 1
         self._i = 0
+
         self._iaList[self._i].start()
 
     def stop(self):
@@ -386,161 +307,24 @@ class IASeq:
         if self._iaList[self._i].stop():
             if(self._i >= len(self._iaList) - 1):
                 return True
-                
-
-    def step(self, dT: float):
-        if self.stop(): 
-            self.end()
-            return
-        elif self._iaList[self._i].stop():
-            self._iaList[self._i].end()
-            self._i += 1
-            self._iaList[self._i].start()
-            
-        self._iaList[self._i].step(dT)
-    
-    def end(self):
-        self._iaList[self._i].end()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#IA complémentaires
-
-
-def substituerVariables(ia, i):
-    """
-    Fonctions auxiliaire permettant de remplacer les variables par leur valeurs
-    """
-    try:
-        #L'élément est une valeur
-        parsed = float(ia._vars[i])
-    except:
-        #L'élément est un nom de variable
-
-        #Variables custom
-        if(ia._vars[i] == "capteur_distance"):
-            ia._controleur._variables["capteur_distance"] = ia._controleur.getDistance()
-        if(ia._vars[i] == "capteur_balise"):
-            ia._controleur._variables["capteur_balise"] = ia._controleur.getBalisePosition()
-        if(ia._vars[i] == "random"):
-            ia._controleur._variables["random"] = randint(0, 10000000)
-
-        #On substitue la variable à sa valeur
-        if(ia._vars[i] not in ['(', ')', '==', '!=', '<', '>', '<=', '>=', '+', '-', '/', '*', '%', '//', "and", "or"]):
-            ia._vars[i] = str(ia._controleur._variables[ia._vars[i]])
-
-
-
-
-class IACondition:
-    """
-    Classe permettant de réaliser une condition pour une IA
-    """
-    def __init__(self, controleur, args):
-        """
-        Paramètres
-        :param controleur: controleur du robot
-        :param args: Tableau splité de la condition
-        """
-        self._controleur = controleur
-        self.resultat = None
-        self._args = args
-
-    def start(self):
-        #Reset du resultat
-        self.resultat = None
-        self._vars = self._args.copy()
-
-    def stop(self):
-        #Arrêt si la condition a été testée
-        return self.resultat != None
 
     def step(self):
-        if not self.stop():
-            for i in range(len(self._vars)):
-                substituerVariables(self, i)
+        if self._iaList[self._i].stop():
+            self._i += 1
+            self._iaList[self._i].start()
+        else:
+            self._iaList[self._i].step()
 
-            self.resultat = eval(' '.join(self._vars))
 
-    def end(self):
-        pass
-
-class IAGererVariable:
-    """
-    Classe permettant de modifier une variable
-    """
+class IAFonction():
     def __init__(self, controleur, args):
-        """
-        Paramètres
-        :param controleur: controleur du robot
-        :param args: Tableau splité de l'instruction
-        """
         self._controleur = controleur
-        self.effectue = False
-        self._args = args
+        self.args = args
 
     def start(self):
-        #Reset du resultat
-        self.effectue = False
-        self._vars = self._args.copy()
-
+        fun = self.args[0]
+        args = self.args[1:]
+        eval("self._controleur." + fun + "(args)")
+        
     def stop(self):
-        #Arrêt si l'instruction a été effectuée
-        return self.effectue != False
-
-    def step(self, dT):
-        if not self.stop():
-            for i in range(2, len(self._vars)):
-                substituerVariables(self, i)
-
-            self._controleur._variables[self._args[0]] = eval(''.join(self._vars[2:]))
-            self.effectue = True
-
-    def end(self):
-        pass
-
-class IAPrint:
-    """
-    Classe permettant d'effectuer un affichage
-    """
-    def __init__(self, controleur, args):
-        """
-        Paramètres
-        :param controleur: controleur du robot
-        :param args: Tableau splité de l'instruction
-        """
-        self._controleur = controleur
-        self.effectue = False
-        self._args = args
-
-    def start(self):
-        #Reset du resultat
-        self.effectue = False
-        self._vars = self._args.copy()
-
-    def stop(self):
-        #Arrêt si l'instruction a été effectuée
-        return self.effectue != False
-
-    def step(self, dT):
-        if not self.stop():
-            for i in range(len(self._vars)):
-                substituerVariables(self, i)
-
-            #Affichage
-            print(eval(''.join(self._vars)))
-            self.effectue = True
-
-    def end(self):
-        pass
+        return True

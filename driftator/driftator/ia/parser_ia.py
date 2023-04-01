@@ -96,11 +96,8 @@ def readIA(ia, c):
         #Instruction "If"
         elif len(ia[i]) >= 2 and ia[i][:2] == 'if':
             #Lecture de la condition
-            cond = ia[i].split('(')[1].split(')')[0].split(' ')
+            iaCond = ia[i].split('(')[1].split(')')[0].split(' ')
             
-            #Creation de la condition
-            iaCond = IACondition(c, cond)
-
             #Lecture des deux blocs
             i+=1
             nbParenthOuverte = 0
@@ -156,10 +153,7 @@ def readIA(ia, c):
         #IA Alterner
         elif len(ia[i]) >= 8 and ia[i][:8] == 'alterner':
             #Lecture de la condition
-            cond = ia[i].split('(')[1].split(')')[0].split(' ')
-            
-            #Creation de la condition
-            iaCond = IACondition(c, cond)
+            iaCond = ia[i].split('(')[1].split(')')[0].split(' ')
 
             #Lecture des deux blocs
             i+=1
@@ -210,11 +204,8 @@ def readIA(ia, c):
         #Instruction "While"
         elif len(ia[i]) >= 5 and ia[i][:5] == 'while':
             #Lecture de la condition
-            cond = ia[i].split('(')[1].split(')')[0].split(' ')
+            iaCond = ia[i].split('(')[1].split(')')[0].split(' ')
             
-            #Creation de la condition
-            iaCond = IACondition(c, cond)
-
             #Lecture des deux blocs
             i+=1
             nbParenthOuverte = 0
@@ -247,7 +238,7 @@ def readIA(ia, c):
             instr = ia[i].split('(')[1].split(')')[0].split(' ')
 
             #Ajout de l'instruction
-            seq.append(IAPrint(c, instr))
+            seq.append(IAFonction(c, ["printVariable"] + instr))
             i+=1
 
         #Definition de variable
@@ -256,7 +247,7 @@ def readIA(ia, c):
             instr = ia[i][:-2].split(" ")
 
             #Ajout de l'instruction
-            seq.append(IAGererVariable(c, instr))
+            seq.append(IAFonction(c, ["affecterValeur"] + instr))
             i+=1
             
         

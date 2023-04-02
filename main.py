@@ -1,7 +1,7 @@
 import driftator
 
 simView = 1
-strategie = "demo_ia/approcher_mur.ia"
+strategie = "demo_ia/test2.ia"
 config = "config/config_obst.json"
 
 try:

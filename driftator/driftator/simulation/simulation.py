@@ -97,7 +97,7 @@ class Simulation(Thread):
         while distance < self.terrain.sizeX * self.terrain.sizeY: #Limite pour pas que le rayon n'avance à l'infini
             #Detection des obstacles
             for i in range(0, self.terrain.getNombreObstacles()):
-                if self.terrain.getObstacle(i).estDedans(posRayon[0], posRayon[1]):
+                if self.terrain.getObstacle(i).nom != robot.nom and self.terrain.getObstacle(i).estDedans(posRayon[0], posRayon[1]):
                     #Enregistrement des dernières valeurs observées (utiles pour du débogage ou l'affichage du rayon par exemple)
                     self.capteurDistanceAppele = True
                     self.lastPosX = posRayon[0] #On enregistre la dernière position X du rayon

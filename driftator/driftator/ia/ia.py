@@ -274,7 +274,6 @@ class IAFor:
             if(self._i >= self._max):
                 return True
             else:
-                self._ia.end()
                 self._ia.start()
 
     def step(self):

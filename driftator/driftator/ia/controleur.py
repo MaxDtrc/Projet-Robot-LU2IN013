@@ -209,7 +209,7 @@ class GetDecalageReel(Decorator):
 
         #Reset de l'origine de la pos
         #Test: remplacer la commande offeset_motor_encoder par une sauvegarde "manuelle"
-        ia.lastStep = distance
+        self.lastStep = distance
         #self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
         #self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
 

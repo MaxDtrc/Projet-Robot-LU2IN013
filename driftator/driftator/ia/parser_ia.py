@@ -23,7 +23,7 @@ def readIA(ia, c):
             for j in instr[1:]:
                 #suppression du \n
                 if j[-1] == '\n':
-                    j = j[:-2]
+                    j = j[:-1]
                 
                 #Lecture des variables
                 if j[0] == 'd':
@@ -50,7 +50,7 @@ def readIA(ia, c):
             for j in instr[1:]:
                 #suppression du \n
                 if j[-1] == '\n':
-                    j = j[:-2]
+                    j = j[:-1]
                 
                 #Lecture des variables
                 if j[0] == 'a':
@@ -122,7 +122,7 @@ def readIA(ia, c):
 
             blocIA2 = None
             i += 1
-            if(ia[i] == "else{"):
+            if(ia[i] == "else{\n"):
                 i+=1
                 tabBloc = []
                 while ia[i][0] != '}' or nbParenthOuverte != 0:
@@ -243,8 +243,8 @@ def readIA(ia, c):
 
         #Definition de variable
         elif (len(ia[i].split(' ')) >= 1 and ia[i].split(' ')[1] == '='):
-            #Lecture de la definition de variable et suppression du ;
-            instr = ia[i][:-2].split(" ")
+            #Lecture de la definition de variable
+            instr = ia[i].replace('\n', '').split(" ")
 
             #Ajout de l'instruction
             seq.append(IAFonction(c, ["affecterValeur"] + instr))

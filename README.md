@@ -15,9 +15,9 @@ Syntaxe:
     -- Possibilité d'écrire des commentaires en commençant la ligne par // -- 
 
     --Instructions de base--
-    avancer d=10 v=10 a=10; //Avance d'une distance d (cm), à une vitesse v (t/s), avec un angle a (pourcentage, de -100 à 100)
+    avancer d=10 v=10 a=10 //Avance d'une distance d (cm), à une vitesse v (t/s), avec un angle a (pourcentage, de -100 à 100)
 
-    tourner a=90 v=10; //Tourne sur place d'un angle a (degré), à une vitesse v (t/2)
+    tourner a=90 v=10 //Tourne sur place d'un angle a (degré), à une vitesse v (t/2)
 
     -- IA "complexes" --
     for(i){
@@ -28,19 +28,29 @@ Syntaxe:
         //Effectue l'IA en boucle tant que la condition est vérifiée
     }
 
-    if(cond){
+    alterner(cond){
         //IA 1
     }
     else{
         //IA 2
     } //A chaque step, avance dans l'IA 1 si la condition est vérifiée, dans l'IA 2 sinon
 
-    -- Variables --
-    a = 10 * 5 //Initialise une variable a, utilisable dans les conditions/print/definition des autres variables
+    if(cond){
+        //IA 1
+    }
+    else{
+        //IA 2
+    } //Evalue la condition au début, puis réalise l'ia 1 ou l'ia 2 selon le résultat (le else n'est pas obligatoire)
 
-    Il y a 2 variables spéciales:
+    -- Variables --
+    a = 10 * 5 //Initialise une variable a, utilisable dans les conditions/print/for/definition des autres variables
+
+    Il y a 3 variables spéciales:
+        - random : renvoie une valeur aléatoire entre 0 et 10000000
         - capteur_distance : renvoie la valeur du capteur de distance
         - capteur_balise : renvoie la coordonnée x de la balise détectée par la caméra du robot
+
+    Il est possible de rajouter des variables spéciales dans la classe Variables de controleur.py, méthode "substituerVariable" 
 
     -- Autres instructions --
     print(expr) //Affiche la valeur de l'expression dans la console

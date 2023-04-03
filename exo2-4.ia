@@ -1,0 +1,31 @@
+vitesse = 400
+
+while(1 == 1){
+    print(activer_dessin)
+    //Dessin du zero
+    for(2){
+        avancer d=20 v=vitesse a=0
+        tourner a=90 v=100
+        avancer d=8 v=vitesse a=0
+        tourner a=90 v=100
+    }
+
+    //On se décale
+    print(desactiver_dessin)
+    tourner a=90 v=100
+    avancer d=15 v=vitesse a=0
+    tourner a=-90 v=100
+
+    //dessin du 1
+    print(activer_dessin)
+    avancer d=20 v=vitesse a=0
+
+    //On se décale
+    print(desactiver_dessin)
+    tourner a=180 v=100
+    avancer d=20 v=vitesse a=0
+    tourner a=-90 v=100
+    avancer d=7 v=vitesse a=0
+    tourner a=-90 v=100
+}
+

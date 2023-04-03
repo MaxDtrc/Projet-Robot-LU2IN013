@@ -1,0 +1,19 @@
+print(activer_dessin)
+
+//Dessin du zero
+for(2){
+    avancer d=20 v=200 a=0
+    tourner a=90 v=100
+    avancer d=8 v=200 a=0
+    tourner a=90 v=100
+}
+
+print(desactiver_dessin)
+
+tourner a=90 v=100
+avancer d=15 v=200 a=0
+tourner a=-90 v=100
+
+//dessin du 1
+print(activer_dessin)
+avancer d=20 v=200 a=0

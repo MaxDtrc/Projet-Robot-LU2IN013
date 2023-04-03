@@ -49,7 +49,7 @@ l.start()
 
 
 class Affichage():
-    def __init__(self, simulation : s.Simulation, controleur, fps: int, echelle: int = 1, afficherDistance: bool = False):
+    def __init__(self, simulation : s.Simulation, controleur, fps: int, echelle: int = 1, afficherDistance: bool = False, afficherTracee = False):
         """
         Constructeur de la classe affichage
         
@@ -66,7 +66,7 @@ class Affichage():
         self._fps = fps
         self._echelle = echelle
         self._afficherDistance = afficherDistance
-        self._afficherTrace = False
+        self._afficherTrace = afficherTracee
         self.tailleTrace = 2
 
         #Init de pygame
@@ -87,7 +87,7 @@ class Affichage():
     def stop(self):
         self.running = False
 
-    def dessine(self, b):
+    def setAfficherTrace(self, b):
         self._afficherTrace = b
 
     def _afficherObstacle(self, obstacle : s.Obstacle):
@@ -102,6 +102,9 @@ class Affichage():
             pygame.draw.rect(self._screen, COULEUR_OBSTACLES, (obstacle.x*e + self._screen.get_size()[0]/2 - obstacle.longueur*e/2, obstacle.y*e + self._screen.get_size()[1]/2 - obstacle.largeur*e/2, obstacle.longueur*e, obstacle.largeur*e))
         elif (obstacle.type == 1):
             #Affichage d'un obstacle rond
+            pygame.draw.circle(self._trace, COULEUR_OBSTACLES, (obstacle.x*e + self._screen.get_size()[0]/2, obstacle.y*e + self._screen.get_size()[0]/2), obstacle.rayon*e)
+        elif (obstacle.type == 2):
+            #Affichage d'un obstacle emetteur
             pygame.draw.circle(self._trace, COULEUR_OBSTACLES, (obstacle.x*e + self._screen.get_size()[0]/2, obstacle.y*e + self._screen.get_size()[0]/2), obstacle.rayon*e)
 
     def _afficherRobot(self, robot: s.Robot):

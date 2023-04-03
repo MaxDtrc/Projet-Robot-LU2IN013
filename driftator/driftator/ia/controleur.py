@@ -111,8 +111,16 @@ class implemSimulation:
 
         #CONVERSION DE l'IMAGE ET APPEL DE LA FONCTION RENVOYANT LA POSITION DE LA BALISE
         return getPosBalise()
+    
+    def getSignal(self):
+        return self._s.getSignal(self._r)
+
+    def dessine(self):
+        pass
 
 
+
+    
     def stop(self):
         self._r.setVG(0)
         self._r.setVD(0)
@@ -276,6 +284,8 @@ class Variables(Decorator):
                     self._variables["capteur_distance"] = self.getDistance()
                 if(vars[i] == "capteur_balise"):
                     self._variables["capteur_balise"] = self.getBalisePosition()
+                if(vars[i] == "dessine"):
+                    self._variables["dessine"] = self.dessine()
                 if(vars[i] == "random"):
                     self._variables["random"] = randint(0, 10000000)
 

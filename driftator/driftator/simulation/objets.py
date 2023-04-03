@@ -508,3 +508,56 @@ class ObstacleRond(Obstacle):
         :returns: True si le point (x,y) se trouve dans l'obstacle
         """
         return sqrt((self._posX - x)**2 + (self._posY - y)**2) < self._rayon
+    
+class Emetteur(Obstacle): 
+    """
+    Classe héritant de la classe Obstacle et représentant un obstacle rond
+    """
+    
+    def __init__(self, nom: str, posX: float, posY: float, rayon: float):
+        """
+        Constructeur de la classe ObstacleRond
+
+        :param nom: nom de l'obstacle
+        :param posX: position x du centre de l'obstacle 
+        :param posY: position y du centre de l'obstacle
+        :param rayon: rayon de l'obstacle
+        """
+        Obstacle.__init__(self, nom, posX, posY)
+        self._rayon = rayon
+        self.type = 2
+
+    @property
+    def rayon(self):
+        return self._rayon
+
+        
+    def testCrash(self, robot : Robot):
+        """
+    	Méthode qui détermine si le robot est en collision avec un obstacle rectangulaire
+        #Marge d erreur de 0.2
+
+        :param robot: robot sur lequel s'applique le test du crash avec un obstacle
+    	:returns: 1 si crash, 0 sinon
+    	"""
+
+        posXRobot = robot.x
+        posYRobot = robot.y
+        rayonRobot = robot.rayon
+
+        #Calcul de la distance entre le centre du robot et le centre du cercle
+        distance = sqrt(pow((self._posX - posXRobot), 2) + pow((self._posY - posYRobot), 2))
+
+        #On vérifie si cette distance est inférieure à la somme des deux rayons (avec une marge d'erreur de 0.2)
+        return False
+
+    def estDedans(self, x: int, y: int):
+        """
+        Méthode qui détermine si le point de coordonnée (x, y) se trouve dans la surface de l'obstacle
+
+        :param x: coordonnée X
+        :param y: coordonnée Y
+        :returns: True si le point (x,y) se trouve dans l'obstacle
+        """
+        return sqrt((self._posX - x)**2 + (self._posY - y)**2) < self._rayon
+

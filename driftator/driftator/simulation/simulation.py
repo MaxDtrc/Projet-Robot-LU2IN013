@@ -1,5 +1,5 @@
 from . import objets as o
-from math import cos, sin, radians
+from math import cos, sin, radians, sqrt, pow
 import json
 from threading import Thread
 import time
@@ -134,6 +134,14 @@ class Simulation(Thread):
             print("crash")
             self.retirerRobot(r)
     
+
+    def getSignal(self, robot):
+        t = self.terrain
+        for i in range (t.getNombreObstacles()):
+            obst = t.getObstacle(i)
+            if (obst.type == 2):
+                return sqrt(pow(obst._posX - robot.x, 2) + pow(obst._posY - robot.y, 2))
+            return None
 
         
 

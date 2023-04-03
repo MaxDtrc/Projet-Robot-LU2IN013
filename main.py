@@ -1,7 +1,7 @@
 import driftator
 
 simView = 1
-strategie = "demo_ia/test2.ia"
+strategie = "demo_ia/hexagone.ia"
 config = "config/config_obst.json"
 
 try:

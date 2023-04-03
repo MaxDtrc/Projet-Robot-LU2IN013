@@ -117,10 +117,7 @@ class implemSimulation:
 
     def dessine(self):
         pass
-
-
-
-    
+   
     def stop(self):
         self._r.setVG(0)
         self._r.setVD(0)
@@ -286,6 +283,8 @@ class Variables(Decorator):
                     self._variables["capteur_balise"] = self.getBalisePosition()
                 if(vars[i] == "dessine"):
                     self._variables["dessine"] = self.dessine()
+                if(vars[i] == "capteur_emetteur"):
+                    self._variables["capteur_emetteur"] = self.getSignal()
                 if(vars[i] == "random"):
                     self._variables["random"] = randint(0, 10000000)
 

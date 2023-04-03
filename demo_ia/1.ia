@@ -1,0 +1,4 @@
+//dessin du 1
+for (1){
+    avancer d=50 v=500 a=0;
+}

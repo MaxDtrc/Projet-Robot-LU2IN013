@@ -1,0 +1,9 @@
+//Tracer hexagone
+for (3){
+    avancer d=50 v=500 a=0;
+    tourner a=60 v=90;
+    //dessine(True)
+    avancer d=50 v=500 a=0;
+    tourner a=60 v=90;
+    //dessine(False)
+}

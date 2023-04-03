@@ -22,7 +22,7 @@ loadPrcFileData("", "win-size 720 720")
 from .. import simulation as s
 
 #Initialisation de variables globales
-COULEUR_OBSTACLES = (65, 0, 55)
+COULEUR_OBSTACLES = (255, 165, 0)
 COULEUR_ROBOT = (255, 165, 165)
 BLACK = (0, 0, 0)
 

@@ -155,9 +155,9 @@ def chargerJson(fichier : str, dT: int):
         simulation.terrain = o.Terrain(t['tailleX'], t['tailleY'])
 
         #Importation et initialisation des obstacles ronds
-        for oR in data['obstaclesRonds'] :
-            ob = o.ObstacleRond(oR['nom'], oR['posX'], oR['posY'], oR['rayon'])
-            simulation.terrain.ajouterObstacle(ob)
+        #for oR in data['obstaclesRonds'] :
+            #ob = o.ObstacleRond(oR['nom'], oR['posX'], oR['posY'], oR['rayon'])
+            #simulation.terrain.ajouterObstacle(ob)
 
         #Importation et initialisation des obstacles rectangles
         for oRect in data['obstaclesRectangles'] :

@@ -22,7 +22,7 @@ loadPrcFileData("", "win-size 720 720")
 from .. import simulation as s
 
 #Initialisation de variables globales
-COULEUR_OBSTACLES = (65, 0, 55)
+COULEUR_OBSTACLES = (255, 165, 0)
 COULEUR_ROBOT = (255, 165, 165)
 BLACK = (0, 0, 0)
 
@@ -49,7 +49,7 @@ l.start()
 
 
 class Affichage():
-    def __init__(self, simulation : s.Simulation, controleur, fps: int, echelle: int = 1, afficherDistance: bool = False, afficherTrace: bool = False):
+    def __init__(self, simulation : s.Simulation, controleur, fps: int, echelle: int = 1, afficherDistance: bool = False):
         """
         Constructeur de la classe affichage
         
@@ -66,7 +66,7 @@ class Affichage():
         self._fps = fps
         self._echelle = echelle
         self._afficherDistance = afficherDistance
-        self._afficherTrace = afficherTrace
+        self._afficherTrace = False
         self.tailleTrace = 2
 
         #Init de pygame
@@ -86,6 +86,9 @@ class Affichage():
 
     def stop(self):
         self.running = False
+
+    def dessine(self, b):
+        self._afficherTrace = b
 
     def _afficherObstacle(self, obstacle : s.Obstacle):
         """

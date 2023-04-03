@@ -1,0 +1,81 @@
+{
+    "robots": [
+        {
+            "nom": "robot1",
+            "posX": 0,
+            "posY": 0,
+            "angle": 90,
+            "diametreRoues": 6.65,
+            "rayon": 5.85,
+            "vitesseGauche": 0,
+            "vitesseDroite": 0,
+            "vitesseMax": 10000
+        }
+    ],
+    "obstaclesRonds" : [
+        
+    ],
+    "obstaclesRectangles" : [
+        {
+            "nom": "obsrect1",
+            "posX": 60,
+            "posY": -60,
+            "longueur": 20,
+            "largeur": 20
+        },
+        {
+            "nom": "obsrect2",
+            "posX": -60,
+            "posY": 60,
+            "longueur": 20,
+            "largeur": 20
+        },
+        {
+            "nom": "obsrect3",
+            "posX": -60,
+            "posY": -60,
+            "longueur": 20,
+            "largeur": 20
+        },
+        {
+            "nom": "obsrect4",
+            "posX": 60,
+            "posY": 60,
+            "longueur": 20,
+            "largeur": 20
+        },
+        {
+            "nom": "mur1",
+            "posX": 74,
+            "posY": 0,
+            "longueur": 1,
+            "largeur": 150
+        },
+        {
+            "nom": "mur2",
+            "posX": -74,
+            "posY": 0,
+            "longueur": 1,
+            "largeur": 150
+        },
+        {
+            "nom": "mur3",
+            "posX": 0,
+            "posY": 74,
+            "longueur": 150,
+            "largeur": 1
+        },
+        {
+            "nom": "mur4",
+            "posX": 0,
+            "posY": -74,
+            "longueur": 150,
+            "largeur": 1
+        }
+    ],
+    
+    "terrain": {
+        "tailleX": 152,
+        "tailleY" : 152
+    }
+}

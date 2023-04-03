@@ -1,8 +1,8 @@
 import driftator
 
 simView = 1
-strategie = "demo_ia/test2.ia"
-config = "config/config_obst.json"
+strategie = "main.ia"
+config = "config/config_q1.json"
 
 try:
     driftator.startRobot(strategie)

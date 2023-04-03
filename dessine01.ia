@@ -1,0 +1,17 @@
+//dessine le 1
+avancer d=20 v=200 a=0
+tourner a=180 v=60
+
+drawStop
+
+tourner a=90 v=60
+avancer d=50 v=200 a=0
+tourner a=90 v=60
+
+/dessine le 0
+for (2){
+    avancer d=20 v=200 a=0
+    tourner a=90 v=60
+    avancer d=10 v=200 a=0
+    tourner a=90 v=60
+}

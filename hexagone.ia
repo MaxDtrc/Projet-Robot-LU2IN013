@@ -1,0 +1,9 @@
+//Tracer carré
+for (8){
+    drawStart
+    avancer d=20 v=200 a=0
+    tourner a=45 v=60
+    drawStop
+    avancer d=20 v=200 a=0
+    tourner a=45 v=60
+}

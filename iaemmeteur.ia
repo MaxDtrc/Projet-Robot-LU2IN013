@@ -1,0 +1,11 @@
+while(1 == 1){
+    d = capteur_distance
+    alterner(d < 50){
+        r = random % 10 - 5
+        angle = 100 - d + r
+        avancer d=7 v=500 a=angle
+    }
+    else{
+        avancer d=7 v=400 a=0
+    }
+}

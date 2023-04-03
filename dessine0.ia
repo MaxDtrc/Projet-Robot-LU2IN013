@@ -1,0 +1,6 @@
+for (2){
+    avancer d=20 v=200 a=0
+    tourner a=90 v=60
+    avancer d=10 v=200 a=0
+    tourner a=90 v=60
+}

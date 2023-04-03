@@ -1,0 +1,32 @@
+trouver = 0
+while(trouve != 1){
+    //on chercher d'abord d'axe y
+    a = getSignal
+    avancer d=1 v=200 a=0
+    b = getSignal
+    if (a<b){
+        //on s'eloigne donc on fait demi tours
+        tourner a=90 v=60
+        avancer d=2 v=200 a=0
+    }
+    //si a=b ca veux dire que l'emmeteur des sur la meme axe x, en se deplacant de 1 seulement on espère que getSignal arrondie un peu
+    if (a=b){
+        tourner a=90 v=60
+        while(trouve != 1){
+            c = getSignal
+            avancer d=1 v=200 a=0
+            d = getSignal
+            if (a<b){
+                tourner a=90 v=60
+                avancer d=2 v=200 a=0
+            }
+            if(c==0){
+            trouver = 1
+    }
+        }
+    }
+    if(a==0){
+        trouver = 1
+    }
+}
+    

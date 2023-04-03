@@ -1,0 +1,8 @@
+//dessin du 0
+
+for(2){
+    avancer d=75 v=500 a=0;
+    tourner a=90 v=90;
+    avancer d=15 v=500 a=0;
+    tourner a=90 v=90;
+}

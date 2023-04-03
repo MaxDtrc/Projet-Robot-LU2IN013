@@ -8,9 +8,9 @@ config = None
 
 def start():
     try:
-        driftator.startRobot(strategie)
+        driftator.startRobot("ia_tmesolo/" + strategie)
     except ImportError:
-        driftator.startSimulation(strategie, config, simView)
+        driftator.startSimulation("ia_tmesolo/" + strategie, config, simView)
 
 
 def exo1():

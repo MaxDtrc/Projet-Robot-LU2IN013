@@ -1,0 +1,5 @@
+//Tracer carré
+for (6){
+    tourner a=60 v=100
+    avancer d=20 v=200 a=0
+}

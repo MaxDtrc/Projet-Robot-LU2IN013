@@ -62,6 +62,6 @@ def q3_3():
     config = "config/config_q3.json"
     start(True, True)
 
-q3_3()
+q2_3()
 
     

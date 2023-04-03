@@ -1,11 +1,14 @@
-simView = 2
-strategie = "main.ia"
+import driftator
+
+simView = 1
+strategie = "demo_ia/hexagone.ia"
 config = "config/config_sans_obst.json"
 
 try:
-    import driftator
-    driftator.start(strategie)
-
+    driftator.startRobot(strategie)
 except ImportError:
-    import driftator_sim
-    driftator_sim.start(strategie, config, simView)
+    driftator.startSimulation(strategie, config, simView)
+
+
+
+    

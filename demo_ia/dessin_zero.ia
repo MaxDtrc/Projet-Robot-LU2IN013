@@ -1,0 +1,7 @@
+//Tracer zero
+for (2){
+    tourner a=90 v=100
+    avancer d=10 v=200 a=0
+    tourner a=90 v=100
+    avancer d=30 v=200 a=0
+}

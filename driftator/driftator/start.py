@@ -14,11 +14,16 @@ def startRobot(strat, dT = 0.001):
     strat.start()
 
 
-def startSimulation(strat, config, simView = 1, dT = 0.0001):
+def startSimulation(strat, config, simView = 1, dT = 0.0001, emetteur = False):
     from . import simulation, affichage, ia
-    
     #Creation de la simulation
     sim = simulation.chargerJson(config, dT)
+
+    if(emetteur):
+        #Création de l'emetteur
+        from random import randint
+        e = simulation.Emetteur("emetteur", randint(-70, 70), randint(-70, 70), 3)
+        sim.terrain.ajouterObstacle(e)
 
     for i in range(0, sim.getNombreDeRobots()):
         #Initialisation du controleur

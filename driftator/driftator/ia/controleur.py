@@ -97,6 +97,14 @@ class implemSimulation:
         """
         return self._s.getDistanceFromRobot(self._r)
     
+    def getSignal(self):
+        """
+        Retourne la distance entre le robot et l'obstacle
+
+        :returns: la distance entre le robot et l'obstacle (en cm)
+        """
+        return self._s.getSignal(self._r)
+    
     def set_a(self, a):
         self._a = a
 
@@ -278,6 +286,8 @@ class Variables(Decorator):
                 #Variables custom
                 if(vars[i] == "capteur_distance"):
                     self._variables["capteur_distance"] = self.getDistance()
+                if(vars[i] == "capteur_signal"):
+                    self._variables["capteur_signal"] = self.getSignal()
                 if(vars[i] == "capteur_balise"):
                     self._variables["capteur_balise"] = self.getBalisePosition()
                 if(vars[i] == "random"):
@@ -288,7 +298,7 @@ class Variables(Decorator):
                 if(vars[i] == "desactiver_dessin"):
                     self.dessine(False)
                     self._variables["desactiver_dessin"] = 0
-
+                
                 #On substitue la variable à sa valeur
                 if(vars[i] not in ['(', ')', '==', '!=', '<', '>', '<=', '>=', '+', '-', '/', '*', '%', '//', "and", "or"]):
                     vars[i] = str(self._variables[vars[i]])

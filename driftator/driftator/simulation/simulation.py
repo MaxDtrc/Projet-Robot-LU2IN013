@@ -1,5 +1,5 @@
 from . import objets as o
-from math import cos, sin, radians
+from math import cos, sin, radians, sqrt
 import json
 from threading import Thread
 import time
@@ -110,6 +110,15 @@ class Simulation(Thread):
             distance += tickRayon
             newPosRayon = (posRayon[0] + tickRayon * dirVect[0], posRayon[1] + tickRayon * dirVect[1])
             posRayon = newPosRayon
+
+    def getSignal(self, robot):
+        for i in range(self.terrain.getNombreObstacles()):
+            o = self.terrain.getObstacle(i)
+            if o.type == 2:
+                #L'emetteur est trouvé
+                return sqrt((robot.x - o._posX)**2 + (robot.y - o._posY)**2)
+            
+        return None
 
     def actualiser(self):
         """

@@ -100,6 +100,10 @@ class Affichage():
         elif (obstacle.type == 1):
             #Affichage d'un obstacle rond
             pygame.draw.circle(self._trace, COULEUR_OBSTACLES, (obstacle.x*e + self._screen.get_size()[0]/2, obstacle.y*e + self._screen.get_size()[0]/2), obstacle.rayon*e)
+        elif (obstacle.type == 2):
+            #Affichage de l'emetteur
+            pygame.draw.circle(self._trace, (0, 255, 100), (obstacle.x*e + self._screen.get_size()[0]/2, obstacle.y*e + self._screen.get_size()[0]/2), obstacle.rayon*e)
+
 
     def _afficherRobot(self, robot: s.Robot):
         """

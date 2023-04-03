@@ -1,0 +1,23 @@
+run = 1
+while(run == 1){
+    if(capteur_signal > 4){
+        //On calcul la distance
+        d1 = capteur_signal
+
+        avancer d=2 v=400 a=0
+
+        d2 = capteur_signal
+
+        //Si on s'est éloigné alors on tourne
+        if(d2 > d1){
+            tourner a=90 v=200
+        }
+
+    }
+    else{
+        //Emetteur trouvé, on s'arrête
+        avancer d=0.1 a=0 v=200
+        run = 0
+    }
+
+}

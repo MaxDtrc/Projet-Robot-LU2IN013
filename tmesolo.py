@@ -6,11 +6,11 @@ simView = 1
 strategie = None
 config = None
 
-def start():
+def start(emetteur = False):
     try:
         driftator.startRobot("ia_tmesolo/" + strategie)
     except ImportError:
-        driftator.startSimulation("ia_tmesolo/" + strategie, config, simView)
+        driftator.startSimulation("ia_tmesolo/" + strategie, config, simView, 0.001, emetteur)
 
 
 def exo1():
@@ -44,7 +44,18 @@ def q2_4():
     config = "config/config_q2.json"
     start()
 
+def q3_1():
+    global strategie, config
+    strategie = "exo3-1.ia"
+    config = "config/config_q3.json"
+    start(True)
 
-exo1()
+def q3_2():
+    global strategie, config
+    strategie = "exo3-2.ia"
+    config = "config/config_q3.json"
+    start(True)
+
+q3_2()
 
     

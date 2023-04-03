@@ -261,7 +261,7 @@ class IAFor:
 
         #Substitution de la variable
         self._vars = [self._nbIter]
-        self._controleur.substituerVariables(self)
+        self._controleur.substituerVariables(self._vars)
         
         self._max = int(self._vars[0])
         self._ia.start()
@@ -274,7 +274,6 @@ class IAFor:
             if(self._i >= self._max):
                 return True
             else:
-                self._ia.end()
                 self._ia.start()
 
     def step(self):

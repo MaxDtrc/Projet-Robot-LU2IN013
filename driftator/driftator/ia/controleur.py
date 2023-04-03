@@ -51,6 +51,7 @@ class implemVraiVie:
         im.save("camera.png")
 
         return getPosBalise()
+    
 
     def stop(self):
         self._r.set_motor_dps(1, 0)
@@ -111,6 +112,9 @@ class implemSimulation:
 
         #CONVERSION DE l'IMAGE ET APPEL DE LA FONCTION RENVOYANT LA POSITION DE LA BALISE
         return getPosBalise()
+    
+    def dessine(self, b):
+        self._r.dessine(b)
 
 
     def stop(self):
@@ -278,6 +282,12 @@ class Variables(Decorator):
                     self._variables["capteur_balise"] = self.getBalisePosition()
                 if(vars[i] == "random"):
                     self._variables["random"] = randint(0, 10000000)
+                if(vars[i] == "activer_dessin"):
+                    self.dessine(True)
+                    self._variables["activer_dessin"] = 0
+                if(vars[i] == "desactiver_dessin"):
+                    self.dessine(False)
+                    self._variables["desactiver_dessin"] = 0
 
                 #On substitue la variable à sa valeur
                 if(vars[i] not in ['(', ')', '==', '!=', '<', '>', '<=', '>=', '+', '-', '/', '*', '%', '//', "and", "or"]):
@@ -314,6 +324,8 @@ class Variables(Decorator):
         args = args.copy()
         self.substituerVariables(args)
         print(eval(" ".join(args)))
+
+
 
 
 

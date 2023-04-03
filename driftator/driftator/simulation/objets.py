@@ -32,7 +32,9 @@ class Robot():
         self._vitesseGauche = vG
         self._vitesseDroite = vD
         self.vitesseMax = vMax
+        self._dessine = False
 
+        
     #Getters
     @property
     def position(self):
@@ -183,6 +185,9 @@ class Robot():
         """
         self.vitesseDroite = v
         self.vitesseGauche = v
+
+    def dessine(self, b):
+        self._dessine = b
     
     def getInfo(self):
         """

@@ -119,7 +119,7 @@ class Affichage():
         pygame.draw.circle(self._screen, COULEUR_ROBOT, (robot.x*e + self._screen.get_size()[0]/2, robot.y*e + self._screen.get_size()[0]/2), robot.rayon*e)
         self._screen.blit(image, (self._screen.get_size()[0]/2 - image.get_width()/2 + robot.x*e, self._screen.get_size()[1]/2 - image.get_height()/2 + robot.y*e))
 
-        if self._afficherTrace:
+        if robot._dessine:
             #affichage du tracé du robot sur la surface
             pygame.draw.circle(self._trace, BLACK, (robot.x*e + self._trace.get_size()[0]/2, robot.y*e + self._trace.get_size()[0]/2), self.tailleTrace)
 

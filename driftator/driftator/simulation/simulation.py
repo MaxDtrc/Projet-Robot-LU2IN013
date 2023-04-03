@@ -29,6 +29,7 @@ class Simulation(Thread):
         self.capteurDistanceAppele = False 
         self.lastPosX = 0
         self.lastPosY = 0
+        self.deplacerEmetteur = False
 
     def run(self):
         self.running = True
@@ -142,6 +143,13 @@ class Simulation(Thread):
         for r in robotsARetirer:
             print("crash")
             self.retirerRobot(r)
+
+        #Déplacement de l'emetteur
+        if self.deplacerEmetteur:
+            for i in range(self.terrain.getNombreObstacles()):
+                o = self.terrain.getObstacle(i)
+                if(o.type == 2):
+                    o.updatePos(self._robotsList[0], self._dT)
     
 
         

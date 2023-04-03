@@ -9,7 +9,7 @@
             "rayon": 5.85,
             "vitesseGauche": 0,
             "vitesseDroite": 0,
-            "vitesseMax": 10000
+            "vitesseMax": 400
         }
     ],
     "obstaclesRonds" : [

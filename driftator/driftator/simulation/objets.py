@@ -587,6 +587,8 @@ class Emetteur(Obstacle):
         self._rayon = rayon
         self.type = 2
 
+        self.vect = (0, 0)
+
     @property
     def rayon(self):
         return self._rayon
@@ -612,3 +614,33 @@ class Emetteur(Obstacle):
         :returns: True si le point (x,y) se trouve dans l'obstacle
         """
         return sqrt((self._posX - x)**2 + (self._posY - y)**2) < self._rayon
+    
+    def updatePos(self, robot, dT):
+
+        #On calcule la vitesse max du robot (cm/secondes)
+        vMax = robot.vitesseMax/360 * pi * robot.tailleRoues
+
+        #On calcule le vecteur directeur opposé au robot
+        vX = self._posX - robot.x
+        vY = self._posY - robot.y
+        n = sqrt(vX**2 + vY**2)
+        
+
+        vX = vX/n
+        vY = vY/n
+
+        #On update la position de l'emetteur
+        dX = vMax/2 * vX * dT
+        self._posX += dX
+
+        dY = vMax/2 * vY * dT
+        self._posY += dY
+
+
+        #On le remet à une pos aléatoire s'il sort du terrain
+        if(abs(self._posX) > 70 or abs(self._posY) > 70):
+            from random import randint
+            self._posX = randint(-70, 70)
+            self._posY = randint(-70, 70)
+
+        

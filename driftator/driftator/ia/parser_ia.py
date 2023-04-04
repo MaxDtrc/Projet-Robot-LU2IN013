@@ -62,6 +62,12 @@ def readIA(ia, c):
             #Ajout de la commande
             seq.append(TournerSurPlace(c, a, v))
             i+=1
+
+        #Instruction "stop"
+        elif len(ia[i]) >= 4 and ia[i][:4] == 'stop':
+            #Ajout de la commande
+            seq.append(Stop(c))
+            i+=1
         
         #Instruction "For"
         elif len(ia[i]) >= 3 and ia[i][:3] == 'for':

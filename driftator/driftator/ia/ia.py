@@ -129,6 +129,23 @@ class TournerSurPlace:
         self._controleur.setVitesseDroite(-self.vitesse)
 
 
+class Stop:
+    """
+    Classe représentant l'ia permettant au robot de s'arrêter
+
+    :param controleur: controleur du robot
+    """
+    def __init__(self, controleur):
+        self._controleur = controleur
+
+    def start(self):
+        #On met les vitesses à 0
+        self._controleur.setVitesseGauche(0)
+        self._controleur.setVitesseDroite(0)
+
+    def stop(self):
+        #On s'arrête directement
+        return True
 
 
 #IA complexes

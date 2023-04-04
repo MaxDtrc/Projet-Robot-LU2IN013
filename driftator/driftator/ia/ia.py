@@ -182,7 +182,8 @@ class IAIf:
         return self._ia == None or self._ia.stop()
 
     def step(self):
-        self._ia.step()
+        if(self._ia != None):
+            self._ia.step()
     
 
 #IA complexes
@@ -252,7 +253,8 @@ class IAWhile:
             self._ia.start()
 
         #Step
-        self._ia.step()
+        if not self._ia.stop():
+            self._ia.step()
     
 
 
@@ -294,7 +296,8 @@ class IAFor:
                 self._ia.start()
 
     def step(self):
-        self._ia.step()
+        if not self._ia.stop():
+            self._ia.step()
 
 
 class IASeq:

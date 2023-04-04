@@ -114,7 +114,6 @@ def readIA(ia, c):
             if(ia[i] == "}else{\n"):
                 blocIA2, i = readBloc(ia, c, i)
             else:
-                print(ia[i])
                 i+=1
                 blocIA2, i = readBloc(ia, c, i)
 

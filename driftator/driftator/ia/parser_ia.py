@@ -99,7 +99,6 @@ def readIA(ia, c):
                 i+=1
                 blocIA2, i = readBloc(ia, c, i)
                 
-                
             i+=1
             #Ajout de la condition
             seq.append(IAIf(c, blocIA1, blocIA2, cond))
@@ -112,15 +111,14 @@ def readIA(ia, c):
 
             #Lecture des deux blocs
             blocIA1, i = readBloc(ia, c, i)
-
-            if(i == len(ia) - 1):
-                pass
-            elif(ia[i] == "}else{\n"):
+            if(ia[i] == "}else{\n"):
                 blocIA2, i = readBloc(ia, c, i)
-            elif(ia[i+1] == "else{\n"):
+            else:
+                print(ia[i])
                 i+=1
                 blocIA2, i = readBloc(ia, c, i)
 
+            i+=1
             #Ajout de la condition
             seq.append(IAAlterner(c, blocIA1, blocIA2, iaCond))
 
@@ -168,17 +166,16 @@ def readBloc(ia, c, i):
             ia[i] = ia[i][1:]
 
         #Detection d'une parenthèse ouvrante
-        if(len(ia[i]) >= 2 and ia[i][-2] == '{'):
+        if('{' in ia[i]):
             nbParenthOuverte += 1
 
         #Detection d'une parenthèse fermante
-        if(len(ia[i]) >= 2 and ia[i][-2] == '}'):
+        if('}' in ia[i]):
             nbParenthOuverte += -1
 
         #Ajout de la commande
         tabBloc.append(ia[i])
         i+=1
-    print(tabBloc)
     return readIA(tabBloc, c), i
         
 

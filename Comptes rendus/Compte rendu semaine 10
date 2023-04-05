@@ -13,3 +13,7 @@ Objectifs:
 Taches faites :
 - Fusion pour avoir un seul package "driftator"
 - Collisions entre robot
+- Pouvoir mettre plusieurs robots dans la simulation (2d)
+- Pouvoir passer des arguments pour main.py
+- IA "stop" permettant d'arrêter le robot
+- Classes IA légèrement restructurées

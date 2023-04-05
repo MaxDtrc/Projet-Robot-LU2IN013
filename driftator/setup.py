@@ -8,4 +8,11 @@ setup(name='driftator',
       author_email='',
       license='Aucune',
       packages=['driftator'],
+      install_requires=[
+          'panda3d',
+          'pygame',
+          'pynput',
+          'numpy',
+          'pillow'
+      ],
       zip_safe=False)

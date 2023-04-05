@@ -17,3 +17,4 @@ Taches faites :
 - Pouvoir passer des arguments pour main.py
 - IA "stop" permettant d'arrêter le robot
 - Classes IA légèrement restructurées
+- Modification du setup.py pour installer automatiquement les dépendances

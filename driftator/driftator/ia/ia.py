@@ -129,6 +129,23 @@ class TournerSurPlace:
         self._controleur.setVitesseDroite(-self.vitesse)
 
 
+class Stop:
+    """
+    Classe représentant l'ia permettant au robot de s'arrêter
+
+    :param controleur: controleur du robot
+    """
+    def __init__(self, controleur):
+        self._controleur = controleur
+
+    def start(self):
+        #On met les vitesses à 0
+        self._controleur.setVitesseGauche(0)
+        self._controleur.setVitesseDroite(0)
+
+    def stop(self):
+        #On s'arrête directement
+        return True
 
 
 #IA complexes
@@ -165,7 +182,8 @@ class IAIf:
         return self._ia == None or self._ia.stop()
 
     def step(self):
-        self._ia.step()
+        if(self._ia != None):
+            self._ia.step()
     
 
 #IA complexes
@@ -235,7 +253,8 @@ class IAWhile:
             self._ia.start()
 
         #Step
-        self._ia.step()
+        if not self._ia.stop():
+            self._ia.step()
     
 
 
@@ -277,7 +296,8 @@ class IAFor:
                 self._ia.start()
 
     def step(self):
-        self._ia.step()
+        if not self._ia.stop():
+            self._ia.step()
 
 
 class IASeq:

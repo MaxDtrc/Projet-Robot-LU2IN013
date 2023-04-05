@@ -107,6 +107,7 @@ def readIA(ia, c):
             #Lecture des deux blocs
             blocIA1, i = readBloc(ia, c, i)
 
+
             if(i == len(ia) - 1):
                 pass
             elif(ia[i] == "}else{\n"):
@@ -141,7 +142,7 @@ def readIA(ia, c):
             i+=1
 
         #Definition de variable
-        elif (len(ia[i].split(' ')) >= 1 and ia[i].split(' ')[1] == '='):
+        elif (len(ia[i].split(' ')) >= 2 and ia[i].split(' ')[1] == '='):
             #Lecture de la definition de variable
             instr = ia[i].replace('\n', '').split(" ")
 
@@ -149,6 +150,10 @@ def readIA(ia, c):
             seq.append(IAFonction(c, ["affecterValeur"] + instr))
             i+=1
             
+        #La ligne ne correspond à rien
+        else:
+            i+=1
+        
         
     return IASeq(c, seq)
 

@@ -67,7 +67,7 @@ class Avancer:
         self.avancer()
 
     def stop(self):
-        #On avance tant qu'on n'est pas trop près d'un mur/qu'on n' a pas suffisement avancé
+        #On avance tant qu'on n' a pas suffisement avancé
         return self.parcouru >= self.distance
 
     def step(self):
@@ -329,10 +329,10 @@ class IASeq:
 
     def step(self):
         if self._iaList[self._i].stop():
+            self._controleur.stop()
             self._i += 1
             self._iaList[self._i].start()
-        else:
-            self._iaList[self._i].step()
+        self._iaList[self._i].step()
 
 
 class IAFonction():

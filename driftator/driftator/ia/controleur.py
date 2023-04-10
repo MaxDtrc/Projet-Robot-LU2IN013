@@ -175,12 +175,10 @@ class GetDecalageReel(Decorator):
         dD = d[1]/360 * diamRoue * pi
 
         angle = (dD - dG)/(rayonRobot * 2)
+
         ancienAngle = self.lastStep
-        if(angle != 0):
-            #Test: remplacer la commande offeset_motor_encoder par une sauvegarde "manuelle"
+        if angle - ancienAngle != 0:
             self.lastStep = angle
-            #self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
-            #self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
 
         return angle - ancienAngle
 
@@ -199,10 +197,9 @@ class GetDecalageReel(Decorator):
         ancienneDistance = self.lastStep
 
         #Reset de l'origine de la pos
-        #Test: remplacer la commande offeset_motor_encoder par une sauvegarde "manuelle"
-        self.lastStep = distance
-        #self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
-        #self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
+        if distance - ancienneDistance != 0:
+            self.lastStep = distance
+
 
         return distance - ancienneDistance
     
@@ -221,8 +218,9 @@ class GetDecalageSim(Decorator):
 
         :returns: le décalage de l'angle du robot depuis le dernier appel
         """
-        res = self._angle - self._decalageA
-        self._decalageA = self._angle
+        angle = self._angle
+        res = angle - self._decalageA
+        self._decalageA = angle
         return res
 
     def getDistanceParcourue(self):

@@ -1,0 +1,17 @@
+
+avancer d=3 v=40 a=0
+
+while(capteur_distance > 10){
+    //On detecte la balise
+    b = capteur_balise
+
+    if(b == -1){
+        //Balise pas trouvée, on tourne
+        tourner a=10 v=50
+    }else{
+        //Balise trouvee
+        angle = b - 7
+        avancer d=2 v=150 a=angle
+
+    }
+}

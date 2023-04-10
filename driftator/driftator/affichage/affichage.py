@@ -3,10 +3,12 @@ from math import cos, sin, degrees
 import os
 from threading import Thread, enumerate
 import time
-import sys
 from pynput.keyboard import Key, Listener, KeyCode
 from pynput import keyboard
 from math import pi, sin, cos
+import numpy as np
+from PIL import Image
+import cv2
 
 #Panda3d
 from direct.stdpy import thread
@@ -16,6 +18,11 @@ from direct.actor.Actor import Actor
 from direct.interval.IntervalGlobal import Sequence
 from direct.gui.OnscreenText import OnscreenText
 from panda3d.core import Point3, Filename, loadPrcFileData, TextureStage, PointLight, DirectionalLight, Spotlight, AmbientLight
+
+#Capture d'écran
+from panda3d.core import Texture, GraphicsOutput
+
+
 
 loadPrcFileData("", "win-size 720 720")
 
@@ -196,8 +203,6 @@ class Affichage3d(Thread):
         self.alight.node().setColor((0.4, 0.4, 0.4, 1))
         self.app.render.setLight(self.alight)
 
-        # Important! Enable the shader generator.
-        self.app.render.setShaderAuto()
         
 
         #Ajout d'un texte pour les touches
@@ -319,15 +324,37 @@ class MyApp(ShowBase):
 
         self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
 
+        self.texture = Texture()
+        base.win.addRenderTexture(self.texture, GraphicsOutput.RTMCopyRam, GraphicsOutput.RTPColor)
+        self.taskMgr.add(self.getImagebytes, "GetBytes", sort=50)
+
         self.robotModel = Actor(path + "/models/Blazing_Banana/banana.obj" )
         self.robotModel.setScale(2, 2, 2)
         self.robotModel.reparentTo(self.render)
+
+        self.lastImage = None
 
         self.obsList = list()
 
         self.robotModel.loop("walk")
 
     def spinCameraTask(self, task):
+        return Task.cont
+    
+    def getImagebytes(self, task):
+        width = self.win.size[0]
+        height = self.win.size[1]
+        data = self.texture.getRamImage().getData()
+
+        img = np.frombuffer(data, dtype=np.uint8)
+        img = np.reshape(img, (height, width, 4))
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        img = Image.fromarray(img)
+        img = img.transpose(Image.FLIP_TOP_BOTTOM)
+        img = np.array(img)
+
+        self.lastImage = img
+
         return Task.cont
     
     def userExit(self):

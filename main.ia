@@ -1,12 +1,17 @@
-//Tracer carré
-a = 12
 
-print(a)
-while(1 == 1){
-    if(a == 12){
-        avancer d=10 a=0 v=200
-        a = 3
-        tourner a=90 v=100
+avancer d=3 v=40 a=0
+
+while(capteur_distance > 10){
+    //On detecte la balise
+    b = capteur_balise
+
+    if(b == -1){
+        //Balise pas trouvée, on tourne
+        tourner a=10 v=50
+    }else{
+        //Balise trouvee
+        angle = b - 7
+        avancer d=2 v=150 a=angle
+
     }
 }
-

@@ -2,7 +2,7 @@ from math import pi, sqrt
 from .position_balise import getPosBalise
 from PIL import Image
 from random import randint
-
+import numpy as np
 
 class implemVraiVie:
     def __init__(self, robot):
@@ -43,14 +43,8 @@ class implemVraiVie:
         """
         Retourne la position x de la balise sur l'image captée par la camera
         """
-        img = self._r.get_image()
-        
-        #CONVERSION DE l'IMAGE ET APPEL DE LA FONCTION RENVOYANT LA POSITION DE LA BALISE
-        im = Image.fromarray(img)
 
-        im.save("camera.png")
-
-        return getPosBalise()
+        return getPosBalise(self._r.get_image())
 
     def stop(self):
         self._r.set_motor_dps(1, 0)
@@ -104,13 +98,10 @@ class implemSimulation:
         """
         Retourne la position x de la balise sur l'image captée par la camera
         """
-        #print(self._a)
-        if self._a != None:
-            self._a.app.screenshot("camera.png", False)
-        
-
-        #CONVERSION DE l'IMAGE ET APPEL DE LA FONCTION RENVOYANT LA POSITION DE LA BALISE
-        return getPosBalise()
+        if self._a != None and self._a.app.lastImage is not None:
+            return getPosBalise(self._a.app.lastImage)
+        else:
+            return -1
 
 
     def stop(self):

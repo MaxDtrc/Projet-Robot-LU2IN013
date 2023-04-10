@@ -35,7 +35,6 @@ def getPosBalise(img):
 
     #Redimension de l'image pour simplifier grandement les calculs + conversion en array
     im = im.resize((16, 12), Image.Resampling.NEAREST)
-    im.save("test.png")
     m = np.array(im)
 
     #On remplace les pixels par l'id de leur couleur
@@ -81,4 +80,3 @@ def getPosBalise(img):
         
     #Si la balise n'a pas été trouvée, on renvoie -1
     return -1
-        

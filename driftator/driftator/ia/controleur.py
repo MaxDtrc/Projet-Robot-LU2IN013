@@ -267,6 +267,8 @@ class Variables(Decorator):
                     self._variables["capteur_balise"] = self.getBalisePosition()
                 if(vars[i] == "random"):
                     self._variables["random"] = randint(0, 10000000)
+                if(vars[i] == "None"):
+                    self._variables["None"] = None
 
                 #On substitue la variable à sa valeur
                 if(vars[i] not in ['(', ')', '==', '!=', '<', '>', '<=', '>=', '+', '-', '/', '*', '%', '//', "and", "or"]):

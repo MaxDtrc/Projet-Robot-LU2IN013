@@ -5,7 +5,7 @@ while(capteur_distance > 10){
     //On detecte la balise
     b = capteur_balise
 
-    if(b == -2){
+    if(b == None){
         //Balise pas trouvée, on tourne
         tourner a=10 v=50
     }else{

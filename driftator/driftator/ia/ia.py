@@ -54,9 +54,6 @@ class Avancer:
         self.parcouru = 0
 
     def start(self):
-        self._controleur.getDistanceParcourue() #Reinitialisation
-        self.parcouru = 0
-
         #Substitution des variables
         self._vars = [self.d, self.a, self.v]
         self._controleur.substituerVariables(self._vars)
@@ -64,6 +61,8 @@ class Avancer:
         self.angle = float(self._vars[1])
         self.vitesse = float(self._vars[2])
 
+        self._controleur.getDistanceParcourue() #Reinitialisation
+        self.parcouru = 0
         self.avancer()
 
     def stop(self):
@@ -102,9 +101,6 @@ class TournerSurPlace:
 
 
     def start(self):
-        self._controleur.getDecalageAngle()
-        self.parcouru = 0
-
         #Substitution des variables
         self._vars = [self.a, self.v]
         self._controleur.substituerVariables(self._vars)
@@ -112,7 +108,8 @@ class TournerSurPlace:
         self.angle = radians(float(self._vars[0]))
         self.vitesse = float(self._vars[1]) if self.angle >= 0 else -float(self._vars[1])
 
-
+        self._controleur.getDecalageAngle()
+        self.parcouru = 0
         self.avancer()
 
     def stop(self):
@@ -332,7 +329,8 @@ class IASeq:
             self._controleur.stop()
             self._i += 1
             self._iaList[self._i].start()
-        self._iaList[self._i].step()
+        else:
+            self._iaList[self._i].step()
 
 
 class IAFonction():
@@ -344,6 +342,6 @@ class IAFonction():
         fun = self.args[0]
         args = self.args[1:]
         eval("self._controleur." + fun + "(args)")
-        
+    
     def stop(self):
         return True

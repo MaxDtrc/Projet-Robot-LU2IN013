@@ -45,8 +45,7 @@ def getPosBalise(img):
 
     if (np.any(len(clr) == 0)):
         #Toutes les couleurs n'ont pas été trouvées, inutile de continuer
-        print("balise pas trouvée")
-        return -1
+        return -2
 
     #On crée les listes de coordonnées
     lst = [np.column_stack((np.array(clr[i])[0], np.array(clr[i])[1])) for i in range(4)]
@@ -75,8 +74,8 @@ def getPosBalise(img):
                     break
 
         if clr_trouvees.count(True) == 4:
-            #La balise est trouvée, on retourne sa position x
-            return p1[1]
+            #La balise est trouvée, on retourne sa position x (Entre -1 et 1, -1 -> Tout à gauche de l'écran, 1 -> tout à droite de l'écran)
+            return (p1[1] - 7)/8
         
-    #Si la balise n'a pas été trouvée, on renvoie -1
-    return -1
+    #Si la balise n'a pas été trouvée, on renvoie -2
+    return -2

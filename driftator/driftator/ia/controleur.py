@@ -242,7 +242,9 @@ class GetDecalageSim(Decorator):
 
 class Variables(Decorator):
     def __init__(self, ctrl):
-        self._variables = dict()
+        #Création du dictionnaire avec quelques constantes
+        self._variables = {"true": True, "false": False, "null": None}
+
         Decorator.__init__(self, ctrl)
 
     def getVar(self, nom):
@@ -267,8 +269,6 @@ class Variables(Decorator):
                     self._variables["capteur_balise"] = self.getBalisePosition()
                 if(vars[i] == "random"):
                     self._variables["random"] = randint(0, 10000000)
-                if(vars[i] == "None"):
-                    self._variables["None"] = None
 
                 #On substitue la variable à sa valeur
                 if(vars[i] not in ['(', ')', '==', '!=', '<', '>', '<=', '>=', '+', '-', '/', '*', '%', '//', "and", "or"]):

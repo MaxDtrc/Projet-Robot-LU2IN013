@@ -8,7 +8,7 @@ while(capteur_distance > 10){
     //Derniere position de la balise
     p = 1
 
-    if(b == None){
+    if(b == null){
         //Balise pas trouvée, on tourne
         angle_rota = 10 * p
         tourner a=angle_rota v=50

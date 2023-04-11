@@ -1,0 +1,22 @@
+Semaine du 05/04/2023
+Compte rendu semaine 11
+
+Objectifs:
+- Pouvoir modifier l'orientation des obstacles rectangles
+dans la simulation (pour être plus fidèle à la réalité)
+- Régler le problème de décalage du robot (qui n'était pas là la semaine dernière) -> le robot tourne d'environ 80° au lieu de 90°
+- Commencer le rapport final
+- Afficher plusieurs robots dans la simulation 3d (ne marche qu'en 2d pour l'instant)
+- Changer la fonction de détection de la balise qui est pour l'instant très approximative
+
+
+Taches faites :
+- Nouvelle fonction de détection de balise : renvoie une valeure
+entre -1 et 1 selon l'endroit où a été detectée la balise
+sur la camera. Plus la valeur est à proche de 1, plus la balise
+a été detectée à droite, et plus elle est proche de -1 plus la balise a été detectée à gauche. Cette fonction renvoie None si
+la balise n'a pas été detectée. Elle fonctionne dans la réalité
+et dans la simulation 3d, pour l'instant seulement dans la vue du robot (pas avec la vue du dessus car elle se base sur l'image affichée par Panda3d).
+
+- Tentative de correction du problème de décalage sur le vrai robot dans le controleur (besoin de tester en situation réelle pour voir si cela
+venait bien de là).

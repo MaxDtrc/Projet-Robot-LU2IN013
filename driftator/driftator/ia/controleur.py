@@ -120,7 +120,7 @@ class implemSimulation:
         
         :param angle: angle de rotation (de 0 à 180)
         """
-        self._r._angleCamera = angle
+        self._r.setAngleCam(angle)
 
 
     def stop(self):

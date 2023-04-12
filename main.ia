@@ -1,12 +1,11 @@
 while(true){
-    d = capteur_distance
-    alterner(d < 70){
-        r = random % 10 - 5
-        angle = 100 - d + r
-        avancer d=7 v=900 a=angle
+    while(capteur_distance > 5){
+        tourner_tete a=120
+
+        avancer d=10 v=50 a=0
+
+        tourner_tete a=60
+
+        avancer d=10 v=50 a=0
     }
-    else{
-        avancer d=7 v=700 a=0
-    }
-    
 }

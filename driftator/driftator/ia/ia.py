@@ -125,6 +125,25 @@ class TournerSurPlace:
         self._controleur.setVitesseGauche(self.vitesse)
         self._controleur.setVitesseDroite(-self.vitesse)
 
+class TournerTete:
+    """
+    Classe représentant l'ia permettant de tourner la tete du robot
+
+    :param angle: angle (degré) de rotation
+    """
+    def __init__(self, controleur, angle):
+        self._controleur = controleur
+        self.a = angle
+
+    def start(self):
+        #Substitution des variables
+        self._vars = [self.a]
+        self._controleur.substituerVariables(self._vars)
+        self.angle = 180 - float(self._vars[0])
+        self._controleur.setCerveau(self.angle)
+
+    def stop(self):
+        return True
 
 class Stop:
     """

@@ -37,6 +37,28 @@ def readIA(ia, c):
             #Ajout de la commande
             seq.append(Avancer(c, d, v, a))
             i+=1
+
+        #Instruction "tourner_tete"
+        elif len(ia[i]) >= 12 and ia[i][:12] == 'tourner_tete':
+            #Découpage de la commande
+            instr = ia[i].split(' ')
+
+            #Creation des variables
+            a = "0"
+            
+            #Lecture de la commande
+            for j in instr[1:]:
+                #suppression du \n
+                if j[-1] == '\n':
+                    j = j[:-1]
+                
+                #Lecture des variables
+                if j[0] == 'a':
+                    a = j[2:]
+
+            #Ajout de la commande
+            seq.append(TournerTete(c, a))
+            i+=1
         
         #Instruction "tourner"
         elif len(ia[i]) >= 7 and ia[i][:7] == 'tourner':

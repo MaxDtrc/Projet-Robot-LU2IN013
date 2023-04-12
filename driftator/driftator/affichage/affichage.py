@@ -3,10 +3,13 @@ from math import cos, sin, degrees
 import os
 from threading import Thread, enumerate
 import time
-import sys
 from pynput.keyboard import Key, Listener, KeyCode
 from pynput import keyboard
 from math import pi, sin, cos
+import numpy as np
+from PIL import Image
+import cv2
+import sys
 
 #Panda3d
 from direct.stdpy import thread
@@ -16,6 +19,11 @@ from direct.actor.Actor import Actor
 from direct.interval.IntervalGlobal import Sequence
 from direct.gui.OnscreenText import OnscreenText
 from panda3d.core import Point3, Filename, loadPrcFileData, TextureStage, PointLight, DirectionalLight, Spotlight, AmbientLight
+
+#Capture d'écran
+from panda3d.core import Texture, GraphicsOutput
+
+
 
 loadPrcFileData("", "win-size 720 720")
 
@@ -33,13 +41,17 @@ current = set()
 
 #Variable globale pour changer de pov dans la simulation du robot
 POV = True
-
+RobotPOV = 0
+nbrobots = 0
 
 def on_press(key):
     global POV
+    global RobotPOV
     if hasattr(key,'char'):
         if key.char == "q":
-            POV = not POV
+            POV = not POV   
+        if key.char == "w":
+            RobotPOV = (RobotPOV + 1) % nbrobots
 
 l = keyboard.Listener(on_press=on_press)
 
@@ -164,6 +176,7 @@ class Affichage():
                 self._simulation.stop() #On arrête la simulation
                 self._controleur.stop_ia_thread() #On arrête l'ia
                 self.stop() #On arrête l'affichage
+                
                 exit() #On arrête.
 
 
@@ -196,12 +209,19 @@ class Affichage3d(Thread):
         self.alight.node().setColor((0.4, 0.4, 0.4, 1))
         self.app.render.setLight(self.alight)
 
-        # Important! Enable the shader generator.
-        self.app.render.setShaderAuto()
-        
+        #Ajout des robots
+        global nbrobots
+        nbrobots = self._simulation.getNombreDeRobots()
+
+        self.robotModel = []
+        for i in range(0, self._simulation.getNombreDeRobots()):
+            self.robotModel.append(Actor(path + "/models/Blazing_Banana/banana.obj" ))
+            self.robotModel[i].setScale(2, 2, 2)
+            self.robotModel[i].reparentTo(self.app.render)
+            self.robotModel[i].loop("walk")
 
         #Ajout d'un texte pour les touches
-        textObject = OnscreenText(text='Appuyer sur q pour changer de POV', pos=(0.6, 0.9), scale=0.04, fg=(255,255,255,1), shadow = (0,0,0,1))
+        textObject = OnscreenText(text='Appuyer sur q pour changer de POV et w pour changer de POV du robot', pos=(0.3, 0.9), scale=0.04, fg=(0,0,0,1), shadow = (0,0,0,1))
 
         #Affichage des murs
         mdl = self.app.loader.loadModel(path + "/models/cube/cube.obj")
@@ -281,17 +301,18 @@ class Affichage3d(Thread):
         
         :param robot : Robot à afficher
         """
-
-        self.app.robotModel.setPos(robot.x, -robot.y, 0)
-        self.app.robotModel.setHpr(degrees(robot.angle) + 90, 90, 0)
+        for i in range(0, self._simulation.getNombreDeRobots()):
+            self.robotModel[i].setPos(self._simulation.getRobot(i).x, -self._simulation.getRobot(i).y, 0)
+            self.robotModel[i].setHpr(degrees(self._simulation.getRobot(i).angle) + 90, 90, 0)
 
         #Changement de pov en appuyant sur q
 
         global POV
+        global RobotPOV
 
         if POV:
-            self.app.camera.setPos(robot.x, -robot.y, 4.5)
-            self.app.camera.setHpr(degrees(robot.angle) - 90, 0, 0)
+            self.app.camera.setPos(self._simulation.getRobot(RobotPOV).x, -self._simulation.getRobot(RobotPOV).y, 4.5)
+            self.app.camera.setHpr(degrees(self._simulation.getRobot(RobotPOV ).angle) - 90, 0, 0)
         else:
             self.app.camera.setPos(0, 0, 350)
             self.app.camera.setHpr(0, -90, 0)
@@ -310,7 +331,6 @@ class Affichage3d(Thread):
         else:
                 self.app.robotModel.removeNode()
 
-
 class MyApp(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
@@ -319,17 +339,34 @@ class MyApp(ShowBase):
 
         self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
 
-        self.robotModel = Actor(path + "/models/Blazing_Banana/banana.obj" )
-        self.robotModel.setScale(2, 2, 2)
-        self.robotModel.reparentTo(self.render)
+        self.texture = Texture()
+        base.win.addRenderTexture(self.texture, GraphicsOutput.RTMCopyRam, GraphicsOutput.RTPColor)
+        self.taskMgr.add(self.getImagebytes, "GetBytes", sort=50)
+
+        self.lastImage = None
 
         self.obsList = list()
 
-        self.robotModel.loop("walk")
-
     def spinCameraTask(self, task):
+        return Task.cont
+    
+    def getImagebytes(self, task):
+        width = self.win.size[0]
+        height = self.win.size[1]
+        data = self.texture.getRamImage().getData()
+
+        img = np.frombuffer(data, dtype=np.uint8)
+        img = np.reshape(img, (height, width, 4))
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        img = Image.fromarray(img)
+        img = img.transpose(Image.FLIP_TOP_BOTTOM)
+        img = np.array(img)
+
+        self.lastImage = img
+
         return Task.cont
     
     def userExit(self):
         self.running = False
         self.shutdown()
+        

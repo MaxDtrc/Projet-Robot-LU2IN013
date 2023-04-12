@@ -1,4 +1,4 @@
-while(1 == 1){
+while(true){
     d = capteur_distance
     alterner(d < 70){
         r = random % 10 - 5

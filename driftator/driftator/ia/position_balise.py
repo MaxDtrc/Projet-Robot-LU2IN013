@@ -1,69 +1,81 @@
 import numpy as np
-#import cv2
+from PIL import Image
 
-#On définit les bornes de valeurs HSV des différentes couleurs pour la reconnaissance 
-lower_yellow = np.array([20, 100, 100])
-upper_yellow = np.array([30, 255, 255])
-
-lower_blue = np.array([90, 130, 0])
-upper_blue = np.array([121, 255, 255])
-
-
-lower_red_1 = np.array([0, 100, 100])
-upper_red_1 = np.array([10, 255, 255])
-lower_red_2 = np.array([170, 100, 100])
-upper_red_2 = np.array([180, 255, 255])
-
-lower_green = np.array([40, 70, 80])
-upper_green = np.array([70, 255, 255])
-
-
-def getPosBalise():
+def setColor(clr):
     """
-    Renvoie la position détectée de la balise sur l'image
+    Fonction auxiliaire permettant de remplacer une valeur rgb par un id de couleur
+
+    :param clr: tableau d'une valeur rgb
+    :returns: un identifiant (1 à 5) selon la couleur
+    """
+    d = 0
+    #Detection rouge
+    if clr[0] > 85 and clr[0] > clr[1] * 1.6 and clr[0] > clr[2] * 1.6:
+        d = 1
+    #Detection vert
+    elif clr[1] > 50 and clr[1] > clr[0] * 1.3 and clr[1] > clr[2] * 1.3:
+        d = 2
+    #Detection bleu
+    elif clr[2] > 70 and clr[2] > clr[1] * 1.3 and clr[2] > clr[0] * 1.3:
+        d = 3
+    #Detection jaune
+    elif clr[0] > 80 and clr[1] > 80 and clr[1] > 1.6 * clr[2] and clr[0] > 1.6 * clr[2]:
+        d = 4
+    return d
+
+def distanceCase(v1, v2):
+    """
+    Fonction auxiliaire renvoyant une distance en nb de case entre 2 couples de coordonnées    
+    """
+    return abs(v1[0] - v2[0]) + abs(v1[1] - v2[1])
+
+def getPosBalise(img):
+    #Lecture de l'image
+    im = Image.fromarray(img)
+
+    #Redimension de l'image pour simplifier grandement les calculs + conversion en array
+    im = im.resize((16, 12), Image.Resampling.NEAREST)
+    m = np.array(im)
+
+    #On remplace les pixels par l'id de leur couleur
+    m = np.array([[setColor(i) for i in j] for j in m])
     
-    :param img: image à analyser
-    """
+    #On stock les occurences des couleurs
+    clr = [np.where(m==i+1) for i in range(4)]
 
-    img = cv2.imread("camera.png")
+    if (np.any(len(clr) == 0)):
+        #Toutes les couleurs n'ont pas été trouvées, inutile de continuer
+        return None
 
+    #On crée les listes de coordonnées
+    lst = [np.column_stack((np.array(clr[i])[0], np.array(clr[i])[1])) for i in range(4)]
 
-    #On la convertit pour avoir les données des couleurs
-    image = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    #On compte les occurences des couleurs (dans clr qui ne sert plus par la suite)
+    clr = [len(i[0]) for i in clr]
 
-    colors = [(lower_yellow, upper_yellow), (lower_blue, upper_blue), (lower_green, upper_green), (lower_red_1, upper_red_1), (lower_red_2, upper_red_2)]
-    points_tab = [[], [], [], []]
-    mask_tab = [None, None, None, None]
-    contours_tab = [None, None, None, None]
+    #On crée une liste d'ordre de parcours (croissant pour économiser les calculs)
+    v = np.argsort(clr)
+        
+    n = 3 #Marge de recherche
 
-    for i in (range(0, 4)):
-        if i == 3:
-            mask_tab[i] = cv2.inRange(image, colors[i][0], colors[i][1]) | cv2.inRange(image, colors[i+1][0], colors[i+1][1]) #Cas special pour le rouge
-        else:
-            mask_tab[i] = cv2.inRange(image, colors[i][0], colors[i][1])
-        contours_tab[i], hierarchy = cv2.findContours(mask_tab[i], cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #On détecte les contours de la zone trouvée
-        if len(contours_tab[i]) != 0:
-            for contour in contours_tab[i]:
-                if cv2.contourArea(contour) > 500:
-                    x, y, w, h = cv2.boundingRect(contour)
-                    points_tab[i].append(np.array([x + int(w/2), y + int(h/2)]))
+    #Pour chaque occurence la couleur, on regarde si les autres couleurs sont présentes autour
+    for p1 in lst[v[0]]:
+        #Tableau des couleurs trouvées dans la zone
+        clr_trouvees = [False, False, False, False]
+        clr_trouvees[v[0]] = True
 
-                    #cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 3) #Pour chaque contour trouvé on trace un rectangle autour
-                    #cv2.circle(img, (x + int(w/2), y + int(h/2)), 4, (255, 0, 0), 5)
+        #On parcours toutes les autres couleurs
+        for c in v[1:]:
+            #Dans cette couleur, on parcours les pixels
+            for p2 in lst[c]:
+                if distanceCase(p1, p2) < n:
+                    #La couleur est trouvée, on sort de la boucle
+                    clr_trouvees[c] = True
+                    break
 
-    #Croisement des points
-    if len(points_tab[0]) > 0 and len(points_tab[1]) > 0 and len(points_tab[2]) > 00 and len(points_tab[3]) > 0:
-        for py in points_tab[0]:
-            for pb in points_tab[1]:
-                for pg in points_tab[2]:
-                    for pr in points_tab[3]:
-                        #On calcule les centre des segments en diagonal
-                        p1 = np.array([int(np.mean([pr[0], py[0]])), int(np.mean([pr[1], py[1]]))])
-                        p2 = np.array([int(np.mean([pg[0], pb[0]])), int(np.mean([pg[1], pb[1]]))])
-
-
-                        #Si les points sont pas trop loin alors on en déduit que c'est la balise
-                        if np.linalg.norm(p1 - p2) < 20:
-                            return p1[0]
-
-    return 0
+        if clr_trouvees.count(True) == 4:
+            #La balise est trouvée, on retourne sa position x (Entre -1 et 1, -1 -> Tout à gauche de l'écran, 1 -> tout à droite de l'écran)
+            return (p1[1] - 7)/8
+        
+    #Si la balise n'a pas été trouvée, on renvoie -2
+    return None

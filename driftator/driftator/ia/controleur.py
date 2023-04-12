@@ -2,7 +2,7 @@ from math import pi, sqrt
 from .position_balise import getPosBalise
 from PIL import Image
 from random import randint
-
+import numpy as np
 
 class implemVraiVie:
     def __init__(self, robot):
@@ -43,14 +43,8 @@ class implemVraiVie:
         """
         Retourne la position x de la balise sur l'image captée par la camera
         """
-        img = self._r.get_image()
-        
-        #CONVERSION DE l'IMAGE ET APPEL DE LA FONCTION RENVOYANT LA POSITION DE LA BALISE
-        im = Image.fromarray(img)
 
-        im.save("camera.png")
-
-        return getPosBalise()
+        return getPosBalise(self._r.get_image())
 
     def stop(self):
         self._r.set_motor_dps(1, 0)
@@ -104,13 +98,10 @@ class implemSimulation:
         """
         Retourne la position x de la balise sur l'image captée par la camera
         """
-        #print(self._a)
-        if self._a != None:
-            self._a.app.screenshot("camera.png", False)
-        
-
-        #CONVERSION DE l'IMAGE ET APPEL DE LA FONCTION RENVOYANT LA POSITION DE LA BALISE
-        return getPosBalise()
+        if self._a != None and self._a.app.lastImage is not None:
+            return getPosBalise(self._a.app.lastImage)
+        else:
+            return -1
 
 
     def stop(self):
@@ -184,12 +175,10 @@ class GetDecalageReel(Decorator):
         dD = d[1]/360 * diamRoue * pi
 
         angle = (dD - dG)/(rayonRobot * 2)
+
         ancienAngle = self.lastStep
-        if(angle != 0):
-            #Test: remplacer la commande offeset_motor_encoder par une sauvegarde "manuelle"
+        if angle - ancienAngle != 0:
             self.lastStep = angle
-            #self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
-            #self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
 
         return angle - ancienAngle
 
@@ -208,10 +197,9 @@ class GetDecalageReel(Decorator):
         ancienneDistance = self.lastStep
 
         #Reset de l'origine de la pos
-        #Test: remplacer la commande offeset_motor_encoder par une sauvegarde "manuelle"
-        self.lastStep = distance
-        #self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
-        #self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
+        if distance - ancienneDistance != 0:
+            self.lastStep = distance
+
 
         return distance - ancienneDistance
     
@@ -230,8 +218,9 @@ class GetDecalageSim(Decorator):
 
         :returns: le décalage de l'angle du robot depuis le dernier appel
         """
-        res = self._angle - self._decalageA
-        self._decalageA = self._angle
+        angle = self._angle
+        res = angle - self._decalageA
+        self._decalageA = angle
         return res
 
     def getDistanceParcourue(self):
@@ -253,7 +242,9 @@ class GetDecalageSim(Decorator):
 
 class Variables(Decorator):
     def __init__(self, ctrl):
-        self._variables = dict()
+        #Création du dictionnaire avec quelques constantes
+        self._variables = {"true": True, "false": False, "null": None}
+
         Decorator.__init__(self, ctrl)
 
     def getVar(self, nom):

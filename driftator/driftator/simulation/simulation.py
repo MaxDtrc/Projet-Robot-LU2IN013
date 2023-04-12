@@ -59,6 +59,7 @@ class Simulation(Thread):
         """
         if robot in self._robotsList:
             self._robotsList.remove(robot)
+            self.terrain.retirerObstacle(robot.nom)
 
 
     def retirerRobotId(self, index : int):

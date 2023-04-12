@@ -12,6 +12,9 @@ class implemVraiVie:
         self.offset_motor_encoder(self.MOTOR_LEFT, self.read_encoders()[0])
         self.offset_motor_encoder(self.MOTOR_RIGHT, self.read_encoders()[1])
 
+        #Lancement de la camera
+        self.start_recording()
+
     def setVitesseGauche(self, v: float):
         """
         Set la vitesse de la roue gauche
@@ -45,6 +48,14 @@ class implemVraiVie:
         """
 
         return getPosBalise(self._r.get_image())
+    
+    def setCerveau(self, angle: int):
+        """
+        Tourne la camera du robot
+        
+        :param angle: angle de rotation (de 0 à 180)
+        """
+        self.servo_rotate(angle)
 
     def stop(self):
         self._r.set_motor_dps(1, 0)
@@ -102,6 +113,14 @@ class implemSimulation:
             return getPosBalise(self._a.app.lastImage)
         else:
             return -1
+        
+    def setCerveau(self, angle: int):
+        """
+        Tourne la camera du robot
+        
+        :param angle: angle de rotation (de 0 à 180)
+        """
+        self._r._angleCamera = angle
 
 
     def stop(self):

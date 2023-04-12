@@ -295,20 +295,31 @@ class Affichage3d(Thread):
                 mdl.reparentTo(self.app.render)
                 self.app.obsList.append(mdl)
 
-    def _afficherRobot(self, robot: s.Robot):
+    def _afficherRobot(self):
         """
         Affiche un robot sur la fenêtre
         
         :param robot : Robot à afficher
         """
+        global POV
+        global RobotPOV
+        global nbrobots
+
+        while(len(self.robotModel) > self._simulation.getNombreDeRobots()):
+            self.robotModel[-1].removeNode()
+            self.robotModel.pop(-1)
+            nbrobots -= 1
+
+
         for i in range(0, self._simulation.getNombreDeRobots()):
             self.robotModel[i].setPos(self._simulation.getRobot(i).x, -self._simulation.getRobot(i).y, 0)
             self.robotModel[i].setHpr(degrees(self._simulation.getRobot(i).angle) + 90, 90, 0)
+        
+
 
         #Changement de pov en appuyant sur q
 
-        global POV
-        global RobotPOV
+        
 
         if POV:
             self.app.camera.setPos(self._simulation.getRobot(RobotPOV).x, -self._simulation.getRobot(RobotPOV).y, 4.5)
@@ -325,11 +336,7 @@ class Affichage3d(Thread):
         #Affichage des objets
         t = self._simulation.terrain
         if(self._simulation.getNombreDeRobots() > 0):
-            for i in range(0, self._simulation.getNombreDeRobots()):
-                r = self._simulation.getRobot(i)
-                self._afficherRobot(r)
-        else:
-                self.app.robotModel.removeNode()
+            self._afficherRobot()
 
 class MyApp(ShowBase):
     def __init__(self):

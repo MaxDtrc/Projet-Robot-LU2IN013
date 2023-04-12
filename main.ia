@@ -1,27 +1,12 @@
-
-avancer d=3 v=40 a=0
-
-while(capteur_distance > 10){
-    //On detecte la balise
-    b = capteur_balise
-    
-    //Derniere position de la balise
-    p = 1
-
-    if(b == null){
-        //Balise pas trouvée, on tourne
-        angle_rota = 10 * p
-        tourner a=angle_rota v=50
-    }else{
-        //Balise trouvee
-        angle = b * 15
-        avancer d=2 v=150 a=angle
-
-        //On change le sens de rotation
-        if(b > 0){
-            p = 1
-        }else{
-            p = -1
-        }
+while(true){
+    d = capteur_distance
+    alterner(d < 70){
+        r = random % 10 - 5
+        angle = 100 - d + r
+        avancer d=7 v=900 a=angle
     }
+    else{
+        avancer d=7 v=700 a=0
+    }
+    
 }

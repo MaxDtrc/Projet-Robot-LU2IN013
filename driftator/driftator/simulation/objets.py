@@ -28,6 +28,7 @@ class Robot():
         self._posY = posY
         self._rayon = r
         self._angle = radians(angle)
+        self._angleCamera = 90
         self.tailleRoues = t
         self._vitesseGauche = vG
         self._vitesseDroite = vD
@@ -375,6 +376,22 @@ class Terrain:
         """
 
         self._listeObstacles.append(obstacle)
+
+    def retirerObstacle(self, nom: str):
+        """
+        Retire un obstacle de la liste des obstacles du terrain
+
+        :param nom: nom de l'obstacle à retirer
+        """
+        index = None
+        for i in range(len(self._listeObstacles)):
+            if(self._listeObstacles[i].nom == nom):
+                index = i
+                break
+        
+        if index != None:
+            self._listeObstacles.pop(index)
+
 
     def getNombreObstacles(self):
         """

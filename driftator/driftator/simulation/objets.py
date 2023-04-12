@@ -28,6 +28,7 @@ class Robot():
         self._posY = posY
         self._rayon = r
         self._angle = radians(angle)
+        self._objectifAngleCamera = 90
         self._angleCamera = 90
         self.tailleRoues = t
         self._vitesseGauche = vG
@@ -165,6 +166,8 @@ class Robot():
         self.vitesseGauche = v
     def setVD(self, v):
         self.vitesseDroite = v
+    def setAngleCam(self, c):
+        self._objectifAngleCamera = c
 
 
     @property
@@ -248,6 +251,14 @@ class Robot():
         #Mise à jour de l'angle et
         a = (vD - vG)/(self._rayon * 2) * dT
         self._angle += a
+        
+
+        #Maj de la tete
+        vitesseRota = 20
+        if self._angleCamera < self._objectifAngleCamera:
+            self._angleCamera += vitesseRota * dT
+        elif self._angleCamera > self._objectifAngleCamera:
+            self._angleCamera -= vitesseRota * dT
 
 
 

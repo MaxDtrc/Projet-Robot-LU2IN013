@@ -322,8 +322,9 @@ class Affichage3d(Thread):
         
 
         if POV:
-            self.app.camera.setPos(self._simulation.getRobot(RobotPOV).x, -self._simulation.getRobot(RobotPOV).y, 4.5)
-            self.app.camera.setHpr(degrees(self._simulation.getRobot(RobotPOV ).angle) - 90, 0, 0)
+            r = self._simulation.getRobot(RobotPOV)
+            self.app.camera.setPos(r.x, -r.y, 4.5)
+            self.app.camera.setHpr(degrees(r.angle) + r._angleCamera - 180, 0, 0)
         else:
             self.app.camera.setPos(0, 0, 350)
             self.app.camera.setHpr(0, -90, 0)

@@ -319,11 +319,8 @@ class Variables(Decorator):
         self._variables[varAChanger] = eval(" ".join(args))
 
         #Lancement/Arrêt des capteurs en arrière plan
-        if self._variables["capteurs_background"]:
-            if not self._capteurs.running:
-                self._capteurs.start()
-            else:
-                self._capteurs.running = False
+        if self._variables["capteurs_background"] and not self._capteurs.running:
+            self._capteurs.start()
 
     def printVariable(self, args):
         """

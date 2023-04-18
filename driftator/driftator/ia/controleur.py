@@ -357,7 +357,7 @@ class Capteurs(Thread):
             self.capteurDistance = self.implem.getDistance()
             self.capteurBalise = self.implem.getBalisePosition()
 
-            print("capteurDistance:", self.capteurDistance, ", capteurBalise:", self.capteurBalise)
+            #print("capteurDistance:", self.capteurDistance, ", capteurBalise:", self.capteurBalise)
     
     def stop(self):
         self.running = False

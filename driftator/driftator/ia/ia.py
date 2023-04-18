@@ -57,13 +57,10 @@ class Avancer:
         #Substitution des variables
         self._vars = [self.d, self.a, self.v]
         self._controleur.substituerVariables(self._vars)
-        self.distance = float(self._vars[0])
-        self.angle = float(self._vars[1])
-        self.vitesse = float(self._vars[2])
+        self.distance, self.angle, self.vitesse = [float(i) for i in self._vars]
 
         self._controleur.getDistanceParcourue() #Reinitialisation
         self.parcouru = 0
-        self.avancer()
 
     def stop(self):
         #On avance tant qu'on n' a pas suffisement avancé
@@ -73,17 +70,9 @@ class Avancer:
         #Calcul de la distance parcourue
         self.parcouru += abs(self._controleur.getDistanceParcourue())
 
-        self.avancer()
+        self._controleur.setVitesseGauche(self.vitesse * (1 + self.angle/100) if self.angle <= 0 else self.vitesse)
+        self._controleur.setVitesseDroite(self.vitesse if self.angle <= 0 else self.vitesse * (1 - self.angle/100))
 
-
-    def avancer(self):
-        #Avancer selon l'angle et la vitesse
-        if self.angle <= 0:
-            self._controleur.setVitesseGauche(self.vitesse * (1 + self.angle/100))
-            self._controleur.setVitesseDroite(self.vitesse)
-        else:
-            self._controleur.setVitesseGauche(self.vitesse)
-            self._controleur.setVitesseDroite(self.vitesse * (1 - self.angle/100))
 
 class TournerSurPlace:
     """
@@ -104,13 +93,12 @@ class TournerSurPlace:
         #Substitution des variables
         self._vars = [self.a, self.v]
         self._controleur.substituerVariables(self._vars)
-
         self.angle = radians(float(self._vars[0]))
         self.vitesse = float(self._vars[1]) if self.angle >= 0 else -float(self._vars[1])
 
+        #On réinitialise le décalage
         self._controleur.getDecalageAngle()
         self.parcouru = 0
-        self.avancer()
 
     def stop(self):
         #On tourne tant qu'on n'a pas dépassé l'angle
@@ -119,9 +107,7 @@ class TournerSurPlace:
     def step(self):
         #Calcul de la distance parcourue
         self.parcouru += abs(self._controleur.getDecalageAngle())
-        self.avancer()
-
-    def avancer(self):
+        
         self._controleur.setVitesseGauche(self.vitesse)
         self._controleur.setVitesseDroite(-self.vitesse)
 

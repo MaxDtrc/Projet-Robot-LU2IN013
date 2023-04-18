@@ -1,9 +1,9 @@
 from math import pi, sqrt
 from .position_balise import getPosBalise
-from PIL import Image
 from random import randint
-import numpy as np
+from threading import Thread
 
+#Implementations
 class implemVraiVie:
     def __init__(self, robot):
         self._r = robot
@@ -132,9 +132,7 @@ class implemSimulation:
     def __getattr__(self, name):
         return getattr(self._r, name)
     
-
-
-
+#Classe controleur "de base"
 class controleur:
     def __init__(self, implementation = None):
         """
@@ -144,6 +142,8 @@ class controleur:
         """
 
         self._imp = implementation
+        if implementation is not None:
+            self._capteurs = Capteurs(implementation)
 
     def changerImplementation(self, newImp):
         """
@@ -151,8 +151,8 @@ class controleur:
 
         :param newImp : l'implementation a mettre a la place de la courante
         """
-
         self._imp = newImp
+        self._capteurs = Capteurs(newImp)
 
     def stop_ia_thread(self):
         self.running = False
@@ -163,6 +163,7 @@ class controleur:
         return getattr(self._imp, name)
 
 
+#Décorateurs de la classe Robot
 class Decorator:
     def __init__(self, robot):
         self.robot = robot
@@ -262,7 +263,7 @@ class GetDecalageSim(Decorator):
 class Variables(Decorator):
     def __init__(self, ctrl):
         #Création du dictionnaire avec quelques constantes
-        self._variables = {"true": True, "false": False, "null": None}
+        self._variables = {"true": True, "false": False, "null": None, "capteurs_background": False}
 
         Decorator.__init__(self, ctrl)
 
@@ -283,9 +284,9 @@ class Variables(Decorator):
             except:
                 #Variables custom
                 if(vars[i] == "capteur_distance"):
-                    self._variables["capteur_distance"] = self.getDistance()
+                    self._variables["capteur_distance"] = self.getDistance() if not self._variables["capteurs_background"] else self._capteurs.capteurDistance
                 if(vars[i] == "capteur_balise"):
-                    self._variables["capteur_balise"] = self.getBalisePosition()
+                    self._variables["capteur_balise"] = self.getBalisePosition() if not self._variables["capteurs_background"] else self._capteurs.capteurBalise
                 if(vars[i] == "random"):
                     self._variables["random"] = randint(0, 10000000)
 
@@ -302,6 +303,8 @@ class Variables(Decorator):
         """
         args = args.copy()
         self.substituerVariables(args)
+
+        #Si un des arguments et Null -> la condition est toujours fausse
         return(eval(" ".join(args)))
     
     def affecterValeur(self, args):
@@ -315,6 +318,13 @@ class Variables(Decorator):
         self.substituerVariables(args)
         self._variables[varAChanger] = eval(" ".join(args))
 
+        #Lancement/Arrêt des capteurs en arrière plan
+        if self._variables["capteurs_background"]:
+            if not self._capteurs.running:
+                self._capteurs.start()
+            else:
+                self._capteurs.running = False
+
     def printVariable(self, args):
         """
         Fonction permettant d'afficher une variable dans la console
@@ -324,6 +334,36 @@ class Variables(Decorator):
         args = args.copy()
         self.substituerVariables(args)
         print(eval(" ".join(args)))
+
+
+class Capteurs(Thread): 
+    """
+    Classe permettant d'utiliser les capteurs en arrière plan
+    """
+
+    def __init__(self, implementation):
+        """
+        Constructeur de la classe Capteurs
+
+        :param implementation: implementation (réelle ou simulée) du robot
+        """
+        super(Capteurs, self).__init__()
+        self.implem = implementation
+        self.capteurBalise = None
+        print("initialise")
+        self.capteurDistance = None
+        self.running = False
+
+    def run(self):
+        self.running = True
+        while(self.running):
+            self.capteurDistance = self.implem.getDistance()
+            self.capteurBalise = self.implem.getBalisePosition()
+
+            print("capteurDistance:", self.capteurDistance, ", capteurBalise:", self.capteurBalise)
+    
+    def stop(self):
+        self.running = False
 
 
 

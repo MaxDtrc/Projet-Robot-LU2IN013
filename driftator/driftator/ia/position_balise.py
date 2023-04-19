@@ -56,7 +56,7 @@ def getPosBalise(img):
     #On crée une liste d'ordre de parcours (croissant pour économiser les calculs)
     v = np.argsort(clr)
         
-    n = 3 #Marge de recherche
+    n = 6 #Marge de recherche
 
     #Pour chaque occurence la couleur, on regarde si les autres couleurs sont présentes autour
     for p1 in lst[v[0]]:

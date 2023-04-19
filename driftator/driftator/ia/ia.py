@@ -59,6 +59,7 @@ class Avancer:
         self._controleur.substituerVariables(self._vars)
         self.distance, self.angle, self.vitesse = [float(i) for i in self._vars]
 
+        #On avance
         self._controleur.getDistanceParcourue() #Reinitialisation
         self.parcouru = 0
 
@@ -70,6 +71,7 @@ class Avancer:
         #Calcul de la distance parcourue
         self.parcouru += abs(self._controleur.getDistanceParcourue())
 
+        #On avance
         self._controleur.setVitesseGauche(self.vitesse * (1 + self.angle/100) if self.angle <= 0 else self.vitesse)
         self._controleur.setVitesseDroite(self.vitesse if self.angle <= 0 else self.vitesse * (1 - self.angle/100))
 

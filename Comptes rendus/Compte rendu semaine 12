@@ -2,10 +2,11 @@ Semaine du 19/04/2023
 Compte rendu semaine 12
 
 Objectifs:
-
+- amélioration détaction balise (éviter que le robot face des 360° lorsqu il l'a perd de vue)
+- ne plus avoir un déplcement sous forme de "saccadement" dans le robot
 
 Taches faites :
-- légérement allégment des IA
+- légérement allégement des IA
 - correction dans le lancement du thread des capteurs
-- ajout d'une classe Capteurs permettant de calculer la distance et la position de la balise en arriere plan
+- ajout d'une classe Capteur permettant de calculer la distance et la position de la balise en arriere plan, dans un thread
 - changement commande PIL compatible avec le robot pour detection de la balise + nouvelle config

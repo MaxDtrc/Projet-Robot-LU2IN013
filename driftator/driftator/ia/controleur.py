@@ -347,7 +347,6 @@ class Capteurs(Thread):
         super(Capteurs, self).__init__()
         self.implem = implementation
         self.capteurBalise = None
-        print("initialise")
         self.capteurDistance = None
         self.running = False
 

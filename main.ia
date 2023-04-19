@@ -19,7 +19,9 @@ while(capteur_distance > 10){
             angle_rota = 2 * p
             tourner a=angle_rota v=40
         }else{
-            avancer d=10 v=-100 a=0
+            while(capteur_balise == null){
+                avancer d=3 v=-100 a=15
+            }
             balise_trouvee_avant = false
         }
     }else{

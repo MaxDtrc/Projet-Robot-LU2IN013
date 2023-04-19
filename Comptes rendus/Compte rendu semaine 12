@@ -1,0 +1,11 @@
+Semaine du 19/04/2023
+Compte rendu semaine 12
+
+Objectifs:
+
+
+Taches faites :
+- légérement allégment des IA
+- correction dans le lancement du thread des capteurs
+- ajout d'une classe Capteurs permettant de calculer la distance et la position de la balise en arriere plan
+- changement commande PIL compatible avec le robot pour detection de la balise + nouvelle config

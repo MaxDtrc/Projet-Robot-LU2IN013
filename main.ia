@@ -2,7 +2,6 @@
 avancer d=3 v=40 a=0
 
 //Variables
-p = 1
 balise_trouvee_avant = false
 capteurs_background = true
 
@@ -16,8 +15,7 @@ while(capteur_distance > 10){
     if(b == null){
         //Balise pas trouvée, on tourne
         if(balise_trouvee_avant == false){
-            angle_rota = 2 * p
-            tourner a=angle_rota v=200
+            tourner a=2 v=800
         }else{
             while(capteur_balise == null){
                 avancer d=3 v=-100 a=15
@@ -30,12 +28,5 @@ while(capteur_distance > 10){
         distance_arriere = 0
         angle = b * 20
         avancer d=3 v=100 a=angle
-
-        //On change le sens de rotation
-        if(b > 0){
-            p = -1
-        }else{
-            p = 1
-        }
     }
 }

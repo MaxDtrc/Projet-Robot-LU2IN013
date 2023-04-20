@@ -33,8 +33,11 @@ def getPosBalise(img):
     #Lecture de l'image
     im = Image.fromarray(img)
 
+
     #Redimension de l'image pour simplifier les calculs + conversion en array
     im = im.resize((16, 12), Image.NEAREST)
+
+    im.save("test.png")
     m = np.array(im)
 
     #On remplace les pixels par l'id de leur couleur

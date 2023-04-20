@@ -22,6 +22,7 @@ class Robot():
          
            (en degrés de rotation par seconde)
         """
+
         self.type = -1
         self._nom = nom
         self._posX = posX
@@ -34,6 +35,9 @@ class Robot():
         self._vitesseGauche = vG
         self._vitesseDroite = vD
         self.vitesseMax = vMax
+        self.WHEEL_DIAMETER = 66.5
+        self.WHEEL_BASE_WIDTH = 117
+        self.motorPosition = (0, 0)
 
     #Getters
     @property
@@ -160,6 +164,9 @@ class Robot():
         else:
             self._vitesseDroite = min(v,self.vitesseMax)
 
+    def get_motor_position(self):
+        return self.motorPosition
+
 
     #TEMPORAIRE - ERREUR A CORRIGER
     def setVG(self, v):
@@ -238,6 +245,7 @@ class Robot():
         :returns: rien, changement in place
         """
         #Calcul de la vitesse en cm/s du robot
+        self.motorPosition = (self.motorPosition[0] + self.vitesseGauche * dT, self.motorPosition[1] + self._vitesseDroite * dT)
 
         vG = self._vitesseGauche/360.0 * pi * self.tailleRoues
         vD = self._vitesseDroite/360.0 * pi * self.tailleRoues

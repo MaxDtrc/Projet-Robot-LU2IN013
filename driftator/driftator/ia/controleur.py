@@ -170,9 +170,10 @@ class Decorator:
     def __getattr__(self, attr):
         return getattr(self.robot, attr)
 
-class GetDecalageReel(Decorator):
+class GetDecalage(Decorator):
     def __init__(self, robot):
         Decorator.__init__(self, robot)
+        self.lastStep = 0
 
     def __getattr__(self, name):
         return getattr(self.robot, name)
@@ -223,42 +224,6 @@ class GetDecalageReel(Decorator):
 
         return distance - ancienneDistance
     
-class GetDecalageSim(Decorator):
-    def __init__(self, robot):
-        Decorator.__init__(self, robot)
-        self._decalageA = 0 #dernier angle obtenu
-        self._pos = (0, 0)
-
-    def __getattr__(self, name):
-        return getattr(self.robot, name)
-
-    def getDecalageAngle(self):
-        """
-        Renvoi le décalage de l'angle du robot depuis le dernier appel de la fonction et le remet à 0
-
-        :returns: le décalage de l'angle du robot depuis le dernier appel
-        """
-        angle = self._angle
-        res = angle - self._decalageA
-        self._decalageA = angle
-        return res
-
-    def getDistanceParcourue(self):
-        """
-        Renvoi la distance parcourue par le robot
-
-        :returns: la distance parcourue par le robot
-        """
-
-        newPos = (self.x, self.y)
-        d = (newPos[0] - self._pos[0], newPos[1] - self._pos[1])
-        self._pos = newPos
-
-        dP = sqrt(d[0]**2 + d[1]**2)
-
-        return dP
-    
-
 
 class Variables(Decorator):
     def __init__(self, ctrl):

@@ -18,7 +18,7 @@ class Simulation(Thread):
         """
         super(Simulation, self).__init__()
 
-        self._wait = dT
+        self._wait = dT * 100
         if robotsList is None : 
             self._robotsList = []
         else:

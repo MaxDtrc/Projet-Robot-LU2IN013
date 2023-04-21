@@ -9,7 +9,6 @@ def startRobot(strat, dT = 0.001):
     controleur.changerImplementation(implem)
 
     #Lancement de l'IA
-    #strat = ia.openIA("demo_ia/"+strat, controleur, dT)
     strat = ia.openIA(strat, controleur, dT)
     strat.start()
 

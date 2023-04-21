@@ -18,7 +18,7 @@ class Simulation(Thread):
         """
         super(Simulation, self).__init__()
 
-        self._wait = dT * 100
+        self._wait = dT
         if robotsList is None : 
             self._robotsList = []
         else:
@@ -122,6 +122,7 @@ class Simulation(Thread):
         #Update des robots
         for r in self._robotsList:
             r.actualiser(self._dT)
+
         #Test du crash
         robotsARetirer = []
         for robot in self._robotsList:
@@ -132,7 +133,6 @@ class Simulation(Thread):
 
         #Suppression des robots qui se sont crashés
         for r in robotsARetirer:
-            print("crash")
             self.retirerRobot(r)
     
 

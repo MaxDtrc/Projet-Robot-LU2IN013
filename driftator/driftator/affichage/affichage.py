@@ -79,7 +79,7 @@ class Affichage():
         self._echelle = echelle
         self._afficherDistance = afficherDistance
         self._afficherTrace = afficherTrace
-        self.tailleTrace = 2
+        self.tailleTrace = 3
         self.lastPointPos = (self._simulation.getRobot(0).x, self._simulation.getRobot(0).y) #Dernière coordonnée pour le tracé du robot
 
         #Init de pygame

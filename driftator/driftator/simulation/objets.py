@@ -37,7 +37,12 @@ class Robot():
         self.vitesseMax = vMax
         self.WHEEL_DIAMETER = 66.5
         self.WHEEL_BASE_WIDTH = 117
+
+        #Simulation des moteurs de roues
         self.motorPosition = (0, 0)
+        self.offset = (0, 0)
+        self.motorsIte = 0
+        self.motorsTempsActu = 100
 
     #Getters
     @property
@@ -245,8 +250,6 @@ class Robot():
         :returns: rien, changement in place
         """
         #Calcul de la vitesse en cm/s du robot
-        self.motorPosition = (self.motorPosition[0] + self.vitesseGauche * dT, self.motorPosition[1] + self._vitesseDroite * dT)
-
         vG = self._vitesseGauche/360.0 * pi * self.tailleRoues
         vD = self._vitesseDroite/360.0 * pi * self.tailleRoues
 
@@ -267,6 +270,14 @@ class Robot():
             self._angleCamera += vitesseRota * dT
         elif self._angleCamera > self._objectifAngleCamera:
             self._angleCamera -= vitesseRota * dT
+
+        #Simulations du get_motor_encoders
+        self.offset = (self.offset[0] + self.vitesseGauche * dT, self.offset[1] + self._vitesseDroite * dT)
+        self.motorsIte += 1
+        if(self.motorsIte >= self.motorsTempsActu):
+            self.motorPosition = (self.motorPosition[0] + self.offset[0], self.motorPosition[1] + self.offset[1])
+            self.offset = (0, 0)
+            self.motorsIte = 0
 
 
 

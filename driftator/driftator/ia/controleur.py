@@ -1,4 +1,4 @@
-from math import pi, sqrt
+from math import pi, degrees
 from .position_balise import getPosBalise
 from random import randint
 from threading import Thread
@@ -220,8 +220,6 @@ class GetDecalage(Decorator):
         #Reset de l'origine de la pos
         if distance - ancienneDistance != 0:
             self.lastStep = distance
-
-
         return distance - ancienneDistance
     
 

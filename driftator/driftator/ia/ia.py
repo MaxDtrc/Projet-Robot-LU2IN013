@@ -48,30 +48,30 @@ class Avancer:
     """
     def __init__(self, controleur, distance, v, angle = 0):
         self._controleur = controleur
-        self.d = distance
-        self.a = angle
-        self.v = v
-        self.parcouru = 0
+        self.d, self.a, self.v,self.parcouru = distance, angle, v, 0
 
     def start(self):
+        #On reset le controleur
+        self._controleur.resetDecalage()
+
         #Substitution des variables
         self._vars = [self.d, self.a, self.v]
         self._controleur.substituerVariables(self._vars)
         self.distance, self.angle, self.vitesse = [float(i) for i in self._vars]
 
-        #On avance
-        self._controleur.getDistanceParcourue() #Reinitialisation
+        #Initialisation de la distance
+        self.posInitiale = self._controleur.getDistanceParcourue()
         self.parcouru = 0
+
 
     def stop(self):
         #On avance tant qu'on n' a pas suffisement avancé
-        return self.parcouru >= self.distance
+        return self.parcouru >= abs(self.distance)
 
     def step(self):
         #Calcul de la distance parcourue
-        self.parcouru += abs(self._controleur.getDistanceParcourue())
+        self.parcouru = abs(self._controleur.getDistanceParcourue() - self.posInitiale)
 
-        #On avance
         self._controleur.setVitesseGauche(self.vitesse * (1 + self.angle/100) if self.angle <= 0 else self.vitesse)
         self._controleur.setVitesseDroite(self.vitesse if self.angle <= 0 else self.vitesse * (1 - self.angle/100))
 
@@ -90,26 +90,29 @@ class TournerSurPlace:
         self.v = v
         self.parcouru = 0
 
-
     def start(self):
+        #On reset le controleur
+        self._controleur.resetDecalage()
+
         #Substitution des variables
         self._vars = [self.a, self.v]
         self._controleur.substituerVariables(self._vars)
         self.angle = radians(float(self._vars[0]))
-        self.vitesse = float(self._vars[1]) if self.angle >= 0 else -float(self._vars[1])
+        self.vitesse = float(self._vars[1]) if self.angle >= 0 else -float(self._vars[1])        
 
-        #On réinitialise le décalage
-        self._controleur.getDecalageAngle()
+        #Initialisation de la distance
+        self.posInitiale = self._controleur.getDecalageAngle()
         self.parcouru = 0
+        
 
     def stop(self):
         #On tourne tant qu'on n'a pas dépassé l'angle
-        return self.parcouru > abs(self.angle)
+        return self.parcouru >= abs(self.angle)
         
     def step(self):
         #Calcul de la distance parcourue
-        self.parcouru += abs(self._controleur.getDecalageAngle())
-        
+        self.parcouru = abs(self._controleur.getDecalageAngle() - self.posInitiale) 
+
         self._controleur.setVitesseGauche(self.vitesse)
         self._controleur.setVitesseDroite(-self.vitesse)
 

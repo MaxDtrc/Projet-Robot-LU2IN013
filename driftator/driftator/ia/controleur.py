@@ -2,6 +2,7 @@ from math import pi, degrees
 from .position_balise import getPosBalise
 from random import randint
 from threading import Thread
+import time
 
 #Implementations
 class implemVraiVie:
@@ -14,6 +15,8 @@ class implemVraiVie:
 
         #Lancement de la camera
         self.start_recording()
+        self.vitesseGauche = 0
+        self.vitesseDroite = 0
 
     def setVitesseGauche(self, v: float):
         """
@@ -22,6 +25,7 @@ class implemVraiVie:
         :param v: vitesse (en degrés de rotation par seconde)
         :returns: rien
         """
+        self.vitesseGauche = v
         self._r.set_motor_dps(1, v)
 
     
@@ -32,6 +36,7 @@ class implemVraiVie:
         :param v: vitesse (en degrés de rotation par seconde)
         :returns: rien
         """
+        self.vitesseDroite = v
         self._r.set_motor_dps(2, v)
 
     def getDistance(self):
@@ -173,10 +178,19 @@ class Decorator:
 class GetDecalage(Decorator):
     def __init__(self, robot):
         Decorator.__init__(self, robot)
-        self.lastStep = 0
+        self.lastTime = 0
+        self.lastStep = (0, 0)
+        self.angle = 0
+        self.distance = 0
 
     def __getattr__(self, name):
         return getattr(self.robot, name)
+    
+    def resetDecalage(self):
+        self.lastTime = 0
+        self.lastStep = None
+        self.angle = 0
+        self.distance = 0
 
     def getDecalageAngle(self):
         """
@@ -184,24 +198,26 @@ class GetDecalage(Decorator):
 
         :returns: le décalage de l'angle du robot depuis le dernier appel
         """
-
         diamRoue = self.WHEEL_DIAMETER/10
         rayonRobot = self.WHEEL_BASE_WIDTH/20
 
-        posRoues = self.get_motor_position()
+        d = self.get_motor_position()
 
-        d = posRoues
-
-        dG = d[0]/360 * diamRoue * pi
-        dD = d[1]/360 * diamRoue * pi
-
-        angle = (dD - dG)/(rayonRobot * 2)
-
-        ancienAngle = self.lastStep
-        if angle - ancienAngle != 0:
-            self.lastStep = angle
-
-        return angle - ancienAngle
+        if d != self.lastStep:
+            #Les positions des roues ont été mises à jour, on les lit
+            dG = d[0]/360 * pi * diamRoue
+            dD = d[1]/360 * pi * diamRoue
+            self.angle = (dD - dG)/(rayonRobot * 2)
+            self.lastStep = d
+            self.lastTime = time.time()
+            return self.angle
+        else:
+            #Les positions des roues n'ont pas été mises à jour, on les estime
+            dG = self.vitesseGauche/360 * pi * diamRoue
+            dD = self.vitesseDroite/360 * pi * diamRoue
+            dT = time.time() - self.lastTime
+            return self.angle + (dD - dG)/(rayonRobot * 2) * dT
+        
 
     def getDistanceParcourue(self):
         """
@@ -209,18 +225,22 @@ class GetDecalage(Decorator):
 
         :returns: la distance parcourue par le robot
         """
-
         diamRoue = self.WHEEL_DIAMETER/10
-        posRoues = self.get_motor_position()
 
-        d = (posRoues[0] + posRoues[1])/2
-        distance = d/360 * diamRoue * pi
-        ancienneDistance = self.lastStep
+        d = self.get_motor_position()
 
-        #Reset de l'origine de la pos
-        if distance - ancienneDistance != 0:
-            self.lastStep = distance
-        return distance - ancienneDistance
+        if d != self.lastStep:
+            #Les positions des roues ont été mises à jour, on les lit
+            self.distance = ((d[0] + d[1])/2)/360 * diamRoue * pi
+            self.lastStep = d
+            self.lastTime = time.time()
+            return self.distance
+        else:
+            #Les positions des roues n'ont pas été mises à jour, on les estime
+            dG = self.vitesseGauche/360 * pi * diamRoue
+            dD = self.vitesseDroite/360 * pi * diamRoue
+            dT = time.time() - self.lastTime
+            return self.distance + (dG + dD)/2 * dT
     
 
 class Variables(Decorator):

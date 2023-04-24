@@ -42,7 +42,7 @@ class Robot():
         self.motorPosition = (0, 0)
         self.offset = (0, 0)
         self.motorsIte = 0
-        self.motorsTempsActu = 100
+        self.motorsTempsActu = 10
 
     #Getters
     @property

@@ -2,7 +2,6 @@
 avancer d=3 v=40 a=0
 
 //Variables
-balise_trouvee_avant = false
 capteurs_background = true
 
 
@@ -14,18 +13,10 @@ while(capteur_distance > 10){
     //Derniere position de la balise
     if(b == null){
         //Balise pas trouvée, on tourne
-        if(balise_trouvee_avant == false){
-            tourner a=2 v=800
-        }else{
-            while(capteur_balise == null){
-                avancer d=3 v=-100 a=15
-            }
-            balise_trouvee_avant = false
-        }
+        tourner a=2 v=300
     }else{
         //Balise trouvee
-        balise_trouvee_avant = true
-        distance_arriere = 0
+        print(b)
         angle = b * 20
         avancer d=3 v=100 a=angle
     }

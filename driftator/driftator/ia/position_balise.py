@@ -82,3 +82,23 @@ def getPosBalise(img):
         
     #Si la balise n'a pas été trouvée, on renvoie -2
     return None
+
+def getPosBaliseV2(img):
+    #Redimension de l'image
+    img = Image.fromarray(img)
+    img = img.resize((160, 120))
+    img = np.array(img)
+
+    #Obtention des coordonnées moyennes des couleurs rouge/bleu/vert/jaune
+    r = np.where((img[..., 0:1] > 85) & (img[..., 0:1] > img[..., 1:2] * 1.6) & (img[..., 0:1] > img[..., 2:3] * 1.6))[1]
+    b = np.where((img[..., 2:3] > 70) & (img[..., 2:3] > img[..., 0:1] * 1.3) & (img[..., 2:3] > img[..., 1:2] * 1.1))[1]
+    v = np.where((img[..., 0:1] > 80) & (img[..., 1:2] > 80) & (img[..., 1:2] > img[..., 2:3] * 1.6) & (img[..., 0:1] > img[..., 2:3] * 1.6))[1]
+    j = np.where((img[..., 1:2] > 50) & (img[..., 1:2] > img[..., 0:1] * 1.3) & (img[..., 1:2] > img[..., 2:3] * 1.3))[1]
+
+    if len(r) == 0 or len(b) == 0 or len(j) == 0 or len(v) == 0:
+        #Il manque une couleur
+        return None
+    
+    #La couleur a bien été trouvée, on renvoie la coordonnée x
+    clr = [np.mean(r), np.mean(v), np.mean(b), np.mean(j)]
+    return np.mean(clr)/160 - 0.5

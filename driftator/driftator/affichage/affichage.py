@@ -80,7 +80,7 @@ class Affichage():
         self._afficherDistance = afficherDistance
         self._afficherTrace = afficherTrace
         self.tailleTrace = 3
-        self.lastPointPos = (self._simulation.getRobot(0).x, self._simulation.getRobot(0).y) #Dernière coordonnée pour le tracé du robot
+        self.lastPointPos = {self._simulation.getRobot(i).nom: (self._simulation.getRobot(i).x, self._simulation.getRobot(i).y) for i in range(self._simulation.getNombreDeRobots())} #Dernière coordonnée pour le tracé du robot
 
         #Init de pygame
         pygame.init()
@@ -134,8 +134,8 @@ class Affichage():
 
         if self._afficherTrace:
             #affichage du tracé du robot sur la surface
-            pygame.draw.line(self._trace, BLACK, (self.lastPointPos[0]*e + self._trace.get_size()[0]/2, self.lastPointPos[1]*e + self._trace.get_size()[0]/2), (robot.x*e + self._trace.get_size()[0]/2, robot.y*e + self._trace.get_size()[0]/2), self.tailleTrace)
-            self.lastPointPos = (robot.x, robot.y) #Maj de la dernière coordonnée pour le tracé du robot
+            pygame.draw.line(self._trace, BLACK, (self.lastPointPos[robot.nom][0]*e + self._trace.get_size()[0]/2, self.lastPointPos[robot.nom][1]*e + self._trace.get_size()[0]/2), (robot.x*e + self._trace.get_size()[0]/2, robot.y*e + self._trace.get_size()[0]/2), self.tailleTrace)
+            self.lastPointPos[robot.nom] = (robot.x, robot.y) #Maj de la dernière coordonnée pour le tracé du robot
 
     def afficherSimulation(self):
         """

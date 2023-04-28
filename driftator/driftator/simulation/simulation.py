@@ -181,9 +181,7 @@ def enregistrerJson(fichier:str, simulation):
     :param simulation : la simulation à enregistrer
     """
     d = dict()
-    d["terrain"] = dict()
-    d["terrain"]["tailleX"] = simulation.terrain.sizeX
-    d["terrain"]["tailleY"] = simulation.terrain.sizeY
+    d["terrain"] = {"tailleX": simulation.terrain.sizeX, "tailleY": simulation.terrain.sizeY}
 
     d["obstaclesRonds"] =[]
     d["obstaclesRectangles"] =[]
@@ -191,33 +189,18 @@ def enregistrerJson(fichier:str, simulation):
         obsdic = dict()
         o = simulation.terrain.getObstacle(i)
         if (o.type == 1) :
-            obsdic["nom"] = o.nom
-            obsdic["posX"] = o.x
-            obsdic["posY"] = o.y
-            obsdic["rayon"] = o.rayon
+            obsdic = {"nom": o.nom, "posX": o.x, "posY": o.y, "rayon": o.rayon}
             d["obstaclesRonds"].append(obsdic)
         elif (o.type == 0) :
-            obsdic["nom"] = o.nom
-            obsdic["posX"] = o.x
-            obsdic["posY"] = o.y
-            obsdic["longueur"] = o.longueur
-            obsdic["largeur"] = o.largeur
+            obsdic = {"nom": o.nom, "posX": o.x, "posY": o.y, "longueur": o.longueur, "largeur": o.largeur}
             d["obstaclesRectangles"].append(obsdic)
 
     d["robots"] = []
-
     for i in range(0, simulation.getNombreDeRobots()):
         robdic = dict()
         r = simulation.getRobot(i)
-        robdic["nom"] = r.nom
-        robdic["posX"] = r.x
-        robdic["posY"] = r.y
-        robdic["angle"] = r.angle
-        robdic["diametreRoues"] = r.tailleRoues
-        robdic["rayon"] = r.rayon
-        robdic["vitesseGauche"] = r.vitesseGauche
-        robdic["vitesseDroite"] = r.vitesseDroite
-        robdic["vitesseMax"] = r.vitesseMax
+
+        robdic = {"nom": r.nom, "posX": r.y, "posY": r.y, "angle": r.angle, "diametreRoues": r.tailleRoues, "rayon": r.rayon, "vitesseGauche": r.vitesseGauche, "vitesseDroite": r.vitesseDroite, "vitesseMax": r.vitesseMax}
         d["robots"].append(robdic)
    
     with open(fichier, "w") as json_file:

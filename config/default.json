@@ -1,0 +1,12 @@
+{
+    "terrain": {
+        "tailleX": 152,
+        "tailleY": 152
+    },
+    "obstaclesRonds": [
+    ],
+    "obstaclesRectangles": [
+    ],
+    "robots": [
+    ]
+}

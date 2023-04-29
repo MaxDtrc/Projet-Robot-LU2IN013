@@ -90,7 +90,7 @@ class Simulation(Thread):
         :param terrain : Terrain
         :returns : la distance jusqu'au prochain obstacle (en mm)
         """
-        dirVect = (cos(robot.angle), sin(-robot.angle))
+        dirVect = (cos(robot._angle), sin(-robot._angle))
         posRayon = (robot.x + dirVect[0] * robot.rayon, robot.y + dirVect[1] * robot.rayon)
         distance = 0
         tickRayon = 0.2

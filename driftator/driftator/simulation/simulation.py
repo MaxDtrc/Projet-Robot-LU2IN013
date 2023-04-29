@@ -167,7 +167,7 @@ def chargerJson(fichier : str, dT: int):
 
         #Importation et initialisation des robots
         for rob in data['robots'] :
-            r = o.Robot(rob['nom'], rob['posX'], rob['posY'], rob['angle'], rob['diametreRoues'], rob['rayon'], rob['vitesseGauche'], rob['vitesseDroite'], rob['vitesseMax'])
+            r = o.Robot(rob['nom'], rob['posX'], rob['posY'], rob['angle'], 6.65, 5.85, 0, 0, 10000)
             simulation.ajouterRobot(r)
             simulation.terrain.ajouterObstacle(r)
         
@@ -200,7 +200,7 @@ def enregistrerJson(fichier:str, simulation):
         robdic = dict()
         r = simulation.getRobot(i)
 
-        robdic = {"nom": r.nom, "posX": r.y, "posY": r.y, "angle": r.angle, "diametreRoues": r.tailleRoues, "rayon": r.rayon, "vitesseGauche": r.vitesseGauche, "vitesseDroite": r.vitesseDroite, "vitesseMax": r.vitesseMax}
+        robdic = {"nom": r.nom, "posX": r.y, "posY": r.y, "angle": r.angle}
         d["robots"].append(robdic)
    
     with open(fichier, "w") as json_file:

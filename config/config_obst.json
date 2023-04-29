@@ -4,12 +4,7 @@
             "nom": "robot1",
             "posX": -20,
             "posY": 0,
-            "angle": -90,
-            "diametreRoues": 6.65,
-            "rayon": 5.85,
-            "vitesseGauche": 0,
-            "vitesseDroite": 0,
-            "vitesseMax": 10000
+            "angle": -90
         }
     ],
     "obstaclesRonds" : [

@@ -6,6 +6,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--config", default="default.json", dest="config", help="Config à éditer")
+parser.add_argument("-f", "--fond", default="", dest="fond", help="Fond de l'éditeur (pour placer un repère)")
 args=parser.parse_args()
 
 
@@ -29,8 +30,15 @@ COULEUR_OBSTACLES = (65, 0, 55)
 pygame.init()
 screen = pygame.display.set_mode((s_x * e + 70, s_y * e))
 
-pygame.display.set_caption('Editeur de scene') 
+pygame.display.set_caption('Editeur de configuration') 
 screen.fill((255,255,255))
+
+imgFond = None
+
+if args.fond != "":
+    imgFond = pygame.image.load(args.fond).convert_alpha()
+    imgFond = pygame.transform.scale(imgFond, (s_x * e, s_y * e))
+
 
 imgRobot = pygame.image.load("driftator/driftator/affichage/textures/robot.png").convert_alpha()
 imgRobot = pygame.transform.scale(imgRobot, (imgRobot.get_width()/15 * 5.85 * e, imgRobot.get_height()/15 * 5.85 * e))
@@ -133,6 +141,10 @@ load()
 while True:
     #On reset l'ecran
     screen.fill((255,255,255))
+
+    #On affiche le fond
+    if imgFond is not None:
+        screen.blit(imgFond, (0, 0))
 
     #On affiche les obstacles
     for o in lst_obstacles_rect:

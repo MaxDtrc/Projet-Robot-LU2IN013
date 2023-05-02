@@ -122,7 +122,7 @@ class Affichage():
         """
         e = self._echelle
         #Image de base
-        image_pas_tournee = pygame.image.load(os.path.dirname(os.path.realpath(__file__)) + "/robot.png").convert_alpha()
+        image_pas_tournee = pygame.image.load(os.path.dirname(os.path.realpath(__file__)) + "/textures/robot.png").convert_alpha()
         image_pas_tournee = pygame.transform.scale(image_pas_tournee, (image_pas_tournee.get_width()/15 * robot.rayon *e, image_pas_tournee.get_height()/15 * robot.rayon *e))
         
         #Image que l'on tourne en fonction de l'angle du robot

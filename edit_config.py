@@ -32,10 +32,10 @@ screen = pygame.display.set_mode((s_x * e + 70, s_y * e))
 pygame.display.set_caption('Editeur de scene') 
 screen.fill((255,255,255))
 
-imgRobot = pygame.image.load("driftator/driftator/affichage/robot.png").convert_alpha()
+imgRobot = pygame.image.load("driftator/driftator/affichage/textures/robot.png").convert_alpha()
 imgRobot = pygame.transform.scale(imgRobot, (imgRobot.get_width()/15 * 5.85 * e, imgRobot.get_height()/15 * 5.85 * e))
 
-imgBalise = pygame.image.load("driftator/driftator/affichage/models/balise/balise1.png").convert_alpha()
+imgBalise = pygame.image.load("driftator/driftator/affichage/textures/balise1.png").convert_alpha()
 imgBalise = pygame.transform.scale(imgBalise, (7 * e, 7 * e))
 
 #Rectification de la position de la souris
@@ -146,7 +146,7 @@ while True:
         screen.blit(i, ((o["posX"] + s_x/2) * e - i.get_width()/2, (o["posY"] + s_y/2) * e - i.get_height()/2))
 
     for o in lst_balises:
-        i = pygame.transform.rotate(imgBalise, o["angle"])
+        i = pygame.transform.rotate(imgBalise, o["angle"] + 90)
         screen.blit(i, ((o["posX"] + s_x/2) * e - i.get_width()/2, (o["posY"] + s_y/2) * e - i.get_height()/2))
 
     #On update et affiche l'obstacle courant
@@ -166,7 +166,7 @@ while True:
 
     elif pressing and current == 3:
         current_obst = {"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360) * 5 - 90}
-        i = pygame.transform.rotate(imgBalise, current_obst["angle"])
+        i = pygame.transform.rotate(imgBalise, current_obst["angle"] + 90)
         screen.blit(i, ((current_obst["posX"] + s_x/2) * e - i.get_width()/2, (current_obst["posY"] + s_y/2) * e - i.get_height()/2))
 
     #On update
@@ -197,7 +197,7 @@ while True:
                 elif current == 2:
                     lst_robots.append({"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360 * 5 - 90)})
                 elif current == 3:
-                    lst_balises.append({"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360 * 5 - 90), "type_balise": 1})
+                    lst_balises.append({"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360 * 5) - 90, "type_balise": 1})
             pressing = False
 
         #Clic droit de la souris pour supprimer un élément
@@ -205,16 +205,16 @@ while True:
             x, y = getMouse()
 
             for o in lst_obstacles_rect:
-                if o["posX"] - o["longueur"]/2 < x < o["posX"] + o["longueur"]/2 and o["posY"] - o["largeur"]/2 < y < o["posY"] + o["largeur"]/2:
+                if o["posX"] - o["longueur"]/2 <= x <= o["posX"] + o["longueur"]/2 and o["posY"] - o["largeur"]/2 <= y <= o["posY"] + o["largeur"]/2:
                     lst_obstacles_rect.remove(o)
             for o in lst_obstacles_rond:
-                if sqrt((o["posX"] - x)**2 + (o["posY"] - y)**2) < o["rayon"]:  
+                if sqrt((o["posX"] - x)**2 + (o["posY"] - y)**2) <= o["rayon"]:  
                     lst_obstacles_rond.remove(o)
             for o in lst_robots:
-                if sqrt((o["posX"] - x)**2 + (o["posY"] - y)**2) < 5.85:  
+                if sqrt((o["posX"] - x)**2 + (o["posY"] - y)**2) <= 5.85:  
                     lst_robots.remove(o)
             for o in lst_balises:
-                if sqrt((o["posX"] - x)**2 + (o["posY"] - y)**2) < 7:  
+                if sqrt((o["posX"] - x)**2 + (o["posY"] - y)**2) <= 7:  
                     lst_balises.remove(o)
 
         #Raccourci claviers pour sauvegarder/

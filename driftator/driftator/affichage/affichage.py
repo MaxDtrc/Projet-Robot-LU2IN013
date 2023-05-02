@@ -60,6 +60,7 @@ l.start()
 
 
 
+
 class Affichage():
     def __init__(self, simulation : s.Simulation, controleur, fps: int, echelle: int = 1, afficherDistance: bool = False, afficherTrace: bool = False):
         """
@@ -89,7 +90,13 @@ class Affichage():
         pygame.display.set_caption('Test de la simulation du robot') 
         self._screen.fill((255,255,255))
         self._trace.fill((255, 255, 255))
+
+        #Images de base
+        img_balise = pygame.image.load(os.path.dirname(os.path.realpath(__file__)) + "/textures/balise1.png").convert_alpha()
+        self.img_balise = pygame.transform.scale(img_balise, (7 * echelle, 7 * echelle))
+        self.img_robot = pygame.image.load(os.path.dirname(os.path.realpath(__file__)) + "/textures/robot.png").convert_alpha()
         
+                
 
     def run(self):
         self.running = True
@@ -113,6 +120,10 @@ class Affichage():
         elif (obstacle.type == 1):
             #Affichage d'un obstacle rond
             pygame.draw.circle(self._trace, COULEUR_OBSTACLES, (obstacle.x*e + self._screen.get_size()[0]/2, obstacle.y*e + self._screen.get_size()[0]/2), obstacle.rayon*e)
+        elif (obstacle.type == 2):
+            #Affichage d'une balise
+            image = pygame.transform.rotate(self.img_balise, obstacle.angle + 90)
+            self._screen.blit(image, (self._screen.get_size()[0]/2 - image.get_width()/2 + obstacle.x*e, self._screen.get_size()[1]/2 - image.get_height()/2 + obstacle.y*e))
 
     def _afficherRobot(self, robot: s.Robot):
         """
@@ -121,12 +132,11 @@ class Affichage():
         :param robot : Robot à afficher
         """
         e = self._echelle
-        #Image de base
-        image_pas_tournee = pygame.image.load(os.path.dirname(os.path.realpath(__file__)) + "/textures/robot.png").convert_alpha()
-        image_pas_tournee = pygame.transform.scale(image_pas_tournee, (image_pas_tournee.get_width()/15 * robot.rayon *e, image_pas_tournee.get_height()/15 * robot.rayon *e))
-        
+        #Image pas tournée
+        img_robot = pygame.transform.scale(self.img_robot, (self.img_robot.get_width()/15 * robot.rayon *e, self.img_robot.get_height()/15 * robot.rayon *e))
+
         #Image que l'on tourne en fonction de l'angle du robot
-        image = pygame.transform.rotate(image_pas_tournee, degrees(robot.angle))
+        image = pygame.transform.rotate(img_robot, degrees(robot.angle))
 
         #Affichage du robot sur le self._screen
         pygame.draw.circle(self._screen, COULEUR_ROBOT, (robot.x*e + self._screen.get_size()[0]/2, robot.y*e + self._screen.get_size()[0]/2), robot.rayon*e)

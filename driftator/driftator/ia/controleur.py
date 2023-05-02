@@ -117,7 +117,7 @@ class implemSimulation:
         if self._a != None and self._a.app.lastImage is not None:
             return getPosBaliseV2(self._a.app.lastImage)
         else:
-            return -1
+            return None
         
     def setCerveau(self, angle: int):
         """

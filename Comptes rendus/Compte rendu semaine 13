@@ -1,0 +1,20 @@
+Semaine du 10/05/2023
+Compte rendu fin de projet semaine 13
+
+Objectifs:
+- amélioration de la detection balise
+- correction du décalage de rotation d angle dans la fonction tourner
+- amélioration de la configuration
+- projet final : faire circuler des robots sur un circuit avec "panneaux routiers"
+
+Taches faites :
+- maj de la trace dans l affichage (ne fais plus de point)
+- simulation plus précise des moteurs du robot
+- ajout d une extension vscode pour la couleur dans les fichiers .ia
+- amélioration du controleur, en particulier de l estimation de combien les roues ont tourné
+- ajout d une nouvelle méthode de détection de la balise getPosBaliseV2
+- simulation avec plusieurs robots
+- allégement de la fonction enregistrer_json
+- ajout d un script edit_config permettant de creer des configurations tres facilement (obstacles ronds/carrées, balises, robot, image de fond)
+- ajout du circuit pour notre projet final
+- création des 4 nouvelles balises pour notre projet final (tourner à droite, tourner à gauche, stop, feu rouge)

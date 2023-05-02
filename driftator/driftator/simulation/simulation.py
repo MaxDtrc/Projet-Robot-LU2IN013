@@ -165,6 +165,11 @@ def chargerJson(fichier : str, dT: int):
             ob = o.ObstacleRectangle(oRect['nom'], oRect['posX'], oRect['posY'], oRect['longueur'], oRect['largeur'])
             simulation.terrain.ajouterObstacle(ob)
 
+        #Importation et initialisation des balises
+        for balise in data['balises'] :
+            ob = o.Balise(balise['nom'], balise['type_balise'], balise['posX'], balise['posY'], balise['angle'])
+            simulation.terrain.ajouterObstacle(ob)
+
         #Importation et initialisation des robots
         for rob in data['robots'] :
             r = o.Robot(rob['nom'], rob['posX'], rob['posY'], rob['angle'], 6.65, 5.85, 0, 0, 10000)
@@ -185,6 +190,7 @@ def enregistrerJson(fichier:str, simulation):
 
     d["obstaclesRonds"] =[]
     d["obstaclesRectangles"] =[]
+    d["balises"] =[]
     for i in range (0, simulation.terrain.getNombreObstacles()):
         obsdic = dict()
         o = simulation.terrain.getObstacle(i)
@@ -194,6 +200,9 @@ def enregistrerJson(fichier:str, simulation):
         elif (o.type == 0) :
             obsdic = {"nom": o.nom, "posX": o.x, "posY": o.y, "longueur": o.longueur, "largeur": o.largeur}
             d["obstaclesRectangles"].append(obsdic)
+        elif (o.type == 2) :
+            obsdic = {"nom": o.nom, "posX": o.x, "posY": o.y, "angle": o.angle, "type_balise": o.type_balise}
+            d["balises"].append(obsdic)
 
     d["robots"] = []
     for i in range(0, simulation.getNombreDeRobots()):

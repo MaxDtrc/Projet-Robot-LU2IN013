@@ -1,6 +1,6 @@
 # Blender 3.4.1
 # www.blender.org
-mtllib Balise.mtl
+mtllib Balise1.mtl
 o Cube
 v 0.250000 4.000000 -5.000000
 v 0.250000 -4.000000 -5.000000

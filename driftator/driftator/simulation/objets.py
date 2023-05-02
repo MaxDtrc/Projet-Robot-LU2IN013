@@ -555,3 +555,35 @@ class ObstacleRond(Obstacle):
         :returns: True si le point (x,y) se trouve dans l'obstacle
         """
         return sqrt((self._posX - x)**2 + (self._posY - y)**2) < self._rayon
+
+class Balise(Obstacle): 
+    """
+    Classe héritant de la classe Obstacle et représentant la balise 1
+    """
+    
+    def __init__(self, nom: str, type_balise: int, posX: float, posY: float, angle: float):
+        """
+        Constructeur de la classe ObstacleRectangle
+
+        :param nom: nom de l'obstacle
+        :param posX: position x du centre de l'obstacle 
+        :param posY: position y du centre de l'obstacle
+        :param angle: angle de la balise
+        """
+        Obstacle.__init__(self, nom, posX, posY)
+        self._angle = angle
+        self.type = 2
+        self.type_balise = type_balise
+
+    @property
+    def angle(self):
+        """
+        :returns: la longueur du rectangle
+        """
+        return self._angle
+
+    def testCrash(self, robot : Robot):
+        return False
+
+    def estDedans(self, x : int, y : int):
+        return False

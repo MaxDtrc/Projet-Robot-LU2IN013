@@ -4,9 +4,85 @@
         "tailleY": 152
     },
     "obstaclesRonds": [
+        {
+            "nom": "obstrond0",
+            "posX": -44.8,
+            "posY": 36.8,
+            "rayon": 13
+        },
+        {
+            "nom": "obstrond1",
+            "posX": 51.0,
+            "posY": -55.4,
+            "rayon": 14
+        }
     ],
     "obstaclesRectangles": [
+        {
+            "nom": "obstrect0",
+            "posX": 0.0,
+            "posY": -75.2,
+            "longueur": 152.0,
+            "largeur": 1.5999999999999943
+        },
+        {
+            "nom": "obstrect1",
+            "posX": 75.0,
+            "posY": 0.09999999999999432,
+            "longueur": 1.6000000000000227,
+            "largeur": 150.2
+        },
+        {
+            "nom": "obstrect2",
+            "posX": -0.19999999999999574,
+            "posY": 75.0,
+            "longueur": 150.0,
+            "largeur": 1.6000000000000227
+        },
+        {
+            "nom": "obstrect3",
+            "posX": -75.3,
+            "posY": 0.20000000000000284,
+            "longueur": 1.4000000000000057,
+            "largeur": 150.4
+        },
+        {
+            "nom": "obstrect4",
+            "posX": -51.3,
+            "posY": -56.7,
+            "longueur": 40.599999999999994,
+            "largeur": 30.6
+        },
+        {
+            "nom": "obstrect5",
+            "posX": 51.0,
+            "posY": 48.10000000000001,
+            "longueur": 40.80000000000001,
+            "largeur": 43.400000000000006
+        },
+        {
+            "nom": "obstrect6",
+            "posX": 2.6000000000000014,
+            "posY": -72.19999999999999,
+            "longueur": 13.200000000000003,
+            "largeur": 1.2000000000000028
+        }
     ],
     "robots": [
+        {
+            "nom": "robot0",
+            "posX": -4.599999999999994,
+            "posY": 2.200000000000003,
+            "angle": 95
+        }
+    ],
+    "balises": [
+        {
+            "nom": "balise0",
+            "posX": 2.799999999999997,
+            "posY": -71.0,
+            "angle": -90,
+            "type_balise": 1
+        }
     ]
 }

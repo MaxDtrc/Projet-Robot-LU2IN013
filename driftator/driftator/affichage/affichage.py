@@ -238,15 +238,6 @@ class Affichage3d(Thread):
         skydome.reparentTo(self.app.render)
         skydome.setHpr(90, 90, 0)
 
-        #Ajout de la balise
-        balise=self.app.loader.loadModel(path+"/models/balise/balise.obj")
-        #texb = self.app.loader.loadTexture(path+"/models/Skydome3D/cube/balise.png")
-        #balise.setTexture(texb)
-        balise.setPos(0, 70, 5)
-        balise.setHpr(-90, 0, 0)
-        balise.setScale(1)
-        balise.reparentTo(self.app.render)
-
 
         #Affichage du sol
         ts = TextureStage('ts')
@@ -295,6 +286,16 @@ class Affichage3d(Thread):
                 mdl.setScale(o._rayon, o._rayon, 10)
                 mdl.reparentTo(self.app.render)
                 self.app.obsList.append(mdl)
+            elif o.type == 2:
+                #Ajout d'une balise
+                balise=self.app.loader.loadModel(path+"/models/balise/balise" + str(o.type_balise) + ".obj")
+                tex = self.app.loader.loadTexture(path+"/models/balise/balise" + str(o.type_balise) + ".png")
+                balise.setTexture(tex)
+                balise.setPos(o._posX, -o._posY, 5)
+                balise.setHpr(o._angle, 0, 0)
+                balise.setScale(1)
+                balise.reparentTo(self.app.render)
+                self.app.obsList.append(mdl)
 
     def _afficherRobot(self):
         """
@@ -319,8 +320,6 @@ class Affichage3d(Thread):
 
 
         #Changement de pov en appuyant sur q
-
-        
 
         if POV:
             r = self._simulation.getRobot(RobotPOV)

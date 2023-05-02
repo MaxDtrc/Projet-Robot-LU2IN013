@@ -16,8 +16,7 @@ while(capteur_distance > 10){
         tourner a=2 v=300
     }else{
         //Balise trouvee
-        print(b)
-        angle = b * 20
+        angle = b * 40
         avancer d=3 v=100 a=angle
     }
 }

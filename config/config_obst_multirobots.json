@@ -83,6 +83,7 @@
             "largeur": 1
         }
     ],
+    "balises": [],
     
     "terrain": {
         "tailleX": 152,

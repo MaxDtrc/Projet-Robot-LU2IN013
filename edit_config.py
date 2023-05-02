@@ -16,9 +16,10 @@ current_obst = {}
 lst_obstacles_rect = []
 lst_obstacles_rond = []
 lst_robots = []
+lst_balises = []
 
 pressing = False
-current = "rectangle"
+current = 0
 
 e = 5
 
@@ -31,8 +32,11 @@ screen = pygame.display.set_mode((s_x * e + 70, s_y * e))
 pygame.display.set_caption('Editeur de scene') 
 screen.fill((255,255,255))
 
-img = pygame.image.load("driftator/driftator/affichage/robot.png").convert_alpha()
-img = pygame.transform.scale(img, (img.get_width()/15 * 5.85 * e, img.get_height()/15 * 5.85 * e))
+imgRobot = pygame.image.load("driftator/driftator/affichage/robot.png").convert_alpha()
+imgRobot = pygame.transform.scale(imgRobot, (imgRobot.get_width()/15 * 5.85 * e, imgRobot.get_height()/15 * 5.85 * e))
+
+imgBalise = pygame.image.load("driftator/driftator/affichage/models/balise/balise1.png").convert_alpha()
+imgBalise = pygame.transform.scale(imgBalise, (7 * e, 7 * e))
 
 #Rectification de la position de la souris
 def getMouse():
@@ -53,12 +57,7 @@ def show_menu():
     pygame.draw.rect(screen, (0, 0, 0), (s_x * e + 1, 0, 1, s_y * e))
 
     #Affichage de l'élément en cours
-    if current == "rectangle":
-        pygame.draw.rect(screen, clr_selected, (s_x * e + 7, 7, 56, 56))
-    elif current == "cercle":
-        pygame.draw.rect(screen, clr_selected, (s_x * e + 7, 72, 56, 56))
-    elif current == "robot":
-        pygame.draw.rect(screen, clr_selected, (s_x * e + 7, 137, 56, 56))
+    pygame.draw.rect(screen, clr_selected, (s_x * e + 7, 7 + 65 * current, 56, 56))
 
     #Outil rectangle
     pygame.draw.rect(screen, clr_cases, (s_x * e + 10, 10, 50, 50))
@@ -70,7 +69,11 @@ def show_menu():
 
     #Outil robot
     pygame.draw.rect(screen, clr_cases, (s_x * e + 10, 140, 50, 50))
-    screen.blit(pygame.transform.scale(img, (img.get_width() * 0.5, img.get_height() * 0.5)), (s_x * e + 15, 140))
+    screen.blit(pygame.transform.scale(imgRobot, (imgRobot.get_width() * 0.5, imgRobot.get_height() * 0.5)), (s_x * e + 15, 140))
+
+    #Outil balise
+    pygame.draw.rect(screen, clr_cases, (s_x * e + 10, 205, 50, 50))
+    screen.blit(pygame.transform.scale(imgBalise, (imgBalise.get_width(), imgBalise.get_height())), (s_x * e + 17, 212))
 
     
 
@@ -83,16 +86,18 @@ def check_menu():
         return False
     
     if s_x * e + 10 < x < s_x * e + 60 and 10 < y < 60:
-        current = "rectangle"
+        current = 0
     elif s_x * e + 10 < x < s_x * e + 60 and 75 < y < 125:
-        current = "cercle"
+        current = 1
     elif s_x * e + 10 < x < s_x * e + 60 and 140 < y < 190:
-        current = "robot"
+        current = 2
+    elif s_x * e + 10 < x < s_x * e + 60 and 205 < y < 255:
+        current = 3
 
     return True
 
 #Fonction pour sauvegarder la config
-def save(robots, rectangles, ronds, s_x, s_y):
+def save(robots, balises, rectangles, ronds, s_x, s_y):
     """
     Fonction permettant de sauvegarder une configuration
     """
@@ -101,6 +106,7 @@ def save(robots, rectangles, ronds, s_x, s_y):
     d["obstaclesRonds"] = [{**{"nom": "obstrond" + str(i)}, **o} for o, i in list(zip(ronds, [j for j in range(len(ronds))]))]
     d["obstaclesRectangles"] = [{**{"nom": "obstrect" + str(i)}, **o} for o, i in list(zip(rectangles, [j for j in range(len(rectangles))]))]
     d["robots"] = [{**{"nom": "robot" + str(i)}, **o} for o, i in list(zip(robots, [j for j in range(len(robots))]))]
+    d["balises"] = [{**{"nom": "balise" + str(i)}, **o} for o, i in list(zip(balises, [j for j in range(len(balises))]))]
    
     with open("config/" + args.config, "w") as json_file:
         json_file.write(json.dumps(d, indent=4))
@@ -110,7 +116,7 @@ def load():
     """
     Fonction permettant de charger une configuration
     """
-    global s_x, s_y, lst_obstacles_rond, lst_obstacles_rect, lst_robots
+    global s_x, s_y, lst_obstacles_rond, lst_obstacles_rect, lst_robots, lst_balises
 
     with open("config/" + args.config, "r") as json_file:
         data = json.load(json_file)
@@ -118,6 +124,7 @@ def load():
         lst_obstacles_rect = data["obstaclesRectangles"]
         lst_obstacles_rond = data["obstaclesRonds"]
         lst_robots = data["robots"]
+        lst_balises = data["balises"]
    
 #On charge la config passée en paramètres
 load()
@@ -135,22 +142,31 @@ while True:
         pygame.draw.circle(screen, COULEUR_OBSTACLES, ((o["posX"] + s_x/2) * e, (o["posY"] + s_x/2) * e), o["rayon"] * e)
 
     for o in lst_robots:
-        i = pygame.transform.rotate(img, o["angle"])
+        i = pygame.transform.rotate(imgRobot, o["angle"])
+        screen.blit(i, ((o["posX"] + s_x/2) * e - i.get_width()/2, (o["posY"] + s_y/2) * e - i.get_height()/2))
+
+    for o in lst_balises:
+        i = pygame.transform.rotate(imgBalise, o["angle"])
         screen.blit(i, ((o["posX"] + s_x/2) * e - i.get_width()/2, (o["posY"] + s_y/2) * e - i.get_height()/2))
 
     #On update et affiche l'obstacle courant
     x2, y2 = getMouse()
-    if pressing and current == "rectangle":
+    if pressing and current == 0:
         current_obst = {"posX": (x1 + x2)/2, "posY": (y1 + y2)/2, "longueur": abs(x1 - x2), "largeur": abs(y1 - y2)}
         pygame.draw.rect(screen, COULEUR_OBSTACLES, ((current_obst["posX"] - current_obst["longueur"]/2 + s_x/2) * e, (current_obst["posY"] - current_obst["largeur"]/2 + s_y/2) * e, current_obst["longueur"] * e, current_obst["largeur"] * e))
 
-    elif pressing and current == "cercle":
+    elif pressing and current == 1:
         current_obst = {"posX": x1, "posY": y1, "rayon": int(sqrt((x2 - x1)**2 + (y2 - y1)**2))}
         pygame.draw.circle(screen, COULEUR_OBSTACLES, ((current_obst["posX"] + s_x/2) * e, (current_obst["posY"] + s_y/2) * e), current_obst["rayon"] * e)
 
-    elif pressing and current == "robot":
+    elif pressing and current == 2:
         current_obst = {"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360) * 5 - 90}
-        i = pygame.transform.rotate(img, current_obst["angle"])
+        i = pygame.transform.rotate(imgRobot, current_obst["angle"])
+        screen.blit(i, ((current_obst["posX"] + s_x/2) * e - i.get_width()/2, (current_obst["posY"] + s_y/2) * e - i.get_height()/2))
+
+    elif pressing and current == 3:
+        current_obst = {"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360) * 5 - 90}
+        i = pygame.transform.rotate(imgBalise, current_obst["angle"])
         screen.blit(i, ((current_obst["posX"] + s_x/2) * e - i.get_width()/2, (current_obst["posY"] + s_y/2) * e - i.get_height()/2))
 
     #On update
@@ -174,12 +190,14 @@ while True:
         elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
             x2, y2 = getMouse()
             if not check_menu():
-                if current == "rectangle":
+                if current == 0:
                     lst_obstacles_rect.append({"posX": (x1 + x2)/2, "posY": (y1 + y2)/2, "longueur": abs(x1 - x2), "largeur": abs(y1 - y2)})
-                elif current == "cercle":
+                elif current == 1:
                     lst_obstacles_rond.append({"posX": x1, "posY": y1, "rayon": int(sqrt((x2 - x1)**2 + (y2 - y1)**2))})
-                elif current == "robot":
+                elif current == 2:
                     lst_robots.append({"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360 * 5 - 90)})
+                elif current == 3:
+                    lst_balises.append({"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360 * 5 - 90), "type_balise": 1})
             pressing = False
 
         #Clic droit de la souris pour supprimer un élément
@@ -195,19 +213,13 @@ while True:
             for o in lst_robots:
                 if sqrt((o["posX"] - x)**2 + (o["posY"] - y)**2) < 5.85:  
                     lst_robots.remove(o)
+            for o in lst_balises:
+                if sqrt((o["posX"] - x)**2 + (o["posY"] - y)**2) < 7:  
+                    lst_balises.remove(o)
 
         #Raccourci claviers pour sauvegarder/
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_r:
-                pressing = False
-                current = "robot"
-            elif event.key == pygame.K_c:
-                pressing = False
-                current = "cercle"
-            elif event.key == pygame.K_b:
-                pressing = False
-                current = "rectangle"
-            elif event.key == pygame.K_s:
-                save(lst_robots, lst_obstacles_rect, lst_obstacles_rond, s_x, s_y)
+            if event.key == pygame.K_s:
+                save(lst_robots, lst_balises, lst_obstacles_rect, lst_obstacles_rond, s_x, s_y)
             elif event.key == pygame.K_l:
                 load()

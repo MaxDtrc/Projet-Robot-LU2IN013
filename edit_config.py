@@ -43,8 +43,20 @@ if args.fond != "":
 imgRobot = pygame.image.load("driftator/driftator/affichage/textures/robot.png").convert_alpha()
 imgRobot = pygame.transform.scale(imgRobot, (imgRobot.get_width()/15 * 5.85 * e, imgRobot.get_height()/15 * 5.85 * e))
 
-imgBalise = pygame.image.load("driftator/driftator/affichage/textures/balise1.png").convert_alpha()
-imgBalise = pygame.transform.scale(imgBalise, (7 * e, 7 * e))
+imgBalise1 = pygame.image.load("driftator/driftator/affichage/textures/balise1.png").convert_alpha()
+imgBalise1 = pygame.transform.scale(imgBalise1, (7 * e, 7 * e))
+
+imgBalise2 = pygame.image.load("driftator/driftator/affichage/textures/balise2.png").convert_alpha()
+imgBalise2 = pygame.transform.scale(imgBalise2, (7 * e, 7 * e))
+
+imgBalise3 = pygame.image.load("driftator/driftator/affichage/textures/balise3.png").convert_alpha()
+imgBalise3 = pygame.transform.scale(imgBalise3, (7 * e, 7 * e))
+
+imgBalise4 = pygame.image.load("driftator/driftator/affichage/textures/balise4.png").convert_alpha()
+imgBalise4 = pygame.transform.scale(imgBalise4, (7 * e, 7 * e))
+
+imgBalise5 = pygame.image.load("driftator/driftator/affichage/textures/balise5.png").convert_alpha()
+imgBalise5 = pygame.transform.scale(imgBalise5, (7 * e, 7 * e))
 
 #Rectification de la position de la souris
 def getMouse():
@@ -81,9 +93,19 @@ def show_menu():
 
     #Outil balise
     pygame.draw.rect(screen, clr_cases, (s_x * e + 10, 205, 50, 50))
-    screen.blit(pygame.transform.scale(imgBalise, (imgBalise.get_width(), imgBalise.get_height())), (s_x * e + 17, 212))
+    screen.blit(pygame.transform.scale(imgBalise1, (imgBalise1.get_width(), imgBalise1.get_height())), (s_x * e + 17, 212))
 
+    pygame.draw.rect(screen, clr_cases, (s_x * e + 10, 270, 50, 50))
+    screen.blit(pygame.transform.scale(imgBalise2, (imgBalise2.get_width(), imgBalise2.get_height())), (s_x * e + 17, 277))
     
+    pygame.draw.rect(screen, clr_cases, (s_x * e + 10, 335, 50, 50))
+    screen.blit(pygame.transform.scale(imgBalise3, (imgBalise3.get_width(), imgBalise3.get_height())), (s_x * e + 17, 342))
+
+    pygame.draw.rect(screen, clr_cases, (s_x * e + 10, 400, 50, 50))
+    screen.blit(pygame.transform.scale(imgBalise4, (imgBalise4.get_width(), imgBalise4.get_height())), (s_x * e + 17, 407))
+
+    pygame.draw.rect(screen, clr_cases, (s_x * e + 10, 465, 50, 50))
+    screen.blit(pygame.transform.scale(imgBalise5, (imgBalise5.get_width(), imgBalise5.get_height())), (s_x * e + 17, 472))
 
 #Fonction détectant un clic dans le menu
 def check_menu():
@@ -101,6 +123,14 @@ def check_menu():
         current = 2
     elif s_x * e + 10 < x < s_x * e + 60 and 205 < y < 255:
         current = 3
+    elif s_x * e +10 < x < s_x * e + 60 and 270 < y < 320:
+        current = 4
+    elif s_x * e +10 < x < s_x * e + 60 and 335 < y < 385:
+        current = 5
+    elif s_x * e +10 < x < s_x * e + 60 and 400 < y < 450:
+        current = 6
+    elif s_x * e +10 < x < s_x * e + 60 and 465 < y < 515:
+        current = 7
 
     return True
 
@@ -158,8 +188,22 @@ while True:
         screen.blit(i, ((o["posX"] + s_x/2) * e - i.get_width()/2, (o["posY"] + s_y/2) * e - i.get_height()/2))
 
     for o in lst_balises:
-        i = pygame.transform.rotate(imgBalise, o["angle"] + 90)
-        screen.blit(i, ((o["posX"] + s_x/2) * e - i.get_width()/2, (o["posY"] + s_y/2) * e - i.get_height()/2))
+        type = o["type_balise"]
+        if type == 1:
+            i = pygame.transform.rotate(imgBalise1, o["angle"] + 90)
+            screen.blit(i, ((o["posX"] + s_x/2) * e - i.get_width()/2, (o["posY"] + s_y/2) * e - i.get_height()/2))
+        elif type == 2:
+            i = pygame.transform.rotate(imgBalise2, o["angle"] + 90)
+            screen.blit(i, ((o["posX"] + s_x/2) * e - i.get_width()/2, (o["posY"] + s_y/2) * e - i.get_height()/2))
+        elif type == 3:
+            i = pygame.transform.rotate(imgBalise3, o["angle"] + 90)
+            screen.blit(i, ((o["posX"] + s_x/2) * e - i.get_width()/2, (o["posY"] + s_y/2) * e - i.get_height()/2))
+        elif type == 4:
+            i = pygame.transform.rotate(imgBalise4, o["angle"] + 90)
+            screen.blit(i, ((o["posX"] + s_x/2) * e - i.get_width()/2, (o["posY"] + s_y/2) * e - i.get_height()/2))
+        elif type == 5:
+            i = pygame.transform.rotate(imgBalise5, o["angle"] + 90)
+            screen.blit(i, ((o["posX"] + s_x/2) * e - i.get_width()/2, (o["posY"] + s_y/2) * e - i.get_height()/2))
 
     #On update et affiche l'obstacle courant
     x2, y2 = getMouse()
@@ -178,7 +222,27 @@ while True:
 
     elif pressing and current == 3:
         current_obst = {"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360) * 5 - 90}
-        i = pygame.transform.rotate(imgBalise, current_obst["angle"] + 90)
+        i = pygame.transform.rotate(imgBalise1, current_obst["angle"] + 90)
+        screen.blit(i, ((current_obst["posX"] + s_x/2) * e - i.get_width()/2, (current_obst["posY"] + s_y/2) * e - i.get_height()/2))
+
+    elif pressing and current == 4:
+        current_obst = {"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360) * 5 - 90}
+        i = pygame.transform.rotate(imgBalise2, current_obst["angle"] + 90)
+        screen.blit(i, ((current_obst["posX"] + s_x/2) * e - i.get_width()/2, (current_obst["posY"] + s_y/2) * e - i.get_height()/2))
+    
+    elif pressing and current == 5:
+        current_obst = {"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360) * 5 - 90}
+        i = pygame.transform.rotate(imgBalise3, current_obst["angle"] + 90)
+        screen.blit(i, ((current_obst["posX"] + s_x/2) * e - i.get_width()/2, (current_obst["posY"] + s_y/2) * e - i.get_height()/2))
+    
+    elif pressing and current == 6:
+        current_obst = {"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360) * 5 - 90}
+        i = pygame.transform.rotate(imgBalise4, current_obst["angle"] + 90)
+        screen.blit(i, ((current_obst["posX"] + s_x/2) * e - i.get_width()/2, (current_obst["posY"] + s_y/2) * e - i.get_height()/2))
+
+    elif pressing and current == 7:
+        current_obst = {"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360) * 5 - 90}
+        i = pygame.transform.rotate(imgBalise5, current_obst["angle"] + 90)
         screen.blit(i, ((current_obst["posX"] + s_x/2) * e - i.get_width()/2, (current_obst["posY"] + s_y/2) * e - i.get_height()/2))
 
     #On update
@@ -210,6 +274,14 @@ while True:
                     lst_robots.append({"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360 * 5 - 90)})
                 elif current == 3:
                     lst_balises.append({"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360 * 5) - 90, "type_balise": 1})
+                elif current == 4:
+                    lst_balises.append({"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360 * 5) - 90, "type_balise": 2})
+                elif current == 5:
+                    lst_balises.append({"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360 * 5) - 90, "type_balise": 3})
+                elif current == 6:
+                    lst_balises.append({"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360 * 5) - 90, "type_balise": 4})
+                elif current == 7:
+                    lst_balises.append({"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360 * 5) - 90, "type_balise": 5})       
             pressing = False
 
         #Clic droit de la souris pour supprimer un élément

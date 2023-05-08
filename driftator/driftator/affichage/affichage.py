@@ -297,13 +297,13 @@ class Affichage3d(Thread):
                 self.app.obsList.append(mdl)
             elif o.type == 2:
                 #Ajout d'une balise
-                balise=self.app.loader.loadModel(path+"/models/balise/balise.obj")
+                mdl=self.app.loader.loadModel(path+"/models/balise/balise.obj")
                 tex = self.app.loader.loadTexture(path+"/models/balise/balise" + str(o.type_balise) + ".png")
-                balise.setTexture(tex)
-                balise.setPos(o._posX, -o._posY, 5)
-                balise.setHpr(o._angle, 0, 0)
-                balise.setScale(1)
-                balise.reparentTo(self.app.render)
+                mdl.setTexture(tex)
+                mdl.setPos(o._posX, -o._posY, 5)
+                mdl.setHpr(o._angle, 0, 0)
+                mdl.setScale(1)
+                mdl.reparentTo(self.app.render)
                 self.app.obsList.append(mdl)
 
     def _afficherRobot(self):

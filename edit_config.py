@@ -21,7 +21,7 @@ clefs_utiles = [["posX", "posY", "longueur", "largeur"], ["posX", "posY", "rayon
 
 #Variables générales
 pressing = False #Utilisateur en train de cliquer
-nb_outils = 7 #Nombre d'outils
+nb_outils = 8 #Nombre d'outils
 current = 0 #Outil sélectionné
 e = 5 #Echelle
 
@@ -43,7 +43,7 @@ if args.fond != "":
 
 #Chargement des images
 imgRobot = pygame.transform.scale(pygame.image.load("driftator/driftator/affichage/textures/robot.png").convert_alpha(), (15 * e, 19.5 * e))
-balises_img = [pygame.transform.scale(pygame.image.load("driftator/driftator/affichage/textures/balise" + str(i) + ".png").convert_alpha(), (7 * e, 7 * e)) for i in range(1, nb_outils - 1)]
+balises_img = [pygame.transform.scale(pygame.image.load("driftator/driftator/affichage/textures/balise" + str(i) + ".png").convert_alpha(), (7 * e, 7 * e)) for i in range(1, nb_outils - 2)]
 
 
 def getMouse():

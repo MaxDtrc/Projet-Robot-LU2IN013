@@ -9,7 +9,6 @@ capteurs_background = true
 while(capteur_distance > 10){
     //On detecte la balise
     b = capteur_balise
-    print(b)
     //Derniere position de la balise
     if(b == null){
         //Balise pas trouvée, on tourne

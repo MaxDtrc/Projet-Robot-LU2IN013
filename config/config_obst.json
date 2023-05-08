@@ -3,47 +3,8 @@
         "tailleX": 152,
         "tailleY": 152
     },
-    "obstaclesRonds": [
-        {
-            "nom": "obs1",
-            "posX": 50,
-            "posY": 50,
-            "rayon": 15
-        },
-        {
-            "nom": "obs2",
-            "posX": -50,
-            "posY": -50,
-            "rayon": 15
-        },
-        {
-            "nom": "obstrond2",
-            "posX": 15.599999999999994,
-            "posY": -36.8,
-            "rayon": 7
-        },
-        {
-            "nom": "obstrond3",
-            "posX": -24.4,
-            "posY": 26.599999999999994,
-            "rayon": 7
-        }
-    ],
+    "obstaclesRonds": [],
     "obstaclesRectangles": [
-        {
-            "nom": "obsrect1",
-            "posX": 50,
-            "posY": -50,
-            "longueur": 30,
-            "largeur": 30
-        },
-        {
-            "nom": "obsrect2",
-            "posX": -50,
-            "posY": 50,
-            "longueur": 30,
-            "largeur": 30
-        },
         {
             "nom": "mur1",
             "posX": 74,
@@ -71,56 +32,8 @@
             "posY": -74,
             "longueur": 150,
             "largeur": 1
-        },
-        {
-            "nom": "obstrect6",
-            "posX": 0.0,
-            "posY": -58.900000000000006,
-            "longueur": 52.0,
-            "largeur": 4.600000000000001
-        },
-        {
-            "nom": "obstrect7",
-            "posX": 57.89999999999999,
-            "posY": 0.8999999999999986,
-            "longueur": 4.599999999999994,
-            "largeur": 53.39999999999999
-        },
-        {
-            "nom": "obstrect8",
-            "posX": -60.9,
-            "posY": -0.7999999999999972,
-            "longueur": 3.799999999999997,
-            "largeur": 54.0
-        },
-        {
-            "nom": "obstrect9",
-            "posX": 0.6000000000000014,
-            "posY": 58.3,
-            "longueur": 43.60000000000001,
-            "largeur": 3.799999999999983
         }
     ],
-    "balises": [],
-    "robots": [
-        {
-            "nom": "robot0",
-            "posX": -22.200000000000003,
-            "posY": -13.0,
-            "angle": 1
-        },
-        {
-            "nom": "robot1",
-            "posX": 13.400000000000006,
-            "posY": 30.599999999999994,
-            "angle": 126
-        },
-        {
-            "nom": "robot2",
-            "posX": -45.4,
-            "posY": 18.400000000000006,
-            "angle": 77
-        }
-    ]
-
+    "robots": [],
+    "balises": []
 }

@@ -13,8 +13,11 @@ args=parser.parse_args()
 s_x = 152
 s_y = 152
 
-#Construction des listes d'obstacles
-current_obst, lst_obstacles_rect, lst_obstacles_rond, lst_robots, lst_balises = {}, [], [], [], []
+#Listes des obstacles [rectangles, ronds, robots, balises]
+lst_obstacles = [[], [], [], []]
+
+#Clefs utiles pour chacune des listes (pour ne garder que le necessaire)
+clefs_utiles = [["posX", "posY", "longueur", "largeur"], ["posX", "posY", "rayon"], ["posX", "posY", "angle"], ["posX", "posY", "angle", "type_balise"]]
 
 #Variables générales
 pressing = False #Utilisateur en train de cliquer
@@ -95,16 +98,16 @@ def check_menu():
         
     return True
 
-def save(robots, balises, rectangles, ronds, s_x, s_y):
+def save():
     """
     Fonction permettant de sauvegarder une configuration
     """
     d = dict()
     d["terrain"] = {"tailleX": s_x, "tailleY": s_y}
-    d["obstaclesRonds"] = [{**{"nom": "obstrond" + str(i)}, **o} for o, i in list(zip(ronds, [j for j in range(len(ronds))]))]
-    d["obstaclesRectangles"] = [{**{"nom": "obstrect" + str(i)}, **o} for o, i in list(zip(rectangles, [j for j in range(len(rectangles))]))]
-    d["robots"] = [{**{"nom": "robot" + str(i)}, **o} for o, i in list(zip(robots, [j for j in range(len(robots))]))]
-    d["balises"] = [{**{"nom": "balise" + str(i)}, **o} for o, i in list(zip(balises, [j for j in range(len(balises))]))]
+    d["obstaclesRonds"] = [{**{"nom": "obstrond" + str(i)}, **o} for o, i in list(zip(lst_obstacles[1], [j for j in range(len(lst_obstacles[0]))]))]
+    d["obstaclesRectangles"] = [{**{"nom": "obstrect" + str(i)}, **o} for o, i in list(zip(lst_obstacles[0], [j for j in range(len(lst_obstacles[0]))]))]
+    d["robots"] = [{**{"nom": "robot" + str(i)}, **o} for o, i in list(zip(lst_obstacles[2], [j for j in range(len(lst_obstacles[2]))]))]
+    d["balises"] = [{**{"nom": "balise" + str(i)}, **o} for o, i in list(zip(lst_obstacles[3], [j for j in range(len(lst_obstacles[3]))]))]
    
     with open("config/" + args.config, "w") as json_file:
         json_file.write(json.dumps(d, indent=4))
@@ -113,15 +116,11 @@ def load():
     """
     Fonction permettant de charger une configuration
     """
-    global s_x, s_y, lst_obstacles_rond, lst_obstacles_rect, lst_robots, lst_balises
+    global s_x, s_y, lst_obstacles
 
     with open("config/" + args.config, "r") as json_file:
         data = json.load(json_file)
-
-        lst_obstacles_rect = data["obstaclesRectangles"]
-        lst_obstacles_rond = data["obstaclesRonds"]
-        lst_robots = data["robots"]
-        lst_balises = data["balises"]
+        lst_obstacles = [data["obstaclesRectangles"], data["obstaclesRonds"], data["robots"], data["balises"]]
 
 
 
@@ -142,43 +141,29 @@ while True:
     if imgFond is not None:
         screen.blit(imgFond, (0, 0))
 
-
-
+    #On ajoute l'obstacle courant s'il existe
+    if pressing:
+        x2, y2 = getMouse()
+        lst_obstacles[min(3, current)].append({"posX": (x1 + x2)/2 if current == 0 else x1, "posY": (y1 + y2)/2 if current == 0 else y1, "longueur": abs(x1 - x2), "rayon": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)), "largeur": abs(y1 - y2), "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360) * 5 - 90, "type_balise": current - 2})
+    
     #On affiche les obstacles
-    for o in lst_obstacles_rect:
+    for o in lst_obstacles[0]:
         pygame.draw.rect(screen, COULEUR_OBSTACLES, ((o["posX"] - o["longueur"]/2 + s_x/2) * e, (o["posY"] - o["largeur"]/2 + s_y/2) * e, o["longueur"] * e, o["largeur"] * e))
     
-    for o in lst_obstacles_rond:
+    for o in lst_obstacles[1]:
         pygame.draw.circle(screen, COULEUR_OBSTACLES, ((o["posX"] + s_x/2) * e, (o["posY"] + s_x/2) * e), o["rayon"] * e)
 
-    for o in lst_robots:
+    for o in lst_obstacles[2]:
         i = pygame.transform.rotate(imgRobot, o["angle"])
         screen.blit(i, ((o["posX"] + s_x/2) * e - i.get_width()/2, (o["posY"] + s_y/2) * e - i.get_height()/2))
 
-    for o in lst_balises:
+    for o in lst_obstacles[3]:
         i = pygame.transform.rotate(balises_img[o["type_balise"] - 1], o["angle"] + 90)
         screen.blit(i, ((o["posX"] + s_x/2) * e - i.get_width()/2, (o["posY"] + s_y/2) * e - i.get_height()/2))
 
-
-
-    #On update et affiche l'obstacle courant
+    #On supprime l'élement courant des listes
     if pressing:
-        x2, y2 = getMouse()
-        current_obst = {"posX": x1, "posY": y1, "longueur": abs(x1 - x2), "rayon": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)), "largeur": abs(y1 - y2), "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360) * 5 - 90}
-        if  current == 0:
-            current_obst["posX"], current_obst["posY"] = (x1 + x2)/2, (y1 + y2)/2 #Correction de la pos
-            pygame.draw.rect(screen, COULEUR_OBSTACLES, ((current_obst["posX"] - current_obst["longueur"]/2 + s_x/2) * e, (current_obst["posY"] - current_obst["largeur"]/2 + s_y/2) * e, current_obst["longueur"] * e, current_obst["largeur"] * e))
-
-        elif current == 1:
-            pygame.draw.circle(screen, COULEUR_OBSTACLES, ((current_obst["posX"] + s_x/2) * e, (current_obst["posY"] + s_y/2) * e), current_obst["rayon"] * e)
-
-        elif current == 2:
-            i = pygame.transform.rotate(imgRobot, current_obst["angle"])
-            screen.blit(i, ((current_obst["posX"] + s_x/2) * e - i.get_width()/2, (current_obst["posY"] + s_y/2) * e - i.get_height()/2))
-
-        else:
-            i = pygame.transform.rotate(balises_img[current - 3], current_obst["angle"] + 90)
-            screen.blit(i, ((current_obst["posX"] + s_x/2) * e - i.get_width()/2, (current_obst["posY"] + s_y/2) * e - i.get_height()/2))
+        lst_obstacles[min(3, current)].pop()
 
     #On update
     show_menu()
@@ -201,36 +186,32 @@ while True:
         elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
             x2, y2 = getMouse()
             if not check_menu():
-                if current == 0:
-                    lst_obstacles_rect.append({"posX": (x1 + x2)/2, "posY": (y1 + y2)/2, "longueur": abs(x1 - x2), "largeur": abs(y1 - y2)})
-                elif current == 1:
-                    lst_obstacles_rond.append({"posX": x1, "posY": y1, "rayon": int(sqrt((x2 - x1)**2 + (y2 - y1)**2))})
-                elif current == 2:
-                    lst_robots.append({"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360 * 5 - 90)})
-                else:
-                    lst_balises.append({"posX": x1, "posY": y1, "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360 * 5) - 90, "type_balise": current - 2}) 
+                all_values = {"posX": (x1 + x2)/2 if current == 0 else x1, "posY": (y1 + y2)/2 if current == 0 else y1, "longueur": abs(x1 - x2), "largeur": abs(y1 - y2), "rayon": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)), "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360 * 5 - 90), "type_balise": current - 2}
+                filtered = {k: v for k, v in all_values.items() if k in clefs_utiles[min(current, 3)]}
+                lst_obstacles[min(current, 3)].append(filtered)
+
             pressing = False
 
         #Clic droit de la souris pour supprimer un élément
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
             x, y = getMouse()
 
-            for o in lst_obstacles_rect:
+            for o in lst_obstacles[0]:
                 if o["posX"] - o["longueur"]/2 <= x <= o["posX"] + o["longueur"]/2 and o["posY"] - o["largeur"]/2 <= y <= o["posY"] + o["largeur"]/2:
-                    lst_obstacles_rect.remove(o)
-            for o in lst_obstacles_rond:
+                    lst_obstacles[0].remove(o)
+            for o in lst_obstacles[1]:
                 if sqrt((o["posX"] - x)**2 + (o["posY"] - y)**2) <= o["rayon"]:  
-                    lst_obstacles_rond.remove(o)
-            for o in lst_robots:
+                    lst_obstacles[1].remove(o)
+            for o in lst_obstacles[2]:
                 if sqrt((o["posX"] - x)**2 + (o["posY"] - y)**2) <= 5.85:  
-                    lst_robots.remove(o)
-            for o in lst_balises:
+                    lst_obstacles[2].remove(o)
+            for o in lst_obstacles[3]:
                 if sqrt((o["posX"] - x)**2 + (o["posY"] - y)**2) <= 7:  
-                    lst_balises.remove(o)
+                    lst_obstacles[3].remove(o)
 
         #Raccourci claviers pour sauvegarder/
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s:
-                save(lst_robots, lst_balises, lst_obstacles_rect, lst_obstacles_rond, s_x, s_y)
+                save()
             elif event.key == pygame.K_l:
                 load()

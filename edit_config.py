@@ -40,13 +40,7 @@ if args.fond != "":
 
 #Chargement des images
 imgRobot = pygame.transform.scale(pygame.image.load("driftator/driftator/affichage/textures/robot.png").convert_alpha(), (15 * e, 19.5 * e))
-imgBalise1 = pygame.transform.scale(pygame.image.load("driftator/driftator/affichage/textures/balise1.png").convert_alpha(), (7 * e, 7 * e))
-imgBalise2 = pygame.transform.scale(pygame.image.load("driftator/driftator/affichage/textures/balise2.png").convert_alpha(), (7 * e, 7 * e))
-imgBalise3 = pygame.transform.scale(pygame.image.load("driftator/driftator/affichage/textures/balise3.png").convert_alpha(), (7 * e, 7 * e))
-imgBalise4 = pygame.transform.scale(pygame.image.load("driftator/driftator/affichage/textures/balise4.png").convert_alpha(), (7 * e, 7 * e))
-imgBalise5 = pygame.transform.scale(pygame.image.load("driftator/driftator/affichage/textures/balise5.png").convert_alpha(), (7 * e, 7 * e))
-
-balises_img = [imgBalise1, imgBalise2, imgBalise3, imgBalise4, imgBalise5]
+balises_img = [pygame.transform.scale(pygame.image.load("driftator/driftator/affichage/textures/balise" + str(i) + ".png").convert_alpha(), (7 * e, 7 * e)) for i in range(1, nb_outils - 1)]
 
 
 def getMouse():

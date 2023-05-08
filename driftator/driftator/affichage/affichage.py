@@ -92,8 +92,7 @@ class Affichage():
         self._trace.fill((255, 255, 255))
 
         #Images de base
-        img_balise = pygame.image.load(os.path.dirname(os.path.realpath(__file__)) + "/textures/balise1.png").convert_alpha()
-        self.img_balise = pygame.transform.scale(img_balise, (7 * echelle, 7 * echelle))
+        self.img_balises = [pygame.transform.scale(pygame.image.load(os.path.dirname(os.path.realpath(__file__)) + "/textures/balise" + str(i) + ".png").convert_alpha(), (7 * echelle, 7 * echelle)) for i in range(1, 6)]
         self.img_robot = pygame.image.load(os.path.dirname(os.path.realpath(__file__)) + "/textures/robot.png").convert_alpha()
         
                 
@@ -122,7 +121,7 @@ class Affichage():
             pygame.draw.circle(self._trace, COULEUR_OBSTACLES, (obstacle.x*e + self._screen.get_size()[0]/2, obstacle.y*e + self._screen.get_size()[0]/2), obstacle.rayon*e)
         elif (obstacle.type == 2):
             #Affichage d'une balise
-            image = pygame.transform.rotate(self.img_balise, obstacle.angle + 90)
+            image = pygame.transform.rotate(self.img_balises[obstacle.type_balise - 1], obstacle.angle + 90)
             self._screen.blit(image, (self._screen.get_size()[0]/2 - image.get_width()/2 + obstacle.x*e, self._screen.get_size()[1]/2 - image.get_height()/2 + obstacle.y*e))
 
     def _afficherRobot(self, robot: s.Robot):
@@ -298,7 +297,7 @@ class Affichage3d(Thread):
                 self.app.obsList.append(mdl)
             elif o.type == 2:
                 #Ajout d'une balise
-                balise=self.app.loader.loadModel(path+"/models/balise/balise" + str(o.type_balise) + ".obj")
+                balise=self.app.loader.loadModel(path+"/models/balise/balise.obj")
                 tex = self.app.loader.loadTexture(path+"/models/balise/balise" + str(o.type_balise) + ".png")
                 balise.setTexture(tex)
                 balise.setPos(o._posX, -o._posY, 5)

@@ -4,6 +4,11 @@ avancer d=3 v=40 a=0
 //Variables
 capteurs_background = true
 
+while(true){
+    tourner a=2 v=50
+}
+
+
 
 //Boucle principale
 while(capteur_distance > 10){

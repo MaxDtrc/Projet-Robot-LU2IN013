@@ -90,20 +90,37 @@ def getPosBaliseV2(img):
     img = np.array(img)
 
     #Obtention des coordonnées moyennes des couleurs rouge/bleu/vert/jaune
-    r = np.where((img[..., 0:1] > 85) & (img[..., 0:1] > img[..., 1:2] * 1.6) & (img[..., 0:1] > img[..., 2:3] * 1.6))[1]
-    b = np.where((img[..., 2:3] > 70) & (img[..., 2:3] > img[..., 0:1] * 1.3) & (img[..., 2:3] > img[..., 1:2] * 1.1))[1]
+    r = np.where((img[..., 0:1] > 120) & (img[..., 0:1] > img[..., 1:2] * 1.8) & (img[..., 0:1] > img[..., 2:3] * 1.8))[1]
+    b = np.where((img[..., 2:3] > 140) & (img[..., 2:3] > img[..., 0:1] * 1.5) & (img[..., 2:3] > img[..., 1:2] * 1.5))[1]
     v = np.where((img[..., 0:1] > 80) & (img[..., 1:2] > 80) & (img[..., 1:2] > img[..., 2:3] * 1.6) & (img[..., 0:1] > img[..., 2:3] * 1.6))[1]
-    j = np.where((img[..., 1:2] > 50) & (img[..., 1:2] > img[..., 0:1]) & (img[..., 1:2] > img[..., 2:3]))[1]
+    j = np.where((img[..., 1:2] > 50) & (img[..., 1:2] > img[..., 0:1] * 1.2) & (img[..., 1:2] > img[..., 2:3] * 1.2))[1]
 
-    ro =  np.where((img[..., 0:1] > 80) & (img[..., 1:2] < 200) & (img[..., 0:1] > img[..., 2:3] * 1.2))[1]
-    vi =  np.where((img[..., 2:3] > 80) & (img[..., 1:2] < 200) & (img[..., 2:3] > img[..., 0:1] * 1.2))[1]
-    o = np.where((img[..., 0:1] > 80) & (img[..., 2:3] < 200) & (img[..., 0:1] > img[..., 1:2] * 1.2))[1]
+    ro =  np.where((img[..., 0:1] > 120) & (img[..., 1:2] < 70) & (img[..., 0:1] > img[..., 2:3] * 1.8))[1]
+    vi =  np.where((img[..., 2:3] > 100) & (img[..., 1:2] < 100) & (img[..., 2:3] > img[..., 0:1] * 1.4))[1]
+    o = np.where((img[..., 0:1] > 100) & (img[..., 2:3] < 100) & (img[..., 0:1] > img[..., 1:2] * 1.6))[1]
 
-    wanted = [b, vi, ro, o]
-    if np.prod([len(i) for i in wanted]) == 0:
-        #Il manque une couleur
-        return None
+    clr_balises = [[r, b, v, j], [j, vi, r, b], [r, vi, o, v], [j, o, ro, v], [b, vi, ro, o]]
+
+    id = np.argmax([np.mean(a) for a in [[len(b) for b in j] for j in clr_balises]])
     
+    print("\n\n\n")
+    print("rouge :", len(r))
+    print("bleu  :", len(b))
+    print("vert  :", len(v))
+    print("jaune :", len(j))
+    print("violet:", len(vi))
+    print("orange:", len(o))
+    print("rose  :", len(ro))
+
+    
+
+    if np.prod([len(i) for i in clr_balises[id]]) == 0 or [len(c) > 200 for c in clr_balises[id]].count(True) != 4:
+        #Il manque une couleur
+        print("\nid = aucun")
+        return None, None
+    
+    print("\n\nid =", id)
+
     #La couleur a bien été trouvée, on renvoie la coordonnée x
-    clr = [np.mean(c) for c in wanted]
-    return np.mean(clr)/80 - 1
+    clr = [np.mean(c) for c in clr_balises[id]]
+    return 0, np.mean(clr)/80 - 1

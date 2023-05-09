@@ -329,6 +329,7 @@ class Capteurs(Thread):
         """
         super(Capteurs, self).__init__()
         self.implem = implementation
+        self.idBalise = None
         self.capteurBalise = None
         self.capteurDistance = None
         self.running = False
@@ -337,7 +338,7 @@ class Capteurs(Thread):
         self.running = True
         while(self.running):
             self.capteurDistance = self.implem.getDistance()
-            self.capteurBalise = self.implem.getBalisePosition()
+            self.idBalise, self.capteurBalise = self.implem.getBalisePosition()
 
             #print("capteurDistance:", self.capteurDistance, ", capteurBalise:", self.capteurBalise)
     

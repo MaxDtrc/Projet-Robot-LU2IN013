@@ -1,26 +1,2 @@
-
-avancer d=3 v=40 a=0
-
-//Variables
-capteurs_background = true
-
-while(true){
-    tourner a=2 v=50
-}
-
-
-
-//Boucle principale
-while(capteur_distance > 10){
-    //On detecte la balise
-    b = capteur_balise
-    //Derniere position de la balise
-    if(b == null){
-        //Balise pas trouvée, on tourne
-        tourner a=2 v=300
-    }else{
-        //Balise trouvee
-        angle = b * 40
-        avancer d=3 v=100 a=angle
-    }
-}
+//on tourne de 90 degrés
+avancer d=20 a=0 v=200

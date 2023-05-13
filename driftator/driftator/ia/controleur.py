@@ -1,5 +1,5 @@
 from math import pi, degrees
-from .position_balise import getPosBalise, getPosBaliseV2
+from .position_balise import getPosBalise, getPosBaliseV2, getPosBaliseV4
 from random import randint
 from threading import Thread
 import time
@@ -25,7 +25,7 @@ class implemVraiVie:
         :param v: vitesse (en degrés de rotation par seconde)
         :returns: rien
         """
-        self.vitesseGauche = v
+        self._r.vitesseGauche = v
         self._r.set_motor_dps(1, v)
 
     
@@ -36,7 +36,7 @@ class implemVraiVie:
         :param v: vitesse (en degrés de rotation par seconde)
         :returns: rien
         """
-        self.vitesseDroite = v
+        self._r.vitesseDroite = v
         self._r.set_motor_dps(2, v)
 
     def getDistance(self):
@@ -52,7 +52,7 @@ class implemVraiVie:
         Retourne la position x de la balise sur l'image captée par la camera
         """
 
-        return getPosBaliseV2(self._r.get_image())
+        return getPosBaliseV4(self._r.get_image())
     
     def setCerveau(self, angle: int):
         """
@@ -115,7 +115,7 @@ class implemSimulation:
         Retourne la position x de la balise sur l'image captée par la camera
         """
         if self._a != None and self._a.app.lastImage is not None:
-            return getPosBaliseV2(self._a.app.lastImage)
+            return getPosBaliseV4(self._a.app.lastImage)
         else:
             return None
         

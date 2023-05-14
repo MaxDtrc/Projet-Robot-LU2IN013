@@ -3,13 +3,11 @@ from math import cos, sin, degrees
 import os
 from threading import Thread, enumerate
 import time
-from pynput.keyboard import Key, Listener, KeyCode
 from pynput import keyboard
 from math import pi, sin, cos
 import numpy as np
 from PIL import Image
 import cv2
-import sys
 
 #Panda3d
 from direct.stdpy import thread
@@ -231,7 +229,7 @@ class Affichage3d(Thread):
             self.robotModel[i].loop("walk")
 
         #Ajout d'un texte pour les touches
-        textObject = OnscreenText(text='Appuyer sur q pour changer de POV et w pour changer de POV du robot', pos=(0.3, 0.9), scale=0.04, fg=(0,0,0,1), shadow = (0,0,0,1))
+        #textObject = OnscreenText(text='Appuyer sur q pour changer de POV et w pour changer de POV du robot', pos=(0.3, 0.9), scale=0.04, fg=(0,0,0,1), shadow = (0,0,0,1))
 
         #Affichage des murs
         mdl = self.app.loader.loadModel(path + "/models/cube/cube.obj")
@@ -296,7 +294,7 @@ class Affichage3d(Thread):
                 mdl.reparentTo(self.app.render)
                 self.app.obsList.append(mdl)
             elif o.type == 2:
-                #Ajout d'une balise
+                #Ajout des balises
                 mdl=self.app.loader.loadModel(path+"/models/balise/balise.obj")
                 tex = self.app.loader.loadTexture(path+"/models/balise/balise" + str(o.type_balise) + ".png")
                 mdl.setTexture(tex)

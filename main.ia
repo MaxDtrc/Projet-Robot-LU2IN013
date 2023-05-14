@@ -1,2 +1,7 @@
 //on tourne de 90 degrés
-avancer d=20 a=0 v=200
+avancer v=20 d=1 a=0
+
+capteurs_background = true
+
+avancer v=20 d=1 a=0
+

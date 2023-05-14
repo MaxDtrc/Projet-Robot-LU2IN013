@@ -52,7 +52,7 @@ class implemVraiVie:
         Retourne la position x de la balise sur l'image captée par la camera
         """
 
-        return getPosBaliseV4(self._r.get_image())
+        return getPosBaliseV2(self._r.get_image())
     
     def setCerveau(self, angle: int):
         """
@@ -115,7 +115,7 @@ class implemSimulation:
         Retourne la position x de la balise sur l'image captée par la camera
         """
         if self._a != None and self._a.app.lastImage is not None:
-            return getPosBaliseV4(self._a.app.lastImage)
+            return getPosBaliseV2(self._a.app.lastImage)
         else:
             return None
         
@@ -329,7 +329,6 @@ class Capteurs(Thread):
         """
         super(Capteurs, self).__init__()
         self.implem = implementation
-        self.idBalise = None
         self.capteurBalise = None
         self.capteurDistance = None
         self.running = False
@@ -338,7 +337,7 @@ class Capteurs(Thread):
         self.running = True
         while(self.running):
             self.capteurDistance = self.implem.getDistance()
-            self.idBalise, self.capteurBalise = self.implem.getBalisePosition()
+            self.capteurBalise = self.implem.getBalisePosition()
 
             #print("capteurDistance:", self.capteurDistance, ", capteurBalise:", self.capteurBalise)
     

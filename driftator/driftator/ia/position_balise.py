@@ -90,13 +90,6 @@ def getPosBaliseV2(img):
     img = img.resize((160, 120))
     img = np.array(img)
 
-    """jaune = [220, 221, 21]
-    violet = [106, 67, 158]
-    rouge = [212, 62, 61]
-    bleu = [1, 122, 211]
-    orange = [233, 164, 24]
-    rose = [230, 103, 192]
-    vert = [50, 167, 53]"""
 
     #Obtention des coordonnées moyennes des couleurs rouge/bleu/vert/jaune
     r = np.where((img[..., 0:1] > 120) & (img[..., 0:1] > img[..., 1:2] * 1.6) & (img[..., 0:1] > img[..., 2:3] * 1.6))[1]
@@ -104,76 +97,12 @@ def getPosBaliseV2(img):
     v = np.where((img[..., 1:2] > 120) & (img[..., 1:2] > img[..., 2:3] * 2) & (img[..., 1:2] > img[..., 2:3] * 2))[1]
     j = np.where((img[..., 0:1] > 150) & (img[..., 1:2] > 150) & (img[..., 2:3] < 50))[1]
 
-    ro =  np.where((img[..., 0:1] > 140) & (img[..., 1:2] > 80) & (img[..., 2:3] > 150))[1]
-    vi =  np.where((img[..., 2:3] > 100) & (img[..., 1:2] < 80) & (img[..., 2:3] > 130))[1]
-    o = np.where((img[..., 0:1] > 150) & (img[..., 1:2] > 120) & (img[..., 2:3] < 80))[1]
-
-    clr_balises = [[r, b, v, j], [j, vi, r, b], [r, vi, o, v], [j, o, ro, v], [b, vi, ro, o]]
-
-    id = np.argmax([np.mean(a) for a in [[len(b) for b in j] for j in clr_balises]])
+    clr_balises = [r, b, v, j]
     
-    print("\n\n\n")
-    print("rouge :", len(r))
-    print("bleu  :", len(b))
-    print("vert  :", len(v))
-    print("jaune :", len(j))
-    print("violet:", len(vi))
-    print("orange:", len(o))
-    print("rose  :", len(ro))
-
-    
-
-    if np.prod([len(i) for i in clr_balises[id]]) == 0 or [len(c) > 200 for c in clr_balises[id]].count(True) != 4:
+    if np.prod([len(i) for i in clr_balises]) == 0:
         #Il manque une couleur
-        print("\nid = aucun")
-        return None, None
+        return None
     
-    print("\n\nid =", id)
-
-    #La couleur a bien été trouvée, on renvoie la coordonnée x
-    clr = [np.mean(c) for c in clr_balises[id]]
-    return 0, np.mean(clr)/80 - 1
-
-def findNearest(array, value):
-    array = np.asarray(array)
-    idx = (np.abs(array - value)).argmin()
-    return array[idx]
-
-def getPosBaliseV4(img):
-    #Redimension de l'image
-    img = Image.fromarray(img).convert('HSV')
-    img = img.resize((160, 120))
-    img = np.array(img)
-
-    #Obtention des coordonnées moyennes des couleurs rouge/bleu/vert/jaune
-    r = np.where((img[..., 0:1] > 40) | (img[..., 0:1] < 20))[1]
-    b = np.where((img[..., 0:1] > 150) & (img[..., 0:1] < 280))[1]
-    v = np.where((img[..., 0:1] > 100) & (img[..., 0:1] < 150))[1]
-    j = np.where((img[..., 0:1] > 45) & (img[..., 0:1] < 80))[1]
-    ro =  np.where((img[..., 0:1] > 330) & (img[..., 0:1] < 350))[1]
-    vi =  np.where((img[..., 0:1] > 280) & (img[..., 0:1] < 330))[1]
-    o = np.where((img[..., 0:1] > 15) & (img[..., 0:1] < 45))[1]
-
-    clr_balises = [[r, b, v, j], [j, vi, r, b], [r, vi, o, v], [j, o, ro, v], [b, vi, ro, o]]
-
-    id = np.argmax([np.mean(a) for a in [[len(b) for b in j] for j in clr_balises]])
-    
-    print("\n\n\n")
-    print("rouge :", len(r))
-    #print("bleu  :", len(b))
-    #print("vert  :", len(v))
-    #print("jaune :", len(j))
-    #print("violet:", len(vi))
-    #print("orange:", len(o))
-    #print("rose  :", len(ro))
-
-    if np.prod([len(i) for i in clr_balises[id]]) == 0 or [len(c) > 200 for c in clr_balises[id]].count(True) != 4:
-        #Il manque une couleur
-        print("\nid = aucun")
-        return None, None
-    
-    print("\n\nid =", id)
-
     #La couleur a bien été trouvée, on renvoie la coordonnée x
     clr = [np.mean(c) for c in clr_balises[id]]
     return 0, np.mean(clr)/80 - 1

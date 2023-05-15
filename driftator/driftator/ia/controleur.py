@@ -1,5 +1,5 @@
 from math import pi, degrees
-from .position_balise import getPosBalise, getPosBaliseV2, getPosBaliseV3
+from .position_balise import getPosBalise, getPosBaliseV2, getBalises
 from random import randint
 from threading import Thread
 import time
@@ -52,7 +52,14 @@ class implemVraiVie:
         Retourne la position x de la balise sur l'image captée par la camera
         """
 
-        return getPosBaliseV3(self._r.get_image())
+        return getPosBaliseV2(self._r.get_image())
+    
+    def getBaliseType(self):
+        """
+        Retourne l'id de la balise détectée (WIP)
+        """
+
+        return getBalises(self._r.get_image())
     
     def setCerveau(self, angle: int):
         """
@@ -115,7 +122,16 @@ class implemSimulation:
         Retourne la position x de la balise sur l'image captée par la camera
         """
         if self._a != None and self._a.app.lastImage is not None:
-            return getPosBaliseV3(self._a.app.lastImage)
+            return getPosBaliseV2(self._a.app.lastImage)
+        else:
+            return None
+        
+    def getBaliseType(self):
+        """
+        Retourne le type de la balise détectée (WIP)
+        """
+        if self._a != None and self._a.app.lastImage is not None:
+            return getBalises(self._a.app.lastImage)
         else:
             return None
         
@@ -270,6 +286,8 @@ class Variables(Decorator):
                     self._variables["capteur_distance"] = self.getDistance() if not self._variables["capteurs_background"] else self._capteurs.capteurDistance
                 if(vars[i] == "capteur_balise"):
                     self._variables["capteur_balise"] = self.getBalisePosition() if not self._variables["capteurs_background"] else self._capteurs.capteurBalise
+                if(vars[i] == "type_balise"):
+                    self._variables["type_balise"] = self.getBaliseType() if not self._variables["capteurs_background"] else self._capteurs.typeBalise
                 if(vars[i] == "random"):
                     self._variables["random"] = randint(0, 10000000)
 
@@ -331,13 +349,15 @@ class Capteurs(Thread):
         self.implem = implementation
         self.capteurBalise = None
         self.capteurDistance = None
+        self.typeBalise = None
         self.running = False
 
     def run(self):
         self.running = True
         while(self.running):
             self.capteurDistance = self.implem.getDistance()
-            self.capteurBalise = self.implem.getBalisePosition()
+            #self.capteurBalise = self.implem.getBalisePosition()
+            self.typeBalise = self.implem.getBaliseType()
 
             #print("capteurDistance:", self.capteurDistance, ", capteurBalise:", self.capteurBalise)
     

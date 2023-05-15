@@ -5,3 +5,7 @@ capteurs_background = true
 
 avancer v=20 d=1 a=0
 
+while(true){
+    tourner a=2 v=50
+    print(type_balise)
+}

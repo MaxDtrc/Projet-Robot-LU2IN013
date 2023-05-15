@@ -73,10 +73,31 @@
     "balises": [
         {
             "nom": "balise0",
-            "posX": -0.20000000000000284,
-            "posY": -68.0,
+            "posX": 2.0,
+            "posY": -70.4,
             "angle": -90,
             "type_balise": 1
+        },
+        {
+            "nom": "balise1",
+            "posX": 67.80000000000001,
+            "posY": -3.4000000000000057,
+            "angle": 182,
+            "type_balise": 2
+        },
+        {
+            "nom": "balise2",
+            "posX": 3.799999999999997,
+            "posY": 68.0,
+            "angle": 92,
+            "type_balise": 4
+        },
+        {
+            "nom": "balise3",
+            "posX": -69.6,
+            "posY": -2.4000000000000057,
+            "angle": 2,
+            "type_balise": 3
         }
     ]
 }

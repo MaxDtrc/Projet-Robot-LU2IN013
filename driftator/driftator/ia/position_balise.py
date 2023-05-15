@@ -152,3 +152,45 @@ def getPosBaliseV3(img):
         
     #La couleur a bien été trouvée, on renvoie la coordonnée x
     return 0, (balise_coordinates[0] + balise_coordinates[1])/80 - 1
+
+
+def getBalises(img):
+    #Redimension de l'image
+    img = Image.fromarray(img)
+    width, height = int(img.width/8), int(img.height/8)
+    img = img.resize((width, height), Image.NEAREST)
+
+    #Conversion en HSV et conservation du canal 'hue' uniquement
+    img = img.convert('HSV')
+    img = np.array(img)[:,:,0]
+
+    #On cherche les carrés jaunes
+    j = np.where((img > 30) & (img < 85))
+    
+    #Recherche des coins
+    bs = 4 #Taille des intervalles pour l'histogramme
+
+    hist = np.histogram(j[0], bins = [b * bs for b in range(int(width/bs))])[0] #On fait l'histogramme en x
+    x = [e * bs + int(bs/2) for e in np.where(hist != 0)][0]
+    x = [x[i] for i in range(len(x)) if i == 0 or (i > 0 and abs(x[i-1] - x[i]) > bs)] #on fusionne les valeures doubles
+
+    hist = np.histogram(j[1], bins = [b * bs for b in range(int(height/bs))])[0] #On fait l'histogramme en y
+    y = [e * bs + int(bs/2) for e in np.where(hist != 0)][0]
+    y = [y[i] for i in range(len(y)) if i == 0 or (i > 0 and abs(y[i-1] - y[i]) > bs)] #on fusionne les valeures doubles
+
+    if len(x) < 2 or len(y) < 2:
+        #Aucune balise trouvée
+        return None
+
+    t = img[x[0]:x[1], y[0]:y[1]] #On ne retient que la partie de l'image qui correspond à la balise
+
+    b = np.where((t > 150) & (t < 270)) #On récupère les coordonnées des points bleus
+
+    y_coord, x_coord = np.mean(b[0]/len(t)), np.mean(b[1]/len(t[0])) #On obtient les coordonnées moyennes en x/y
+
+    #Valeur droite/haut
+    res = (1 if x_coord > 0.5 else 0, 1 if y_coord < 0.5 else 0) #On détermine si le carré bleu est à droite et/ou en haut
+
+    id_balise = [(0, 1), (1, 1), (0, 0), (1, 0)].index(res)
+
+    return id_balise

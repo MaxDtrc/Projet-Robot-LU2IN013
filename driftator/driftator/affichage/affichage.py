@@ -299,7 +299,7 @@ class Affichage3d(Thread):
                 tex = self.app.loader.loadTexture(path+"/models/balise/default-skin2.png")
                 mdl.setTexture(tex)
                 mdl.setPos(o._posX, -o._posY, 5)
-                mdl.setHpr(o._angle, 0, 0)
+                mdl.setHpr(o._angle, 90 * o.type_balise, 0)
                 mdl.setScale(1)
                 mdl.reparentTo(self.app.render)
                 self.app.obsList.append(mdl)
@@ -322,7 +322,7 @@ class Affichage3d(Thread):
 
         for i in range(0, self._simulation.getNombreDeRobots()):
             self.robotModel[i].setPos(self._simulation.getRobot(i).x, -self._simulation.getRobot(i).y, 0)
-            self.robotModel[i].setHpr(degrees(self._simulation.getRobot(i).angle) + 90, 90, 0)
+            self.robotModel[i].setHpr((degrees(self._simulation.getRobot(i).angle) + 90)%360, 90, 0)
         
 
 

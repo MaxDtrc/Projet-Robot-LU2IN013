@@ -1,5 +1,5 @@
 from math import pi, degrees
-from .position_balise import getPosBalise, getPosBaliseV2, getPosBaliseV4
+from .position_balise import getPosBalise, getPosBaliseV2, getPosBaliseV3
 from random import randint
 from threading import Thread
 import time
@@ -52,7 +52,7 @@ class implemVraiVie:
         Retourne la position x de la balise sur l'image captée par la camera
         """
 
-        return getPosBaliseV2(self._r.get_image())
+        return getPosBaliseV3(self._r.get_image())
     
     def setCerveau(self, angle: int):
         """
@@ -115,7 +115,7 @@ class implemSimulation:
         Retourne la position x de la balise sur l'image captée par la camera
         """
         if self._a != None and self._a.app.lastImage is not None:
-            return getPosBaliseV2(self._a.app.lastImage)
+            return getPosBaliseV3(self._a.app.lastImage)
         else:
             return None
         

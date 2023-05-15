@@ -110,6 +110,8 @@ def getPosBaliseV2(img):
 def getPosBaliseV3(img):
     #Redimension de l'image
     img = Image.fromarray(img)
+    img.save("test.png")
+    print("image sauvée")
     img = img.resize((80, 60))
     img = np.array(img)
 

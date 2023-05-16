@@ -165,26 +165,29 @@ def getBalises(img):
     img = np.array(img)[:,:,0]
 
     #On cherche les carrés jaunes
-    j = np.where((img > 30) & (img < 85))
+    j = np.where((img > 30) & (img < 60))
     
     #Recherche des coins
     bs = 4 #Taille des intervalles pour l'histogramme
 
+    
     hist = np.histogram(j[0], bins = [b * bs for b in range(int(width/bs))])[0] #On fait l'histogramme en x
-    x = [e * bs + int(bs/2) for e in np.where(hist != 0)][0]
-    x = [x[i] for i in range(len(x)) if i == 0 or (i > 0 and abs(x[i-1] - x[i]) > bs)] #on fusionne les valeures doubles
-
-    hist = np.histogram(j[1], bins = [b * bs for b in range(int(height/bs))])[0] #On fait l'histogramme en y
-    y = [e * bs + int(bs/2) for e in np.where(hist != 0)][0]
-    y = [y[i] for i in range(len(y)) if i == 0 or (i > 0 and abs(y[i-1] - y[i]) > bs)] #on fusionne les valeures doubles
-
-    if len(x) < 2 or len(y) < 2:
-        #Aucune balise trouvée
+    x = [e * bs + bs//2 for e in np.sort(np.argsort(hist)[-2:])] if np.any(hist) else None
+    if x is None or len(x) < 2 or abs(x[0] - x[1]) < 2 * bs:
         return None
+    
+    hist = np.histogram(j[1], bins = [b * bs for b in range(int(height/bs))])[0] #On fait l'histogramme en y
+    y = [e * bs + bs//2 for e in np.sort(np.argsort(hist)[-2:])] if np.any(hist) else None
+    if y is None or len(y) < 2 or abs(y[0] - y[1]) < 2 * bs:
+        return None
+
 
     t = img[x[0]:x[1], y[0]:y[1]] #On ne retient que la partie de l'image qui correspond à la balise
 
     b = np.where((t > 150) & (t < 270)) #On récupère les coordonnées des points bleus
+
+    if len(b[0]) == 0:
+        return None
 
     y_coord, x_coord = np.mean(b[0]/len(t)), np.mean(b[1]/len(t[0])) #On obtient les coordonnées moyennes en x/y
 

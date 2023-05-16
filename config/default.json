@@ -76,28 +76,28 @@
             "posX": -53.2,
             "posY": -67.4,
             "angle": -90,
-            "type_balise": 3
+            "type_balise": 1
         },
         {
             "nom": "balise1",
             "posX": 66.6,
             "posY": -56.4,
             "angle": 183,
-            "type_balise": 3
+            "type_balise": 1
         },
         {
             "nom": "balise2",
             "posX": 58.80000000000001,
             "posY": 65.6,
             "angle": 90,
-            "type_balise": 3
+            "type_balise": 1
         },
         {
             "nom": "balise3",
             "posX": -66.4,
             "posY": 52.80000000000001,
             "angle": 2,
-            "type_balise": 3
+            "type_balise": 1
         }
     ]
 }

@@ -1,11 +1,20 @@
-//on tourne de 90 degrés
+//lancement des capteurs
 avancer v=20 d=1 a=0
-
 capteurs_background = true
-
 avancer v=20 d=1 a=0
 
 while(true){
-    tourner a=2 v=100
-    print(type_balise)
+    if(type_balise == null){
+        //On cherche la balise
+        tourner a=3 v=100
+    }else{
+        //Si la balise 1 est trouvée on avance puis on tourne (plus tard on pourra tester si elle est bien en face)
+        print(type_balise)
+        if(type_balise == 1){
+            while(capteur_distance > 15){
+                avancer d=3 v=400 a=0
+            }
+            tourner a=90 v=100
+        }
+    }
 }

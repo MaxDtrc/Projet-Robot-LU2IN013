@@ -173,26 +173,29 @@ def getBalises(img):
     hist = np.histogram(j[0], bins = [b * bs for b in range(int(width/bs))])[0] #On fait l'histogramme en x
     x = [e * bs + bs//2 for e in np.sort(np.argsort(hist)[-2:])] if np.any(hist) else None
     if x is None or len(x) < 2 or abs(x[0] - x[1]) < 2 * bs:
-        return None
+        return None, None
     
     hist = np.histogram(j[1], bins = [b * bs for b in range(int(height/bs))])[0] #On fait l'histogramme en y
     y = [e * bs + bs//2 for e in np.sort(np.argsort(hist)[-2:])] if np.any(hist) else None
     if y is None or len(y) < 2 or abs(y[0] - y[1]) < 2 * bs:
-        return None
+        return None, None
 
 
+    print(x)
     t = img[x[0]:x[1], y[0]:y[1]] #On ne retient que la partie de l'image qui correspond à la balise
 
     b = np.where((t > 150) & (t < 270)) #On récupère les coordonnées des points bleus
 
     if len(b[0]) == 0:
-        return None
+        return None, None
 
     y_coord, x_coord = np.mean(b[0]/len(t)), np.mean(b[1]/len(t[0])) #On obtient les coordonnées moyennes en x/y
 
     #Valeur droite/haut
     res = (1 if x_coord > 0.5 else 0, 1 if y_coord < 0.5 else 0) #On détermine si le carré bleu est à droite et/ou en haut
 
+
+    pos_balise = ((x[0] + x[1])/2)/(width/2) - 1
     id_balise = [(0, 1), (1, 1), (0, 0), (1, 0)].index(res)
 
-    return id_balise
+    return pos_balise, id_balise

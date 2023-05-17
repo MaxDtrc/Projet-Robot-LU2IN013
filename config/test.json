@@ -1,0 +1,18 @@
+{
+    "terrain": {
+        "tailleX": 152,
+        "tailleY": 152
+    },
+    "obstaclesRonds": [],
+    "obstaclesRectangles": [],
+    "robots": [],
+    "balises": [
+        {
+            "nom": "balise0",
+            "posX": 26.5,
+            "posY": -61.25,
+            "angle": 603,
+            "type_balise": 1
+        }
+    ]
+}

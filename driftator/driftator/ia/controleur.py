@@ -286,8 +286,8 @@ class Variables(Decorator):
                     self._variables["capteur_distance"] = self.getDistance() if not self._variables["capteurs_background"] else self._capteurs.capteurDistance
                 if(vars[i] == "capteur_balise"):
                     self._variables["capteur_balise"] = self.getBalisePosition() if not self._variables["capteurs_background"] else self._capteurs.capteurBalise
-                if(vars[i] == "type_balise"):
-                    self._variables["type_balise"] = self.getBaliseType() if not self._variables["capteurs_background"] else self._capteurs.typeBalise
+                if(vars[i] == "type_balise" or vars[i] == "pos_balise"):
+                    self._variables["pos_balise"], self._variables["type_balise"] = self.getBaliseType() if not self._variables["capteurs_background"] else self._capteurs.posBalise, self._capteurs.typeBalise
                 if(vars[i] == "random"):
                     self._variables["random"] = randint(0, 10000000)
 
@@ -349,6 +349,7 @@ class Capteurs(Thread):
         self.implem = implementation
         self.capteurBalise = None
         self.capteurDistance = None
+        self.posBalise = None
         self.typeBalise = None
         self.running = False
 
@@ -356,8 +357,8 @@ class Capteurs(Thread):
         self.running = True
         while(self.running):
             self.capteurDistance = self.implem.getDistance()
-            #self.capteurBalise = self.implem.getBalisePosition()
-            self.typeBalise = self.implem.getBaliseType()
+            self.capteurBalise = self.implem.getBalisePosition()
+            self.posBalise, self.typeBalise = self.implem.getBaliseType()
 
             #print("capteurDistance:", self.capteurDistance, ", capteurBalise:", self.capteurBalise)
     

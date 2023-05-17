@@ -3,6 +3,7 @@ from math import sqrt, radians, degrees
 import json
 import argparse
 
+
 #Lecture des arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--config", default="default.json", dest="config", help="Config à éditer")
@@ -10,8 +11,8 @@ parser.add_argument("-f", "--fond", default="", dest="fond", help="Fond de l'éd
 args=parser.parse_args()
 
 #Taille du terrain
-s_x = 300
-s_y = 300
+s_x = 152
+s_y = 152
 
 #Listes des obstacles [rectangles, ronds, robots, balises]
 lst_obstacles = [[], [], [], []]
@@ -21,9 +22,9 @@ clefs_utiles = [["posX", "posY", "longueur", "largeur"], ["posX", "posY", "rayon
 
 #Variables générales
 pressing = False #Utilisateur en train de cliquer
-nb_outils = 4 #Nombre d'outils
+nb_outils = 7 #Nombre d'outils
 current = 0 #Outil sélectionné
-e = 4 #Echelle
+e = 6 #Echelle
 
 #Init de pygame
 COULEUR_OBSTACLES = (65, 0, 55)

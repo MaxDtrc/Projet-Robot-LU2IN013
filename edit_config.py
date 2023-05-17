@@ -21,7 +21,7 @@ clefs_utiles = [["posX", "posY", "longueur", "largeur"], ["posX", "posY", "rayon
 
 #Variables générales
 pressing = False #Utilisateur en train de cliquer
-nb_outils = 8 #Nombre d'outils
+nb_outils = 4 #Nombre d'outils
 current = 0 #Outil sélectionné
 e = 4 #Echelle
 

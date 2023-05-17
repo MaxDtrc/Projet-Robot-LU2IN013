@@ -10,8 +10,8 @@ parser.add_argument("-f", "--fond", default="", dest="fond", help="Fond de l'éd
 args=parser.parse_args()
 
 #Taille du terrain
-s_x = 152
-s_y = 152
+s_x = 300
+s_y = 300
 
 #Listes des obstacles [rectangles, ronds, robots, balises]
 lst_obstacles = [[], [], [], []]
@@ -23,7 +23,7 @@ clefs_utiles = [["posX", "posY", "longueur", "largeur"], ["posX", "posY", "rayon
 pressing = False #Utilisateur en train de cliquer
 nb_outils = 8 #Nombre d'outils
 current = 0 #Outil sélectionné
-e = 5 #Echelle
+e = 4 #Echelle
 
 #Init de pygame
 COULEUR_OBSTACLES = (65, 0, 55)

@@ -5,16 +5,21 @@ avancer v=20 d=1 a=0
 
 while(true){
     if(type_balise == null){
-        //On cherche la balise
-        tourner a=3 v=100
+        //Balise pas trouvée, on tourne
+        tourner a=3 v=200
     }else{
-        //Si la balise 1 est trouvée on avance puis on tourne (plus tard on pourra tester si elle est bien en face)
         print(type_balise)
-        if(type_balise == 1){
+        if(type_balise == 2){
             while(capteur_distance > 15){
-                avancer d=3 v=400 a=0
+                avancer d=1 v=400 a=0
             }
             tourner a=90 v=100
+        }
+        if(type_balise == 3){
+            while(capteur_distance > 15){
+                avancer d=1 v=400 a=0
+            }
+            tourner a=-90 v=100
         }
     }
 }

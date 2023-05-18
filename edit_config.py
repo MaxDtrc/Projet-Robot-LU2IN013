@@ -24,7 +24,7 @@ clefs_utiles = [["posX", "posY", "longueur", "largeur"], ["posX", "posY", "rayon
 pressing = False #Utilisateur en train de cliquer
 nb_outils = 7 #Nombre d'outils
 current = 0 #Outil sélectionné
-e = 6 #Echelle
+e = 5 #Echelle
 
 #Init de pygame
 COULEUR_OBSTACLES = (65, 0, 55)

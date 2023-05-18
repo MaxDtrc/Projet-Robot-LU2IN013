@@ -170,19 +170,18 @@ def getBalises(img):
     bs = 4 #Taille des intervalles pour l'histogramme
 
     
-    hist = np.histogram(j[0], bins = [b * bs for b in range(int(width/bs))])[0] #On fait l'histogramme en x
-    x = [e * bs + bs//2 for e in np.sort(np.argsort(hist)[-2:])] if np.any(hist) else None
-    if x is None or len(x) < 2 or abs(x[0] - x[1]) < 2 * bs:
-        return None, None
-    
-    hist = np.histogram(j[1], bins = [b * bs for b in range(int(height/bs))])[0] #On fait l'histogramme en y
+    hist = np.histogram(j[0], bins = [b * bs for b in range(int(width/bs))])[0] #On fait l'histogramme en y
     y = [e * bs + bs//2 for e in np.sort(np.argsort(hist)[-2:])] if np.any(hist) else None
     if y is None or len(y) < 2 or abs(y[0] - y[1]) < 2 * bs:
         return None, None
+    
+    hist = np.histogram(j[1], bins = [b * bs for b in range(int(height/bs))])[0] #On fait l'histogramme en x
+    x = [e * bs + bs//2 for e in np.sort(np.argsort(hist)[-2:])] if np.any(hist) else None
+    if x is None or len(x) < 2 or abs(x[0] - x[1]) < 2 * bs:
+        return None, None
 
 
-    print(x)
-    t = img[x[0]:x[1], y[0]:y[1]] #On ne retient que la partie de l'image qui correspond à la balise
+    t = img[y[0]:y[1], x[0]:x[1]] #On ne retient que la partie de l'image qui correspond à la balise
 
     b = np.where((t > 150) & (t < 270)) #On récupère les coordonnées des points bleus
 
@@ -196,6 +195,6 @@ def getBalises(img):
 
 
     pos_balise = ((x[0] + x[1])/2)/(width/2) - 1
-    id_balise = [(0, 1), (1, 1), (0, 0), (1, 0)].index(res)
+    id_balise = [(0, 1), (1, 1), (0, 0), (1, 0)].index(res) + 1
 
     return pos_balise, id_balise

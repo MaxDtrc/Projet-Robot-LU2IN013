@@ -1,6 +1,6 @@
-avancer d=1 v=10 a=0
+avancer d=1 v=30 a=0
 capteurs_background = true
-avancer d=1 v=10 a=0
+avancer d=1 v=30 a=0
 
 while(true){
     if(type_balise == null){

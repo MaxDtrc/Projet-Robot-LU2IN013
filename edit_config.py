@@ -46,6 +46,10 @@ if args.fond != "":
 imgRobot = pygame.transform.scale(pygame.image.load("driftator/driftator/affichage/textures/robot.png").convert_alpha(), (15 * e, 19.5 * e))
 balises_img = [pygame.transform.scale(pygame.image.load("driftator/driftator/affichage/textures/balise" + str(i) + ".png").convert_alpha(), (7 * e, 7 * e)) for i in range(1, nb_outils - 2)]
 
+lst_actions = []
+ctrl = False
+
+
 
 def getMouse():
     """
@@ -190,6 +194,7 @@ while True:
                 all_values = {"posX": (x1 + x2)/2 if current == 0 else x1, "posY": (y1 + y2)/2 if current == 0 else y1, "longueur": abs(x1 - x2), "largeur": abs(y1 - y2), "rayon": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)), "angle": int(sqrt((x2 - x1)**2 + (y2 - y1)**2)%360 * 5 - 90), "type_balise": current - 2}
                 filtered = {k: v for k, v in all_values.items() if k in clefs_utiles[min(current, 3)]}
                 lst_obstacles[min(current, 3)].append(filtered)
+                lst_actions.append((0, min(current, 3), filtered))
 
             pressing = False
 
@@ -200,19 +205,36 @@ while True:
             for o in lst_obstacles[0]:
                 if o["posX"] - o["longueur"]/2 <= x <= o["posX"] + o["longueur"]/2 and o["posY"] - o["largeur"]/2 <= y <= o["posY"] + o["largeur"]/2:
                     lst_obstacles[0].remove(o)
+                    lst_actions.append((1, 0, o))
             for o in lst_obstacles[1]:
                 if sqrt((o["posX"] - x)**2 + (o["posY"] - y)**2) <= o["rayon"]:  
                     lst_obstacles[1].remove(o)
+                    lst_actions.append((1, 1, o))
             for o in lst_obstacles[2]:
                 if sqrt((o["posX"] - x)**2 + (o["posY"] - y)**2) <= 5.85:  
                     lst_obstacles[2].remove(o)
+                    lst_actions.append((1, 2, o))
             for o in lst_obstacles[3]:
                 if sqrt((o["posX"] - x)**2 + (o["posY"] - y)**2) <= 7:  
                     lst_obstacles[3].remove(o)
+                    lst_actions.append((1, 3, o))
 
         #Raccourci claviers pour sauvegarder/
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_s:
+            if event.key == pygame.K_LCTRL:
+                ctrl = True
+            elif ctrl and event.key == pygame.K_s:
+                print("Config sauvegardée")
                 save()
-            elif event.key == pygame.K_l:
+            elif ctrl and event.key == pygame.K_l:
+                print("Config chargée")
                 load()
+            elif ctrl and event.key == pygame.K_z and len(lst_actions) > 0:
+                obst = lst_actions.pop()
+                if obst[0] == 0:
+                    lst_obstacles[obst[1]].remove(obst[2])
+                elif obst[0] == 1:
+                    lst_obstacles[obst[1]].append(obst[2])
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_LCTRL:
+                ctrl = False

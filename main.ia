@@ -1,24 +1,52 @@
-avancer d=1 v=30 a=0
+avancer d=1 v=20 a=0
 capteurs_background = true
-avancer d=1 v=30 a=0
+avancer d=1 v=20 a=0
 
-while(true){
-    if(type_balise == null){
+
+intensite_angle = 20
+vitesse = 600
+vitesse_rota = 180
+
+running = true
+while(running){
+    if(type_balise == null or pos_balise < -0.5 or pos_balise > 0.5){
         //On cherche la balise
         tourner a=3 v=100
     }else{
         print(type_balise)
         if(type_balise == 1){
             while(capteur_distance > 15){
-                avancer d=1 v=400 a=0
+                if(pos_balise != null){
+                    angle = pos_balise * intensite_angle
+                    avancer d=1 v=vitesse a=angle
+                }else{
+                    avancer d=1 v=vitesse a=0
+                }
             }
-            tourner a=90 v=100
+            tourner a=90 v=vitesse_rota
         }
         if(type_balise == 2){
             while(capteur_distance > 15){
-                avancer d=1 v=400 a=0
+                if(pos_balise != null){
+                    angle = pos_balise * intensite_angle
+                    avancer d=1 v=vitesse a=angle
+                }else{
+                    avancer d=1 v=vitesse a=0
+                }
             }
-            tourner a=-90 v=100
+            tourner a=-90 v=vitesse_rota
+        }
+        if(type_balise == 3){
+            while(capteur_distance > 15){
+                if(pos_balise != null){
+                    angle = pos_balise * intensite_angle
+                    avancer d=1 v=vitesse a=angle
+                }else{
+                    avancer d=1 v=vitesse a=0
+                }
+            }
+            //On arrête
+            running = false
         }
     }
 }

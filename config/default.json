@@ -34,13 +34,6 @@
             "largeur": 150.4
         },
         {
-            "nom": "obstrect4",
-            "posX": 70.6,
-            "posY": -57.7,
-            "longueur": 1.1999999999999886,
-            "largeur": 28.199999999999996
-        },
-        {
             "nom": "obstrect5",
             "posX": -58.7,
             "posY": 20.6,
@@ -93,9 +86,9 @@
     "robots": [
         {
             "nom": "robot0",
-            "posX": -57.0,
+            "posX": -56.8,
             "posY": 62.80000000000001,
-            "angle": -68
+            "angle": 138
         }
     ],
     "balises": [
@@ -143,10 +136,10 @@
         },
         {
             "nom": "balise6",
-            "posX": 50.599999999999994,
-            "posY": -67.2,
+            "posX": 50.2,
+            "posY": -67.8,
             "angle": -90,
-            "type_balise": 1
+            "type_balise": 3
         }
     ]
 }

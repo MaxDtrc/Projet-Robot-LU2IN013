@@ -299,7 +299,7 @@ class Affichage3d(Thread):
                 tex = self.app.loader.loadTexture(path+"/models/balise/balise_BJ.png")
                 mdl.setTexture(tex)
                 mdl.setPos(o._posX, -o._posY, 5)
-                mdl.setHpr(o._angle, 90 * (o.type_balise - 1), 0)
+                mdl.setHpr(o._angle, -90 * (o.type_balise - 1), 0)
                 mdl.setScale(1)
                 mdl.reparentTo(self.app.render)
                 self.app.obsList.append(mdl)

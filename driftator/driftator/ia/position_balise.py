@@ -195,6 +195,6 @@ def getBalises(img):
 
 
     pos_balise = ((x[0] + x[1])/2)/(width/2) - 1
-    id_balise = [(0, 1), (0, 0), (1, 0), (1, 1)].index(res) + 1
+    id_balise = [(0, 1), (1, 1), (1, 0), (0, 0)].index(res) + 1
 
     return pos_balise, id_balise

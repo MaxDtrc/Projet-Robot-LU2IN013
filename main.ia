@@ -13,7 +13,6 @@ while(running){
         //On cherche la balise
         tourner a=3 v=100
     }else{
-        print(type_balise)
         if(type_balise == 1){
             while(capteur_distance > 15){
                 if(pos_balise != null){

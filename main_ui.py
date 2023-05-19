@@ -128,7 +128,7 @@ while running:
             elif ia_menu[0] - w/2 < x < ia_menu[0] + w/2 and ia_menu[1] - h/2 < y < ia_menu[1] + min(5, len(ia_list)) * (h * 1.1):
                 ia_selected = int((y - ia_menu[1] + h/2)//((h * 1.2)))
             #Menu des vues
-            elif vue_menu[0] - w/2 < x < vue_menu[0] + w/2 and vue_menu[1] - h/2 < y < vue_menu[1] + min(5, len(vue_list)) * (h * 1.1):
+            elif vue_menu[0] - w/2 < x < vue_menu[0] + w/2 and vue_menu[1] - h/2 < y < vue_menu[1] + 2 * (h * 1.1):
                 vue_selected = int((y - vue_menu[1] + h/2)//((h * 1.2)))
             #Lancer
             elif p_x - p_w/2 < p_x < p_x + p_w/2 and p_y - p_h/2 < y < p_y:

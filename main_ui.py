@@ -87,7 +87,7 @@ def show_menu():
             pygame.draw.rect(screen, clr, (x - w/2, y + (h+10) * i - h/2, w, h), border_radius=6)
 
             #Affichage du texte
-            text = pygame.font.Font('freesansbold.ttf', font_size).render(lst[i], True, (0, 0, 0))
+            text = pygame.font.Font('freesansbold.ttf', font_size).render(lst[i].split('.')[0], True, (0, 0, 0))
             screen.blit(text, (x + 5 - w/2, y + (h+10) * i - text.get_height()/2))
 
     #Bouton lancer

@@ -117,7 +117,7 @@ while running:
             pygame.quit()
             exit() #On arrête.
 
-        #Relachement du clic gauche -> On ajoute l'obstacle
+        #Selection menu
         if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
             x, y = pygame.mouse.get_pos()
 
@@ -137,12 +137,15 @@ while running:
                 running = False
                 os.execv('/usr/bin/python', ['/usr/bin/python', 'main.py', '-c', 'config/' + cfg_list[cfg_selected], '-ia', 'demo_ia/' + ia_list[ia_selected], '-v', str(vue_selected + 1)])
                 
-        #Clic droit
+        #Ctrl Clic
         if event.type == pygame.MOUSEBUTTONUP and event.button == 1 and ctrl:
             #Menu config
             if cfg_menu[0] - w/2 < x < cfg_menu[0] + w/2 and cfg_menu[1] - h/2 < y < cfg_menu[1] + min(5, len(cfg_list)) * (h * 1.1):
                 cfg_selected = int((y - cfg_menu[1] + h/2)//((h * 1.2)))
                 os.execv('/usr/bin/python', ['/usr/bin/python', 'edit_config.py', '-c', cfg_list[cfg_selected]])
+            elif ia_menu[0] - w/2 < x < ia_menu[0] + w/2 and ia_menu[1] - h/2 < y < ia_menu[1] + min(5, len(ia_list)) * (h * 1.1):
+                ia_selected = int((y - ia_menu[1] + h/2)//((h * 1.2)))
+                os.system("code demo_ia/" + ia_list[ia_selected])
         
         #Detection de la touche CTRL
         elif event.type == pygame.KEYDOWN:

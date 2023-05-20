@@ -229,7 +229,7 @@ class Affichage3d(Thread):
             self.robotModel[i].loop("walk")
 
         #Ajout d'un texte pour les touches
-        #textObject = OnscreenText(text='Appuyer sur q pour changer de POV et w pour changer de POV du robot', pos=(0.3, 0.9), scale=0.04, fg=(0,0,0,1), shadow = (0,0,0,1))
+        textObject = OnscreenText(text='Appuyer sur q pour changer de POV et w pour changer de POV du robot', pos=(0.3, 0.9), scale=0.04, fg=(0,0,0,1), shadow = (0,0,0,1))
 
         #Affichage des murs
         mdl = self.app.loader.loadModel(path + "/models/cube/cube.obj")

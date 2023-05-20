@@ -2,7 +2,7 @@ import pygame
 from math import sqrt, radians, degrees
 import json
 import argparse
-
+import os
 
 #Lecture des arguments
 parser = argparse.ArgumentParser()
@@ -69,6 +69,7 @@ def show_menu():
 
     clr_cases = (255, 112, 102)
     clr_selected = (255, 17, 0)
+    clr_save = (194, 247, 178)
 
     #Affichage de la barre de séparation
     pygame.draw.rect(screen, (0, 0, 0), (s_x * e + 1, 0, 1, s_y * e))
@@ -79,6 +80,9 @@ def show_menu():
     #Affichage des rectangles de fond
     for i in range(10, 10 + 65 * nb_outils, 65):
         pygame.draw.rect(screen, clr_cases, (s_x * e + 10, i, 50, 50))
+
+    #Affichage du bouton retour
+    pygame.draw.rect(screen, clr_cases, (s_x * e + 10, s_y * e - 60, 50, 50))
 
     #Affichage des outils
     pygame.draw.rect(screen, COULEUR_OBSTACLES, (s_x * e + 20, 20, 30, 30)) #Rectangle
@@ -98,8 +102,14 @@ def check_menu():
         return False #Le curseur n'est pas dans le menu
     
     #Detection de l'outil cliqué
-    if s_x * e + 10 < x < s_x * e + 60 and 10 < y < 60 + 65 * nb_outils:
+    if s_x * e + 10 < x < s_x * e + 60 and 10 < y < 60 + 65 * (nb_outils - 1):
         current = (y - 10) // 65
+
+    if s_x * e + 10 < x < s_x * e + 60 and s_y * e - 60 < y < s_y * e - 10:
+        #On save et retourne au menu principal
+        save()
+        os.execv('/usr/bin/python', ['/usr/bin/python', 'main_ui.py'])
+                
         
     return True
 

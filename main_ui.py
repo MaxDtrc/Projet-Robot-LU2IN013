@@ -212,10 +212,10 @@ while running:
                 ia_selected, cfg_selected = 0, 0
             #Suppression d'un fichier
             if ctrl and event.key == pygame.K_DELETE:
-                if latest_selected == 0 and not cfg_writing:
+                if latest_selected == 0 and not cfg_writing and cfg_list[cfg_selected + 5 * cfg_page] != '+':
                     os.system("rm config/" + cfg_list[cfg_selected + 5 * cfg_page])
                     cfg_list.remove(cfg_list[cfg_selected + 5 * cfg_page])
-                if latest_selected == 1 and not ia_writing:
+                if latest_selected == 1 and not ia_writing and ia_list[ia_selected + 5 * ia_page] != '+':
                     os.system("rm demo_ia/" + ia_list[ia_selected + 5 * ia_page])
                     ia_list.remove(ia_list[ia_selected + 5 * ia_page])
 

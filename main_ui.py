@@ -147,7 +147,7 @@ while running:
                 ia_writing, current_title = False, ""
             if cfg_writing:
                 with open("config/" + current_title + ".json", "w") as f:
-                    f.write("{\"terrain\":{\"sizeX\":152, \"sizeY\":152}, \"obstaclesRonds\":[], \"obstaclesRectangles\":[], \"robots\":[], \"balises\":[]}")
+                    f.write("{\"terrain\":{\"tailleX\":152, \"tailleY\":152}, \"obstaclesRonds\":[], \"obstaclesRectangles\":[], \"robots\":[], \"balises\":[]}")
                 cfg_list.insert(-1, current_title + ".json")
                 print("Nouvelle config créée")
                 cfg_writing, current_title = False, ""

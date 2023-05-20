@@ -193,12 +193,15 @@ while running:
         
         #Detection des touches
         elif event.type == pygame.KEYDOWN:
+            #Touche controle et écriture d'un nom de fichier
             if event.key == pygame.K_BACKSPACE and len(current_title) != 0:
                 current_title = current_title[:-1]
             elif ia_writing or cfg_writing:
                 current_title += pygame.key.name(event.key).replace('8', '_') if pygame.key.name(event.key) in "abcdefghijklmnopqrstuvwxyz8" else ""
+
             if event.key == pygame.K_LCTRL:
                 ctrl = True
+            #Defilement des pages
             if event.key == pygame.K_LEFT:
                 cfg_page -= 1 if latest_selected == 0 and cfg_page > 0 and not cfg_writing else 0
                 ia_page -= 1 if latest_selected == 1 and ia_page > 0 and not ia_writing else 0
@@ -207,6 +210,14 @@ while running:
                 cfg_page += 1 if latest_selected == 0 and (cfg_page + 1) * 5 < len(cfg_list) and not cfg_writing else 0
                 ia_page += 1 if latest_selected == 1 and (ia_page + 1) * 5 < len(ia_list) and not ia_writing else 0
                 ia_selected, cfg_selected = 0, 0
+            #Suppression d'un fichier
+            if ctrl and event.key == pygame.K_DELETE:
+                if latest_selected == 0 and not cfg_writing:
+                    os.system("rm config/" + cfg_list[cfg_selected + 5 * cfg_page])
+                    cfg_list.remove(cfg_list[cfg_selected + 5 * cfg_page])
+                if latest_selected == 1 and not ia_writing:
+                    os.system("rm demo_ia/" + ia_list[ia_selected + 5 * ia_page])
+                    ia_list.remove(ia_list[ia_selected + 5 * ia_page])
 
 
         elif event.type == pygame.KEYUP:

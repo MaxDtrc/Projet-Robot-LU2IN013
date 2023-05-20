@@ -72,6 +72,8 @@ ctrl = False
 
 current_title = ""
 
+latest_selected = 0
+
 def show_menu():
     """
     Fonction affichant le menu latéral
@@ -84,19 +86,20 @@ def show_menu():
 
     #Affichage des menus
     
-    for x, y, selected, lst, titre, clr, clr_selected, writing in zip([cfg_menu[0], ia_menu[0], vue_menu[0]], [cfg_menu[1], ia_menu[1], vue_menu[1]], [cfg_selected, ia_selected, vue_selected], [cfg_list, ia_list, vue_list], ["Choix de la config", "Choix de l'IA", "Choix de la vue"], [clr_cfg_cases, clr_ia_cases, clr_vue_cases], [clr_cfg_selected, clr_ia_selected, clr_vue_selected], [cfg_writing, ia_writing, vue_writing]):
+    for x, y, page, selected, lst, titre, clr, clr_selected, writing in zip([cfg_menu[0], ia_menu[0], vue_menu[0]], [cfg_menu[1], ia_menu[1], vue_menu[1]], [cfg_page, ia_page, 0], [cfg_selected, ia_selected, vue_selected], [cfg_list, ia_list, vue_list], ["Choix de la config", "Choix de l'IA", "Choix de la vue"], [clr_cfg_cases, clr_ia_cases, clr_vue_cases], [clr_cfg_selected, clr_ia_selected, clr_vue_selected], [cfg_writing, ia_writing, vue_writing]):
         text = pygame.font.Font('freesansbold.ttf', font_size).render(titre, False, (0, 0, 0))
         screen.blit(text, (x - text.get_width()/2, y - 35 - text.get_height()/2))
 
         pygame.draw.rect(screen, clr_selected, (x - 2 - w/2, y - 2 + 50 * selected - h/2, w + 4, h + 4), border_radius=6)
-        for i in range(min(5, len(lst))):
+        for i in range(min(5, len(lst) - 5 * page)):
             pygame.draw.rect(screen, clr, (x - w/2, y + (h+10) * i - h/2, w, h), border_radius=6)
 
             #Affichage du texte
-            if i == min(5, len(lst)) - 1 and writing:
+            if i == min(5, len(lst) - 5 * page) - 1 and writing:
                 text = pygame.font.Font('freesansbold.ttf', font_size).render(current_title, True, (0, 0, 0))
             else:
-                text = pygame.font.Font('freesansbold.ttf', font_size).render(lst[i].split('.')[0], True, (0, 0, 0))
+                text = pygame.font.Font('freesansbold.ttf', font_size).render(lst[i + 5 * page].split('.')[0], True, (0, 0, 0))
+
             screen.blit(text, (x + 5 - w/2, y + (h+10) * i - text.get_height()/2))
 
     #Bouton lancer
@@ -146,35 +149,42 @@ while running:
 
             #Menu config
             if cfg_menu[0] - w/2 < x < cfg_menu[0] + w/2 and cfg_menu[1] - h/2 < y < cfg_menu[1] + min(5, len(cfg_list)) * (h * 1.1):
-                cfg_selected = int((y - cfg_menu[1] + h/2)//((h * 1.2)))
-                if cfg_selected == len(cfg_list) - 1:
+                clicked = int((y - cfg_menu[1] + h/2)//((h * 1.2)))
+                if clicked == cfg_selected and cfg_selected == len(cfg_list) - 5 * cfg_page - 1:
                     cfg_writing = True
+                cfg_selected = clicked
+                latest_selected = 0
             #Menu IA
             elif ia_menu[0] - w/2 < x < ia_menu[0] + w/2 and ia_menu[1] - h/2 < y < ia_menu[1] + min(5, len(ia_list)) * (h * 1.1):
-                ia_selected = int((y - ia_menu[1] + h/2)//((h * 1.2)))
-                if ia_selected == len(ia_list) - 1:
+                clicked = int((y - ia_menu[1] + h/2)//((h * 1.2)))
+                if clicked == ia_selected and clicked == len(ia_list) - 5 * ia_page - 1:
                     ia_writing = True
+                ia_selected = clicked
+                latest_selected = 1
             #Menu des vues
             elif vue_menu[0] - w/2 < x < vue_menu[0] + w/2 and vue_menu[1] - h/2 < y < vue_menu[1] + 2 * (h * 1.1):
                 vue_selected = int((y - vue_menu[1] + h/2)//((h * 1.2)))
+                latest_selected = -1
             #Lancer
             elif p_x - p_w/2 < p_x < p_x + p_w/2 and p_y - p_h/2 < y < p_y:
-                #On lance le code
+                #On lance la simulation
                 pygame.display.quit()
                 running = False
-                os.execv('/usr/bin/python', ['/usr/bin/python', 'main.py', '-c', 'config/' + cfg_list[cfg_selected], '-ia', 'demo_ia/' + ia_list[ia_selected], '-v', str(vue_selected + 1)])
+                os.execv('/usr/bin/python', ['/usr/bin/python', 'main.py', '-c', 'config/' + cfg_list[cfg_selected + 5 * cfg_page], '-ia', 'demo_ia/' + ia_list[ia_selected + 5 * ia_page], '-v', str(vue_selected + 1)])
                 
         #Ctrl Clic
         if event.type == pygame.MOUSEBUTTONUP and event.button == 1 and ctrl:
             #Menu config
             if cfg_menu[0] - w/2 < x < cfg_menu[0] + w/2 and cfg_menu[1] - h/2 < y < cfg_menu[1] + min(5, len(cfg_list)) * (h * 1.1):
+                #Lancement de l'éditeur de config
                 cfg_selected = int((y - cfg_menu[1] + h/2)//((h * 1.2)))
-                os.execv('/usr/bin/python', ['/usr/bin/python', 'edit_config.py', '-c', cfg_list[cfg_selected]])
+                os.execv('/usr/bin/python', ['/usr/bin/python', 'edit_config.py', '-c', cfg_list[cfg_selected + 5 * cfg_page]])
             elif ia_menu[0] - w/2 < x < ia_menu[0] + w/2 and ia_menu[1] - h/2 < y < ia_menu[1] + min(5, len(ia_list)) * (h * 1.1):
+                #Ouverture de VSCode
                 ia_selected = int((y - ia_menu[1] + h/2)//((h * 1.2)))
-                os.system("code demo_ia/" + ia_list[ia_selected])
+                os.system("code demo_ia/" + ia_list[ia_selected + 5 * ia_page])
         
-        #Detection de la touche CTRL
+        #Detection des touches
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_BACKSPACE and len(current_title) != 0:
                 current_title = current_title[:-1]
@@ -182,6 +192,16 @@ while running:
                 current_title += pygame.key.name(event.key).replace('8', '_') if pygame.key.name(event.key) in "abcdefghijklmnopqrstuvwxyz8" else ""
             if event.key == pygame.K_LCTRL:
                 ctrl = True
+            if event.key == pygame.K_LEFT:
+                cfg_page -= 1 if latest_selected == 0 and cfg_page > 0 and not cfg_writing else 0
+                ia_page -= 1 if latest_selected == 1 and ia_page > 0 and not ia_writing else 0
+                ia_selected, cfg_selected = 0, 0
+            if event.key == pygame.K_RIGHT:
+                cfg_page += 1 if latest_selected == 0 and (cfg_page + 1) * 5 < len(cfg_list) and not cfg_writing else 0
+                ia_page += 1 if latest_selected == 1 and (ia_page + 1) * 5 < len(ia_list) and not ia_writing else 0
+                ia_selected, cfg_selected = 0, 0
+
+
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LCTRL:
                 ctrl = False

@@ -91,6 +91,12 @@ def show_menu():
         screen.blit(text, (x - text.get_width()/2, y - 35 - text.get_height()/2))
 
         pygame.draw.rect(screen, clr_selected, (x - 2 - w/2, y - 2 + 50 * selected - h/2, w + 4, h + 4), border_radius=6)
+
+        #Affichage des pages
+        if len(lst) > 5:
+            text = pygame.font.Font('freesansbold.ttf', font_size).render(str(page + 1) + "/" + str(len(lst)//5 + 1), False, (0, 0, 0))
+            screen.blit(text, (x - text.get_width()/2 + w/2 - 5, y - 35 - text.get_height()/2))
+
         for i in range(min(5, len(lst) - 5 * page)):
             pygame.draw.rect(screen, clr, (x - w/2, y + (h+10) * i - h/2, w, h), border_radius=6)
 
@@ -133,6 +139,7 @@ while running:
         if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
             x, y = pygame.mouse.get_pos()
 
+            #Confirmation de la création du fichier
             if ia_writing:
                 open("demo_ia/" + current_title + ".ia", "w").close()
                 ia_list.insert(-1, current_title + ".ia")
@@ -166,7 +173,7 @@ while running:
                 vue_selected = int((y - vue_menu[1] + h/2)//((h * 1.2)))
                 latest_selected = -1
             #Lancer
-            elif p_x - p_w/2 < p_x < p_x + p_w/2 and p_y - p_h/2 < y < p_y:
+            elif p_x - p_w/2 < p_x < p_x + p_w/2 and p_y - p_h/2 < y < p_y and cfg_list[cfg_selected + 5 * cfg_page] != "+" and ia_list[ia_selected + 5 * ia_page] != "+":
                 #On lance la simulation
                 pygame.display.quit()
                 running = False

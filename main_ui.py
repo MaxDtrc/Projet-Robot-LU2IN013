@@ -173,7 +173,7 @@ while running:
                 vue_selected = int((y - vue_menu[1] + h/2)//((h * 1.2)))
                 latest_selected = -1
             #Lancer
-            elif p_x - p_w/2 < p_x < p_x + p_w/2 and p_y - p_h/2 < y < p_y and cfg_list[cfg_selected + 5 * cfg_page] != "+" and ia_list[ia_selected + 5 * ia_page] != "+":
+            elif p_x - p_w/2 < x < p_x + p_w/2 and p_y - p_h/2 < y < p_y + p_h/2 and cfg_list[cfg_selected + 5 * cfg_page] != "+" and ia_list[ia_selected + 5 * ia_page] != "+":
                 #On lance la simulation
                 pygame.display.quit()
                 running = False

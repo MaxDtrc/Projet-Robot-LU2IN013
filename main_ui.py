@@ -43,6 +43,27 @@ s_y = 750
 Initialisation du code
 """
 
+def creer_fichier():
+            
+    global current_title, ia_writing, cfg_writing, ia_list, cfg_list
+    if ia_writing:
+        if current_title == "":
+            ia_writing = False
+        else:
+            open("demo_ia/" + current_title + ".ia", "w").close()
+            ia_list.insert(-1, current_title + ".ia")
+            print("Nouveau fichier .ia créé")
+            ia_writing, current_title = False, ""
+    if cfg_writing:
+        if current_title == "":
+            ia_writing = False
+        else :
+            with open("config/" + current_title + ".json", "w") as f:
+                f.write("{\"terrain\":{\"tailleX\":152, \"tailleY\":152}, \"obstaclesRonds\":[], \"obstaclesRectangles\":[], \"robots\":[], \"balises\":[]}")
+            cfg_list.insert(-1, current_title + ".json")
+            print("Nouvelle config créée")
+            cfg_writing, current_title = False, ""
+
 
 pygame.init()
 screen = pygame.display.set_mode((s_x, s_y))
@@ -140,34 +161,21 @@ while running:
         if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
             x, y = pygame.mouse.get_pos()
 
-            #Confirmation de la création du fichier
-            if ia_writing:
-                open("demo_ia/" + current_title + ".ia", "w").close()
-                ia_list.insert(-1, current_title + ".ia")
-                print("Nouveau fichier .ia créé")
-                ia_writing, current_title = False, ""
-            if cfg_writing:
-                with open("config/" + current_title + ".json", "w") as f:
-                    f.write("{\"terrain\":{\"tailleX\":152, \"tailleY\":152}, \"obstaclesRonds\":[], \"obstaclesRectangles\":[], \"robots\":[], \"balises\":[]}")
-                cfg_list.insert(-1, current_title + ".json")
-                print("Nouvelle config créée")
-                cfg_writing, current_title = False, ""
-
-
+            creer_fichier()
 
             #Menu config
             if cfg_menu[0] - w/2 < x < cfg_menu[0] + w/2 and cfg_menu[1] - h/2 < y < cfg_menu[1] + min(5, len(cfg_list)) * (h * 1.1):
                 clicked = int((y - cfg_menu[1] + h/2)//((h * 1.2)))
                 if clicked == cfg_selected and cfg_selected == len(cfg_list) - 5 * cfg_page - 1:
                     cfg_writing = True
-                cfg_selected = clicked
+                cfg_selected = clicked if clicked < min(5, len(cfg_list) - 5 * cfg_page) else cfg_selected
                 latest_selected = 0
             #Menu IA
             elif ia_menu[0] - w/2 < x < ia_menu[0] + w/2 and ia_menu[1] - h/2 < y < ia_menu[1] + min(5, len(ia_list)) * (h * 1.1):
                 clicked = int((y - ia_menu[1] + h/2)//((h * 1.2)))
                 if clicked == ia_selected and clicked == len(ia_list) - 5 * ia_page - 1:
                     ia_writing = True
-                ia_selected = clicked
+                ia_selected = clicked if clicked < min(5, len(ia_list) - 5 * ia_page) else ia_selected
                 latest_selected = 1
             #Menu des vues
             elif vue_menu[0] - w/2 < x < vue_menu[0] + w/2 and vue_menu[1] - h/2 < y < vue_menu[1] + 2 * (h * 1.1):
@@ -186,11 +194,13 @@ while running:
             if cfg_menu[0] - w/2 < x < cfg_menu[0] + w/2 and cfg_menu[1] - h/2 < y < cfg_menu[1] + min(5, len(cfg_list)) * (h * 1.1):
                 #Lancement de l'éditeur de config
                 cfg_selected = int((y - cfg_menu[1] + h/2)//((h * 1.2)))
-                os.execv(sys.executable, [sys.executable, 'edit_config.py', '-c', cfg_list[cfg_selected + 5 * cfg_page]])
+                if cfg_list[cfg_selected + 5 * cfg_page] != "+":
+                    os.execv(sys.executable, [sys.executable, 'edit_config.py', '-c', cfg_list[cfg_selected + 5 * cfg_page]])
             elif ia_menu[0] - w/2 < x < ia_menu[0] + w/2 and ia_menu[1] - h/2 < y < ia_menu[1] + min(5, len(ia_list)) * (h * 1.1):
                 #Ouverture de VSCode
                 ia_selected = int((y - ia_menu[1] + h/2)//((h * 1.2)))
-                os.system("code demo_ia/" + ia_list[ia_selected + 5 * ia_page])
+                if ia_list[ia_selected + 5 * ia_page] != "+":
+                    os.system("code demo_ia/" + ia_list[ia_selected + 5 * ia_page])
         
         #Detection des touches
         elif event.type == pygame.KEYDOWN:
@@ -204,13 +214,29 @@ while running:
                 ctrl = True
             #Defilement des pages
             if event.key == pygame.K_LEFT:
-                cfg_page -= 1 if latest_selected == 0 and cfg_page > 0 and not cfg_writing else 0
-                ia_page -= 1 if latest_selected == 1 and ia_page > 0 and not ia_writing else 0
-                ia_selected, cfg_selected = 0, 0
+                if latest_selected == 0:
+                    cfg_page -= 1 if cfg_page > 0 and not cfg_writing else 0
+                    cfg_selected = 0
+                elif latest_selected == 1:
+                    ia_page -= 1 if ia_page > 0 and not ia_writing else 0
+                    ia_selected = 0
             if event.key == pygame.K_RIGHT:
-                cfg_page += 1 if latest_selected == 0 and (cfg_page + 1) * 5 < len(cfg_list) and not cfg_writing else 0
-                ia_page += 1 if latest_selected == 1 and (ia_page + 1) * 5 < len(ia_list) and not ia_writing else 0
-                ia_selected, cfg_selected = 0, 0
+                if latest_selected == 0:
+                    cfg_page += 1 if (cfg_page + 1) * 5 < len(cfg_list) and not cfg_writing else 0
+                    cfg_selected = 0
+                elif latest_selected == 1:
+                    ia_page += 1 if latest_selected == 1 and (ia_page + 1) * 5 < len(ia_list) and not ia_writing else 0
+                    ia_selected = 0
+            if event.key == pygame.K_UP:
+                cfg_selected -= 1 if latest_selected == 0 and cfg_selected > 0 and not cfg_writing else 0
+                ia_selected -= 1 if latest_selected == 1 and ia_selected > 0 and not ia_writing else 0
+            if event.key == pygame.K_DOWN:
+                cfg_selected += 1 if latest_selected == 0 and cfg_selected < min(4, len(cfg_list) - 5 * cfg_page - 1) and not cfg_writing else 0
+                ia_selected += 1 if latest_selected == 1 and ia_selected < min(4, len(ia_list) - 5 * ia_page - 1) and not ia_writing else 0
+            if event.key == pygame.K_RETURN:
+                creer_fichier()
+
+ 
             #Suppression d'un fichier
             if ctrl and event.key == pygame.K_DELETE:
                 if latest_selected == 0 and not cfg_writing and cfg_list[cfg_selected + 5 * cfg_page] != '+':

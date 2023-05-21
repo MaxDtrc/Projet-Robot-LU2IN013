@@ -3,6 +3,7 @@ from math import sqrt, radians, degrees
 import json
 import argparse
 import os
+import sys
 
 #Lecture des arguments
 parser = argparse.ArgumentParser()
@@ -108,7 +109,7 @@ def check_menu():
     if s_x * e + 10 < x < s_x * e + 60 and s_y * e - 60 < y < s_y * e - 10:
         #On save et retourne au menu principal
         save()
-        os.execv('/usr/bin/python', ['/usr/bin/python', 'main_ui.py'])
+        os.execv(sys.executable, [sys.executable, 'main_ui.py'])
                 
         
     return True

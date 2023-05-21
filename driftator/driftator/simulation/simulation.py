@@ -133,6 +133,7 @@ class Simulation(Thread):
 
         #Suppression des robots qui se sont crashés
         for r in robotsARetirer:
+            self.terrain.retirerObstacle(robot)
             self.retirerRobot(r)
     
 

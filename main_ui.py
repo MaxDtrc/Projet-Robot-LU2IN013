@@ -2,6 +2,7 @@ import pygame
 import os
 from os import listdir
 from os.path import isfile, join
+import sys
 
 """
 Variables generales
@@ -177,7 +178,7 @@ while running:
                 #On lance la simulation
                 pygame.display.quit()
                 running = False
-                os.execv('/usr/bin/python', ['/usr/bin/python', 'main.py', '-c', 'config/' + cfg_list[cfg_selected + 5 * cfg_page], '-ia', 'demo_ia/' + ia_list[ia_selected + 5 * ia_page], '-v', str(vue_selected + 1)])
+                os.execv(sys.executable, [sys.executable, 'main.py', '-c', 'config/' + cfg_list[cfg_selected + 5 * cfg_page], '-ia', 'demo_ia/' + ia_list[ia_selected + 5 * ia_page], '-v', str(vue_selected + 1)])
                 
         #Ctrl Clic
         if event.type == pygame.MOUSEBUTTONUP and event.button == 1 and ctrl:
@@ -185,7 +186,7 @@ while running:
             if cfg_menu[0] - w/2 < x < cfg_menu[0] + w/2 and cfg_menu[1] - h/2 < y < cfg_menu[1] + min(5, len(cfg_list)) * (h * 1.1):
                 #Lancement de l'éditeur de config
                 cfg_selected = int((y - cfg_menu[1] + h/2)//((h * 1.2)))
-                os.execv('/usr/bin/python', ['/usr/bin/python', 'edit_config.py', '-c', cfg_list[cfg_selected + 5 * cfg_page]])
+                os.execv(sys.executable, [sys.executable, 'edit_config.py', '-c', cfg_list[cfg_selected + 5 * cfg_page]])
             elif ia_menu[0] - w/2 < x < ia_menu[0] + w/2 and ia_menu[1] - h/2 < y < ia_menu[1] + min(5, len(ia_list)) * (h * 1.1):
                 #Ouverture de VSCode
                 ia_selected = int((y - ia_menu[1] + h/2)//((h * 1.2)))
@@ -213,10 +214,10 @@ while running:
             #Suppression d'un fichier
             if ctrl and event.key == pygame.K_DELETE:
                 if latest_selected == 0 and not cfg_writing and cfg_list[cfg_selected + 5 * cfg_page] != '+':
-                    os.system("rm config/" + cfg_list[cfg_selected + 5 * cfg_page])
+                    os.remove("config/" + cfg_list[cfg_selected + 5 * cfg_page])
                     cfg_list.remove(cfg_list[cfg_selected + 5 * cfg_page])
                 if latest_selected == 1 and not ia_writing and ia_list[ia_selected + 5 * ia_page] != '+':
-                    os.system("rm demo_ia/" + ia_list[ia_selected + 5 * ia_page])
+                    os.remove("demo_ia/" + ia_list[ia_selected + 5 * ia_page])
                     ia_list.remove(ia_list[ia_selected + 5 * ia_page])
 
 

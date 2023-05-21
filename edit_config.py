@@ -46,6 +46,7 @@ if args.fond != "":
 #Chargement des images
 imgRobot = pygame.transform.scale(pygame.image.load("driftator/driftator/affichage/textures/robot.png").convert_alpha(), (15 * e, 19.5 * e))
 balises_img = [pygame.transform.scale(pygame.image.load("driftator/driftator/affichage/textures/balise" + str(i) + ".png").convert_alpha(), (7 * e, 7 * e)) for i in range(1, nb_outils - 2)]
+retourIMG = pygame.transform.scale(pygame.image.load("driftator/driftator/affichage/textures/retour.png").convert_alpha(), (7*e, 8*e))
 
 lst_actions = []
 ctrl = False
@@ -84,6 +85,7 @@ def show_menu():
 
     #Affichage du bouton retour
     pygame.draw.rect(screen, clr_cases, (s_x * e + 10, s_y * e - 60, 50, 50))
+    screen.blit(retourIMG, (s_x * e + 17, s_y * e - 55))
 
     #Affichage des outils
     pygame.draw.rect(screen, COULEUR_OBSTACLES, (s_x * e + 20, 20, 30, 30)) #Rectangle

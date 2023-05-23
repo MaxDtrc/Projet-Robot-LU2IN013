@@ -15,8 +15,8 @@ class implemVraiVie:
 
         #Lancement de la camera
         self.start_recording()
-        self.vitesseGauche = 0
-        self.vitesseDroite = 0
+        self._r.vitesseGauche = 0
+        self._r.vitesseDroite = 0
 
     def setVitesseGauche(self, v: float):
         """

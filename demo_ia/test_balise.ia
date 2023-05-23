@@ -1,0 +1,10 @@
+capteurs_background = true
+
+
+while(true){
+    if(pos_balise != null){
+        print(1)
+    }else{
+        print(0)
+    }
+}

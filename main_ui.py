@@ -74,7 +74,7 @@ Initialisation de pygame et des variables
 pygame.init()
 screen = pygame.display.set_mode((s_x, s_y))
 
-pygame.display.set_caption('Driftator SDK') 
+pygame.display.set_caption('Driftator Editor') 
 screen.fill((255,255,255))
 
 #Menu des configs

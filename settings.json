@@ -1,0 +1,15 @@
+{
+    "affichage2d": {
+        "fps": 360,
+        "echelle": 5,
+        "afficherDistance": false,
+        "afficherTrace": true
+    },
+    "affichage3d": {
+        "fps": 240
+    },
+    "general":{
+        "dTRobot": 0.001,
+        "dTSimu": 0.00001
+    }
+}

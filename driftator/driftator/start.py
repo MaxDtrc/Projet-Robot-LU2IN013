@@ -1,5 +1,8 @@
+import json
+
 def startRobot(strat, dT = 0.001):
     from . import ia
+
     #Importation de la librairie du robot
     from robot2IN013 import Robot2IN013
 
@@ -8,16 +11,24 @@ def startRobot(strat, dT = 0.001):
     implem = ia.implemVraiVie(ia.GetDecalage(Robot2IN013()))
     controleur.changerImplementation(implem)
 
+    #Chargement des paramètres
+    with open("settings.json", "r") as json_file:
+        data = json.load(json_file)
+
     #Lancement de l'IA
-    strat = ia.openIA(strat, controleur, dT)
+    strat = ia.openIA(strat, controleur, data["general"]["dTRobot"])
     strat.start()
 
 
 def startSimulation(strat, config, simView = 1, dT = 0.00001):
     from . import simulation, affichage, ia
+
+    #Chargement des paramètres
+    with open("settings.json", "r") as json_file:
+        data = json.load(json_file)
     
     #Creation de la simulation
-    sim = simulation.chargerJson(config, dT)
+    sim = simulation.chargerJson(config, data["general"]["dTSimu"])
 
     for i in range(0, sim.getNombreDeRobots()):
         #Initialisation du controleur
@@ -25,14 +36,14 @@ def startSimulation(strat, config, simView = 1, dT = 0.00001):
         implem = ia.implemSimulation(ia.GetDecalage(sim.getRobot(i)), sim)
         controleur.changerImplementation(implem)
         #Chargement de l'IA
-        strategie = ia.openIA(strat, controleur, dT)
+        strategie = ia.openIA(strat, controleur, data["general"]["dTSimu"])
         strategie.start()
 
     #Initialisation de l'affichage
     if simView == 1:
-        affichage2d = affichage.Affichage(sim, controleur,  360, 5, True, True)
+        affichage2d = affichage.Affichage(sim, controleur,  data["affichage2d"]["fps"], data["affichage2d"]["echelle"], data["affichage2d"]["afficherDistance"], data["affichage2d"]["afficherTrace"])
     elif simView == 2:
-        affichage3d = affichage.Affichage3d(sim, controleur,  240)
+        affichage3d = affichage.Affichage3d(sim, controleur,  data["affichage3d"]["fps"])
         controleur.set_a(affichage3d)
         
     #Start des threads de la simulation

@@ -190,9 +190,9 @@ def enregistrerJson(fichier:str, simulation):
     d = dict()
     d["terrain"] = {"tailleX": simulation.terrain.sizeX, "tailleY": simulation.terrain.sizeY}
 
-    d["obstaclesRonds"] =[]
-    d["obstaclesRectangles"] =[]
-    d["balises"] =[]
+    d["obstaclesRonds"] = []
+    d["obstaclesRectangles"] = []
+    d["balises"] = []
     for i in range (0, simulation.terrain.getNombreObstacles()):
         obsdic = dict()
         o = simulation.terrain.getObstacle(i)

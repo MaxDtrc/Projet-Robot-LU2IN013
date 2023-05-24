@@ -44,7 +44,9 @@ Initialisation du code
 """
 
 def creer_fichier():
-            
+    """
+    Fonction permettant de créer un nouveau fichier (IA ou Config)
+    """
     global current_title, ia_writing, cfg_writing, ia_list, cfg_list
     if ia_writing:
         if current_title == "":
@@ -64,6 +66,10 @@ def creer_fichier():
             print("Nouvelle config créée")
             cfg_writing, current_title = False, ""
 
+
+"""
+Initialisation de pygame et des variables
+"""
 
 pygame.init()
 screen = pygame.display.set_mode((s_x, s_y))
@@ -91,10 +97,9 @@ vue_selected = 0
 vue_writing = False
 
 ctrl = False
-
 current_title = ""
-
 latest_selected = 0
+
 
 def show_menu():
     """
@@ -116,7 +121,7 @@ def show_menu():
 
         #Affichage des pages
         if len(lst) > 5:
-            text = pygame.font.Font('freesansbold.ttf', font_size).render(str(page + 1) + "/" + str(len(lst)//5 + 1), False, (0, 0, 0))
+            text = pygame.font.Font('freesansbold.ttf', font_size).render(str(page + 1) + "/" + str((len(lst) - 1)//5 + 1), False, (0, 0, 0))
             screen.blit(text, (x - text.get_width()/2 + w/2 - 5, y - 35 - text.get_height()/2))
 
         for i in range(min(5, len(lst) - 5 * page)):
@@ -134,6 +139,7 @@ def show_menu():
     pygame.draw.rect(screen, clr_play, (p_x - p_w/2, p_y - p_h/2, p_w, p_h), border_radius=6)
     text = pygame.font.Font('freesansbold.ttf', font_size).render("Lancer", True, (0, 0, 0))
     screen.blit(text, (p_x - text.get_width()/2, p_y - text.get_height()/2))
+
 
 """
 Script principal
@@ -246,7 +252,7 @@ while running:
                     os.remove("demo_ia/" + ia_list[ia_selected + 5 * ia_page])
                     ia_list.remove(ia_list[ia_selected + 5 * ia_page])
 
-
+        #Relachement de la touche controle
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LCTRL:
                 ctrl = False

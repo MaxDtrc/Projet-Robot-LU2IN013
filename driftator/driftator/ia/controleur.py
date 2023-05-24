@@ -357,8 +357,11 @@ class Capteurs(Thread):
         self.running = True
         while(self.running):
             self.capteurDistance = self.implem.getDistance()
-            self.capteurBalise = self.implem.getBalisePosition()
-            self.posBalise, self.typeBalise = self.implem.getBaliseType()
+            try:
+                self.capteurBalise = self.implem.getBalisePosition()
+                self.posBalise, self.typeBalise = self.implem.getBaliseType()
+            except:
+                self.capteurBalise, self.posBalise, self.typeBalise = False, False, False
 
             #print("capteurDistance:", self.capteurDistance, ", capteurBalise:", self.capteurBalise)
     

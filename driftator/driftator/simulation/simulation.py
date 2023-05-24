@@ -25,10 +25,10 @@ class Simulation(Thread):
             self._robotsList = robotsList
         self.terrain = terrain
 
-        #Dernier point détecté par le capteur de distance et s'il a été appelé
-        self.capteurDistanceAppele = False 
-        self.lastPosX = 0
-        self.lastPosY = 0
+        #Dernier point détecté par le capteur de distance et s'il a été appelé (pour chaque robot)
+        self.capteurDistanceAppele = {k:False for k in [r.nom for r in self._robotsList]}
+        self.lastPosRayon = {k:(0, 0) for k in [r.nom for r in self._robotsList]}
+
 
     def run(self):
         self.running = True
@@ -49,6 +49,8 @@ class Simulation(Thread):
         """
 
         self._robotsList.append(robot)
+        self.capteurDistanceAppele[robot.nom] = False
+        self.lastPosRayon[robot.nom] = (0, 0)
 
     
     def retirerRobot(self, robot : o.Robot):
@@ -100,9 +102,8 @@ class Simulation(Thread):
             for i in range(0, self.terrain.getNombreObstacles()):
                 if self.terrain.getObstacle(i).nom != robot.nom and self.terrain.getObstacle(i).estDedans(posRayon[0], posRayon[1]):
                     #Enregistrement des dernières valeurs observées (utiles pour du débogage ou l'affichage du rayon par exemple)
-                    self.capteurDistanceAppele = True
-                    self.lastPosX = posRayon[0] #On enregistre la dernière position X du rayon
-                    self.lastPosY = posRayon[1] #On enregistre la dernière position Y du rayon
+                    self.capteurDistanceAppele[robot.nom] = True
+                    self.lastPosRayon[robot.nom] = (posRayon[0], posRayon[1]) #On enregistre la dernière position du rayon
 
                     return distance
             

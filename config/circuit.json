@@ -142,34 +142,6 @@
             "type_balise": 1
         },
         {
-            "nom": "balise7",
-            "posX": -27.200000000000003,
-            "posY": 6.400000000000006,
-            "angle": -90,
-            "type_balise": 2
-        },
-        {
-            "nom": "balise8",
-            "posX": -48.8,
-            "posY": 3.4000000000000057,
-            "angle": 182,
-            "type_balise": 2
-        },
-        {
-            "nom": "balise9",
-            "posX": 0.20000000000000284,
-            "posY": 3.5999999999999943,
-            "angle": 184,
-            "type_balise": 3
-        },
-        {
-            "nom": "balise10",
-            "posX": 24.400000000000006,
-            "posY": 27.799999999999997,
-            "angle": 1,
-            "type_balise": 3
-        },
-        {
             "nom": "balise11",
             "posX": -66.8,
             "posY": 57.80000000000001,

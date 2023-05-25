@@ -1,6 +1,0 @@
-while(true){
-    d = capteur_distance
-    r = random % 10 - 5
-    angle = 100 - d + r
-    avancer d=3 v=600 a=angle
-}

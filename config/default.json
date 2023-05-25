@@ -37,18 +37,10 @@
     "robots": [
         {
             "nom": "robot0",
-            "posX": 5.200000000000003,
-            "posY": 6.200000000000003,
-            "angle": 130
+            "posX": 2.0,
+            "posY": 61.80000000000001,
+            "angle": 93
         }
     ],
-    "balises": [
-        {
-            "nom": "balise0",
-            "posX": 33.2,
-            "posY": -69.4,
-            "angle": 258,
-            "type_balise": 5
-        }
-    ]
+    "balises": []
 }

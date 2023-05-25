@@ -1,4 +1,4 @@
-//Tracer carré
+//On trace le carré
 for (4){
     avancer d=40 v=200 a=0
     tourner a=90 v=60

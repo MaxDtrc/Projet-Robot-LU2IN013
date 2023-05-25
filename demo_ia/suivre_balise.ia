@@ -1,21 +1,10 @@
-avancer d=1 v=20 a=0
-capteurs_background = true
-avancer d=1 v=20 a=0
-
-while(true){
-    print(type_balise)
-    if(type_balise == 1){
-        print(capteur_distance)
-        while(capteur_distance > 5){
-            if(pos_balise != null){
-                angle = pos_balise * 15
-            }else{
-                angle = 0
-            }
-            //avancer d=5 v=200 a=angle
-            print(1)
-        }
-    }else{
+//On cherche et on suit la balise
+while(capteur_distance > 3){
+    b = capteur_balise
+    if(b == null){
         tourner a=3 v=100
+    }else{
+        angle = 50 * b
+        avancer d=2 v=200 a=angle
     }
 }

@@ -7,6 +7,10 @@ https://maxdtrc.github.io/Projet-Robot-LU2IN013/
 
 main.py: fichier principal (initialisation de tout ce qu'il faut pour le fonctionnement du robot)
 
+edit_config.py : script permettant d'ouvrir un editeur de configurations
+
+main_ui.py: interface graphique permettant de lancer une configuration
+
 
 FICHIERS .IA
 Les fichiers textes ".ia" permettent de générer une instance de la classe IA à l'aide de la méthode openIA()
@@ -59,6 +63,3 @@ Syntaxe:
 
     -- Autres instructions --
     print(expr) //Affiche la valeur de l'expression dans la console
-
-
-Pour un exemple concret, regarder le fichier test.ia

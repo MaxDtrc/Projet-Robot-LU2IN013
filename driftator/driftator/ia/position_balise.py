@@ -89,12 +89,11 @@ def getPosBaliseV2(img):
     img = img.resize((160, 120))
     img = np.array(img)
 
-
     #Obtention des coordonnées moyennes des couleurs rouge/bleu/vert/jaune
-    r = np.where((img[..., 0:1] > 120) & (img[..., 0:1] > img[..., 1:2] * 1.6) & (img[..., 0:1] > img[..., 2:3] * 1.6))[1]
-    b = np.where((img[..., 2:3] > 140) & (img[..., 2:3] > img[..., 0:1] * 4) & (img[..., 2:3] > img[..., 1:2] * 1.5))[1]
-    v = np.where((img[..., 1:2] > 120) & (img[..., 1:2] > img[..., 2:3] * 2) & (img[..., 1:2] > img[..., 2:3] * 2))[1]
-    j = np.where((img[..., 0:1] > 150) & (img[..., 1:2] > 150) & (img[..., 2:3] < 50))[1]
+    r = np.where((img[..., 0:1] > 85) & (img[..., 0:1] > img[..., 1:2] * 1.6) & (img[..., 0:1] > img[..., 2:3] * 1.6))[1]
+    b = np.where((img[..., 2:3] > 50) & (img[..., 2:3] > img[..., 0:1] * 1.3) & (img[..., 2:3] > img[..., 1:2] * 1.3))[1]
+    v = np.where((img[..., 1:2] > 70) & (img[..., 1:2] > img[..., 2:3] * 1.3) & (img[..., 1:2] > img[..., 2:3] * 1.3))[1]
+    j = np.where((img[..., 0:1] > 80) & (img[..., 1:2] > 80) & (img[..., 0:1] > img[..., 2:3] * 1.6)& (img[..., 1:2] > img[..., 2:3] * 1.6))[1]
 
     clr_balises = [r, b, v, j]
     
@@ -103,8 +102,8 @@ def getPosBaliseV2(img):
         return None
     
     #La couleur a bien été trouvée, on renvoie la coordonnée x
-    clr = [np.mean(c) for c in clr_balises[id]]
-    return 0, np.mean(clr)/80 - 1
+    clr = [np.mean(c) for c in clr_balises]
+    return np.mean(clr)/80 - 1
 
 def getPosBaliseV3(img):
     #Redimension de l'image

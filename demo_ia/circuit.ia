@@ -1,0 +1,27 @@
+avancer d=1 v=20 a=0
+capteurs_background = true
+avancer d=1 v=20 a=0
+
+while(true){
+    if(type_balise == null){
+        //Balise pas trouvée, on tourne
+        tourner a=3 v=100
+    }else{
+        //La balise a été trouvée
+
+        if(type_balise == 1){
+            //Balise "tourner à droite"
+            while(capteur_distance > 7){
+                //On avance jusqu'à la balise
+                if(pos_balise != null and type_balise == 1){
+                    angle = pos_balise * 20
+                }else{
+                    angle = 0
+                }
+                avancer d=5 v=600 a=angle
+            }
+            //On tourne à droite
+            tourner a=90 v=300
+        }
+    }
+}

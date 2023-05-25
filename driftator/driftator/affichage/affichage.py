@@ -333,7 +333,7 @@ class Affichage3d(Thread):
 
 
         for i in range(0, self._simulation.getNombreDeRobots()):
-            self.robotModel[i].setPos(self._simulation.getRobot(i).x, -self._simulation.getRobot(i).y, 0)
+            self.robotModel[i].setPos(self._simulation.getRobot(i).x, -(self._simulation.getRobot(i).y), 0)
             self.robotModel[i].setHpr((degrees(self._simulation.getRobot(i).angle) + 90)%360, 90, 0)
         
 

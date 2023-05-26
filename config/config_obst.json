@@ -34,6 +34,13 @@
             "largeur": 1
         }
     ],
-    "robots": [],
+    "robots": [
+        {
+            "nom": "robot0",
+            "posX": -31.6,
+            "posY": 20.0,
+            "angle": 90
+        }
+    ],
     "balises": []
 }

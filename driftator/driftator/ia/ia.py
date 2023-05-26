@@ -42,13 +42,13 @@ class Avancer:
     Classe représentant l'ia permettant d'avancer droit
 
     :param controleur: controleur du robot
-    :param distance: distance (cm) dont le robot doit avancer
+    :param d: distance (cm) dont le robot doit avancer
     :param v: vitesse (tour de roue/s)
-    :param angle: angle de la trajectoire du robot (pourcentage de -100 à 100)
+    :param a: angle de la trajectoire du robot (pourcentage de -100 à 100)
     """
-    def __init__(self, controleur, distance, v, angle = 0):
-        self._controleur = controleur
-        self.d, self.a, self.v,self.parcouru = distance, angle, v, 0
+    def __init__(self, c, d, v, a=0):
+        self._controleur = c
+        self.d, self.a, self.v, self.parcouru = d, a, v, 0
 
     def start(self):
         #On reset le controleur
@@ -84,9 +84,10 @@ class TournerSurPlace:
     :param angle: angle (degré) de rotation
     :param v: vitesse (tour de roue/s)
     """
-    def __init__(self, controleur, angle, v):
-        self._controleur = controleur
-        self.a = angle
+
+    def __init__(self, c, a, v):
+        self._controleur = c
+        self.a = a
         self.v = v
         self.parcouru = 0
 
@@ -122,9 +123,9 @@ class TournerTete:
 
     :param angle: angle (degré) de rotation
     """
-    def __init__(self, controleur, angle):
-        self._controleur = controleur
-        self.a = angle
+    def __init__(self, c, a):
+        self._controleur = c
+        self.a = a
 
     def start(self):
         #Substitution des variables
@@ -140,9 +141,9 @@ class Stop:
     """
     Classe représentant l'ia permettant au robot de s'arrêter
 
-    :param controleur: controleur du robot
+    :param c: controleur du robot
     """
-    def __init__(self, controleur):
+    def __init__(self, c):
         self._controleur = controleur
 
     def start(self):
@@ -160,15 +161,15 @@ class IAIf:
     """
     Classe permettant de réaliser un "if"
     """
-    def __init__(self, controleur, ia1, ia2, condition):
+    def __init__(self, c, ia1, ia2, condition):
         """
         Paramètres
-        :param controleur: controleur du robot
+        :param c: controleur du robot
         :param ia1: ia à appeler si la condition est vérifiée
         :param ia2: ia à appeler si la condition n'est pas vérifiée
         :param condition: IACondition correspondant à la condition du if
         """
-        self._controleur = controleur
+        self._controleur = c
         self._ia1 = ia1
         self._ia2 = ia2
         self._condition = condition
@@ -198,15 +199,15 @@ class IAAlterner:
     """
     Classe permettant de réaliser une ia conditionnelle (réalise un step d'une des deux IA selon la condition)
     """
-    def __init__(self, controleur, ia1, ia2, condition):
+    def __init__(self, c, ia1, ia2, condition):
         """
         Paramètres
-        :param controleur: controleur du robot
+        :param c: controleur du robot
         :param ia1: ia à appeler si la condition est vérifiée
         :param ia2: ia à appeler si la condition n'est pas vérifiée
         :param condition: IACondition correspondant à la condition 
         """
-        self._controleur = controleur
+        self._controleur = c
         self._ia1 = ia1
         self._ia2 = ia2
         self._condition = condition
@@ -234,14 +235,14 @@ class IAWhile:
     """
     Classe permettant de réaliser une ia tant qu'une condition est vérifiée
     """
-    def __init__(self, controleur, ia, condition):
+    def __init__(self, c, ia, condition):
         """
         Paramètres
-        :param controleur: controleur du robot
+        :param c: controleur du robot
         :param ia: ia à appeler tant que la condition est vérifiée
         :param condition: IACondition correspondant à la condition du while
         """
-        self._controleur = controleur
+        self._controleur = c
         self._ia = ia
         self._condition = condition
 
@@ -269,14 +270,14 @@ class IAFor:
     """
     Classe permettant de réaliser une ia un certain nombre de fois
     """
-    def __init__(self, controleur, ia, nbIter):
+    def __init__(self, c, ia, nbIter):
         """
         Paramètres
-        :param controleur: controleur du robot
+        :param c: controleur du robot
         :param ia: ia à appeler si la condition est vérifiée
         :param nbIter: nombre de fois que l'ia doit être effectuée
         """
-        self._controleur = controleur
+        self._controleur = c
         self.v = 0
         self._ia = ia
         self._nbIter = nbIter
@@ -311,13 +312,13 @@ class IASeq:
     """
     Classe permettant de réaliser une séquence d'IA
     """
-    def __init__(self, controleur, iaList):
+    def __init__(self, c, iaList):
         """
         Paramètres
-        :param controleur: controleur du robot
+        :param c: controleur du robot
         :param iaList: liste des ia à effectuer
         """
-        self._controleur = controleur
+        self._controleur = c
         self.v = 0
         self._i = -1
         self._iaList = iaList.copy()
@@ -344,8 +345,8 @@ class IASeq:
 
 
 class IAFonction():
-    def __init__(self, controleur, args):
-        self._controleur = controleur
+    def __init__(self, c, args):
+        self._controleur = c
         self.args = args
 
     def start(self):

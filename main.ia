@@ -1,8 +1,0 @@
-capteurs_background = true
-
-while(true){
-    tourner_tete a=0
-    avancer d=2 v=10
-    tourner_tete a=180
-    avancer d=2 v=10
-}

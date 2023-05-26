@@ -15,16 +15,11 @@ def readIA(ia, c):
     while(i < len(ia)):
         splited = ia[i].replace('\n', '').split(" ")
 
-        #Commentaire ou blanc
-        if ia[i] == '\n' or (len(ia[i]) > 2 and ia[i][:2] == '//'):
-            i+=1
-        
         #Instructions de base (avancer, tourner, tourner_tete, stop)
-        elif len(ia[i]) >= 1 and splited[0] in instructions.keys():
+        if len(ia[i]) >= 1 and splited[0] in instructions.keys():
             #Ajout de la commande
-            seq.append(eval("instructions['" + splited[0] + "'](c=c, " + ','.join(splited[1:]) + ")"))
+            seq.append(eval("instructions['" + splited[0] + "'](c=c," + ','.join([arg[:2] + "\"" + arg[2:] +"\"" if arg[2:] not in ['a', 'v', 'd'] and not arg[2:].isnumeric() else arg for arg in splited[1:]]) + ")"))
 
-        
         #Instruction "For"
         elif len(ia[i]) >= 3 and ia[i][:3] == 'for':
             #On lit le nombre de fois à répéter, on lit le bloc et on crée l'IA
@@ -75,7 +70,7 @@ def readIA(ia, c):
             #Lecture de l'instruction et construction de l'IA
             seq.append(IAFonction(c, ["affecterValeur"] + ia[i].replace('\n', '').split(" ")))
             
-        i+=1
+        i += 1
         
     return IASeq(c, seq)
 
@@ -101,7 +96,7 @@ def readBloc(ia, c, i):
 
         #Ajout de la commande
         tabBloc.append(ia[i])
-        i+=1
+        i += 1
 
     return readIA(tabBloc, c), i
         

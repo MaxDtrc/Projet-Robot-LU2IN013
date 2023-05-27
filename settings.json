@@ -10,6 +10,6 @@
     },
     "general":{
         "dTRobot": 0.001,
-        "dTSimu": 0.00001
+        "dTSimu": 0.001
     }
 }

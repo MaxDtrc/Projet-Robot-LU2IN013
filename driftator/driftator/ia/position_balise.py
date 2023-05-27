@@ -25,11 +25,19 @@ def setColor(clr):
 
 def distanceCase(v1, v2):
     """
-    Fonction auxiliaire renvoyant une distance en nb de case entre 2 couples de coordonnées    
+    Fonction auxiliaire renvoyant une distance en nb de case entre 2 couples de coordonnées
+    :param v1: premier couple de coordonées
+    :param v2: second couple de coordonées
+    :returns: le nombre de cases entre les 2 couples de coordonnées
     """
     return abs(v1[0] - v2[0]) + abs(v1[1] - v2[1])
 
 def getPosBalise(img):
+    """
+    Fonction permettant de detecter une balise RVBJ
+    :param img: l image à analiser
+    :returns: position de la balise ou None si la balise n'a pas été trouvé
+    """
     #Lecture de l'image
     im = Image.fromarray(img)
 
@@ -84,6 +92,11 @@ def getPosBalise(img):
     return None
 
 def getPosBaliseV2(img):
+    """
+    Fonction améliorée permettant de detecter une balise RVBJ
+    :param img: l image à analiser
+    :returns: position de la balise ou None si la balise n'a pas été trouvé
+    """
     #Redimension de l'image
     img = Image.fromarray(img)
     img = img.resize((160, 120))
@@ -107,6 +120,11 @@ def getPosBaliseV2(img):
 
 
 def getBalises(img):
+    """
+    Fonction améliorée permettant de detecter une des balises de type carré jaune-bleu
+    :param img: l image à analiser
+    :returns: position de la balise et le type de balise détecté (id) ou None si la balise n'a pas été trouvé
+    """
     #Redimension de l'image
     img = Image.fromarray(img)
     width, height = int(img.width/8), int(img.height/8)

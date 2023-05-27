@@ -96,12 +96,18 @@ class Affichage():
                 
 
     def run(self):
+        """
+        Permet de lancer l affichage
+        """
         self.running = True
         while self.running:
             self.afficherSimulation()
             time.sleep(1./self._fps)
 
     def stop(self):
+        """
+        Permet d arreter l affichage
+        """
         self.running = False
 
     def _afficherObstacle(self, obstacle : s.Obstacle):
@@ -259,6 +265,9 @@ class Affichage3d(Thread):
         self._afficherObstacles()
 
     def run(self):
+        """
+        Permet de lancer l affichage 3D
+        """
         self.app.running = True
         while self.app.running:
             self.afficherSimulation()
@@ -266,6 +275,9 @@ class Affichage3d(Thread):
         self.stop()
 
     def stop(self):
+        """
+        Permet d arreter l affichage 3D
+        """
         self._simulation.stop() #On arrête la simulation
         self._controleur.stop_ia_thread() #On arrête l'ia
 
@@ -359,7 +371,13 @@ class Affichage3d(Thread):
             self._afficherRobot()
 
 class MyApp(ShowBase):
+    """
+    Classe permettant l utilisation de Panda3D
+    """
     def __init__(self):
+        """
+        Initialisation du moteur Panda3D
+        """
         ShowBase.__init__(self)
 
         self.disableMouse()
@@ -375,9 +393,15 @@ class MyApp(ShowBase):
         self.obsList = list()
 
     def spinCameraTask(self, task):
+        """
+        Fonction Panda3D
+        """
         return Task.cont
     
     def getImagebytes(self, task):
+        """
+        Fonction Panda3D
+        """
         width = self.win.size[0]
         height = self.win.size[1]
         data = self.texture.getRamImage().getData()
@@ -394,6 +418,9 @@ class MyApp(ShowBase):
         return Task.cont
     
     def userExit(self):
+        """
+        Fonction Panda3D
+        """
         self.running = False
         self.shutdown()
         

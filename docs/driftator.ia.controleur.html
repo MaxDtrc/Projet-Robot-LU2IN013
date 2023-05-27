@@ -1,0 +1,468 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module driftator.ia.controleur</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="driftator.html"><font color="#ffffff">driftator</font></a>.<a href="driftator.ia.html"><font color="#ffffff">ia</font></a>.controleu</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/vincent/T%C3%A9l%C3%A9chargements/Projet-Robot-LU2IN013-Dev/driftator/driftator/ia/controleu.py">/home/vincent/Téléchargements/Projet-Robot-LU2IN013-Dev/driftator/driftator/ia/controleu.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="time.html">time</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="driftator.ia.controleu.html#Decorator">Decorator</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="driftator.ia.controleu.html#GetDecalage">GetDecalage</a>
+</font></dt><dt><font face="helvetica, arial"><a href="driftator.ia.controleu.html#Variables">Variables</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="driftator.ia.controleu.html#controleur">controleur</a>
+</font></dt><dt><font face="helvetica, arial"><a href="driftator.ia.controleu.html#implemSimulation">implemSimulation</a>
+</font></dt><dt><font face="helvetica, arial"><a href="driftator.ia.controleu.html#implemVraiVie">implemVraiVie</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="threading.html#Thread">threading.Thread</a>(<a href="builtins.html#object">builtins.object</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="driftator.ia.controleu.html#Capteurs">Capteurs</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Capteurs">class <strong>Capteurs</strong></a>(<a href="threading.html#Thread">threading.Thread</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Capteurs">Capteurs</a>(implementation)<br>
+&nbsp;<br>
+Classe&nbsp;permettant&nbsp;d'utiliser&nbsp;les&nbsp;capteurs&nbsp;en&nbsp;arrière&nbsp;plan<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="driftator.ia.controleu.html#Capteurs">Capteurs</a></dd>
+<dd><a href="threading.html#Thread">threading.Thread</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Capteurs-__init__"><strong>__init__</strong></a>(self, implementation)</dt><dd><tt>Constructeur&nbsp;de&nbsp;la&nbsp;classe&nbsp;<a href="#Capteurs">Capteurs</a><br>
+&nbsp;<br>
+:param&nbsp;implementation:&nbsp;implementation&nbsp;(réelle&nbsp;ou&nbsp;simulée)&nbsp;du&nbsp;robot</tt></dd></dl>
+
+<dl><dt><a name="Capteurs-run"><strong>run</strong></a>(self)</dt><dd><tt>Fonction&nbsp;principale&nbsp;du&nbsp;thread</tt></dd></dl>
+
+<dl><dt><a name="Capteurs-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Fonction&nbsp;d'arrêt&nbsp;du&nbsp;thread</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="threading.html#Thread">threading.Thread</a>:<br>
+<dl><dt><a name="Capteurs-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="Capteurs-getName"><strong>getName</strong></a>(self)</dt><dd><tt>Return&nbsp;a&nbsp;string&nbsp;used&nbsp;for&nbsp;identification&nbsp;purposes&nbsp;only.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;is&nbsp;deprecated,&nbsp;use&nbsp;the&nbsp;name&nbsp;attribute&nbsp;instead.</tt></dd></dl>
+
+<dl><dt><a name="Capteurs-isDaemon"><strong>isDaemon</strong></a>(self)</dt><dd><tt>Return&nbsp;whether&nbsp;this&nbsp;thread&nbsp;is&nbsp;a&nbsp;daemon.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;is&nbsp;deprecated,&nbsp;use&nbsp;the&nbsp;daemon&nbsp;attribute&nbsp;instead.</tt></dd></dl>
+
+<dl><dt><a name="Capteurs-is_alive"><strong>is_alive</strong></a>(self)</dt><dd><tt>Return&nbsp;whether&nbsp;the&nbsp;thread&nbsp;is&nbsp;alive.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;returns&nbsp;True&nbsp;just&nbsp;before&nbsp;the&nbsp;<a href="#Capteurs-run">run</a>()&nbsp;method&nbsp;starts&nbsp;until&nbsp;just<br>
+after&nbsp;the&nbsp;<a href="#Capteurs-run">run</a>()&nbsp;method&nbsp;terminates.&nbsp;See&nbsp;also&nbsp;the&nbsp;module&nbsp;function<br>
+enumerate().</tt></dd></dl>
+
+<dl><dt><a name="Capteurs-join"><strong>join</strong></a>(self, timeout=None)</dt><dd><tt>Wait&nbsp;until&nbsp;the&nbsp;thread&nbsp;terminates.<br>
+&nbsp;<br>
+This&nbsp;blocks&nbsp;the&nbsp;calling&nbsp;thread&nbsp;until&nbsp;the&nbsp;thread&nbsp;whose&nbsp;<a href="#Capteurs-join">join</a>()&nbsp;method&nbsp;is<br>
+called&nbsp;terminates&nbsp;--&nbsp;either&nbsp;normally&nbsp;or&nbsp;through&nbsp;an&nbsp;unhandled&nbsp;exception<br>
+or&nbsp;until&nbsp;the&nbsp;optional&nbsp;timeout&nbsp;occurs.<br>
+&nbsp;<br>
+When&nbsp;the&nbsp;timeout&nbsp;argument&nbsp;is&nbsp;present&nbsp;and&nbsp;not&nbsp;None,&nbsp;it&nbsp;should&nbsp;be&nbsp;a<br>
+floating&nbsp;point&nbsp;number&nbsp;specifying&nbsp;a&nbsp;timeout&nbsp;for&nbsp;the&nbsp;operation&nbsp;in&nbsp;seconds<br>
+(or&nbsp;fractions&nbsp;thereof).&nbsp;As&nbsp;<a href="#Capteurs-join">join</a>()&nbsp;always&nbsp;returns&nbsp;None,&nbsp;you&nbsp;must&nbsp;call<br>
+<a href="#Capteurs-is_alive">is_alive</a>()&nbsp;after&nbsp;<a href="#Capteurs-join">join</a>()&nbsp;to&nbsp;decide&nbsp;whether&nbsp;a&nbsp;timeout&nbsp;happened&nbsp;--&nbsp;if&nbsp;the<br>
+thread&nbsp;is&nbsp;still&nbsp;alive,&nbsp;the&nbsp;<a href="#Capteurs-join">join</a>()&nbsp;call&nbsp;timed&nbsp;out.<br>
+&nbsp;<br>
+When&nbsp;the&nbsp;timeout&nbsp;argument&nbsp;is&nbsp;not&nbsp;present&nbsp;or&nbsp;None,&nbsp;the&nbsp;operation&nbsp;will<br>
+block&nbsp;until&nbsp;the&nbsp;thread&nbsp;terminates.<br>
+&nbsp;<br>
+A&nbsp;thread&nbsp;can&nbsp;be&nbsp;<a href="#Capteurs-join">join</a>()ed&nbsp;many&nbsp;times.<br>
+&nbsp;<br>
+<a href="#Capteurs-join">join</a>()&nbsp;raises&nbsp;a&nbsp;RuntimeError&nbsp;if&nbsp;an&nbsp;attempt&nbsp;is&nbsp;made&nbsp;to&nbsp;join&nbsp;the&nbsp;current<br>
+thread&nbsp;as&nbsp;that&nbsp;would&nbsp;cause&nbsp;a&nbsp;deadlock.&nbsp;It&nbsp;is&nbsp;also&nbsp;an&nbsp;error&nbsp;to&nbsp;<a href="#Capteurs-join">join</a>()&nbsp;a<br>
+thread&nbsp;before&nbsp;it&nbsp;has&nbsp;been&nbsp;started&nbsp;and&nbsp;attempts&nbsp;to&nbsp;do&nbsp;so&nbsp;raises&nbsp;the&nbsp;same<br>
+exception.</tt></dd></dl>
+
+<dl><dt><a name="Capteurs-setDaemon"><strong>setDaemon</strong></a>(self, daemonic)</dt><dd><tt>Set&nbsp;whether&nbsp;this&nbsp;thread&nbsp;is&nbsp;a&nbsp;daemon.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;is&nbsp;deprecated,&nbsp;use&nbsp;the&nbsp;.daemon&nbsp;property&nbsp;instead.</tt></dd></dl>
+
+<dl><dt><a name="Capteurs-setName"><strong>setName</strong></a>(self, name)</dt><dd><tt>Set&nbsp;the&nbsp;name&nbsp;string&nbsp;for&nbsp;this&nbsp;thread.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;is&nbsp;deprecated,&nbsp;use&nbsp;the&nbsp;name&nbsp;attribute&nbsp;instead.</tt></dd></dl>
+
+<dl><dt><a name="Capteurs-start"><strong>start</strong></a>(self)</dt><dd><tt>Start&nbsp;the&nbsp;thread's&nbsp;activity.<br>
+&nbsp;<br>
+It&nbsp;must&nbsp;be&nbsp;called&nbsp;at&nbsp;most&nbsp;once&nbsp;per&nbsp;thread&nbsp;<a href="builtins.html#object">object</a>.&nbsp;It&nbsp;arranges&nbsp;for&nbsp;the<br>
+<a href="builtins.html#object">object</a>'s&nbsp;<a href="#Capteurs-run">run</a>()&nbsp;method&nbsp;to&nbsp;be&nbsp;invoked&nbsp;in&nbsp;a&nbsp;separate&nbsp;thread&nbsp;of&nbsp;control.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;will&nbsp;raise&nbsp;a&nbsp;RuntimeError&nbsp;if&nbsp;called&nbsp;more&nbsp;than&nbsp;once&nbsp;on&nbsp;the<br>
+same&nbsp;thread&nbsp;<a href="builtins.html#object">object</a>.</tt></dd></dl>
+
+<hr>
+Readonly properties inherited from <a href="threading.html#Thread">threading.Thread</a>:<br>
+<dl><dt><strong>ident</strong></dt>
+<dd><tt>Thread&nbsp;identifier&nbsp;of&nbsp;this&nbsp;thread&nbsp;or&nbsp;None&nbsp;if&nbsp;it&nbsp;has&nbsp;not&nbsp;been&nbsp;started.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;a&nbsp;nonzero&nbsp;integer.&nbsp;See&nbsp;the&nbsp;get_ident()&nbsp;function.&nbsp;Thread<br>
+identifiers&nbsp;may&nbsp;be&nbsp;recycled&nbsp;when&nbsp;a&nbsp;thread&nbsp;exits&nbsp;and&nbsp;another&nbsp;thread&nbsp;is<br>
+created.&nbsp;The&nbsp;identifier&nbsp;is&nbsp;available&nbsp;even&nbsp;after&nbsp;the&nbsp;thread&nbsp;has&nbsp;exited.</tt></dd>
+</dl>
+<dl><dt><strong>native_id</strong></dt>
+<dd><tt>Native&nbsp;integral&nbsp;thread&nbsp;ID&nbsp;of&nbsp;this&nbsp;thread,&nbsp;or&nbsp;None&nbsp;if&nbsp;it&nbsp;has&nbsp;not&nbsp;been&nbsp;started.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;a&nbsp;non-negative&nbsp;integer.&nbsp;See&nbsp;the&nbsp;get_native_id()&nbsp;function.<br>
+This&nbsp;represents&nbsp;the&nbsp;Thread&nbsp;ID&nbsp;as&nbsp;reported&nbsp;by&nbsp;the&nbsp;kernel.</tt></dd>
+</dl>
+<hr>
+Data descriptors inherited from <a href="threading.html#Thread">threading.Thread</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>daemon</strong></dt>
+<dd><tt>A&nbsp;boolean&nbsp;value&nbsp;indicating&nbsp;whether&nbsp;this&nbsp;thread&nbsp;is&nbsp;a&nbsp;daemon&nbsp;thread.<br>
+&nbsp;<br>
+This&nbsp;must&nbsp;be&nbsp;set&nbsp;before&nbsp;start()&nbsp;is&nbsp;called,&nbsp;otherwise&nbsp;RuntimeError&nbsp;is<br>
+raised.&nbsp;Its&nbsp;initial&nbsp;value&nbsp;is&nbsp;inherited&nbsp;from&nbsp;the&nbsp;creating&nbsp;thread;&nbsp;the<br>
+main&nbsp;thread&nbsp;is&nbsp;not&nbsp;a&nbsp;daemon&nbsp;thread&nbsp;and&nbsp;therefore&nbsp;all&nbsp;threads&nbsp;created&nbsp;in<br>
+the&nbsp;main&nbsp;thread&nbsp;default&nbsp;to&nbsp;daemon&nbsp;=&nbsp;False.<br>
+&nbsp;<br>
+The&nbsp;entire&nbsp;Python&nbsp;program&nbsp;exits&nbsp;when&nbsp;only&nbsp;daemon&nbsp;threads&nbsp;are&nbsp;left.</tt></dd>
+</dl>
+<dl><dt><strong>name</strong></dt>
+<dd><tt>A&nbsp;string&nbsp;used&nbsp;for&nbsp;identification&nbsp;purposes&nbsp;only.<br>
+&nbsp;<br>
+It&nbsp;has&nbsp;no&nbsp;semantics.&nbsp;Multiple&nbsp;threads&nbsp;may&nbsp;be&nbsp;given&nbsp;the&nbsp;same&nbsp;name.&nbsp;The<br>
+initial&nbsp;name&nbsp;is&nbsp;set&nbsp;by&nbsp;the&nbsp;constructor.</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Decorator">class <strong>Decorator</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Decorator">Decorator</a>(robot)<br>
+&nbsp;<br>
+Classe&nbsp;<a href="#Decorator">Decorator</a>&nbsp;de&nbsp;base<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Decorator-__getattr__"><strong>__getattr__</strong></a>(self, attr)</dt><dd><tt>Retourne&nbsp;les&nbsp;attributs&nbsp;d'un&nbsp;robot&nbsp;et&nbsp;son&nbsp;nom<br>
+:returns:&nbsp;le&nbsp;couple&nbsp;(robot,&nbsp;nom)</tt></dd></dl>
+
+<dl><dt><a name="Decorator-__init__"><strong>__init__</strong></a>(self, robot)</dt><dd><tt>Constructeur&nbsp;de&nbsp;la&nbsp;classe&nbsp;<a href="#Decorator">Decorator</a><br>
+&nbsp;<br>
+:param&nbsp;robot:&nbsp;robot&nbsp;sur&nbsp;lequel&nbsp;appliquer&nbsp;le&nbsp;decorator</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="GetDecalage">class <strong>GetDecalage</strong></a>(<a href="driftator.ia.controleu.html#Decorator">Decorator</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#GetDecalage">GetDecalage</a>(robot)<br>
+&nbsp;<br>
+Classe&nbsp;<a href="#Decorator">Decorator</a>&nbsp;ajoutant&nbsp;des&nbsp;fonctions&nbsp;pour&nbsp;obtenir&nbsp;le&nbsp;décalage&nbsp;des&nbsp;roues&nbsp;du&nbsp;robot<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="driftator.ia.controleu.html#GetDecalage">GetDecalage</a></dd>
+<dd><a href="driftator.ia.controleu.html#Decorator">Decorator</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="GetDecalage-__getattr__"><strong>__getattr__</strong></a>(self, name)</dt><dd><tt>Retourne&nbsp;les&nbsp;attributs&nbsp;d'un&nbsp;robot&nbsp;et&nbsp;son&nbsp;nom<br>
+:returns:&nbsp;le&nbsp;couple&nbsp;(robot,&nbsp;nom)</tt></dd></dl>
+
+<dl><dt><a name="GetDecalage-__init__"><strong>__init__</strong></a>(self, robot)</dt><dd><tt>Initialisation&nbsp;de&nbsp;<a href="#GetDecalage">GetDecalage</a><br>
+&nbsp;<br>
+:param&nbsp;robot:&nbsp;robot&nbsp;sur&nbsp;lequel&nbsp;appliquer&nbsp;le&nbsp;décorateur</tt></dd></dl>
+
+<dl><dt><a name="GetDecalage-getDecalageAngle"><strong>getDecalageAngle</strong></a>(self)</dt><dd><tt>Renvoi&nbsp;le&nbsp;décalage&nbsp;de&nbsp;l'angle&nbsp;du&nbsp;robot&nbsp;depuis&nbsp;le&nbsp;dernier&nbsp;appel&nbsp;de&nbsp;la&nbsp;fonction&nbsp;et&nbsp;le&nbsp;remet&nbsp;à&nbsp;0<br>
+&nbsp;<br>
+:returns:&nbsp;le&nbsp;décalage&nbsp;de&nbsp;l'angle&nbsp;du&nbsp;robot&nbsp;depuis&nbsp;le&nbsp;dernier&nbsp;appel</tt></dd></dl>
+
+<dl><dt><a name="GetDecalage-getDistanceParcourue"><strong>getDistanceParcourue</strong></a>(self)</dt><dd><tt>Renvoi&nbsp;la&nbsp;distance&nbsp;parcourue&nbsp;par&nbsp;le&nbsp;robot<br>
+&nbsp;<br>
+:returns:&nbsp;la&nbsp;distance&nbsp;parcourue&nbsp;par&nbsp;le&nbsp;robot</tt></dd></dl>
+
+<dl><dt><a name="GetDecalage-resetDecalage"><strong>resetDecalage</strong></a>(self)</dt><dd><tt>Fonction&nbsp;permettant&nbsp;de&nbsp;réinitialiser&nbsp;le&nbsp;calcul&nbsp;du&nbsp;décalage</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="driftator.ia.controleu.html#Decorator">Decorator</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Variables">class <strong>Variables</strong></a>(<a href="driftator.ia.controleu.html#Decorator">Decorator</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Variables">Variables</a>(ctrl)<br>
+&nbsp;<br>
+Classe&nbsp;héritant&nbsp;de&nbsp;<a href="#Decorator">Decorator</a>&nbsp;permettant&nbsp;au&nbsp;robot&nbsp;de&nbsp;stocker&nbsp;des&nbsp;variables<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="driftator.ia.controleu.html#Variables">Variables</a></dd>
+<dd><a href="driftator.ia.controleu.html#Decorator">Decorator</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Variables-__init__"><strong>__init__</strong></a>(self, ctrl)</dt><dd><tt>Initialisation&nbsp;de&nbsp;la&nbsp;classe<br>
+&nbsp;<br>
+:param&nbsp;ctrl:&nbsp;<a href="#controleur">controleur</a>&nbsp;sur&nbsp;lequel&nbsp;appliquer&nbsp;ce&nbsp;décorateur</tt></dd></dl>
+
+<dl><dt><a name="Variables-affecterValeur"><strong>affecterValeur</strong></a>(self, args)</dt><dd><tt>Fonction&nbsp;permettant&nbsp;d'affecter&nbsp;une&nbsp;valeur&nbsp;à&nbsp;une&nbsp;variable<br>
+&nbsp;<br>
+:param&nbsp;args:&nbsp;arguments&nbsp;de&nbsp;l'affectation</tt></dd></dl>
+
+<dl><dt><a name="Variables-evaluerCondition"><strong>evaluerCondition</strong></a>(self, args)</dt><dd><tt>Fonction&nbsp;évaluant&nbsp;la&nbsp;condition&nbsp;passée&nbsp;en&nbsp;paramètres<br>
+&nbsp;<br>
+:param&nbsp;args:&nbsp;arguments&nbsp;de&nbsp;la&nbsp;condition<br>
+:returns:&nbsp;True&nbsp;si&nbsp;la&nbsp;condition&nbsp;est&nbsp;vérifiée,&nbsp;False&nbsp;sinon</tt></dd></dl>
+
+<dl><dt><a name="Variables-getVar"><strong>getVar</strong></a>(self, nom)</dt><dd><tt>Fonction&nbsp;permettant&nbsp;d'obtenir&nbsp;la&nbsp;valeur&nbsp;d'une&nbsp;variable<br>
+&nbsp;<br>
+:param&nbsp;nom:&nbsp;nom&nbsp;de&nbsp;la&nbsp;variable&nbsp;à&nbsp;retourner</tt></dd></dl>
+
+<dl><dt><a name="Variables-printVariable"><strong>printVariable</strong></a>(self, args)</dt><dd><tt>Fonction&nbsp;permettant&nbsp;d'afficher&nbsp;une&nbsp;variable&nbsp;dans&nbsp;la&nbsp;console<br>
+&nbsp;<br>
+:param&nbsp;args:&nbsp;arguments&nbsp;du&nbsp;print</tt></dd></dl>
+
+<dl><dt><a name="Variables-setVar"><strong>setVar</strong></a>(self, nom, val)</dt><dd><tt>Fonction&nbsp;permettant&nbsp;d'affecter&nbsp;une&nbsp;valeur&nbsp;à&nbsp;une&nbsp;variable<br>
+&nbsp;<br>
+:param&nbsp;nom:&nbsp;nom&nbsp;de&nbsp;la&nbsp;variable<br>
+:param&nbsp;val:&nbsp;valeur&nbsp;de&nbsp;la&nbsp;variable</tt></dd></dl>
+
+<dl><dt><a name="Variables-substituerVariables"><strong>substituerVariables</strong></a>(self, vars)</dt><dd><tt>Fonctions&nbsp;auxiliaire&nbsp;permettant&nbsp;de&nbsp;remplacer&nbsp;les&nbsp;variables&nbsp;par&nbsp;leur&nbsp;valeurs<br>
+&nbsp;<br>
+:param&nbsp;vars:&nbsp;liste&nbsp;des&nbsp;variables&nbsp;à&nbsp;substituer</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="driftator.ia.controleu.html#Decorator">Decorator</a>:<br>
+<dl><dt><a name="Variables-__getattr__"><strong>__getattr__</strong></a>(self, attr)</dt><dd><tt>Retourne&nbsp;les&nbsp;attributs&nbsp;d'un&nbsp;robot&nbsp;et&nbsp;son&nbsp;nom<br>
+:returns:&nbsp;le&nbsp;couple&nbsp;(robot,&nbsp;nom)</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="driftator.ia.controleu.html#Decorator">Decorator</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="controleur">class <strong>controleur</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#controleur">controleur</a>(implementation=None)<br>
+&nbsp;<br>
+Classe&nbsp;représentant&nbsp;le&nbsp;<a href="#controleur">controleur</a>&nbsp;du&nbsp;robot<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="controleur-__getattr__"><strong>__getattr__</strong></a>(self, name)</dt><dd><tt>Retourne&nbsp;les&nbsp;attributs&nbsp;d'un&nbsp;robot&nbsp;et&nbsp;son&nbsp;nom<br>
+:returns:&nbsp;le&nbsp;couple&nbsp;(implémentation,&nbsp;nom)</tt></dd></dl>
+
+<dl><dt><a name="controleur-__init__"><strong>__init__</strong></a>(self, implementation=None)</dt><dd><tt>Initialisation&nbsp;du&nbsp;<a href="#controleur">controleur</a><br>
+&nbsp;<br>
+:param&nbsp;implementation&nbsp;:&nbsp;l'implementation&nbsp;sur&nbsp;laquelle&nbsp;on&nbsp;va&nbsp;lancer&nbsp;le&nbsp;code&nbsp;(simulation&nbsp;ou&nbsp;vraie&nbsp;vie)</tt></dd></dl>
+
+<dl><dt><a name="controleur-changerImplementation"><strong>changerImplementation</strong></a>(self, newImp)</dt><dd><tt>Change&nbsp;l'implementation&nbsp;courante<br>
+&nbsp;<br>
+:param&nbsp;newImp&nbsp;:&nbsp;l'implementation&nbsp;a&nbsp;mettre&nbsp;a&nbsp;la&nbsp;place&nbsp;de&nbsp;la&nbsp;courante</tt></dd></dl>
+
+<dl><dt><a name="controleur-stop_ia_thread"><strong>stop_ia_thread</strong></a>(self)</dt><dd><tt>Stop&nbsp;le&nbsp;thread&nbsp;de&nbsp;l'IA&nbsp;et&nbsp;arrête&nbsp;les&nbsp;mouvements&nbsp;du&nbsp;robot</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="implemSimulation">class <strong>implemSimulation</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#implemSimulation">implemSimulation</a>(robot,&nbsp;simulation,&nbsp;affichage3d=None)<br>
+&nbsp;<br>
+Classe&nbsp;annexe&nbsp;du&nbsp;<a href="#controleur">controleur</a>&nbsp;utilisant&nbsp;les&nbsp;fonctionnalités&nbsp;du&nbsp;robot&nbsp;simulé<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="implemSimulation-__getattr__"><strong>__getattr__</strong></a>(self, name)</dt><dd><tt>Retourne&nbsp;les&nbsp;attributs&nbsp;d'un&nbsp;robot&nbsp;et&nbsp;son&nbsp;nom<br>
+:returns:&nbsp;le&nbsp;couple&nbsp;(robot,&nbsp;nom)</tt></dd></dl>
+
+<dl><dt><a name="implemSimulation-__init__"><strong>__init__</strong></a>(self, robot, simulation, affichage3d=None)</dt><dd><tt>Constructeur&nbsp;de&nbsp;la&nbsp;classe&nbsp;<a href="#implemSimulation">implemSimulation</a><br>
+&nbsp;<br>
+:param&nbsp;robot:&nbsp;instance&nbsp;du&nbsp;robot&nbsp;simulé&nbsp;à&nbsp;utiliser<br>
+:param&nbsp;simulation:&nbsp;instance&nbsp;de&nbsp;la&nbsp;simulation&nbsp;à&nbsp;utiliser<br>
+:param&nbsp;affichage3d:&nbsp;instance&nbsp;de&nbsp;l'affichage&nbsp;3D&nbsp;à&nbsp;utiliser</tt></dd></dl>
+
+<dl><dt><a name="implemSimulation-getBalisePosition"><strong>getBalisePosition</strong></a>(self)</dt><dd><tt>Retourne&nbsp;la&nbsp;position&nbsp;x&nbsp;de&nbsp;la&nbsp;balise&nbsp;RVBJ&nbsp;sur&nbsp;l'image&nbsp;captée&nbsp;par&nbsp;la&nbsp;camera<br>
+&nbsp;<br>
+:returns:&nbsp;position&nbsp;x&nbsp;(entre&nbsp;-1&nbsp;et&nbsp;1)</tt></dd></dl>
+
+<dl><dt><a name="implemSimulation-getBaliseType"><strong>getBaliseType</strong></a>(self)</dt><dd><tt>Retourne&nbsp;l'id&nbsp;et&nbsp;la&nbsp;position&nbsp;de&nbsp;la&nbsp;balise&nbsp;BJ&nbsp;détectée<br>
+&nbsp;<br>
+:returns:&nbsp;id&nbsp;(entre&nbsp;1&nbsp;et&nbsp;4)&nbsp;et&nbsp;position&nbsp;(entre&nbsp;-1&nbsp;et&nbsp;1)</tt></dd></dl>
+
+<dl><dt><a name="implemSimulation-getDistance"><strong>getDistance</strong></a>(self)</dt><dd><tt>Retourne&nbsp;la&nbsp;distance&nbsp;entre&nbsp;le&nbsp;robot&nbsp;et&nbsp;l'obstacle<br>
+&nbsp;<br>
+:returns:&nbsp;la&nbsp;distance&nbsp;entre&nbsp;le&nbsp;robot&nbsp;et&nbsp;l'obstacle&nbsp;(en&nbsp;cm)</tt></dd></dl>
+
+<dl><dt><a name="implemSimulation-setCerveau"><strong>setCerveau</strong></a>(self, angle: int)</dt><dd><tt>Tourne&nbsp;la&nbsp;camera&nbsp;du&nbsp;robot<br>
+&nbsp;<br>
+:param&nbsp;angle:&nbsp;angle&nbsp;de&nbsp;rotation&nbsp;(de&nbsp;0&nbsp;à&nbsp;180)</tt></dd></dl>
+
+<dl><dt><a name="implemSimulation-setVitesseDroite"><strong>setVitesseDroite</strong></a>(self, v: float)</dt><dd><tt>Set&nbsp;la&nbsp;vitesse&nbsp;de&nbsp;la&nbsp;roue&nbsp;droite<br>
+&nbsp;<br>
+:param&nbsp;v:&nbsp;vitesse&nbsp;(en&nbsp;degrés&nbsp;de&nbsp;rotation&nbsp;par&nbsp;seconde)<br>
+:returns:&nbsp;rien</tt></dd></dl>
+
+<dl><dt><a name="implemSimulation-setVitesseGauche"><strong>setVitesseGauche</strong></a>(self, v: float)</dt><dd><tt>Set&nbsp;la&nbsp;vitesse&nbsp;de&nbsp;la&nbsp;roue&nbsp;gauche<br>
+&nbsp;<br>
+:param&nbsp;v:&nbsp;vitesse&nbsp;(en&nbsp;degrés&nbsp;de&nbsp;rotation&nbsp;par&nbsp;seconde)<br>
+:returns:&nbsp;rien</tt></dd></dl>
+
+<dl><dt><a name="implemSimulation-set_a"><strong>set_a</strong></a>(self, a)</dt><dd><tt>Affecte&nbsp;une&nbsp;instance&nbsp;d'affichage3D&nbsp;à&nbsp;cette&nbsp;implémentation&nbsp;(pour&nbsp;le&nbsp;capteur&nbsp;de&nbsp;la&nbsp;balise)<br>
+&nbsp;<br>
+:param&nbsp;a:&nbsp;instance&nbsp;d'affichage3D&nbsp;à&nbsp;affecter</tt></dd></dl>
+
+<dl><dt><a name="implemSimulation-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Mets&nbsp;les&nbsp;vitesses&nbsp;des&nbsp;roues&nbsp;à&nbsp;0</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="implemVraiVie">class <strong>implemVraiVie</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#implemVraiVie">implemVraiVie</a>(robot)<br>
+&nbsp;<br>
+Classe&nbsp;annexe&nbsp;du&nbsp;<a href="#controleur">controleur</a>&nbsp;utilisant&nbsp;les&nbsp;fonctionnalités&nbsp;du&nbsp;vrai&nbsp;robot<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="implemVraiVie-__getattr__"><strong>__getattr__</strong></a>(self, name)</dt><dd><tt>Retourne&nbsp;les&nbsp;attributs&nbsp;d'un&nbsp;robot&nbsp;et&nbsp;son&nbsp;nom<br>
+:returns:&nbsp;le&nbsp;couple&nbsp;(robot,&nbsp;nom)</tt></dd></dl>
+
+<dl><dt><a name="implemVraiVie-__init__"><strong>__init__</strong></a>(self, robot)</dt><dd><tt>Constructeur&nbsp;de&nbsp;la&nbsp;classe&nbsp;impleVraieVie<br>
+&nbsp;<br>
+:param&nbsp;robot:&nbsp;instance&nbsp;de&nbsp;la&nbsp;classe&nbsp;Robot2IN013&nbsp;à&nbsp;utiliser</tt></dd></dl>
+
+<dl><dt><a name="implemVraiVie-getBalisePosition"><strong>getBalisePosition</strong></a>(self)</dt><dd><tt>Retourne&nbsp;la&nbsp;position&nbsp;x&nbsp;de&nbsp;la&nbsp;balise&nbsp;sur&nbsp;l'image&nbsp;captée&nbsp;par&nbsp;la&nbsp;camera<br>
+&nbsp;<br>
+:returns:&nbsp;position&nbsp;X&nbsp;de&nbsp;la&nbsp;balise&nbsp;RVBJ</tt></dd></dl>
+
+<dl><dt><a name="implemVraiVie-getBaliseType"><strong>getBaliseType</strong></a>(self)</dt><dd><tt>Retourne&nbsp;l'id&nbsp;et&nbsp;la&nbsp;position&nbsp;de&nbsp;la&nbsp;balise&nbsp;détectée<br>
+&nbsp;<br>
+:returns:&nbsp;id&nbsp;et&nbsp;position&nbsp;de&nbsp;la&nbsp;balise&nbsp;BJ&nbsp;détectée&nbsp;(entre&nbsp;1&nbsp;et&nbsp;4)</tt></dd></dl>
+
+<dl><dt><a name="implemVraiVie-getDistance"><strong>getDistance</strong></a>(self)</dt><dd><tt>Retourne&nbsp;la&nbsp;distance&nbsp;entre&nbsp;le&nbsp;robot&nbsp;et&nbsp;l'obstacle<br>
+&nbsp;<br>
+:returns:&nbsp;la&nbsp;distance&nbsp;entre&nbsp;le&nbsp;robot&nbsp;et&nbsp;l'obstacle&nbsp;(en&nbsp;cm)</tt></dd></dl>
+
+<dl><dt><a name="implemVraiVie-setCerveau"><strong>setCerveau</strong></a>(self, angle: int)</dt><dd><tt>Tourne&nbsp;la&nbsp;camera&nbsp;du&nbsp;robot<br>
+&nbsp;<br>
+:param&nbsp;angle:&nbsp;angle&nbsp;de&nbsp;rotation&nbsp;(de&nbsp;0&nbsp;à&nbsp;180)</tt></dd></dl>
+
+<dl><dt><a name="implemVraiVie-setVitesseDroite"><strong>setVitesseDroite</strong></a>(self, v: float)</dt><dd><tt>Set&nbsp;la&nbsp;vitesse&nbsp;de&nbsp;la&nbsp;roue&nbsp;droite<br>
+&nbsp;<br>
+:param&nbsp;v:&nbsp;vitesse&nbsp;(en&nbsp;degrés&nbsp;de&nbsp;rotation&nbsp;par&nbsp;seconde)<br>
+:returns:&nbsp;rien</tt></dd></dl>
+
+<dl><dt><a name="implemVraiVie-setVitesseGauche"><strong>setVitesseGauche</strong></a>(self, v: float)</dt><dd><tt>Set&nbsp;la&nbsp;vitesse&nbsp;de&nbsp;la&nbsp;roue&nbsp;gauche<br>
+&nbsp;<br>
+:param&nbsp;v:&nbsp;vitesse&nbsp;(en&nbsp;degrés&nbsp;de&nbsp;rotation&nbsp;par&nbsp;seconde)<br>
+:returns:&nbsp;rien</tt></dd></dl>
+
+<dl><dt><a name="implemVraiVie-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Mets&nbsp;les&nbsp;vitesses&nbsp;des&nbsp;roues&nbsp;à&nbsp;0</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-degrees"><strong>degrees</strong></a>(x, /)</dt><dd><tt>Convert&nbsp;angle&nbsp;x&nbsp;from&nbsp;radians&nbsp;to&nbsp;degrees.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>pi</strong> = 3.141592653589793</td></tr></table>
+</body></html>

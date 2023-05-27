@@ -91,6 +91,10 @@ class implemVraiVie:
         self.setVitesseDroite(0)
 
     def __getattr__(self, name):
+        """
+        Retourne les attributs d'un robot et son nom
+        :returns: le couple (robot, nom)
+        """
         return getattr(self._r, name)
     
 
@@ -185,6 +189,10 @@ class implemSimulation:
         self.setVitesseDroite(0)
 
     def __getattr__(self, name):
+        """
+        Retourne les attributs d'un robot et son nom
+        :returns: le couple (robot, nom)
+        """
         return getattr(self._r, name)
     
 
@@ -220,6 +228,10 @@ class controleur:
         self.setVitesseDroite(0)
 
     def __getattr__(self, name):
+        """
+        Retourne les attributs d'un robot et son nom
+        :returns: le couple (implémentation, nom)
+        """
         return getattr(self._imp, name)
 
 
@@ -235,6 +247,10 @@ class Decorator:
         self.robot = robot
 
     def __getattr__(self, attr):
+        """
+        Retourne les attributs d'un robot et son nom
+        :returns: le couple (robot, nom)
+        """
         return getattr(self.robot, attr)
 
 class GetDecalage(Decorator):
@@ -319,6 +335,10 @@ class GetDecalage(Decorator):
             return self.distance + (dG + dD)/2 * dT
     
     def __getattr__(self, name):
+        """
+        Retourne les attributs d'un robot et son nom
+        :returns: le couple (robot, nom)
+        """
         return getattr(self.robot, name)
     
 
@@ -357,6 +377,8 @@ class Variables(Decorator):
     def substituerVariables(self, vars):
         """
         Fonctions auxiliaire permettant de remplacer les variables par leur valeurs
+        
+        :param vars: liste des variables à substituer
         """
         for i in range(len(vars)):
             try:

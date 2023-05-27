@@ -166,15 +166,31 @@ class Robot():
             self._vitesseDroite = min(v,self.vitesseMax)
 
     def get_motor_position(self):
+        """
+        Lit les etats des moteurs en degre.
+        :returns: couple du degre de rotation des moteurs
+        """
         return self.motorPosition
 
-
-    #TEMPORAIRE - ERREUR A CORRIGER
     def setVG(self, v):
+        """
+        Modifie la vitesse de la roue gauche du robot
+        :param v: nouvelle vitesse de la roue gauche
+        """
         self.vitesseGauche = v
+
     def setVD(self, v):
+        """
+        Modifie la vitesse de la roue droite du robot
+        :param v: nouvelle vitesse de la roue droite
+        """
         self.vitesseDroite = v
+
     def setAngleCam(self, c):
+        """
+        Modifie l angle de la camera du robot
+        :param c: nouvel angle de la camera
+        """
         self._objectifAngleCamera = c
 
 
@@ -583,12 +599,12 @@ class Balise(Obstacle):
 
     def testCrash(self, robot : Robot):
         """
-        Fonction abstraite pour objet de type Obstacle
+        Fonction abstraite pour objet de type Obstacle (pas définie dans le cas spécifique d'une balise)
         """
         return False
 
     def estDedans(self, x : int, y : int):
         """
-        Fonction abstraite pour objet de type Obstacle
+        Fonction abstraite pour objet de type Obstacle (pas définie dans la cas spécifique d'une balise)
         """
         return False

@@ -10,12 +10,21 @@ class IA(Thread):
     Classe représentant l'IA
     """
     def __init__(self, controleur, strat, dT):
+        """
+        Constructeur de la classe IA
+        :param controleur: le controleur
+        :param strat: la stratagie choisie (ia à executer)
+        :param dT: le dT de l actualisation de la simulation
+        """
         super(IA, self).__init__()
         self._controleur = controleur
         self.strategie = strat
         self._wait = dT
 
     def run(self):
+        """
+        Lancement du thread de l IA
+        """
         self.strategie.start()
         self._controleur.running = True
         while self._controleur.running:
@@ -26,6 +35,9 @@ class IA(Thread):
             self.step()
 
     def step(self):
+        """
+        Arret de l IA si fin de stratégie
+        """
         if not self.strategie.stop():
             self.strategie.step()
         else:
@@ -40,17 +52,22 @@ class IA(Thread):
 class Avancer:
     """
     Classe représentant l'ia permettant d'avancer droit
-
-    :param controleur: controleur du robot
-    :param d: distance (cm) dont le robot doit avancer
-    :param v: vitesse (tour de roue/s)
-    :param a: angle de la trajectoire du robot (pourcentage de -100 à 100)
     """
     def __init__(self, c, d, v, a=0):
+        """
+        Constructeur de la classe Avancer
+        :param c: controleur du robot
+        :param d: distance (cm) dont le robot doit avancer
+        :param v: vitesse (tour de roue/s)
+        :param a: angle de la trajectoire du robot (pourcentage de -100 à 100)
+        """
         self._controleur = c
         self.d, self.a, self.v, self.parcouru = d, a, v, 0
 
     def start(self):
+        """
+        Permet de lancer le thread de l IA
+        """
         #On reset le controleur
         self._controleur.resetDecalage()
 
@@ -65,10 +82,16 @@ class Avancer:
 
 
     def stop(self):
+        """
+        Permet de stopper le thread de l IA
+        """
         #On avance tant qu'on n' a pas suffisement avancé
         return self.parcouru >= abs(self.distance)
 
     def step(self):
+        """
+        Permet de stopper le thread de l IA une fois la distance parcourue
+        """
         #Calcul de la distance parcourue
         self.parcouru = abs(self._controleur.getDistanceParcourue() - self.posInitiale)
 
@@ -78,20 +101,25 @@ class Avancer:
 
 class TournerSurPlace:
     """
-    Classe représentant l'ia permettant de tourner à droite
-
-    :param controleur: controleur du robot
-    :param angle: angle (degré) de rotation
-    :param v: vitesse (tour de roue/s)
+    Classe représentant l'IA permettant de tourner à droite    
     """
 
     def __init__(self, c, a, v):
+        """
+        Constructeur de la classe TournerSurPlace
+        :param controleur: controleur du robot
+        :param angle: angle (degré) de rotation
+        :param v: vitesse (tour de roue/s)
+        """
         self._controleur = c
         self.a = a
         self.v = v
         self.parcouru = 0
 
     def start(self):
+        """
+        Permet de lancer le thread de l IA
+        """
         #On reset le controleur
         self._controleur.resetDecalage()
 
@@ -107,10 +135,16 @@ class TournerSurPlace:
         
 
     def stop(self):
+        """
+        Permet de stoper le thread de l IA
+        """
         #On tourne tant qu'on n'a pas dépassé l'angle
         return self.parcouru >= abs(self.angle)
         
     def step(self):
+        """
+        Execution du thread de l IA tant que la distance à parcourir n a pas été effectué
+        """
         #Calcul de la distance parcourue
         self.parcouru = abs(self._controleur.getDecalageAngle() - self.posInitiale) 
 
@@ -120,14 +154,20 @@ class TournerSurPlace:
 class TournerTete:
     """
     Classe représentant l'ia permettant de tourner la tete du robot
-
-    :param angle: angle (degré) de rotation
     """
     def __init__(self, c, a):
+        """
+        Constructeur de la classe TournerTete
+        :param angle: angle (degré) de rotation
+        :param c: controleur
+        """
         self._controleur = c
         self.a = a
 
     def start(self):
+        """
+        Lancement du thread de l IA
+        """
         #Substitution des variables
         self._vars = [self.a]
         self._controleur.substituerVariables(self._vars)
@@ -135,23 +175,34 @@ class TournerTete:
         self._controleur.setCerveau(self.angle)
 
     def stop(self):
+        """
+        Arret du thread de l IA
+        """
         return True
 
 class Stop:
     """
     Classe représentant l'ia permettant au robot de s'arrêter
-
-    :param c: controleur du robot
     """
     def __init__(self, c):
+        """
+        Constructeur de la classe Stop
+        :param c: controleur du robot
+        """
         self._controleur = controleur
 
     def start(self):
+        """
+        Lancement du thread de l IA
+        """
         #On met les vitesses à 0
         self._controleur.setVitesseGauche(0)
         self._controleur.setVitesseDroite(0)
 
     def stop(self):
+        """
+        Arret du thread de l IA
+        """
         #On s'arrête directement
         return True
 
@@ -163,6 +214,7 @@ class IAIf:
     """
     def __init__(self, c, ia1, ia2, condition):
         """
+        Constructeur de la classe IAIf
         Paramètres
         :param c: controleur du robot
         :param ia1: ia à appeler si la condition est vérifiée
@@ -175,6 +227,9 @@ class IAIf:
         self._condition = condition
 
     def start(self):
+        """
+        Lancement du thread de l IA
+        """
         #Initialisation des 2 sous IA
         if self._controleur.evaluerCondition(self._condition):
             self._ia = self._ia1
@@ -186,10 +241,16 @@ class IAIf:
 
 
     def stop(self):
+        """
+        Arret du thread de l IA
+        """
         #Arrêt si l'une des deux IA est finie
         return self._ia == None or self._ia.stop()
 
     def step(self):
+        """
+        Execution du thread de l IA tant que la condition est vraie
+        """
         if(self._ia != None):
             self._ia.step()
     
@@ -201,6 +262,7 @@ class IAAlterner:
     """
     def __init__(self, c, ia1, ia2, condition):
         """
+        Constructeur de la classe IAAlterner
         Paramètres
         :param c: controleur du robot
         :param ia1: ia à appeler si la condition est vérifiée
@@ -213,16 +275,25 @@ class IAAlterner:
         self._condition = condition
 
     def start(self):
+        """
+        Lancement du thread de l IA
+        """
         #Initialisation des 2 sous IA
         self._ia1.start()
         self._ia2.start()
         pass
 
     def stop(self):
+        """
+        Arret du thread de l IA
+        """
         #Arrêt si l'une des deux IA est finie
         return self._ia1.stop() or self._ia2.stop()
 
     def step(self):
+        """
+        Execution de l IA pas à pas
+        """
         if self._controleur.evaluerCondition(self._condition):
             self._ia1.step()
         else:
@@ -237,6 +308,7 @@ class IAWhile:
     """
     def __init__(self, c, ia, condition):
         """
+        Constructeur de la classe IAWhile
         Paramètres
         :param c: controleur du robot
         :param ia: ia à appeler tant que la condition est vérifiée
@@ -247,15 +319,24 @@ class IAWhile:
         self._condition = condition
 
     def start(self):
+        """
+        Lancement du thread de l IA
+        """
         #Initialisation de la sous IA
         self._ia.start()
         pass
 
     def stop(self):
+        """
+        Arret du thread de l IA
+        """
         #Arrêt si la condition n'est pas vérifiée
         return not self._controleur.evaluerCondition(self._condition)
         
     def step(self):
+        """
+        Execution du thread de l IA tant que la condition du while est vraie
+        """
         #Reset de l'IA
         if self._ia.stop():
             self._ia.start()
@@ -272,6 +353,7 @@ class IAFor:
     """
     def __init__(self, c, ia, nbIter):
         """
+        Constructeur de la classe IAFor
         Paramètres
         :param c: controleur du robot
         :param ia: ia à appeler si la condition est vérifiée
@@ -283,6 +365,9 @@ class IAFor:
         self._nbIter = nbIter
 
     def start(self):
+        """
+        Lancement du thread de l IA
+        """
         #Initialisation de i
         self._i = 0
 
@@ -295,6 +380,9 @@ class IAFor:
         pass
 
     def stop(self):
+        """
+        Arret du thread de l IA
+        """
         #Arrêt si l'une des deux IA est
         if self._ia.stop():
             self._i += 1
@@ -304,6 +392,9 @@ class IAFor:
                 self._ia.start()
 
     def step(self):
+        """
+        Execution du thread de l IA tant que la boucle for n est pas finie
+        """
         if not self._ia.stop():
             self._ia.step()
 
@@ -314,6 +405,7 @@ class IASeq:
     """
     def __init__(self, c, iaList):
         """
+        Constructeur de la classe IASeq
         Paramètres
         :param c: controleur du robot
         :param iaList: liste des ia à effectuer
@@ -324,18 +416,27 @@ class IASeq:
         self._iaList = iaList.copy()
 
     def start(self):
+        """
+        Lancement du thread de l IA
+        """
         #Initialisation de la sous ia 1
         self._i = 0
 
         self._iaList[self._i].start()
 
     def stop(self):
+        """
+        Arret du thread de l IA
+        """
         #Passage à l'ia suivante si fini
         if self._iaList[self._i].stop():
             if(self._i >= len(self._iaList) - 1):
                 return True
 
     def step(self):
+        """
+        Execution de l IA tant que la sequence n est pas finie
+        """
         if self._iaList[self._i].stop():
             self._controleur.stop()
             self._i += 1
@@ -345,14 +446,28 @@ class IASeq:
 
 
 class IAFonction():
+    """
+    Classe permettant de réaliser une ia avec une certaine fonction
+    """
     def __init__(self, c, args):
+        """
+        Constructeur de la classe IAFonction
+        :param c: le controleur
+        :param args: les arguments de la fonction
+        """
         self._controleur = c
         self.args = args
 
     def start(self):
+        """
+        Lancement du thread de l IA
+        """
         fun = self.args[0]
         args = self.args[1:]
         eval("self._controleur." + fun + "(args)")
     
     def stop(self):
+        """
+        Arret du thread de l IA
+        """
         return True

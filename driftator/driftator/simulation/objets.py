@@ -18,9 +18,7 @@ class Robot():
         :param angle: orientation du robot (en degrés)
         :param t: diamètre des roues (en cm)
         :param r: rayon du robot
-        :param vitesseMax: vitesse maximum des roues
-         
-           (en degrés de rotation par seconde)
+        :param vitesseMax: vitesse maximum des roues (en degrés de rotation par seconde)
         """
 
         self.type = -1
@@ -142,7 +140,6 @@ class Robot():
         Actualise la vitesse de la roue gauche
 
         :param v: vitesse (en degrés de rotation par seconde)
-        :returns: rien
         """
         if(v < -self.vitesseMax):
             self._vitesseGauche = -self.vitesseMax
@@ -162,7 +159,6 @@ class Robot():
         Actualise la vitesse de la roue droite
 
         :param v: vitesse (en degrés de rotation par seconde)
-        :returns: rien
         """
         if(v < -self.vitesseMax):
             self._vitesseDroite = -self.vitesseMax
@@ -195,7 +191,6 @@ class Robot():
         Actualise la vitesse des deux roues
 
         :param v: vitesse (en degrés de rotation par seconde)
-        :returns: rien, changement in place
         """
         self.vitesseDroite = v
         self.vitesseGauche = v
@@ -247,7 +242,6 @@ class Robot():
         Actualise la position et l'angle du robot selon le temps dT écoulé depuis la dernière actualisation
 
         :param dT: différence de temps (en seconde)
-        :returns: rien, changement in place
         """
         #Calcul de la vitesse en cm/s du robot
         vG = self._vitesseGauche/360.0 * pi * self.tailleRoues
@@ -304,6 +298,7 @@ class Obstacle(ABC):
     def testCrash(self, robot : Robot):
         """
         Méthode abstraite qui détermine si le robot est en collision avec un obstacle
+        :param robot : le robot sur lequel on applique la fonction
         """
         pass
 
@@ -311,6 +306,8 @@ class Obstacle(ABC):
     def estDedans(self, x : int, y : int):
         """
         Méthode abstraite qui détermine si le point de coordonnée (x, y) se trouve dans la surface de l'obstacle
+        :param x: coordonnée x du point
+        :param y: coordonnée y du point
         """
         pass
 
@@ -333,7 +330,6 @@ class Obstacle(ABC):
 
         :param pX: nouvelle position x du robot
         :param pY: nouvelle position y du robot
-        :returns: rien, changement in place
         """
         self._posX = pX
         self._posY = pY
@@ -524,6 +520,9 @@ class ObstacleRond(Obstacle):
 
     @property
     def rayon(self):
+        """
+        :returns: le rayon de l obstacle rond
+        """
         return self._rayon
 
         
@@ -550,8 +549,8 @@ class ObstacleRond(Obstacle):
         """
         Méthode qui détermine si le point de coordonnée (x, y) se trouve dans la surface de l'obstacle
 
-        :param x: coordonnée X
-        :param y: coordonnée Y
+        :param x: coordonnée X du point
+        :param y: coordonnée Y du point
         :returns: True si le point (x,y) se trouve dans l'obstacle
         """
         return sqrt((self._posX - x)**2 + (self._posY - y)**2) < self._rayon
@@ -583,7 +582,13 @@ class Balise(Obstacle):
         return self._angle
 
     def testCrash(self, robot : Robot):
+        """
+        Fonction abstraite pour objet de type Obstacle
+        """
         return False
 
     def estDedans(self, x : int, y : int):
+        """
+        Fonction abstraite pour objet de type Obstacle
+        """
         return False

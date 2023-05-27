@@ -1,0 +1,951 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module driftator.affichage.affichage</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="driftator.html"><font color="#ffffff">driftator</font></a>.<a href="driftator.affichage.html"><font color="#ffffff">affichage</font></a>.affichage</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href=""</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="PIL.Image.html">PIL.Image</a><br>
+<a href="direct.task.Task.html">direct.task.Task</a><br>
+<a href="cv2.html">cv2</a><br>
+</td><td width="25%" valign=top><a href="pynput.keyboard.html">pynput.keyboard</a><br>
+<a href="numpy.html">numpy</a><br>
+<a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="pygame.html">pygame</a><br>
+<a href="driftator.simulation.html">driftator.simulation</a><br>
+<a href="direct.stdpy.thread.html">direct.stdpy.thread</a><br>
+</td><td width="25%" valign=top><a href="time.html">time</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="driftator.affichage.affichage.html#Affichage">Affichage</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="direct.showbase.ShowBase.html#ShowBase">direct.showbase.ShowBase.ShowBase</a>(<a href="direct.showbase.DirectObject.html#DirectObject">direct.showbase.DirectObject.DirectObject</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="driftator.affichage.affichage.html#MyApp">MyApp</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="threading.html#Thread">threading.Thread</a>(<a href="builtins.html#object">builtins.object</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="driftator.affichage.affichage.html#Affichage3d">Affichage3d</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Affichage">class <strong>Affichage</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Affichage">Affichage</a>(simulation:&nbsp;driftator.simulation.simulation.Simulation,&nbsp;controleur,&nbsp;fps:&nbsp;int,&nbsp;echelle:&nbsp;int&nbsp;=&nbsp;1,&nbsp;afficherDistance:&nbsp;bool&nbsp;=&nbsp;False,&nbsp;afficherTrace:&nbsp;bool&nbsp;=&nbsp;False)<br>
+&nbsp;<br>
+<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Affichage-__init__"><strong>__init__</strong></a>(self, simulation: driftator.simulation.simulation.Simulation, controleur, fps: int, echelle: int = 1, afficherDistance: bool = False, afficherTrace: bool = False)</dt><dd><tt>Constructeur&nbsp;de&nbsp;la&nbsp;classe&nbsp;affichage<br>
+&nbsp;<br>
+:param&nbsp;simulation&nbsp;:&nbsp;Simulation&nbsp;concernée&nbsp;par&nbsp;cet&nbsp;affichage<br>
+:param&nbsp;controleur&nbsp;:&nbsp;Controleur&nbsp;concernée&nbsp;par&nbsp;cet&nbsp;affichage<br>
+:param&nbsp;fps&nbsp;:&nbsp;Le&nbsp;nombre&nbsp;d'fps&nbsp;de&nbsp;la&nbsp;simulation<br>
+:param&nbsp;echelle&nbsp;:&nbsp;Echelle&nbsp;de&nbsp;la&nbsp;simulation<br>
+:param&nbsp;afficherDistance&nbsp;:&nbsp;Booleen&nbsp;pour&nbsp;afficher&nbsp;la&nbsp;distance&nbsp;entre&nbsp;le&nbsp;robot&nbsp;et&nbsp;les&nbsp;obstacles<br>
+:param&nbsp;afficherTrace&nbsp;:&nbsp;Booleen&nbsp;pour&nbsp;choisir&nbsp;si&nbsp;le&nbsp;robot&nbsp;laisse&nbsp;une&nbsp;trace&nbsp;sur&nbsp;son&nbsp;passage</tt></dd></dl>
+
+<dl><dt><a name="Affichage-afficherObstacle"><strong>afficherObstacle</strong></a>(self, obstacle: driftator.simulation.objets.Obstacle)</dt><dd><tt>Affiche&nbsp;un&nbsp;obstacle&nbsp;sur&nbsp;la&nbsp;fenêtre<br>
+&nbsp;<br>
+:param&nbsp;obstacle&nbsp;:&nbsp;Obstacle&nbsp;à&nbsp;afficher</tt></dd></dl>
+
+<dl><dt><a name="Affichage-afficherRobot"><strong>afficherRobot</strong></a>(self, robot: driftator.simulation.objets.Robot)</dt><dd><tt>Affiche&nbsp;un&nbsp;robot&nbsp;sur&nbsp;la&nbsp;fenêtre<br>
+&nbsp;<br>
+:param&nbsp;robot&nbsp;:&nbsp;Robot&nbsp;à&nbsp;afficher</tt></dd></dl>
+
+<dl><dt><a name="Affichage-afficherSimulation"><strong>afficherSimulation</strong></a>(self)</dt><dd><tt>Affiche&nbsp;l'ensemble&nbsp;de&nbsp;la&nbsp;simulation&nbsp;sur&nbsp;la&nbsp;fenêtre</tt></dd></dl>
+
+<dl><dt><a name="Affichage-run"><strong>run</strong></a>(self)</dt><dd><tt>Permet&nbsp;de&nbsp;lancer&nbsp;l&nbsp;affichage</tt></dd></dl>
+
+<dl><dt><a name="Affichage-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Permet&nbsp;d&nbsp;arreter&nbsp;l&nbsp;affichage</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Affichage3d">class <strong>Affichage3d</strong></a>(<a href="threading.html#Thread">threading.Thread</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Affichage3d">Affichage3d</a>(simulation:&nbsp;driftator.simulation.simulation.Simulation,&nbsp;controleur,&nbsp;fps:&nbsp;int)<br>
+&nbsp;<br>
+<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="driftator.affichage.affichage.html#Affichage3d">Affichage3d</a></dd>
+<dd><a href="threading.html#Thread">threading.Thread</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Affichage3d-__init__"><strong>__init__</strong></a>(self, simulation: driftator.simulation.simulation.Simulation, controleur, fps: int)</dt><dd><tt>Constructeur&nbsp;de&nbsp;la&nbsp;classe&nbsp;affichage<br>
+&nbsp;<br>
+:param&nbsp;simulation&nbsp;:&nbsp;Simulation&nbsp;concernée&nbsp;par&nbsp;cet&nbsp;affichage<br>
+:param&nbsp;controleur&nbsp;:&nbsp;Controleur&nbsp;concernée&nbsp;par&nbsp;cet&nbsp;affichage<br>
+:param&nbsp;fps&nbsp;:&nbsp;Le&nbsp;nombre&nbsp;d'fps&nbsp;de&nbsp;la&nbsp;simulation</tt></dd></dl>
+
+<dl><dt><a name="Affichage3d-afficherObstacles"><strong>afficherObstacles</strong></a>(self)</dt><dd><tt>Affiche&nbsp;un&nbsp;obstacle&nbsp;sur&nbsp;la&nbsp;fenêtre</tt></dd></dl>
+
+<dl><dt><a name="Affichage3d-afficherRobot"><strong>afficherRobot</strong></a>(self)</dt><dd><tt>Affiche&nbsp;un&nbsp;robot&nbsp;sur&nbsp;la&nbsp;fenêtre<br>
+&nbsp;<br>
+:param&nbsp;robot&nbsp;:&nbsp;Robot&nbsp;à&nbsp;afficher</tt></dd></dl>
+
+<dl><dt><a name="Affichage3d-afficherSimulation"><strong>afficherSimulation</strong></a>(self)</dt><dd><tt>Affiche&nbsp;l'ensemble&nbsp;de&nbsp;la&nbsp;simulation&nbsp;sur&nbsp;la&nbsp;fenêtre</tt></dd></dl>
+
+<dl><dt><a name="Affichage3d-run"><strong>run</strong></a>(self)</dt><dd><tt>Permet&nbsp;de&nbsp;lancer&nbsp;l&nbsp;affichage&nbsp;3D</tt></dd></dl>
+
+<dl><dt><a name="Affichage3d-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Permet&nbsp;d&nbsp;arreter&nbsp;l&nbsp;affichage&nbsp;3D</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="threading.html#Thread">threading.Thread</a>:<br>
+<dl><dt><a name="Affichage3d-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="Affichage3d-getName"><strong>getName</strong></a>(self)</dt><dd><tt>Return&nbsp;a&nbsp;string&nbsp;used&nbsp;for&nbsp;identification&nbsp;purposes&nbsp;only.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;is&nbsp;deprecated,&nbsp;use&nbsp;the&nbsp;name&nbsp;attribute&nbsp;instead.</tt></dd></dl>
+
+<dl><dt><a name="Affichage3d-isDaemon"><strong>isDaemon</strong></a>(self)</dt><dd><tt>Return&nbsp;whether&nbsp;this&nbsp;thread&nbsp;is&nbsp;a&nbsp;daemon.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;is&nbsp;deprecated,&nbsp;use&nbsp;the&nbsp;daemon&nbsp;attribute&nbsp;instead.</tt></dd></dl>
+
+<dl><dt><a name="Affichage3d-is_alive"><strong>is_alive</strong></a>(self)</dt><dd><tt>Return&nbsp;whether&nbsp;the&nbsp;thread&nbsp;is&nbsp;alive.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;returns&nbsp;True&nbsp;just&nbsp;before&nbsp;the&nbsp;<a href="#Affichage3d-run">run</a>()&nbsp;method&nbsp;starts&nbsp;until&nbsp;just<br>
+after&nbsp;the&nbsp;<a href="#Affichage3d-run">run</a>()&nbsp;method&nbsp;terminates.&nbsp;See&nbsp;also&nbsp;the&nbsp;module&nbsp;function<br>
+enumerate().</tt></dd></dl>
+
+<dl><dt><a name="Affichage3d-join"><strong>join</strong></a>(self, timeout=None)</dt><dd><tt>Wait&nbsp;until&nbsp;the&nbsp;thread&nbsp;terminates.<br>
+&nbsp;<br>
+This&nbsp;blocks&nbsp;the&nbsp;calling&nbsp;thread&nbsp;until&nbsp;the&nbsp;thread&nbsp;whose&nbsp;<a href="#Affichage3d-join">join</a>()&nbsp;method&nbsp;is<br>
+called&nbsp;terminates&nbsp;--&nbsp;either&nbsp;normally&nbsp;or&nbsp;through&nbsp;an&nbsp;unhandled&nbsp;exception<br>
+or&nbsp;until&nbsp;the&nbsp;optional&nbsp;timeout&nbsp;occurs.<br>
+&nbsp;<br>
+When&nbsp;the&nbsp;timeout&nbsp;argument&nbsp;is&nbsp;present&nbsp;and&nbsp;not&nbsp;None,&nbsp;it&nbsp;should&nbsp;be&nbsp;a<br>
+floating&nbsp;point&nbsp;number&nbsp;specifying&nbsp;a&nbsp;timeout&nbsp;for&nbsp;the&nbsp;operation&nbsp;in&nbsp;seconds<br>
+(or&nbsp;fractions&nbsp;thereof).&nbsp;As&nbsp;<a href="#Affichage3d-join">join</a>()&nbsp;always&nbsp;returns&nbsp;None,&nbsp;you&nbsp;must&nbsp;call<br>
+<a href="#Affichage3d-is_alive">is_alive</a>()&nbsp;after&nbsp;<a href="#Affichage3d-join">join</a>()&nbsp;to&nbsp;decide&nbsp;whether&nbsp;a&nbsp;timeout&nbsp;happened&nbsp;--&nbsp;if&nbsp;the<br>
+thread&nbsp;is&nbsp;still&nbsp;alive,&nbsp;the&nbsp;<a href="#Affichage3d-join">join</a>()&nbsp;call&nbsp;timed&nbsp;out.<br>
+&nbsp;<br>
+When&nbsp;the&nbsp;timeout&nbsp;argument&nbsp;is&nbsp;not&nbsp;present&nbsp;or&nbsp;None,&nbsp;the&nbsp;operation&nbsp;will<br>
+block&nbsp;until&nbsp;the&nbsp;thread&nbsp;terminates.<br>
+&nbsp;<br>
+A&nbsp;thread&nbsp;can&nbsp;be&nbsp;<a href="#Affichage3d-join">join</a>()ed&nbsp;many&nbsp;times.<br>
+&nbsp;<br>
+<a href="#Affichage3d-join">join</a>()&nbsp;raises&nbsp;a&nbsp;RuntimeError&nbsp;if&nbsp;an&nbsp;attempt&nbsp;is&nbsp;made&nbsp;to&nbsp;join&nbsp;the&nbsp;current<br>
+thread&nbsp;as&nbsp;that&nbsp;would&nbsp;cause&nbsp;a&nbsp;deadlock.&nbsp;It&nbsp;is&nbsp;also&nbsp;an&nbsp;error&nbsp;to&nbsp;<a href="#Affichage3d-join">join</a>()&nbsp;a<br>
+thread&nbsp;before&nbsp;it&nbsp;has&nbsp;been&nbsp;started&nbsp;and&nbsp;attempts&nbsp;to&nbsp;do&nbsp;so&nbsp;raises&nbsp;the&nbsp;same<br>
+exception.</tt></dd></dl>
+
+<dl><dt><a name="Affichage3d-setDaemon"><strong>setDaemon</strong></a>(self, daemonic)</dt><dd><tt>Set&nbsp;whether&nbsp;this&nbsp;thread&nbsp;is&nbsp;a&nbsp;daemon.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;is&nbsp;deprecated,&nbsp;use&nbsp;the&nbsp;.daemon&nbsp;property&nbsp;instead.</tt></dd></dl>
+
+<dl><dt><a name="Affichage3d-setName"><strong>setName</strong></a>(self, name)</dt><dd><tt>Set&nbsp;the&nbsp;name&nbsp;string&nbsp;for&nbsp;this&nbsp;thread.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;is&nbsp;deprecated,&nbsp;use&nbsp;the&nbsp;name&nbsp;attribute&nbsp;instead.</tt></dd></dl>
+
+<dl><dt><a name="Affichage3d-start"><strong>start</strong></a>(self)</dt><dd><tt>Start&nbsp;the&nbsp;thread's&nbsp;activity.<br>
+&nbsp;<br>
+It&nbsp;must&nbsp;be&nbsp;called&nbsp;at&nbsp;most&nbsp;once&nbsp;per&nbsp;thread&nbsp;<a href="builtins.html#object">object</a>.&nbsp;It&nbsp;arranges&nbsp;for&nbsp;the<br>
+<a href="builtins.html#object">object</a>'s&nbsp;<a href="#Affichage3d-run">run</a>()&nbsp;method&nbsp;to&nbsp;be&nbsp;invoked&nbsp;in&nbsp;a&nbsp;separate&nbsp;thread&nbsp;of&nbsp;control.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;will&nbsp;raise&nbsp;a&nbsp;RuntimeError&nbsp;if&nbsp;called&nbsp;more&nbsp;than&nbsp;once&nbsp;on&nbsp;the<br>
+same&nbsp;thread&nbsp;<a href="builtins.html#object">object</a>.</tt></dd></dl>
+
+<hr>
+Readonly properties inherited from <a href="threading.html#Thread">threading.Thread</a>:<br>
+<dl><dt><strong>ident</strong></dt>
+<dd><tt>Thread&nbsp;identifier&nbsp;of&nbsp;this&nbsp;thread&nbsp;or&nbsp;None&nbsp;if&nbsp;it&nbsp;has&nbsp;not&nbsp;been&nbsp;started.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;a&nbsp;nonzero&nbsp;integer.&nbsp;See&nbsp;the&nbsp;get_ident()&nbsp;function.&nbsp;Thread<br>
+identifiers&nbsp;may&nbsp;be&nbsp;recycled&nbsp;when&nbsp;a&nbsp;thread&nbsp;exits&nbsp;and&nbsp;another&nbsp;thread&nbsp;is<br>
+created.&nbsp;The&nbsp;identifier&nbsp;is&nbsp;available&nbsp;even&nbsp;after&nbsp;the&nbsp;thread&nbsp;has&nbsp;exited.</tt></dd>
+</dl>
+<dl><dt><strong>native_id</strong></dt>
+<dd><tt>Native&nbsp;integral&nbsp;thread&nbsp;ID&nbsp;of&nbsp;this&nbsp;thread,&nbsp;or&nbsp;None&nbsp;if&nbsp;it&nbsp;has&nbsp;not&nbsp;been&nbsp;started.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;a&nbsp;non-negative&nbsp;integer.&nbsp;See&nbsp;the&nbsp;get_native_id()&nbsp;function.<br>
+This&nbsp;represents&nbsp;the&nbsp;Thread&nbsp;ID&nbsp;as&nbsp;reported&nbsp;by&nbsp;the&nbsp;kernel.</tt></dd>
+</dl>
+<hr>
+Data descriptors inherited from <a href="threading.html#Thread">threading.Thread</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>daemon</strong></dt>
+<dd><tt>A&nbsp;boolean&nbsp;value&nbsp;indicating&nbsp;whether&nbsp;this&nbsp;thread&nbsp;is&nbsp;a&nbsp;daemon&nbsp;thread.<br>
+&nbsp;<br>
+This&nbsp;must&nbsp;be&nbsp;set&nbsp;before&nbsp;start()&nbsp;is&nbsp;called,&nbsp;otherwise&nbsp;RuntimeError&nbsp;is<br>
+raised.&nbsp;Its&nbsp;initial&nbsp;value&nbsp;is&nbsp;inherited&nbsp;from&nbsp;the&nbsp;creating&nbsp;thread;&nbsp;the<br>
+main&nbsp;thread&nbsp;is&nbsp;not&nbsp;a&nbsp;daemon&nbsp;thread&nbsp;and&nbsp;therefore&nbsp;all&nbsp;threads&nbsp;created&nbsp;in<br>
+the&nbsp;main&nbsp;thread&nbsp;default&nbsp;to&nbsp;daemon&nbsp;=&nbsp;False.<br>
+&nbsp;<br>
+The&nbsp;entire&nbsp;Python&nbsp;program&nbsp;exits&nbsp;when&nbsp;only&nbsp;daemon&nbsp;threads&nbsp;are&nbsp;left.</tt></dd>
+</dl>
+<dl><dt><strong>name</strong></dt>
+<dd><tt>A&nbsp;string&nbsp;used&nbsp;for&nbsp;identification&nbsp;purposes&nbsp;only.<br>
+&nbsp;<br>
+It&nbsp;has&nbsp;no&nbsp;semantics.&nbsp;Multiple&nbsp;threads&nbsp;may&nbsp;be&nbsp;given&nbsp;the&nbsp;same&nbsp;name.&nbsp;The<br>
+initial&nbsp;name&nbsp;is&nbsp;set&nbsp;by&nbsp;the&nbsp;constructor.</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="MyApp">class <strong>MyApp</strong></a>(<a href="direct.showbase.ShowBase.html#ShowBase">direct.showbase.ShowBase.ShowBase</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Classe&nbsp;permettant&nbsp;l&nbsp;utilisation&nbsp;de&nbsp;Panda3D<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="driftator.affichage.affichage.html#MyApp">MyApp</a></dd>
+<dd><a href="direct.showbase.ShowBase.html#ShowBase">direct.showbase.ShowBase.ShowBase</a></dd>
+<dd><a href="direct.showbase.DirectObject.html#DirectObject">direct.showbase.DirectObject.DirectObject</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="MyApp-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Initialisation&nbsp;du&nbsp;moteur&nbsp;Panda3D</tt></dd></dl>
+
+<dl><dt><a name="MyApp-getImagebytes"><strong>getImagebytes</strong></a>(self, task)</dt><dd><tt>Fonction&nbsp;Panda3D</tt></dd></dl>
+
+<dl><dt><a name="MyApp-spinCameraTask"><strong>spinCameraTask</strong></a>(self, task)</dt><dd><tt>Fonction&nbsp;Panda3D</tt></dd></dl>
+
+<dl><dt><a name="MyApp-userExit"><strong>userExit</strong></a>(self)</dt><dd><tt>Fonction&nbsp;Panda3D</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="direct.showbase.ShowBase.html#ShowBase">direct.showbase.ShowBase.ShowBase</a>:<br>
+<dl><dt><a name="MyApp-SetAllSfxEnables"><strong>SetAllSfxEnables</strong></a>(self, bEnabled)</dt><dd><tt>Calls&nbsp;``setActive(bEnabled)``&nbsp;on&nbsp;all&nbsp;valid&nbsp;SFX&nbsp;managers.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-addAngularIntegrator"><strong>addAngularIntegrator</strong></a>(self)</dt><dd><tt>Adds&nbsp;a&nbsp;:class:`~panda3d.physics.AngularEulerIntegrator`&nbsp;to&nbsp;the&nbsp;default<br>
+physics&nbsp;manager.&nbsp;&nbsp;By&nbsp;default,&nbsp;only&nbsp;a<br>
+:class:`~panda3d.physics.LinearEulerIntegrator`&nbsp;is&nbsp;attached.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-addSfxManager"><strong>addSfxManager</strong></a>(self, extraSfxManager)</dt><dd><tt>Adds&nbsp;an&nbsp;additional&nbsp;SFX&nbsp;audio&nbsp;manager&nbsp;to&nbsp;`sfxManagerList`,&nbsp;the&nbsp;list&nbsp;of<br>
+managers&nbsp;managed&nbsp;by&nbsp;<a href="direct.showbase.ShowBase.html#ShowBase">ShowBase</a>.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-add_angular_integrator"><strong>add_angular_integrator</strong></a> = <a href="#MyApp-addAngularIntegrator">addAngularIntegrator</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-add_sfx_manager"><strong>add_sfx_manager</strong></a> = <a href="#MyApp-addSfxManager">addSfxManager</a>(self, extraSfxManager)</dt></dl>
+
+<dl><dt><a name="MyApp-adjustWindowAspectRatio"><strong>adjustWindowAspectRatio</strong></a>(self, aspectRatio)</dt><dd><tt>This&nbsp;function&nbsp;is&nbsp;normally&nbsp;called&nbsp;internally&nbsp;by<br>
+`<a href="#MyApp-windowEvent">windowEvent</a>()`,&nbsp;but&nbsp;it&nbsp;may&nbsp;also&nbsp;be&nbsp;called&nbsp;to&nbsp;explicitly&nbsp;adjust<br>
+the&nbsp;aspect&nbsp;ratio&nbsp;of&nbsp;the&nbsp;render/render2d&nbsp;DisplayRegion,&nbsp;by&nbsp;a<br>
+class&nbsp;that&nbsp;has&nbsp;redefined&nbsp;these.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-attachInputDevice"><strong>attachInputDevice</strong></a>(self, device, prefix=None, watch=False)</dt><dd><tt>This&nbsp;function&nbsp;attaches&nbsp;an&nbsp;input&nbsp;device&nbsp;to&nbsp;the&nbsp;data&nbsp;graph,&nbsp;which&nbsp;will<br>
+cause&nbsp;the&nbsp;device&nbsp;to&nbsp;be&nbsp;polled&nbsp;and&nbsp;generate&nbsp;events.&nbsp;&nbsp;If&nbsp;a&nbsp;prefix&nbsp;is<br>
+given&nbsp;and&nbsp;not&nbsp;None,&nbsp;it&nbsp;is&nbsp;used&nbsp;to&nbsp;prefix&nbsp;events&nbsp;generated&nbsp;by&nbsp;this<br>
+device,&nbsp;separated&nbsp;by&nbsp;a&nbsp;hyphen.<br>
+&nbsp;<br>
+The&nbsp;watch&nbsp;argument&nbsp;can&nbsp;be&nbsp;set&nbsp;to&nbsp;True&nbsp;(as&nbsp;of&nbsp;Panda3D&nbsp;1.10.3)&nbsp;to&nbsp;set&nbsp;up<br>
+the&nbsp;default&nbsp;MouseWatcher&nbsp;to&nbsp;receive&nbsp;inputs&nbsp;from&nbsp;this&nbsp;device,&nbsp;allowing<br>
+it&nbsp;to&nbsp;be&nbsp;polled&nbsp;via&nbsp;mouseWatcherNode&nbsp;and&nbsp;control&nbsp;user&nbsp;interfaces.<br>
+Setting&nbsp;this&nbsp;to&nbsp;True&nbsp;will&nbsp;also&nbsp;make&nbsp;it&nbsp;generate&nbsp;unprefixed&nbsp;events,<br>
+regardless&nbsp;of&nbsp;the&nbsp;specified&nbsp;prefix.<br>
+&nbsp;<br>
+If&nbsp;you&nbsp;call&nbsp;this,&nbsp;you&nbsp;should&nbsp;consider&nbsp;calling&nbsp;detachInputDevice&nbsp;when<br>
+you&nbsp;are&nbsp;done&nbsp;with&nbsp;the&nbsp;device&nbsp;or&nbsp;when&nbsp;it&nbsp;is&nbsp;disconnected.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-attach_input_device"><strong>attach_input_device</strong></a> = <a href="#MyApp-attachInputDevice">attachInputDevice</a>(self, device, prefix=None, watch=False)</dt></dl>
+
+<dl><dt><a name="MyApp-backfaceCullingOff"><strong>backfaceCullingOff</strong></a>(self)</dt><dd><tt>Enables&nbsp;two-sided&nbsp;rendering&nbsp;on&nbsp;the&nbsp;entire&nbsp;3D&nbsp;scene&nbsp;graph.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-backfaceCullingOn"><strong>backfaceCullingOn</strong></a>(self)</dt><dd><tt>Disables&nbsp;two-sided&nbsp;rendering&nbsp;on&nbsp;the&nbsp;entire&nbsp;3D&nbsp;scene&nbsp;graph.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-backface_culling_off"><strong>backface_culling_off</strong></a> = <a href="#MyApp-backfaceCullingOff">backfaceCullingOff</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-backface_culling_on"><strong>backface_culling_on</strong></a> = <a href="#MyApp-backfaceCullingOn">backfaceCullingOn</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-changeMouseInterface"><strong>changeMouseInterface</strong></a>(self, changeTo)</dt><dd><tt>Change&nbsp;the&nbsp;mouse&nbsp;interface&nbsp;used&nbsp;to&nbsp;control&nbsp;the&nbsp;camera.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-change_mouse_interface"><strong>change_mouse_interface</strong></a> = <a href="#MyApp-changeMouseInterface">changeMouseInterface</a>(self, changeTo)</dt></dl>
+
+<dl><dt><a name="MyApp-closeWindow"><strong>closeWindow</strong></a>(self, win, keepCamera=False, removeWindow=True)</dt><dd><tt>Closes&nbsp;the&nbsp;indicated&nbsp;window&nbsp;and&nbsp;removes&nbsp;it&nbsp;from&nbsp;the&nbsp;list&nbsp;of<br>
+windows.&nbsp;&nbsp;If&nbsp;it&nbsp;is&nbsp;the&nbsp;main&nbsp;window,&nbsp;clears&nbsp;the&nbsp;main&nbsp;window<br>
+pointer&nbsp;to&nbsp;None.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-close_window"><strong>close_window</strong></a> = <a href="#MyApp-closeWindow">closeWindow</a>(self, win, keepCamera=False, removeWindow=True)</dt></dl>
+
+<dl><dt><a name="MyApp-createBaseAudioManagers"><strong>createBaseAudioManagers</strong></a>(self)</dt><dd><tt>Creates&nbsp;the&nbsp;default&nbsp;SFX&nbsp;and&nbsp;music&nbsp;manager.&nbsp;&nbsp;Called&nbsp;automatically&nbsp;from<br>
+the&nbsp;<a href="direct.showbase.ShowBase.html#ShowBase">ShowBase</a>&nbsp;constructor.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-createStats"><strong>createStats</strong></a>(self, hostname=None, port=None)</dt><dd><tt>If&nbsp;want-pstats&nbsp;is&nbsp;set&nbsp;in&nbsp;Config.prc,&nbsp;or&nbsp;the&nbsp;`wantStats`&nbsp;member&nbsp;is<br>
+otherwise&nbsp;set&nbsp;to&nbsp;True,&nbsp;connects&nbsp;to&nbsp;the&nbsp;PStats&nbsp;server.<br>
+This&nbsp;is&nbsp;normally&nbsp;called&nbsp;automatically&nbsp;from&nbsp;the&nbsp;<a href="direct.showbase.ShowBase.html#ShowBase">ShowBase</a>&nbsp;constructor.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-create_stats"><strong>create_stats</strong></a> = <a href="#MyApp-createStats">createStats</a>(self, hostname=None, port=None)</dt></dl>
+
+<dl><dt><a name="MyApp-destroy"><strong>destroy</strong></a>(self)</dt><dd><tt>Call&nbsp;this&nbsp;function&nbsp;to&nbsp;destroy&nbsp;the&nbsp;<a href="direct.showbase.ShowBase.html#ShowBase">ShowBase</a>&nbsp;and&nbsp;stop&nbsp;all<br>
+its&nbsp;tasks,&nbsp;freeing&nbsp;all&nbsp;of&nbsp;the&nbsp;Panda&nbsp;resources.&nbsp;&nbsp;Normally,&nbsp;you<br>
+should&nbsp;not&nbsp;need&nbsp;to&nbsp;call&nbsp;it&nbsp;explicitly,&nbsp;as&nbsp;it&nbsp;is&nbsp;bound&nbsp;to&nbsp;the<br>
+exitfunc&nbsp;and&nbsp;will&nbsp;be&nbsp;called&nbsp;at&nbsp;application&nbsp;exit&nbsp;time<br>
+automatically.<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;is&nbsp;designed&nbsp;to&nbsp;be&nbsp;safe&nbsp;to&nbsp;call&nbsp;multiple&nbsp;times.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-detachInputDevice"><strong>detachInputDevice</strong></a>(self, device)</dt><dd><tt>This&nbsp;should&nbsp;be&nbsp;called&nbsp;after&nbsp;attaching&nbsp;an&nbsp;input&nbsp;device&nbsp;using<br>
+attachInputDevice&nbsp;and&nbsp;the&nbsp;device&nbsp;is&nbsp;disconnected&nbsp;or&nbsp;you&nbsp;no&nbsp;longer&nbsp;wish<br>
+to&nbsp;keep&nbsp;polling&nbsp;this&nbsp;device&nbsp;for&nbsp;events.<br>
+&nbsp;<br>
+You&nbsp;do&nbsp;not&nbsp;strictly&nbsp;need&nbsp;to&nbsp;call&nbsp;this&nbsp;if&nbsp;you&nbsp;expect&nbsp;the&nbsp;device&nbsp;to&nbsp;be<br>
+reconnected&nbsp;(but&nbsp;be&nbsp;careful&nbsp;that&nbsp;you&nbsp;don't&nbsp;reattach&nbsp;it).</tt></dd></dl>
+
+<dl><dt><a name="MyApp-detach_input_device"><strong>detach_input_device</strong></a> = <a href="#MyApp-detachInputDevice">detachInputDevice</a>(self, device)</dt></dl>
+
+<dl><dt><a name="MyApp-disableAllAudio"><strong>disableAllAudio</strong></a>(self)</dt><dd><tt>Disables&nbsp;all&nbsp;SFX&nbsp;and&nbsp;music&nbsp;managers,&nbsp;meant&nbsp;to&nbsp;be&nbsp;called&nbsp;when&nbsp;the&nbsp;app<br>
+loses&nbsp;audio&nbsp;focus.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-disableMouse"><strong>disableMouse</strong></a>(self)</dt><dd><tt>Temporarily&nbsp;disable&nbsp;the&nbsp;mouse&nbsp;control&nbsp;of&nbsp;the&nbsp;camera,&nbsp;either<br>
+via&nbsp;the&nbsp;drive&nbsp;interface&nbsp;or&nbsp;the&nbsp;trackball,&nbsp;whichever&nbsp;is<br>
+currently&nbsp;in&nbsp;use.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-disableParticles"><strong>disableParticles</strong></a>(self)</dt><dd><tt>The&nbsp;opposite&nbsp;of&nbsp;`<a href="#MyApp-enableParticles">enableParticles</a>()`.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-disable_all_audio"><strong>disable_all_audio</strong></a> = <a href="#MyApp-disableAllAudio">disableAllAudio</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-disable_mouse"><strong>disable_mouse</strong></a> = <a href="#MyApp-disableMouse">disableMouse</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-disable_particles"><strong>disable_particles</strong></a> = <a href="#MyApp-disableParticles">disableParticles</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-enableAllAudio"><strong>enableAllAudio</strong></a>(self)</dt><dd><tt>Reenables&nbsp;the&nbsp;SFX&nbsp;and&nbsp;music&nbsp;managers&nbsp;that&nbsp;were&nbsp;active&nbsp;at&nbsp;the&nbsp;time<br>
+`<a href="#MyApp-disableAllAudio">disableAllAudio</a>()`&nbsp;was&nbsp;called.&nbsp;&nbsp;Meant&nbsp;to&nbsp;be&nbsp;called&nbsp;when&nbsp;the&nbsp;app&nbsp;regains<br>
+audio&nbsp;focus.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-enableMouse"><strong>enableMouse</strong></a>(self)</dt><dd><tt>Reverse&nbsp;the&nbsp;effect&nbsp;of&nbsp;a&nbsp;previous&nbsp;call&nbsp;to&nbsp;`<a href="#MyApp-disableMouse">disableMouse</a>()`.<br>
+`<a href="#MyApp-useDrive">useDrive</a>()`&nbsp;also&nbsp;implicitly&nbsp;enables&nbsp;the&nbsp;mouse.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-enableMusic"><strong>enableMusic</strong></a>(self, bEnableMusic)</dt><dd><tt>Enables&nbsp;or&nbsp;disables&nbsp;the&nbsp;music&nbsp;manager.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-enableParticles"><strong>enableParticles</strong></a>(self)</dt><dd><tt>Enables&nbsp;the&nbsp;particle&nbsp;and&nbsp;physics&nbsp;managers,&nbsp;which&nbsp;are&nbsp;stored&nbsp;in<br>
+`particleMgr`&nbsp;and&nbsp;`physicsMgr`&nbsp;members,&nbsp;respectively.&nbsp;&nbsp;Also&nbsp;starts&nbsp;a<br>
+task&nbsp;to&nbsp;periodically&nbsp;update&nbsp;these&nbsp;managers.<br>
+&nbsp;<br>
+By&nbsp;default,&nbsp;only&nbsp;a&nbsp;:class:`~panda3d.physics.LinearEulerIntegrator`&nbsp;is<br>
+attached&nbsp;to&nbsp;the&nbsp;physics&nbsp;manager.&nbsp;&nbsp;To&nbsp;attach&nbsp;an&nbsp;angular&nbsp;integrator,<br>
+follow&nbsp;this&nbsp;up&nbsp;with&nbsp;a&nbsp;call&nbsp;to&nbsp;`<a href="#MyApp-addAngularIntegrator">addAngularIntegrator</a>()`.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-enableSoftwareMousePointer"><strong>enableSoftwareMousePointer</strong></a>(self)</dt><dd><tt>Creates&nbsp;some&nbsp;geometry&nbsp;and&nbsp;parents&nbsp;it&nbsp;to&nbsp;render2d&nbsp;to&nbsp;show<br>
+the&nbsp;currently-known&nbsp;mouse&nbsp;position.&nbsp;&nbsp;Useful&nbsp;if&nbsp;the&nbsp;mouse<br>
+pointer&nbsp;is&nbsp;invisible&nbsp;for&nbsp;some&nbsp;reason.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-enableSoundEffects"><strong>enableSoundEffects</strong></a>(self, bEnableSoundEffects)</dt><dd><tt>Enables&nbsp;or&nbsp;disables&nbsp;SFX&nbsp;managers.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-enable_all_audio"><strong>enable_all_audio</strong></a> = <a href="#MyApp-enableAllAudio">enableAllAudio</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-enable_mouse"><strong>enable_mouse</strong></a> = <a href="#MyApp-enableMouse">enableMouse</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-enable_music"><strong>enable_music</strong></a> = <a href="#MyApp-enableMusic">enableMusic</a>(self, bEnableMusic)</dt></dl>
+
+<dl><dt><a name="MyApp-enable_particles"><strong>enable_particles</strong></a> = <a href="#MyApp-enableParticles">enableParticles</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-enable_software_mouse_pointer"><strong>enable_software_mouse_pointer</strong></a> = <a href="#MyApp-enableSoftwareMousePointer">enableSoftwareMousePointer</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-enable_sound_effects"><strong>enable_sound_effects</strong></a> = <a href="#MyApp-enableSoundEffects">enableSoundEffects</a>(self, bEnableSoundEffects)</dt></dl>
+
+<dl><dt><a name="MyApp-finalizeExit"><strong>finalizeExit</strong></a>(self)</dt><dd><tt>Called&nbsp;by&nbsp;`<a href="#MyApp-userExit">userExit</a>()`&nbsp;to&nbsp;quit&nbsp;the&nbsp;application.&nbsp;&nbsp;The&nbsp;default<br>
+implementation&nbsp;just&nbsp;calls&nbsp;`sys.exit()`.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-getAlt"><strong>getAlt</strong></a>(self)</dt><dd><tt>Returns&nbsp;True&nbsp;if&nbsp;the&nbsp;alt&nbsp;key&nbsp;is&nbsp;currently&nbsp;held&nbsp;down.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-getAspectRatio"><strong>getAspectRatio</strong></a>(self, win=None)</dt></dl>
+
+<dl><dt><a name="MyApp-getAxes"><strong>getAxes</strong></a>(self)</dt><dd><tt>Loads&nbsp;and&nbsp;returns&nbsp;the&nbsp;``models/misc/xyzAxis.bam``&nbsp;model.<br>
+&nbsp;<br>
+:rtype:&nbsp;panda3d.core.NodePath</tt></dd></dl>
+
+<dl><dt><a name="MyApp-getBackgroundColor"><strong>getBackgroundColor</strong></a>(self, win=None)</dt><dd><tt>Returns&nbsp;the&nbsp;current&nbsp;window&nbsp;background&nbsp;color.&nbsp;&nbsp;This&nbsp;assumes<br>
+the&nbsp;window&nbsp;is&nbsp;set&nbsp;up&nbsp;to&nbsp;clear&nbsp;the&nbsp;color&nbsp;each&nbsp;frame&nbsp;(this&nbsp;is<br>
+the&nbsp;normal&nbsp;setting).<br>
+&nbsp;<br>
+:rtype:&nbsp;panda3d.core.VBase4</tt></dd></dl>
+
+<dl><dt><a name="MyApp-getControl"><strong>getControl</strong></a>(self)</dt><dd><tt>Returns&nbsp;True&nbsp;if&nbsp;the&nbsp;control&nbsp;key&nbsp;is&nbsp;currently&nbsp;held&nbsp;down.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-getExitErrorCode"><strong>getExitErrorCode</strong></a>(self)</dt><dd><tt>#&nbsp;temp;&nbsp;see&nbsp;ToonBase.py</tt></dd></dl>
+
+<dl><dt><a name="MyApp-getMeta"><strong>getMeta</strong></a>(self)</dt><dd><tt>Returns&nbsp;True&nbsp;if&nbsp;the&nbsp;meta&nbsp;key&nbsp;is&nbsp;currently&nbsp;held&nbsp;down.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-getRepository"><strong>getRepository</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-getShift"><strong>getShift</strong></a>(self)</dt><dd><tt>Returns&nbsp;True&nbsp;if&nbsp;the&nbsp;shift&nbsp;key&nbsp;is&nbsp;currently&nbsp;held&nbsp;down.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-getSize"><strong>getSize</strong></a>(self, win=None)</dt><dd><tt>Returns&nbsp;the&nbsp;actual&nbsp;size&nbsp;of&nbsp;the&nbsp;indicated&nbsp;(or&nbsp;main&nbsp;window),&nbsp;or&nbsp;the<br>
+default&nbsp;size&nbsp;if&nbsp;there&nbsp;is&nbsp;not&nbsp;yet&nbsp;a&nbsp;main&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-get_aspect_ratio"><strong>get_aspect_ratio</strong></a> = <a href="#MyApp-getAspectRatio">getAspectRatio</a>(self, win=None)</dt></dl>
+
+<dl><dt><a name="MyApp-get_background_color"><strong>get_background_color</strong></a> = <a href="#MyApp-getBackgroundColor">getBackgroundColor</a>(self, win=None)</dt></dl>
+
+<dl><dt><a name="MyApp-get_size"><strong>get_size</strong></a> = <a href="#MyApp-getSize">getSize</a>(self, win=None)</dt></dl>
+
+<dl><dt><a name="MyApp-initShadowTrav"><strong>initShadowTrav</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-init_shadow_trav"><strong>init_shadow_trav</strong></a> = <a href="#MyApp-initShadowTrav">initShadowTrav</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-isParticleMgrEnabled"><strong>isParticleMgrEnabled</strong></a>(self)</dt><dd><tt>Returns&nbsp;True&nbsp;if&nbsp;`<a href="#MyApp-enableParticles">enableParticles</a>()`&nbsp;has&nbsp;been&nbsp;called.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-isPhysicsMgrEnabled"><strong>isPhysicsMgrEnabled</strong></a>(self)</dt><dd><tt>Returns&nbsp;True&nbsp;if&nbsp;`<a href="#MyApp-enableParticles">enableParticles</a>()`&nbsp;has&nbsp;been&nbsp;called.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-loadMusic"><strong>loadMusic</strong></a>(self, name)</dt><dd><tt>:deprecated:&nbsp;Use&nbsp;`.Loader.Loader.<a href="#MyApp-loadMusic">loadMusic</a>()`&nbsp;instead.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-loadSfx"><strong>loadSfx</strong></a>(self, name)</dt><dd><tt>:deprecated:&nbsp;Use&nbsp;`.Loader.Loader.<a href="#MyApp-loadSfx">loadSfx</a>()`&nbsp;instead.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-makeAllPipes"><strong>makeAllPipes</strong></a>(self)</dt><dd><tt>Creates&nbsp;all&nbsp;GraphicsPipes&nbsp;that&nbsp;the&nbsp;system&nbsp;knows&nbsp;about&nbsp;and&nbsp;fill&nbsp;up<br>
+`pipeList`&nbsp;with&nbsp;them.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-makeCamera"><strong>makeCamera</strong></a>(self, win, sort=0, scene=None, displayRegion=(0, 1, 0, 1), stereo=None, aspectRatio=None, clearDepth=0, clearColor=None, lens=None, camName='cam', mask=None, useCamera=None)</dt><dd><tt>Makes&nbsp;a&nbsp;new&nbsp;3-d&nbsp;camera&nbsp;associated&nbsp;with&nbsp;the&nbsp;indicated&nbsp;window,<br>
+and&nbsp;creates&nbsp;a&nbsp;display&nbsp;region&nbsp;in&nbsp;the&nbsp;indicated&nbsp;subrectangle.<br>
+&nbsp;<br>
+If&nbsp;stereo&nbsp;is&nbsp;True,&nbsp;then&nbsp;a&nbsp;stereo&nbsp;camera&nbsp;is&nbsp;created,&nbsp;with&nbsp;a<br>
+pair&nbsp;of&nbsp;DisplayRegions.&nbsp;&nbsp;If&nbsp;stereo&nbsp;is&nbsp;False,&nbsp;then&nbsp;a&nbsp;standard<br>
+camera&nbsp;is&nbsp;created.&nbsp;&nbsp;If&nbsp;stereo&nbsp;is&nbsp;None&nbsp;or&nbsp;omitted,&nbsp;a&nbsp;stereo<br>
+camera&nbsp;is&nbsp;created&nbsp;if&nbsp;the&nbsp;window&nbsp;says&nbsp;it&nbsp;can&nbsp;render&nbsp;in&nbsp;stereo.<br>
+&nbsp;<br>
+If&nbsp;useCamera&nbsp;is&nbsp;not&nbsp;None,&nbsp;it&nbsp;is&nbsp;a&nbsp;NodePath&nbsp;to&nbsp;be&nbsp;used&nbsp;as&nbsp;the<br>
+camera&nbsp;to&nbsp;apply&nbsp;to&nbsp;the&nbsp;window,&nbsp;rather&nbsp;than&nbsp;creating&nbsp;a&nbsp;new<br>
+camera.<br>
+&nbsp;<br>
+:rtype:&nbsp;panda3d.core.NodePath</tt></dd></dl>
+
+<dl><dt><a name="MyApp-makeCamera2d"><strong>makeCamera2d</strong></a>(self, win, sort=10, displayRegion=(0, 1, 0, 1), coords=(-1, 1, -1, 1), lens=None, cameraName=None)</dt><dd><tt>Makes&nbsp;a&nbsp;new&nbsp;camera2d&nbsp;associated&nbsp;with&nbsp;the&nbsp;indicated&nbsp;window,&nbsp;and<br>
+assigns&nbsp;it&nbsp;to&nbsp;render&nbsp;the&nbsp;indicated&nbsp;subrectangle&nbsp;of&nbsp;render2d.<br>
+&nbsp;<br>
+:rtype:&nbsp;panda3d.core.NodePath</tt></dd></dl>
+
+<dl><dt><a name="MyApp-makeCamera2dp"><strong>makeCamera2dp</strong></a>(self, win, sort=20, displayRegion=(0, 1, 0, 1), coords=(-1, 1, -1, 1), lens=None, cameraName=None)</dt><dd><tt>Makes&nbsp;a&nbsp;new&nbsp;camera2dp&nbsp;associated&nbsp;with&nbsp;the&nbsp;indicated&nbsp;window,&nbsp;and<br>
+assigns&nbsp;it&nbsp;to&nbsp;render&nbsp;the&nbsp;indicated&nbsp;subrectangle&nbsp;of&nbsp;render2dp.<br>
+&nbsp;<br>
+:rtype:&nbsp;panda3d.core.NodePath</tt></dd></dl>
+
+<dl><dt><a name="MyApp-makeDefaultPipe"><strong>makeDefaultPipe</strong></a>(self, printPipeTypes=None)</dt><dd><tt>Creates&nbsp;the&nbsp;default&nbsp;GraphicsPipe,&nbsp;which&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;make<br>
+windows&nbsp;unless&nbsp;otherwise&nbsp;specified.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-makeModulePipe"><strong>makeModulePipe</strong></a>(self, moduleName)</dt><dd><tt>Returns&nbsp;a&nbsp;GraphicsPipe&nbsp;from&nbsp;the&nbsp;indicated&nbsp;module,<br>
+e.g.&nbsp;'pandagl'&nbsp;or&nbsp;'pandadx9'.&nbsp;&nbsp;Does&nbsp;not&nbsp;affect&nbsp;base.pipe&nbsp;or<br>
+base.pipeList.<br>
+&nbsp;<br>
+:rtype:&nbsp;panda3d.core.GraphicsPipe</tt></dd></dl>
+
+<dl><dt><a name="MyApp-make_all_pipes"><strong>make_all_pipes</strong></a> = <a href="#MyApp-makeAllPipes">makeAllPipes</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-make_camera"><strong>make_camera</strong></a> = <a href="#MyApp-makeCamera">makeCamera</a>(self, win, sort=0, scene=None, displayRegion=(0, 1, 0, 1), stereo=None, aspectRatio=None, clearDepth=0, clearColor=None, lens=None, camName='cam', mask=None, useCamera=None)</dt></dl>
+
+<dl><dt><a name="MyApp-make_camera2d"><strong>make_camera2d</strong></a> = <a href="#MyApp-makeCamera2d">makeCamera2d</a>(self, win, sort=10, displayRegion=(0, 1, 0, 1), coords=(-1, 1, -1, 1), lens=None, cameraName=None)</dt></dl>
+
+<dl><dt><a name="MyApp-make_camera2dp"><strong>make_camera2dp</strong></a> = <a href="#MyApp-makeCamera2dp">makeCamera2dp</a>(self, win, sort=20, displayRegion=(0, 1, 0, 1), coords=(-1, 1, -1, 1), lens=None, cameraName=None)</dt></dl>
+
+<dl><dt><a name="MyApp-make_default_pipe"><strong>make_default_pipe</strong></a> = <a href="#MyApp-makeDefaultPipe">makeDefaultPipe</a>(self, printPipeTypes=None)</dt></dl>
+
+<dl><dt><a name="MyApp-make_module_pipe"><strong>make_module_pipe</strong></a> = <a href="#MyApp-makeModulePipe">makeModulePipe</a>(self, moduleName)</dt></dl>
+
+<dl><dt><a name="MyApp-movie"><strong>movie</strong></a>(self, namePrefix='movie', duration=1.0, fps=30, format='png', sd=4, source=None)</dt><dd><tt>Spawn&nbsp;a&nbsp;task&nbsp;to&nbsp;capture&nbsp;a&nbsp;movie&nbsp;using&nbsp;the&nbsp;screenshot&nbsp;function.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;namePrefix&nbsp;(str):&nbsp;used&nbsp;to&nbsp;form&nbsp;output&nbsp;file&nbsp;names&nbsp;(can<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;path&nbsp;information&nbsp;(e.g.&nbsp;'/i/beta/frames/myMovie')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;duration&nbsp;(float):&nbsp;the&nbsp;length&nbsp;of&nbsp;the&nbsp;movie&nbsp;in&nbsp;seconds<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fps&nbsp;(float):&nbsp;the&nbsp;frame&nbsp;rate&nbsp;of&nbsp;the&nbsp;resulting&nbsp;movie<br>
+&nbsp;&nbsp;&nbsp;&nbsp;format&nbsp;(str):&nbsp;specifies&nbsp;output&nbsp;file&nbsp;format&nbsp;(e.g.&nbsp;png,&nbsp;bmp)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sd&nbsp;(int):&nbsp;specifies&nbsp;number&nbsp;of&nbsp;significant&nbsp;digits&nbsp;for&nbsp;frame<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;count&nbsp;in&nbsp;the&nbsp;output&nbsp;file&nbsp;name&nbsp;(e.g.&nbsp;if&nbsp;sd&nbsp;=&nbsp;4,&nbsp;the&nbsp;name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;will&nbsp;be&nbsp;something&nbsp;like&nbsp;movie_0001.png)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;source:&nbsp;the&nbsp;Window,&nbsp;Buffer,&nbsp;DisplayRegion,&nbsp;or&nbsp;Texture&nbsp;from<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;which&nbsp;to&nbsp;save&nbsp;the&nbsp;resulting&nbsp;images.&nbsp;&nbsp;The&nbsp;default&nbsp;is&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main&nbsp;window.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;`~direct.task.Task`&nbsp;that&nbsp;can&nbsp;be&nbsp;awaited.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-oobe"><strong>oobe</strong></a>(self, cam=None)</dt><dd><tt>Enable&nbsp;a&nbsp;special&nbsp;"out-of-body&nbsp;experience"&nbsp;mouse-interface<br>
+mode.&nbsp;&nbsp;This&nbsp;can&nbsp;be&nbsp;used&nbsp;when&nbsp;a&nbsp;"god"&nbsp;camera&nbsp;is&nbsp;needed;&nbsp;it<br>
+moves&nbsp;the&nbsp;camera&nbsp;node&nbsp;out&nbsp;from&nbsp;under&nbsp;its&nbsp;normal&nbsp;node&nbsp;and&nbsp;sets<br>
+the&nbsp;world&nbsp;up&nbsp;in&nbsp;trackball&nbsp;state.&nbsp;&nbsp;Button&nbsp;events&nbsp;are&nbsp;still&nbsp;sent<br>
+to&nbsp;the&nbsp;normal&nbsp;mouse&nbsp;action&nbsp;node&nbsp;(e.g.&nbsp;the&nbsp;DriveInterface),&nbsp;and<br>
+mouse&nbsp;events,&nbsp;if&nbsp;needed,&nbsp;may&nbsp;be&nbsp;sent&nbsp;to&nbsp;the&nbsp;normal&nbsp;node&nbsp;by<br>
+holding&nbsp;down&nbsp;the&nbsp;Control&nbsp;key.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;different&nbsp;than&nbsp;`<a href="#MyApp-useTrackball">useTrackball</a>()`,&nbsp;which&nbsp;simply&nbsp;changes<br>
+the&nbsp;existing&nbsp;mouse&nbsp;action&nbsp;to&nbsp;a&nbsp;trackball&nbsp;interface.&nbsp;&nbsp;In&nbsp;fact,<br>
+OOBE&nbsp;mode&nbsp;doesn't&nbsp;care&nbsp;whether&nbsp;`<a href="#MyApp-useDrive">useDrive</a>()`&nbsp;or&nbsp;`<a href="#MyApp-useTrackball">useTrackball</a>()`&nbsp;is<br>
+in&nbsp;effect;&nbsp;it&nbsp;just&nbsp;temporarily&nbsp;layers&nbsp;a&nbsp;new&nbsp;trackball<br>
+interface&nbsp;on&nbsp;top&nbsp;of&nbsp;whatever&nbsp;the&nbsp;basic&nbsp;interface&nbsp;is.&nbsp;&nbsp;You&nbsp;can<br>
+even&nbsp;switch&nbsp;between&nbsp;`<a href="#MyApp-useDrive">useDrive</a>()`&nbsp;and&nbsp;`<a href="#MyApp-useTrackball">useTrackball</a>()`&nbsp;while&nbsp;OOBE<br>
+mode&nbsp;is&nbsp;in&nbsp;effect.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;a&nbsp;toggle;&nbsp;the&nbsp;second&nbsp;time&nbsp;this&nbsp;function&nbsp;is&nbsp;called,&nbsp;it<br>
+disables&nbsp;the&nbsp;mode.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-oobeCull"><strong>oobeCull</strong></a>(self, cam=None)</dt><dd><tt>While&nbsp;in&nbsp;OOBE&nbsp;mode&nbsp;(see&nbsp;above),&nbsp;cull&nbsp;the&nbsp;viewing&nbsp;frustum&nbsp;as&nbsp;if<br>
+it&nbsp;were&nbsp;still&nbsp;attached&nbsp;to&nbsp;our&nbsp;original&nbsp;camera.&nbsp;&nbsp;This&nbsp;allows&nbsp;us<br>
+to&nbsp;visualize&nbsp;the&nbsp;effectiveness&nbsp;of&nbsp;our&nbsp;bounding&nbsp;volumes.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-oobe_cull"><strong>oobe_cull</strong></a> = <a href="#MyApp-oobeCull">oobeCull</a>(self, cam=None)</dt></dl>
+
+<dl><dt><a name="MyApp-openDefaultWindow"><strong>openDefaultWindow</strong></a>(self, *args, **kw)</dt><dd><tt>Creates&nbsp;the&nbsp;main&nbsp;window&nbsp;for&nbsp;the&nbsp;first&nbsp;time,&nbsp;without&nbsp;being&nbsp;too<br>
+particular&nbsp;about&nbsp;the&nbsp;kind&nbsp;of&nbsp;graphics&nbsp;API&nbsp;that&nbsp;is&nbsp;chosen.<br>
+The&nbsp;suggested&nbsp;window&nbsp;type&nbsp;from&nbsp;the&nbsp;load-display&nbsp;config&nbsp;variable&nbsp;is<br>
+tried&nbsp;first;&nbsp;if&nbsp;that&nbsp;fails,&nbsp;the&nbsp;first&nbsp;window&nbsp;type&nbsp;that&nbsp;can&nbsp;be<br>
+successfully&nbsp;opened&nbsp;at&nbsp;all&nbsp;is&nbsp;accepted.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;intended&nbsp;to&nbsp;be&nbsp;called&nbsp;only&nbsp;once,&nbsp;at&nbsp;application&nbsp;startup.<br>
+It&nbsp;is&nbsp;normally&nbsp;called&nbsp;automatically&nbsp;unless&nbsp;window-type&nbsp;is&nbsp;configured<br>
+to&nbsp;'none'.<br>
+&nbsp;<br>
+:returns:&nbsp;True&nbsp;on&nbsp;success,&nbsp;False&nbsp;on&nbsp;failure.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-openMainWindow"><strong>openMainWindow</strong></a>(self, *args, **kw)</dt><dd><tt>Creates&nbsp;the&nbsp;initial,&nbsp;main&nbsp;window&nbsp;for&nbsp;the&nbsp;application,&nbsp;and&nbsp;sets<br>
+up&nbsp;the&nbsp;mouse&nbsp;and&nbsp;render2d&nbsp;structures&nbsp;appropriately&nbsp;for&nbsp;it.&nbsp;&nbsp;If<br>
+this&nbsp;method&nbsp;is&nbsp;called&nbsp;a&nbsp;second&nbsp;time,&nbsp;it&nbsp;will&nbsp;close&nbsp;the<br>
+previous&nbsp;main&nbsp;window&nbsp;and&nbsp;open&nbsp;a&nbsp;new&nbsp;one,&nbsp;preserving&nbsp;the&nbsp;lens<br>
+properties&nbsp;in&nbsp;base.camLens.<br>
+&nbsp;<br>
+:returns:&nbsp;True&nbsp;on&nbsp;success,&nbsp;or&nbsp;False&nbsp;on&nbsp;failure&nbsp;(in&nbsp;which&nbsp;case&nbsp;base.win<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;may&nbsp;be&nbsp;either&nbsp;None,&nbsp;or&nbsp;the&nbsp;previous,&nbsp;closed&nbsp;window).</tt></dd></dl>
+
+<dl><dt><a name="MyApp-openWindow"><strong>openWindow</strong></a>(self, props=None, fbprops=None, pipe=None, gsg=None, host=None, type=None, name=None, size=None, aspectRatio=None, makeCamera=True, keepCamera=False, scene=None, stereo=None, unexposedDraw=None, callbackWindowDict=None, requireWindow=None)</dt><dd><tt>Creates&nbsp;a&nbsp;window&nbsp;and&nbsp;adds&nbsp;it&nbsp;to&nbsp;the&nbsp;list&nbsp;of&nbsp;windows&nbsp;that&nbsp;are<br>
+to&nbsp;be&nbsp;updated&nbsp;every&nbsp;frame.<br>
+&nbsp;<br>
+:param&nbsp;props:&nbsp;the&nbsp;:class:`~panda3d.core.WindowProperties`&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;describes&nbsp;the&nbsp;window.<br>
+&nbsp;<br>
+:param&nbsp;fbprops:&nbsp;the&nbsp;:class:`~panda3d.core.FrameBufferProperties`<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;indicating&nbsp;the&nbsp;requested&nbsp;framebuffer&nbsp;properties.<br>
+&nbsp;<br>
+:param&nbsp;type:&nbsp;Either&nbsp;'onscreen',&nbsp;'offscreen',&nbsp;or&nbsp;'none'.<br>
+&nbsp;<br>
+:param&nbsp;keepCamera:&nbsp;If&nbsp;True,&nbsp;the&nbsp;existing&nbsp;base.cam&nbsp;is&nbsp;set&nbsp;up&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;render&nbsp;into&nbsp;the&nbsp;new&nbsp;window.<br>
+&nbsp;<br>
+:param&nbsp;makeCamera:&nbsp;If&nbsp;True&nbsp;(and&nbsp;keepCamera&nbsp;is&nbsp;False),&nbsp;a&nbsp;new&nbsp;camera&nbsp;is<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set&nbsp;up&nbsp;to&nbsp;render&nbsp;into&nbsp;the&nbsp;new&nbsp;window.<br>
+&nbsp;<br>
+:param&nbsp;unexposedDraw:&nbsp;If&nbsp;not&nbsp;None,&nbsp;it&nbsp;specifies&nbsp;the&nbsp;initial&nbsp;value<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;:meth:`~panda3d.core.GraphicsWindow.setUnexposedDraw()`.<br>
+&nbsp;<br>
+:param&nbsp;callbackWindowDict:&nbsp;If&nbsp;not&nbsp;None,&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:class:`~panda3d.core.CallbackGraphicsWindow`<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;created&nbsp;instead,&nbsp;which&nbsp;allows&nbsp;the&nbsp;caller<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;create&nbsp;the&nbsp;actual&nbsp;window&nbsp;with&nbsp;its&nbsp;own<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OpenGL&nbsp;context,&nbsp;and&nbsp;direct&nbsp;Panda's&nbsp;rendering<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;that&nbsp;window.<br>
+&nbsp;<br>
+:param&nbsp;requireWindow:&nbsp;If&nbsp;True,&nbsp;the&nbsp;function&nbsp;should&nbsp;raise&nbsp;an&nbsp;exception<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;the&nbsp;window&nbsp;fails&nbsp;to&nbsp;open&nbsp;correctly.<br>
+&nbsp;<br>
+:rtype:&nbsp;panda3d.core.GraphicsWindow</tt></dd></dl>
+
+<dl><dt><a name="MyApp-open_default_window"><strong>open_default_window</strong></a> = <a href="#MyApp-openDefaultWindow">openDefaultWindow</a>(self, *args, **kw)</dt></dl>
+
+<dl><dt><a name="MyApp-open_main_window"><strong>open_main_window</strong></a> = <a href="#MyApp-openMainWindow">openMainWindow</a>(self, *args, **kw)</dt></dl>
+
+<dl><dt><a name="MyApp-open_window"><strong>open_window</strong></a> = <a href="#MyApp-openWindow">openWindow</a>(self, props=None, fbprops=None, pipe=None, gsg=None, host=None, type=None, name=None, size=None, aspectRatio=None, makeCamera=True, keepCamera=False, scene=None, stereo=None, unexposedDraw=None, callbackWindowDict=None, requireWindow=None)</dt></dl>
+
+<dl><dt><a name="MyApp-playMusic"><strong>playMusic</strong></a>(self, music, looping=0, interrupt=1, volume=None, time=0.0)</dt></dl>
+
+<dl><dt><a name="MyApp-playSfx"><strong>playSfx</strong></a>(self, sfx, looping=0, interrupt=1, volume=None, time=0.0, node=None, listener=None, cutoff=None)</dt></dl>
+
+<dl><dt><a name="MyApp-popCTrav"><strong>popCTrav</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-printEnvDebugInfo"><strong>printEnvDebugInfo</strong></a>(self)</dt><dd><tt>Print&nbsp;some&nbsp;information&nbsp;about&nbsp;the&nbsp;environment&nbsp;that&nbsp;we&nbsp;are&nbsp;running<br>
+in.&nbsp;&nbsp;Stuff&nbsp;like&nbsp;the&nbsp;model&nbsp;paths&nbsp;and&nbsp;other&nbsp;paths.&nbsp;&nbsp;Feel&nbsp;free&nbsp;to<br>
+add&nbsp;stuff&nbsp;to&nbsp;this.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-pushCTrav"><strong>pushCTrav</strong></a>(self, cTrav)</dt><dd><tt>#&nbsp;add&nbsp;a&nbsp;collision&nbsp;traverser&nbsp;via&nbsp;pushCTrav&nbsp;and&nbsp;remove&nbsp;it&nbsp;via&nbsp;popCTrav<br>
+#&nbsp;that&nbsp;way&nbsp;the&nbsp;owner&nbsp;of&nbsp;the&nbsp;new&nbsp;cTrav&nbsp;doesn't&nbsp;need&nbsp;to&nbsp;hold&nbsp;onto&nbsp;the<br>
+#&nbsp;previous&nbsp;one&nbsp;in&nbsp;order&nbsp;to&nbsp;put&nbsp;it&nbsp;back</tt></dd></dl>
+
+<dl><dt><a name="MyApp-removeCameraFrustum"><strong>removeCameraFrustum</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-remove_camera_frustum"><strong>remove_camera_frustum</strong></a> = <a href="#MyApp-removeCameraFrustum">removeCameraFrustum</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-restart"><strong>restart</strong></a>(self, clusterSync=False, cluster=None)</dt></dl>
+
+<dl><dt><a name="MyApp-reviveInput"><strong>reviveInput</strong></a>(self)</dt><dd><tt>Restores&nbsp;inputs&nbsp;after&nbsp;a&nbsp;previous&nbsp;call&nbsp;to&nbsp;`<a href="#MyApp-silenceInput">silenceInput</a>()`.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-revive_input"><strong>revive_input</strong></a> = <a href="#MyApp-reviveInput">reviveInput</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-run"><strong>run</strong></a>(self)</dt><dd><tt>This&nbsp;method&nbsp;runs&nbsp;the&nbsp;:class:`~direct.task.Task.TaskManager`<br>
+when&nbsp;``self.<strong>appRunner</strong>&nbsp;is&nbsp;None``,&nbsp;which&nbsp;is&nbsp;to&nbsp;say,&nbsp;when&nbsp;we&nbsp;are<br>
+not&nbsp;running&nbsp;from&nbsp;within&nbsp;a&nbsp;p3d&nbsp;file.&nbsp;&nbsp;When&nbsp;we&nbsp;*are*&nbsp;within&nbsp;a&nbsp;p3d<br>
+file,&nbsp;the&nbsp;Panda3D&nbsp;runtime&nbsp;has&nbsp;to&nbsp;be&nbsp;responsible&nbsp;for&nbsp;running&nbsp;the<br>
+main&nbsp;loop,&nbsp;so&nbsp;we&nbsp;can't&nbsp;allow&nbsp;the&nbsp;application&nbsp;to&nbsp;do&nbsp;it.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-saveCubeMap"><strong>saveCubeMap</strong></a>(self, namePrefix='cube_map_#.png', defaultFilename=0, source=None, camera=None, size=128, cameraMask= 0111 1111 1111 1111 1111 1111 1111 1111, sourceLens=None)</dt><dd><tt>Similar&nbsp;to&nbsp;:meth:`<a href="#MyApp-screenshot">screenshot</a>()`,&nbsp;this&nbsp;sets&nbsp;up&nbsp;a&nbsp;temporary&nbsp;cube<br>
+map&nbsp;Texture&nbsp;which&nbsp;it&nbsp;uses&nbsp;to&nbsp;take&nbsp;a&nbsp;series&nbsp;of&nbsp;six&nbsp;snapshots&nbsp;of<br>
+the&nbsp;current&nbsp;scene,&nbsp;one&nbsp;in&nbsp;each&nbsp;of&nbsp;the&nbsp;six&nbsp;cube&nbsp;map&nbsp;directions.<br>
+This&nbsp;requires&nbsp;rendering&nbsp;a&nbsp;new&nbsp;frame.<br>
+&nbsp;<br>
+Unlike&nbsp;`<a href="#MyApp-screenshot">screenshot</a>()`,&nbsp;source&nbsp;may&nbsp;only&nbsp;be&nbsp;a&nbsp;GraphicsWindow,<br>
+GraphicsBuffer,&nbsp;or&nbsp;DisplayRegion;&nbsp;it&nbsp;may&nbsp;not&nbsp;be&nbsp;a&nbsp;Texture.<br>
+&nbsp;<br>
+camera&nbsp;should&nbsp;be&nbsp;the&nbsp;node&nbsp;to&nbsp;which&nbsp;the&nbsp;cubemap&nbsp;cameras&nbsp;will&nbsp;be<br>
+parented.&nbsp;&nbsp;The&nbsp;default&nbsp;is&nbsp;the&nbsp;camera&nbsp;associated&nbsp;with&nbsp;source,<br>
+if&nbsp;source&nbsp;is&nbsp;a&nbsp;DisplayRegion,&nbsp;or&nbsp;base.camera&nbsp;otherwise.<br>
+&nbsp;<br>
+:returns:&nbsp;The&nbsp;filename&nbsp;if&nbsp;successful,&nbsp;or&nbsp;None&nbsp;if&nbsp;there&nbsp;is&nbsp;a&nbsp;problem.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-saveSphereMap"><strong>saveSphereMap</strong></a>(self, namePrefix='spheremap.png', defaultFilename=0, source=None, camera=None, size=256, cameraMask= 0111 1111 1111 1111 1111 1111 1111 1111, numVertices=1000, sourceLens=None)</dt><dd><tt>This&nbsp;works&nbsp;much&nbsp;like&nbsp;:meth:`<a href="#MyApp-saveCubeMap">saveCubeMap</a>()`,&nbsp;and&nbsp;uses&nbsp;the<br>
+graphics&nbsp;API's&nbsp;hardware&nbsp;cube-mapping&nbsp;ability&nbsp;to&nbsp;get&nbsp;a&nbsp;360-degree<br>
+view&nbsp;of&nbsp;the&nbsp;world.&nbsp;&nbsp;But&nbsp;then&nbsp;it&nbsp;converts&nbsp;the&nbsp;six&nbsp;cube&nbsp;map&nbsp;faces<br>
+into&nbsp;a&nbsp;single&nbsp;fisheye&nbsp;texture,&nbsp;suitable&nbsp;for&nbsp;applying&nbsp;as&nbsp;a&nbsp;static<br>
+environment&nbsp;map&nbsp;(sphere&nbsp;map).<br>
+&nbsp;<br>
+For&nbsp;eye-relative&nbsp;static&nbsp;environment&nbsp;maps,&nbsp;sphere&nbsp;maps&nbsp;are&nbsp;often<br>
+preferable&nbsp;to&nbsp;cube&nbsp;maps&nbsp;because&nbsp;they&nbsp;require&nbsp;only&nbsp;a&nbsp;single<br>
+texture&nbsp;and&nbsp;because&nbsp;they&nbsp;are&nbsp;supported&nbsp;on&nbsp;a&nbsp;broader&nbsp;range&nbsp;of<br>
+hardware.<br>
+&nbsp;<br>
+:returns:&nbsp;The&nbsp;filename&nbsp;if&nbsp;successful,&nbsp;or&nbsp;None&nbsp;if&nbsp;there&nbsp;is&nbsp;a&nbsp;problem.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-save_cube_map"><strong>save_cube_map</strong></a> = <a href="#MyApp-saveCubeMap">saveCubeMap</a>(self, namePrefix='cube_map_#.png', defaultFilename=0, source=None, camera=None, size=128, cameraMask= 0111 1111 1111 1111 1111 1111 1111 1111, sourceLens=None)</dt></dl>
+
+<dl><dt><a name="MyApp-save_sphere_map"><strong>save_sphere_map</strong></a> = <a href="#MyApp-saveSphereMap">saveSphereMap</a>(self, namePrefix='spheremap.png', defaultFilename=0, source=None, camera=None, size=256, cameraMask= 0111 1111 1111 1111 1111 1111 1111 1111, numVertices=1000, sourceLens=None)</dt></dl>
+
+<dl><dt><a name="MyApp-screenshot"><strong>screenshot</strong></a>(self, namePrefix='screenshot', defaultFilename=1, source=None, imageComment='')</dt><dd><tt>Captures&nbsp;a&nbsp;screenshot&nbsp;from&nbsp;the&nbsp;main&nbsp;window&nbsp;or&nbsp;from&nbsp;the<br>
+specified&nbsp;window&nbsp;or&nbsp;Texture&nbsp;and&nbsp;writes&nbsp;it&nbsp;to&nbsp;a&nbsp;filename&nbsp;in&nbsp;the<br>
+current&nbsp;directory&nbsp;(or&nbsp;to&nbsp;a&nbsp;specified&nbsp;directory).<br>
+&nbsp;<br>
+If&nbsp;defaultFilename&nbsp;is&nbsp;True,&nbsp;the&nbsp;filename&nbsp;is&nbsp;synthesized&nbsp;by<br>
+appending&nbsp;namePrefix&nbsp;to&nbsp;a&nbsp;default&nbsp;filename&nbsp;suffix&nbsp;(including<br>
+the&nbsp;filename&nbsp;extension)&nbsp;specified&nbsp;in&nbsp;the&nbsp;Config&nbsp;variable<br>
+screenshot-filename.&nbsp;&nbsp;Otherwise,&nbsp;if&nbsp;defaultFilename&nbsp;is&nbsp;False,<br>
+the&nbsp;entire&nbsp;namePrefix&nbsp;is&nbsp;taken&nbsp;to&nbsp;be&nbsp;the&nbsp;filename&nbsp;to&nbsp;write,<br>
+and&nbsp;this&nbsp;string&nbsp;should&nbsp;include&nbsp;a&nbsp;suitable&nbsp;filename&nbsp;extension<br>
+that&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;determine&nbsp;the&nbsp;type&nbsp;of&nbsp;image&nbsp;file&nbsp;to<br>
+write.<br>
+&nbsp;<br>
+Normally,&nbsp;the&nbsp;source&nbsp;is&nbsp;a&nbsp;GraphicsWindow,&nbsp;GraphicsBuffer&nbsp;or<br>
+DisplayRegion.&nbsp;&nbsp;If&nbsp;a&nbsp;Texture&nbsp;is&nbsp;supplied&nbsp;instead,&nbsp;it&nbsp;must&nbsp;have<br>
+a&nbsp;ram&nbsp;image&nbsp;(that&nbsp;is,&nbsp;if&nbsp;it&nbsp;was&nbsp;generated&nbsp;by<br>
+makeTextureBuffer()&nbsp;or&nbsp;makeCubeMap(),&nbsp;the&nbsp;parameter&nbsp;toRam<br>
+should&nbsp;have&nbsp;been&nbsp;set&nbsp;true).&nbsp;&nbsp;If&nbsp;it&nbsp;is&nbsp;a&nbsp;cube&nbsp;map&nbsp;texture&nbsp;as<br>
+generated&nbsp;by&nbsp;makeCubeMap(),&nbsp;namePrefix&nbsp;should&nbsp;contain&nbsp;the&nbsp;hash<br>
+mark&nbsp;('#')&nbsp;character.<br>
+&nbsp;<br>
+:returns:&nbsp;The&nbsp;filename&nbsp;if&nbsp;successful,&nbsp;or&nbsp;None&nbsp;if&nbsp;there&nbsp;is&nbsp;a&nbsp;problem.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-setAspectRatio"><strong>setAspectRatio</strong></a>(self, aspectRatio)</dt><dd><tt>Sets&nbsp;the&nbsp;global&nbsp;aspect&nbsp;ratio&nbsp;of&nbsp;the&nbsp;main&nbsp;window.&nbsp;&nbsp;Set&nbsp;it<br>
+to&nbsp;None&nbsp;to&nbsp;restore&nbsp;automatic&nbsp;scaling.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-setBackgroundColor"><strong>setBackgroundColor</strong></a>(self, r=None, g=None, b=None, a=0.0, win=None)</dt><dd><tt>Sets&nbsp;the&nbsp;window&nbsp;background&nbsp;color&nbsp;to&nbsp;the&nbsp;indicated&nbsp;value.<br>
+This&nbsp;assumes&nbsp;the&nbsp;window&nbsp;is&nbsp;set&nbsp;up&nbsp;to&nbsp;clear&nbsp;the&nbsp;color&nbsp;each<br>
+frame&nbsp;(this&nbsp;is&nbsp;the&nbsp;normal&nbsp;setting).<br>
+&nbsp;<br>
+The&nbsp;color&nbsp;may&nbsp;be&nbsp;either&nbsp;a&nbsp;VBase3&nbsp;or&nbsp;a&nbsp;VBase4,&nbsp;or&nbsp;a&nbsp;3-component<br>
+tuple,&nbsp;or&nbsp;the&nbsp;individual&nbsp;r,&nbsp;g,&nbsp;b&nbsp;parameters.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-setFrameRateMeter"><strong>setFrameRateMeter</strong></a>(self, flag)</dt><dd><tt>Turns&nbsp;on&nbsp;or&nbsp;off&nbsp;(according&nbsp;to&nbsp;flag)&nbsp;a&nbsp;standard&nbsp;frame&nbsp;rate<br>
+meter&nbsp;in&nbsp;the&nbsp;upper-right&nbsp;corner&nbsp;of&nbsp;the&nbsp;main&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-setMouseOnNode"><strong>setMouseOnNode</strong></a>(self, newNode)</dt></dl>
+
+<dl><dt><a name="MyApp-setSceneGraphAnalyzerMeter"><strong>setSceneGraphAnalyzerMeter</strong></a>(self, flag)</dt><dd><tt>Turns&nbsp;on&nbsp;or&nbsp;off&nbsp;(according&nbsp;to&nbsp;flag)&nbsp;a&nbsp;standard&nbsp;frame&nbsp;rate<br>
+meter&nbsp;in&nbsp;the&nbsp;upper-right&nbsp;corner&nbsp;of&nbsp;the&nbsp;main&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-setSleep"><strong>setSleep</strong></a>(self, amount)</dt><dd><tt>Sets&nbsp;up&nbsp;a&nbsp;task&nbsp;that&nbsp;calls&nbsp;python&nbsp;'sleep'&nbsp;every&nbsp;frame.&nbsp;&nbsp;This&nbsp;is&nbsp;a&nbsp;simple<br>
+way&nbsp;to&nbsp;reduce&nbsp;the&nbsp;CPU&nbsp;usage&nbsp;(and&nbsp;frame&nbsp;rate)&nbsp;of&nbsp;a&nbsp;panda&nbsp;program.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-set_aspect_ratio"><strong>set_aspect_ratio</strong></a> = <a href="#MyApp-setAspectRatio">setAspectRatio</a>(self, aspectRatio)</dt></dl>
+
+<dl><dt><a name="MyApp-set_background_color"><strong>set_background_color</strong></a> = <a href="#MyApp-setBackgroundColor">setBackgroundColor</a>(self, r=None, g=None, b=None, a=0.0, win=None)</dt></dl>
+
+<dl><dt><a name="MyApp-set_frame_rate_meter"><strong>set_frame_rate_meter</strong></a> = <a href="#MyApp-setFrameRateMeter">setFrameRateMeter</a>(self, flag)</dt></dl>
+
+<dl><dt><a name="MyApp-set_mouse_on_node"><strong>set_mouse_on_node</strong></a> = <a href="#MyApp-setMouseOnNode">setMouseOnNode</a>(self, newNode)</dt></dl>
+
+<dl><dt><a name="MyApp-set_scene_graph_analyzer_meter"><strong>set_scene_graph_analyzer_meter</strong></a> = <a href="#MyApp-setSceneGraphAnalyzerMeter">setSceneGraphAnalyzerMeter</a>(self, flag)</dt></dl>
+
+<dl><dt><a name="MyApp-set_sleep"><strong>set_sleep</strong></a> = <a href="#MyApp-setSleep">setSleep</a>(self, amount)</dt></dl>
+
+<dl><dt><a name="MyApp-setupDataGraph"><strong>setupDataGraph</strong></a>(self)</dt><dd><tt>Creates&nbsp;the&nbsp;data&nbsp;graph&nbsp;and&nbsp;populates&nbsp;it&nbsp;with&nbsp;the&nbsp;basic&nbsp;input<br>
+devices.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-setupMouse"><strong>setupMouse</strong></a>(self, win, fMultiWin=False)</dt><dd><tt>Creates&nbsp;the&nbsp;structures&nbsp;necessary&nbsp;to&nbsp;monitor&nbsp;the&nbsp;mouse&nbsp;input,<br>
+using&nbsp;the&nbsp;indicated&nbsp;window.&nbsp;&nbsp;If&nbsp;the&nbsp;mouse&nbsp;has&nbsp;already&nbsp;been&nbsp;set<br>
+up&nbsp;for&nbsp;a&nbsp;different&nbsp;window,&nbsp;those&nbsp;structures&nbsp;are&nbsp;deleted&nbsp;first.<br>
+&nbsp;<br>
+:param&nbsp;fMultiWin:&nbsp;If&nbsp;True,&nbsp;then&nbsp;the&nbsp;previous&nbsp;mouse&nbsp;structures&nbsp;are&nbsp;not<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deleted;&nbsp;instead,&nbsp;multiple&nbsp;windows&nbsp;are&nbsp;allowed&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;monitor&nbsp;the&nbsp;mouse&nbsp;input.&nbsp;&nbsp;However,&nbsp;in&nbsp;this&nbsp;case,&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trackball&nbsp;controls&nbsp;are&nbsp;not&nbsp;set&nbsp;up,&nbsp;and&nbsp;must&nbsp;be&nbsp;set&nbsp;up<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;by&nbsp;hand&nbsp;if&nbsp;desired.<br>
+&nbsp;<br>
+:returns:&nbsp;The&nbsp;ButtonThrower&nbsp;NodePath&nbsp;created&nbsp;for&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-setupMouseCB"><strong>setupMouseCB</strong></a>(self, win)</dt><dd><tt>#&nbsp;[gjeon]&nbsp;this&nbsp;function&nbsp;is&nbsp;seperated&nbsp;from&nbsp;setupMouse&nbsp;to&nbsp;allow&nbsp;multiple&nbsp;mouse&nbsp;watchers</tt></dd></dl>
+
+<dl><dt><a name="MyApp-setupRender"><strong>setupRender</strong></a>(self)</dt><dd><tt>Creates&nbsp;the&nbsp;render&nbsp;scene&nbsp;graph,&nbsp;the&nbsp;primary&nbsp;scene&nbsp;graph&nbsp;for<br>
+rendering&nbsp;3-d&nbsp;geometry.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-setupRender2d"><strong>setupRender2d</strong></a>(self)</dt><dd><tt>Creates&nbsp;the&nbsp;render2d&nbsp;scene&nbsp;graph,&nbsp;the&nbsp;primary&nbsp;scene&nbsp;graph&nbsp;for<br>
+2-d&nbsp;objects&nbsp;and&nbsp;gui&nbsp;elements&nbsp;that&nbsp;are&nbsp;superimposed&nbsp;over&nbsp;the<br>
+3-d&nbsp;geometry&nbsp;in&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-setupRender2dp"><strong>setupRender2dp</strong></a>(self)</dt><dd><tt>Creates&nbsp;a&nbsp;render2d&nbsp;scene&nbsp;graph,&nbsp;the&nbsp;secondary&nbsp;scene&nbsp;graph&nbsp;for<br>
+2-d&nbsp;objects&nbsp;and&nbsp;gui&nbsp;elements&nbsp;that&nbsp;are&nbsp;superimposed&nbsp;over&nbsp;the<br>
+2-d&nbsp;and&nbsp;3-d&nbsp;geometry&nbsp;in&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-setupWindowControls"><strong>setupWindowControls</strong></a>(self, winCtrl=None)</dt><dd><tt>#&nbsp;[gjeon]&nbsp;now&nbsp;you&nbsp;can&nbsp;add&nbsp;more&nbsp;winControls&nbsp;after&nbsp;creating&nbsp;a&nbsp;showbase&nbsp;instance</tt></dd></dl>
+
+<dl><dt><a name="MyApp-setup_data_graph"><strong>setup_data_graph</strong></a> = <a href="#MyApp-setupDataGraph">setupDataGraph</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-setup_mouse"><strong>setup_mouse</strong></a> = <a href="#MyApp-setupMouse">setupMouse</a>(self, win, fMultiWin=False)</dt></dl>
+
+<dl><dt><a name="MyApp-setup_mouse_cb"><strong>setup_mouse_cb</strong></a> = <a href="#MyApp-setupMouseCB">setupMouseCB</a>(self, win)</dt></dl>
+
+<dl><dt><a name="MyApp-setup_render"><strong>setup_render</strong></a> = <a href="#MyApp-setupRender">setupRender</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-setup_render2d"><strong>setup_render2d</strong></a> = <a href="#MyApp-setupRender2d">setupRender2d</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-setup_render2dp"><strong>setup_render2dp</strong></a> = <a href="#MyApp-setupRender2dp">setupRender2dp</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-setup_window_controls"><strong>setup_window_controls</strong></a> = <a href="#MyApp-setupWindowControls">setupWindowControls</a>(self, winCtrl=None)</dt></dl>
+
+<dl><dt><a name="MyApp-showCameraFrustum"><strong>showCameraFrustum</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-show_camera_frustum"><strong>show_camera_frustum</strong></a> = <a href="#MyApp-showCameraFrustum">showCameraFrustum</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-shutdown"><strong>shutdown</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-silenceInput"><strong>silenceInput</strong></a>(self)</dt><dd><tt>This&nbsp;is&nbsp;a&nbsp;heavy-handed&nbsp;way&nbsp;of&nbsp;temporarily&nbsp;turning&nbsp;off<br>
+all&nbsp;inputs.&nbsp;&nbsp;Bring&nbsp;them&nbsp;back&nbsp;with&nbsp;`<a href="#MyApp-reviveInput">reviveInput</a>()`.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-silence_input"><strong>silence_input</strong></a> = <a href="#MyApp-silenceInput">silenceInput</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-spawnTkLoop"><strong>spawnTkLoop</strong></a>(self)</dt><dd><tt>Call&nbsp;this&nbsp;method&nbsp;to&nbsp;hand&nbsp;the&nbsp;main&nbsp;loop&nbsp;over&nbsp;to&nbsp;Tkinter.<br>
+This&nbsp;sets&nbsp;up&nbsp;a&nbsp;timer&nbsp;callback&nbsp;so&nbsp;that&nbsp;Panda&nbsp;still&nbsp;gets<br>
+updated,&nbsp;but&nbsp;Tkinter&nbsp;owns&nbsp;the&nbsp;main&nbsp;loop&nbsp;(which&nbsp;seems&nbsp;to&nbsp;make<br>
+it&nbsp;happier&nbsp;than&nbsp;the&nbsp;other&nbsp;way&nbsp;around).</tt></dd></dl>
+
+<dl><dt><a name="MyApp-spawnWxLoop"><strong>spawnWxLoop</strong></a>(self)</dt><dd><tt>Call&nbsp;this&nbsp;method&nbsp;to&nbsp;hand&nbsp;the&nbsp;main&nbsp;loop&nbsp;over&nbsp;to&nbsp;wxPython.<br>
+This&nbsp;sets&nbsp;up&nbsp;a&nbsp;wxTimer&nbsp;callback&nbsp;so&nbsp;that&nbsp;Panda&nbsp;still&nbsp;gets<br>
+updated,&nbsp;but&nbsp;wxPython&nbsp;owns&nbsp;the&nbsp;main&nbsp;loop&nbsp;(which&nbsp;seems&nbsp;to&nbsp;make<br>
+it&nbsp;happier&nbsp;than&nbsp;the&nbsp;other&nbsp;way&nbsp;around).</tt></dd></dl>
+
+<dl><dt><a name="MyApp-startDirect"><strong>startDirect</strong></a>(self, fWantDirect=1, fWantTk=1, fWantWx=0)</dt></dl>
+
+<dl><dt><a name="MyApp-startTk"><strong>startTk</strong></a>(self, fWantTk=True)</dt></dl>
+
+<dl><dt><a name="MyApp-startWx"><strong>startWx</strong></a>(self, fWantWx=True)</dt><dd><tt>#&nbsp;[gjeon]&nbsp;start&nbsp;wxPython</tt></dd></dl>
+
+<dl><dt><a name="MyApp-start_direct"><strong>start_direct</strong></a> = <a href="#MyApp-startDirect">startDirect</a>(self, fWantDirect=1, fWantTk=1, fWantWx=0)</dt></dl>
+
+<dl><dt><a name="MyApp-start_tk"><strong>start_tk</strong></a> = <a href="#MyApp-startTk">startTk</a>(self, fWantTk=True)</dt></dl>
+
+<dl><dt><a name="MyApp-start_wx"><strong>start_wx</strong></a> = <a href="#MyApp-startWx">startWx</a>(self, fWantWx=True)</dt></dl>
+
+<dl><dt><a name="MyApp-textureOff"><strong>textureOff</strong></a>(self)</dt><dd><tt>Disables&nbsp;texturing&nbsp;on&nbsp;the&nbsp;entire&nbsp;3D&nbsp;scene&nbsp;graph.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-textureOn"><strong>textureOn</strong></a>(self)</dt><dd><tt>Undoes&nbsp;the&nbsp;effects&nbsp;of&nbsp;a&nbsp;previous&nbsp;call&nbsp;to&nbsp;`<a href="#MyApp-textureOff">textureOff</a>()`.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-texture_off"><strong>texture_off</strong></a> = <a href="#MyApp-textureOff">textureOff</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-texture_on"><strong>texture_on</strong></a> = <a href="#MyApp-textureOn">textureOn</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-tkRun"><strong>tkRun</strong></a>(self)</dt><dd><tt>This&nbsp;method&nbsp;replaces&nbsp;`<a href="#MyApp-run">run</a>()`&nbsp;after&nbsp;we&nbsp;have&nbsp;called&nbsp;`<a href="#MyApp-spawnTkLoop">spawnTkLoop</a>()`.<br>
+Since&nbsp;at&nbsp;this&nbsp;point&nbsp;Tkinter&nbsp;now&nbsp;owns&nbsp;the&nbsp;main&nbsp;loop,&nbsp;this&nbsp;method&nbsp;is&nbsp;a<br>
+call&nbsp;to&nbsp;tkRoot.mainloop().</tt></dd></dl>
+
+<dl><dt><a name="MyApp-toggleBackface"><strong>toggleBackface</strong></a>(self)</dt><dd><tt>Toggles&nbsp;between&nbsp;`<a href="#MyApp-backfaceCullingOn">backfaceCullingOn</a>()`&nbsp;and&nbsp;`<a href="#MyApp-backfaceCullingOff">backfaceCullingOff</a>()`.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-toggleParticles"><strong>toggleParticles</strong></a>(self)</dt><dd><tt>Calls&nbsp;`<a href="#MyApp-enableParticles">enableParticles</a>()`&nbsp;or&nbsp;`<a href="#MyApp-disableParticles">disableParticles</a>()`&nbsp;depending&nbsp;on&nbsp;the<br>
+current&nbsp;state.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-toggleShowVertices"><strong>toggleShowVertices</strong></a>(self)</dt><dd><tt>Toggles&nbsp;a&nbsp;mode&nbsp;that&nbsp;visualizes&nbsp;vertex&nbsp;density&nbsp;per&nbsp;screen<br>
+area.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-toggleTexMem"><strong>toggleTexMem</strong></a>(self)</dt><dd><tt>Toggles&nbsp;a&nbsp;handy&nbsp;texture&nbsp;memory&nbsp;watcher&nbsp;utility.<br>
+See&nbsp;:mod:`direct.showutil.TexMemWatcher`&nbsp;for&nbsp;more&nbsp;information.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-toggleTexture"><strong>toggleTexture</strong></a>(self)</dt><dd><tt>Toggles&nbsp;between&nbsp;`<a href="#MyApp-textureOn">textureOn</a>()`&nbsp;and&nbsp;`<a href="#MyApp-textureOff">textureOff</a>()`.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-toggleWireframe"><strong>toggleWireframe</strong></a>(self)</dt><dd><tt>Toggles&nbsp;between&nbsp;`<a href="#MyApp-wireframeOn">wireframeOn</a>()`&nbsp;and&nbsp;`<a href="#MyApp-wireframeOff">wireframeOff</a>()`.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-toggle_backface"><strong>toggle_backface</strong></a> = <a href="#MyApp-toggleBackface">toggleBackface</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-toggle_particles"><strong>toggle_particles</strong></a> = <a href="#MyApp-toggleParticles">toggleParticles</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-toggle_show_vertices"><strong>toggle_show_vertices</strong></a> = <a href="#MyApp-toggleShowVertices">toggleShowVertices</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-toggle_tex_mem"><strong>toggle_tex_mem</strong></a> = <a href="#MyApp-toggleTexMem">toggleTexMem</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-toggle_texture"><strong>toggle_texture</strong></a> = <a href="#MyApp-toggleTexture">toggleTexture</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-toggle_wireframe"><strong>toggle_wireframe</strong></a> = <a href="#MyApp-toggleWireframe">toggleWireframe</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-updateManagers"><strong>updateManagers</strong></a>(self, state)</dt></dl>
+
+<dl><dt><a name="MyApp-useDrive"><strong>useDrive</strong></a>(self)</dt><dd><tt>Changes&nbsp;the&nbsp;mouse&nbsp;interface&nbsp;used&nbsp;for&nbsp;camera&nbsp;control&nbsp;to&nbsp;drive&nbsp;mode.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-useTrackball"><strong>useTrackball</strong></a>(self)</dt><dd><tt>Changes&nbsp;the&nbsp;mouse&nbsp;interface&nbsp;used&nbsp;for&nbsp;camera&nbsp;control&nbsp;to&nbsp;trackball&nbsp;mode.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-use_drive"><strong>use_drive</strong></a> = <a href="#MyApp-useDrive">useDrive</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-use_trackball"><strong>use_trackball</strong></a> = <a href="#MyApp-useTrackball">useTrackball</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-windowEvent"><strong>windowEvent</strong></a>(self, win)</dt></dl>
+
+<dl><dt><a name="MyApp-wireframeOff"><strong>wireframeOff</strong></a>(self)</dt><dd><tt>Undoes&nbsp;the&nbsp;effects&nbsp;of&nbsp;a&nbsp;previous&nbsp;call&nbsp;to&nbsp;`<a href="#MyApp-wireframeOn">wireframeOn</a>()`.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-wireframeOn"><strong>wireframeOn</strong></a>(self)</dt><dd><tt>Enables&nbsp;wireframe&nbsp;rendering&nbsp;on&nbsp;the&nbsp;entire&nbsp;3D&nbsp;scene&nbsp;graph.</tt></dd></dl>
+
+<dl><dt><a name="MyApp-wireframe_off"><strong>wireframe_off</strong></a> = <a href="#MyApp-wireframeOff">wireframeOff</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-wireframe_on"><strong>wireframe_on</strong></a> = <a href="#MyApp-wireframeOn">wireframeOn</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-wxRun"><strong>wxRun</strong></a>(self)</dt><dd><tt>This&nbsp;method&nbsp;replaces&nbsp;`<a href="#MyApp-run">run</a>()`&nbsp;after&nbsp;we&nbsp;have&nbsp;called&nbsp;`<a href="#MyApp-spawnWxLoop">spawnWxLoop</a>()`.<br>
+Since&nbsp;at&nbsp;this&nbsp;point&nbsp;wxPython&nbsp;now&nbsp;owns&nbsp;the&nbsp;main&nbsp;loop,&nbsp;this&nbsp;method&nbsp;is&nbsp;a<br>
+call&nbsp;to&nbsp;wxApp.MainLoop().</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="direct.showbase.ShowBase.html#ShowBase">direct.showbase.ShowBase.ShowBase</a>:<br>
+<dl><dt><strong>config</strong> = &lt;module 'direct.showbase.DConfig' from '/home/vi...on3.10/site-packages/direct/showbase/DConfig.py'&gt;<dd><tt>This&nbsp;module&nbsp;contains&nbsp;a&nbsp;deprecated&nbsp;shim&nbsp;emulating&nbsp;the&nbsp;old&nbsp;DConfig&nbsp;API.</tt></dl>
+
+<dl><dt><strong>notify</strong> = &lt;direct.directnotify.Notifier.Notifier object&gt;</dl>
+
+<hr>
+Methods inherited from <a href="direct.showbase.DirectObject.html#DirectObject">direct.showbase.DirectObject.DirectObject</a>:<br>
+<dl><dt><a name="MyApp-accept"><strong>accept</strong></a>(self, event, method, extraArgs=[])</dt></dl>
+
+<dl><dt><a name="MyApp-acceptOnce"><strong>acceptOnce</strong></a>(self, event, method, extraArgs=[])</dt></dl>
+
+<dl><dt><a name="MyApp-accept_once"><strong>accept_once</strong></a> = <a href="#MyApp-acceptOnce">acceptOnce</a>(self, event, method, extraArgs=[])</dt></dl>
+
+<dl><dt><a name="MyApp-addTask"><strong>addTask</strong></a>(self, *args, **kwargs)</dt><dd><tt>#This&nbsp;function&nbsp;must&nbsp;be&nbsp;used&nbsp;if&nbsp;you&nbsp;want&nbsp;a&nbsp;managed&nbsp;task</tt></dd></dl>
+
+<dl><dt><a name="MyApp-add_task"><strong>add_task</strong></a> = <a href="#MyApp-addTask">addTask</a>(self, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="MyApp-detectLeaks"><strong>detectLeaks</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-detect_leaks"><strong>detect_leaks</strong></a> = <a href="#MyApp-detectLeaks">detectLeaks</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-doMethodLater"><strong>doMethodLater</strong></a>(self, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="MyApp-do_method_later"><strong>do_method_later</strong></a> = <a href="#MyApp-doMethodLater">doMethodLater</a>(self, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="MyApp-getAllAccepting"><strong>getAllAccepting</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-get_all_accepting"><strong>get_all_accepting</strong></a> = <a href="#MyApp-getAllAccepting">getAllAccepting</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-ignore"><strong>ignore</strong></a>(self, event)</dt></dl>
+
+<dl><dt><a name="MyApp-ignoreAll"><strong>ignoreAll</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-ignore_all"><strong>ignore_all</strong></a> = <a href="#MyApp-ignoreAll">ignoreAll</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-isAccepting"><strong>isAccepting</strong></a>(self, event)</dt></dl>
+
+<dl><dt><a name="MyApp-isIgnoring"><strong>isIgnoring</strong></a>(self, event)</dt></dl>
+
+<dl><dt><a name="MyApp-is_accepting"><strong>is_accepting</strong></a> = <a href="#MyApp-isAccepting">isAccepting</a>(self, event)</dt></dl>
+
+<dl><dt><a name="MyApp-is_ignoring"><strong>is_ignoring</strong></a> = <a href="#MyApp-isIgnoring">isIgnoring</a>(self, event)</dt></dl>
+
+<dl><dt><a name="MyApp-removeAllTasks"><strong>removeAllTasks</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-removeTask"><strong>removeTask</strong></a>(self, taskOrName)</dt></dl>
+
+<dl><dt><a name="MyApp-remove_all_tasks"><strong>remove_all_tasks</strong></a> = <a href="#MyApp-removeAllTasks">removeAllTasks</a>(self)</dt></dl>
+
+<dl><dt><a name="MyApp-remove_task"><strong>remove_task</strong></a> = <a href="#MyApp-removeTask">removeTask</a>(self, taskOrName)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="direct.showbase.DirectObject.html#DirectObject">direct.showbase.DirectObject.DirectObject</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-cos"><strong>cos</strong></a>(x, /)</dt><dd><tt>Return&nbsp;the&nbsp;cosine&nbsp;of&nbsp;x&nbsp;(measured&nbsp;in&nbsp;radians).</tt></dd></dl>
+ <dl><dt><a name="-degrees"><strong>degrees</strong></a>(x, /)</dt><dd><tt>Convert&nbsp;angle&nbsp;x&nbsp;from&nbsp;radians&nbsp;to&nbsp;degrees.</tt></dd></dl>
+ <dl><dt><a name="-loadPrcFileData"><strong>loadPrcFileData</strong></a>(...)</dt><dd><tt>C++&nbsp;Interface:<br>
+load_prc_file_data(str&nbsp;name,&nbsp;str&nbsp;data)<br>
+&nbsp;<br>
+/**<br>
+&nbsp;*&nbsp;Another&nbsp;convenience&nbsp;function&nbsp;to&nbsp;load&nbsp;a&nbsp;prc&nbsp;file&nbsp;from&nbsp;an&nbsp;explicit&nbsp;string,<br>
+&nbsp;*&nbsp;which&nbsp;represents&nbsp;the&nbsp;contents&nbsp;of&nbsp;the&nbsp;prc&nbsp;file.<br>
+&nbsp;*<br>
+&nbsp;*&nbsp;The&nbsp;first&nbsp;parameter&nbsp;is&nbsp;an&nbsp;arbitrary&nbsp;name&nbsp;to&nbsp;assign&nbsp;to&nbsp;this&nbsp;in-memory&nbsp;prc<br>
+&nbsp;*&nbsp;file.&nbsp;&nbsp;Supply&nbsp;a&nbsp;filename&nbsp;if&nbsp;the&nbsp;data&nbsp;was&nbsp;read&nbsp;from&nbsp;a&nbsp;file,&nbsp;or&nbsp;use&nbsp;any&nbsp;other<br>
+&nbsp;*&nbsp;name&nbsp;that&nbsp;is&nbsp;meaningful&nbsp;to&nbsp;you.&nbsp;&nbsp;The&nbsp;name&nbsp;is&nbsp;only&nbsp;used&nbsp;when&nbsp;the&nbsp;set&nbsp;of<br>
+&nbsp;*&nbsp;loaded&nbsp;prc&nbsp;files&nbsp;is&nbsp;listed.<br>
+&nbsp;*/<br>
+&nbsp;<br>
+/**<br>
+&nbsp;*&nbsp;Another&nbsp;convenience&nbsp;function&nbsp;to&nbsp;load&nbsp;a&nbsp;prc&nbsp;file&nbsp;from&nbsp;an&nbsp;explicit&nbsp;string,<br>
+&nbsp;*&nbsp;which&nbsp;represents&nbsp;the&nbsp;contents&nbsp;of&nbsp;the&nbsp;prc&nbsp;file.<br>
+&nbsp;*<br>
+&nbsp;*&nbsp;The&nbsp;first&nbsp;parameter&nbsp;is&nbsp;an&nbsp;arbitrary&nbsp;name&nbsp;to&nbsp;assign&nbsp;to&nbsp;this&nbsp;in-memory&nbsp;prc<br>
+&nbsp;*&nbsp;file.&nbsp;&nbsp;Supply&nbsp;a&nbsp;filename&nbsp;if&nbsp;the&nbsp;data&nbsp;was&nbsp;read&nbsp;from&nbsp;a&nbsp;file,&nbsp;or&nbsp;use&nbsp;any&nbsp;other<br>
+&nbsp;*&nbsp;name&nbsp;that&nbsp;is&nbsp;meaningful&nbsp;to&nbsp;you.&nbsp;&nbsp;The&nbsp;name&nbsp;is&nbsp;only&nbsp;used&nbsp;when&nbsp;the&nbsp;set&nbsp;of<br>
+&nbsp;*&nbsp;loaded&nbsp;prc&nbsp;files&nbsp;is&nbsp;listed.<br>
+&nbsp;*/</tt></dd></dl>
+ <dl><dt><a name="-on_press"><strong>on_press</strong></a>(key)</dt></dl>
+ <dl><dt><a name="-sin"><strong>sin</strong></a>(x, /)</dt><dd><tt>Return&nbsp;the&nbsp;sine&nbsp;of&nbsp;x&nbsp;(measured&nbsp;in&nbsp;radians).</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>BLACK</strong> = (0, 0, 0)<br>
+<strong>COULEUR_OBSTACLES</strong> = (65, 0, 55)<br>
+<strong>COULEUR_ROBOT</strong> = (255, 165, 165)<br>
+<strong>POV</strong> = True<br>
+<strong>RobotPOV</strong> = 0<br>
+<strong>current</strong> = set()<br>
+<strong>l</strong> = &lt;Listener(Thread-1, started daemon 139774979909184)&gt;<br>
+<strong>nbrobots</strong> = 0<br>
+<strong>path</strong> = '/home/vincent/Téléchargements/Projet-Robot-LU2IN013-Dev/driftator/driftator/affichage'<br>
+<strong>pi</strong> = 3.141592653589793</td></tr></table>
+</body></html>

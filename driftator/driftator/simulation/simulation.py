@@ -31,6 +31,9 @@ class Simulation(Thread):
 
 
     def run(self):
+        """
+        Actualisation de la simulation en temps réel
+        """
         self.running = True
         while self.running:
             self._lastTime = time.time()
@@ -39,6 +42,9 @@ class Simulation(Thread):
             self.actualiser()            
             
     def stop(self):
+        """
+        Permet l arrêt de la simulation
+        """
         self.running = False
 
     def ajouterRobot(self, robot : o.Robot):
@@ -89,7 +95,8 @@ class Simulation(Thread):
     #Capteur de distance
     def getDistanceFromRobot(self, robot: o.Robot):
         """ 
-        :param terrain : Terrain
+        Fonction permettant de simuler le capteur de distance du robot passé en paramètre
+        :param robot : le robot sur lequel on souhaite appliquer le capteur de distance
         :returns : la distance jusqu'au prochain obstacle (en mm)
         """
         dirVect = (cos(robot._angle + radians(robot._angleCamera - 90)), sin(-robot._angle + radians(robot._angleCamera - 90)))
@@ -146,6 +153,7 @@ def chargerJson(fichier : str, dT: int):
 
     :param fichier : le fichier json à charger
     :param dT : précision temporelle des robots
+    :returns : l initialisation de la simulation créée
     """
 
     simulation = Simulation(dT)

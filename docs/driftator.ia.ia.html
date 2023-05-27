@@ -1,14 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<html><head><title>Python: module ia</title>
+<html><head><title>Python: module driftator.ia.ia</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head><body bgcolor="#f0f0f8">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
 <tr bgcolor="#7799ee">
 <td valign=bottom>&nbsp;<br>
-<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>ia</strong></big></big></font></td
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="driftator.html"><font color="#ffffff">driftator</font></a>.<a href="driftator.ia.html"><font color="#ffffff">ia</font></a>.ia</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/vincent/Bureau/PROJET%20LU2IN013/Projet-Robot-LU2IN013/driftator/driftator/ia/ia.py">/home/vincent/Bureau/PROJET LU2IN013/Projet-Robot-LU2IN013/driftator/driftator/ia/ia.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href=""</a></font></td></tr></table>
     <p></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
@@ -29,21 +29,22 @@
 <dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
 </font></dt><dd>
 <dl>
-<dt><font face="helvetica, arial"><a href="ia.html#Avancer">Avancer</a>
-</font></dt><dt><font face="helvetica, arial"><a href="ia.html#IACondition">IACondition</a>
-</font></dt><dt><font face="helvetica, arial"><a href="ia.html#IAFor">IAFor</a>
-</font></dt><dt><font face="helvetica, arial"><a href="ia.html#IAGererVariable">IAGererVariable</a>
-</font></dt><dt><font face="helvetica, arial"><a href="ia.html#IAIf">IAIf</a>
-</font></dt><dt><font face="helvetica, arial"><a href="ia.html#IAPrint">IAPrint</a>
-</font></dt><dt><font face="helvetica, arial"><a href="ia.html#IASeq">IASeq</a>
-</font></dt><dt><font face="helvetica, arial"><a href="ia.html#IAWhile">IAWhile</a>
-</font></dt><dt><font face="helvetica, arial"><a href="ia.html#TournerSurPlace">TournerSurPlace</a>
+<dt><font face="helvetica, arial"><a href="driftator.ia.ia.html#Avancer">Avancer</a>
+</font></dt><dt><font face="helvetica, arial"><a href="driftator.ia.ia.html#IAAlterner">IAAlterner</a>
+</font></dt><dt><font face="helvetica, arial"><a href="driftator.ia.ia.html#IAFonction">IAFonction</a>
+</font></dt><dt><font face="helvetica, arial"><a href="driftator.ia.ia.html#IAFor">IAFor</a>
+</font></dt><dt><font face="helvetica, arial"><a href="driftator.ia.ia.html#IAIf">IAIf</a>
+</font></dt><dt><font face="helvetica, arial"><a href="driftator.ia.ia.html#IASeq">IASeq</a>
+</font></dt><dt><font face="helvetica, arial"><a href="driftator.ia.ia.html#IAWhile">IAWhile</a>
+</font></dt><dt><font face="helvetica, arial"><a href="driftator.ia.ia.html#Stop">Stop</a>
+</font></dt><dt><font face="helvetica, arial"><a href="driftator.ia.ia.html#TournerSurPlace">TournerSurPlace</a>
+</font></dt><dt><font face="helvetica, arial"><a href="driftator.ia.ia.html#TournerTete">TournerTete</a>
 </font></dt></dl>
 </dd>
 <dt><font face="helvetica, arial"><a href="threading.html#Thread">threading.Thread</a>(<a href="builtins.html#object">builtins.object</a>)
 </font></dt><dd>
 <dl>
-<dt><font face="helvetica, arial"><a href="ia.html#IA">IA</a>
+<dt><font face="helvetica, arial"><a href="driftator.ia.ia.html#IA">IA</a>
 </font></dt></dl>
 </dd>
 </dl>
@@ -54,27 +55,22 @@
 <font color="#000000" face="helvetica, arial"><a name="Avancer">class <strong>Avancer</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt><a href="#Avancer">Avancer</a>(controleur,&nbsp;distance,&nbsp;v,&nbsp;angle=0)<br>
+<td colspan=2><tt><a href="#Avancer">Avancer</a>(c,&nbsp;d,&nbsp;v,&nbsp;a=0)<br>
 &nbsp;<br>
-Classe&nbsp;représentant&nbsp;l'ia&nbsp;permettant&nbsp;d'avancer&nbsp;droit<br>
-&nbsp;<br>
-:param&nbsp;controleur:&nbsp;controleur&nbsp;du&nbsp;robot<br>
-:param&nbsp;distance:&nbsp;distance&nbsp;(cm)&nbsp;dont&nbsp;le&nbsp;robot&nbsp;doit&nbsp;avancer<br>
-:param&nbsp;v:&nbsp;vitesse&nbsp;(tour&nbsp;de&nbsp;roue/s)<br>
-:param&nbsp;angle:&nbsp;angle&nbsp;de&nbsp;la&nbsp;trajectoire&nbsp;du&nbsp;robot&nbsp;(pourcentage&nbsp;de&nbsp;-100&nbsp;à&nbsp;100)<br>&nbsp;</tt></td></tr>
+Classe&nbsp;représentant&nbsp;l'ia&nbsp;permettant&nbsp;d'avancer&nbsp;droit<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
-<dl><dt><a name="Avancer-__init__"><strong>__init__</strong></a>(self, controleur, distance, v, angle=0)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+<dl><dt><a name="Avancer-__init__"><strong>__init__</strong></a>(self, c, d, v, a=0)</dt><dd><tt>Constructeur&nbsp;de&nbsp;la&nbsp;classe&nbsp;<a href="#Avancer">Avancer</a><br>
+:param&nbsp;c:&nbsp;controleur&nbsp;du&nbsp;robot<br>
+:param&nbsp;d:&nbsp;distance&nbsp;(cm)&nbsp;dont&nbsp;le&nbsp;robot&nbsp;doit&nbsp;avancer<br>
+:param&nbsp;v:&nbsp;vitesse&nbsp;(tour&nbsp;de&nbsp;roue/s)<br>
+:param&nbsp;a:&nbsp;angle&nbsp;de&nbsp;la&nbsp;trajectoire&nbsp;du&nbsp;robot&nbsp;(pourcentage&nbsp;de&nbsp;-100&nbsp;à&nbsp;100)</tt></dd></dl>
 
-<dl><dt><a name="Avancer-avancer"><strong>avancer</strong></a>(self)</dt></dl>
+<dl><dt><a name="Avancer-start"><strong>start</strong></a>(self)</dt><dd><tt>Permet&nbsp;de&nbsp;lancer&nbsp;le&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
-<dl><dt><a name="Avancer-end"><strong>end</strong></a>(self)</dt></dl>
+<dl><dt><a name="Avancer-step"><strong>step</strong></a>(self)</dt><dd><tt>Permet&nbsp;de&nbsp;stopper&nbsp;le&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a>&nbsp;une&nbsp;fois&nbsp;la&nbsp;distance&nbsp;parcourue</tt></dd></dl>
 
-<dl><dt><a name="Avancer-start"><strong>start</strong></a>(self)</dt></dl>
-
-<dl><dt><a name="Avancer-step"><strong>step</strong></a>(self, dT: float)</dt></dl>
-
-<dl><dt><a name="Avancer-stop"><strong>stop</strong></a>(self)</dt></dl>
+<dl><dt><a name="Avancer-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Permet&nbsp;de&nbsp;stopper&nbsp;le&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
 <hr>
 Data descriptors defined here:<br>
@@ -96,40 +92,20 @@ Data descriptors defined here:<br>
 Classe&nbsp;représentant&nbsp;l'<a href="#IA">IA</a><br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
-<dd><a href="ia.html#IA">IA</a></dd>
+<dd><a href="driftator.ia.ia.html#IA">IA</a></dd>
 <dd><a href="threading.html#Thread">threading.Thread</a></dd>
 <dd><a href="builtins.html#object">builtins.object</a></dd>
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="IA-__init__"><strong>__init__</strong></a>(self, controleur, strat, dT)</dt><dd><tt>This&nbsp;constructor&nbsp;should&nbsp;always&nbsp;be&nbsp;called&nbsp;with&nbsp;keyword&nbsp;arguments.&nbsp;Arguments&nbsp;are:<br>
-&nbsp;<br>
-*group*&nbsp;should&nbsp;be&nbsp;None;&nbsp;reserved&nbsp;for&nbsp;future&nbsp;extension&nbsp;when&nbsp;a&nbsp;ThreadGroup<br>
-class&nbsp;is&nbsp;implemented.<br>
-&nbsp;<br>
-*target*&nbsp;is&nbsp;the&nbsp;callable&nbsp;<a href="builtins.html#object">object</a>&nbsp;to&nbsp;be&nbsp;invoked&nbsp;by&nbsp;the&nbsp;<a href="#IA-run">run</a>()<br>
-method.&nbsp;Defaults&nbsp;to&nbsp;None,&nbsp;meaning&nbsp;nothing&nbsp;is&nbsp;called.<br>
-&nbsp;<br>
-*name*&nbsp;is&nbsp;the&nbsp;thread&nbsp;name.&nbsp;By&nbsp;default,&nbsp;a&nbsp;unique&nbsp;name&nbsp;is&nbsp;constructed&nbsp;of<br>
-the&nbsp;form&nbsp;"<a href="threading.html#Thread">Thread</a>-N"&nbsp;where&nbsp;N&nbsp;is&nbsp;a&nbsp;small&nbsp;decimal&nbsp;number.<br>
-&nbsp;<br>
-*args*&nbsp;is&nbsp;the&nbsp;argument&nbsp;tuple&nbsp;for&nbsp;the&nbsp;target&nbsp;invocation.&nbsp;Defaults&nbsp;to&nbsp;().<br>
-&nbsp;<br>
-*kwargs*&nbsp;is&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;keyword&nbsp;arguments&nbsp;for&nbsp;the&nbsp;target<br>
-invocation.&nbsp;Defaults&nbsp;to&nbsp;{}.<br>
-&nbsp;<br>
-If&nbsp;a&nbsp;subclass&nbsp;overrides&nbsp;the&nbsp;constructor,&nbsp;it&nbsp;must&nbsp;make&nbsp;sure&nbsp;to&nbsp;invoke<br>
-the&nbsp;base&nbsp;class&nbsp;constructor&nbsp;(<a href="threading.html#Thread">Thread</a>.<a href="#IA-__init__">__init__</a>())&nbsp;before&nbsp;doing&nbsp;anything<br>
-else&nbsp;to&nbsp;the&nbsp;thread.</tt></dd></dl>
+<dl><dt><a name="IA-__init__"><strong>__init__</strong></a>(self, controleur, strat, dT)</dt><dd><tt>Constructeur&nbsp;de&nbsp;la&nbsp;classe&nbsp;<a href="#IA">IA</a><br>
+:param&nbsp;controleur:&nbsp;le&nbsp;controleur<br>
+:param&nbsp;strat:&nbsp;la&nbsp;stratagie&nbsp;choisie&nbsp;(ia&nbsp;à&nbsp;executer)<br>
+:param&nbsp;dT:&nbsp;le&nbsp;dT&nbsp;de&nbsp;l&nbsp;actualisation&nbsp;de&nbsp;la&nbsp;simulation</tt></dd></dl>
 
-<dl><dt><a name="IA-run"><strong>run</strong></a>(self)</dt><dd><tt>Method&nbsp;representing&nbsp;the&nbsp;thread's&nbsp;activity.<br>
-&nbsp;<br>
-You&nbsp;may&nbsp;override&nbsp;this&nbsp;method&nbsp;in&nbsp;a&nbsp;subclass.&nbsp;The&nbsp;standard&nbsp;<a href="#IA-run">run</a>()&nbsp;method<br>
-invokes&nbsp;the&nbsp;callable&nbsp;<a href="builtins.html#object">object</a>&nbsp;passed&nbsp;to&nbsp;the&nbsp;<a href="builtins.html#object">object</a>'s&nbsp;constructor&nbsp;as&nbsp;the<br>
-target&nbsp;argument,&nbsp;if&nbsp;any,&nbsp;with&nbsp;sequential&nbsp;and&nbsp;keyword&nbsp;arguments&nbsp;taken<br>
-from&nbsp;the&nbsp;args&nbsp;and&nbsp;kwargs&nbsp;arguments,&nbsp;respectively.</tt></dd></dl>
+<dl><dt><a name="IA-run"><strong>run</strong></a>(self)</dt><dd><tt>Lancement&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
-<dl><dt><a name="IA-step"><strong>step</strong></a>(self)</dt></dl>
+<dl><dt><a name="IA-step"><strong>step</strong></a>(self)</dt><dd><tt>Arret&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a>&nbsp;si&nbsp;fin&nbsp;de&nbsp;stratégie</tt></dd></dl>
 
 <hr>
 Methods inherited from <a href="threading.html#Thread">threading.Thread</a>:<br>
@@ -230,25 +206,54 @@ initial&nbsp;name&nbsp;is&nbsp;set&nbsp;by&nbsp;the&nbsp;constructor.</tt></dd>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#ffc8d8">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="IACondition">class <strong>IACondition</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+<font color="#000000" face="helvetica, arial"><a name="IAAlterner">class <strong>IAAlterner</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt><a href="#IACondition">IACondition</a>(controleur,&nbsp;args)<br>
+<td colspan=2><tt><a href="#IAAlterner">IAAlterner</a>(c,&nbsp;ia1,&nbsp;ia2,&nbsp;condition)<br>
 &nbsp;<br>
-Classe&nbsp;permettant&nbsp;de&nbsp;réaliser&nbsp;une&nbsp;condition&nbsp;pour&nbsp;une&nbsp;<a href="#IA">IA</a><br>&nbsp;</tt></td></tr>
+Classe&nbsp;permettant&nbsp;de&nbsp;réaliser&nbsp;une&nbsp;ia&nbsp;conditionnelle&nbsp;(réalise&nbsp;un&nbsp;step&nbsp;d'une&nbsp;des&nbsp;deux&nbsp;<a href="#IA">IA</a>&nbsp;selon&nbsp;la&nbsp;condition)<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
-<dl><dt><a name="IACondition-__init__"><strong>__init__</strong></a>(self, controleur, args)</dt><dd><tt>Paramètres<br>
-:param&nbsp;controleur:&nbsp;controleur&nbsp;du&nbsp;robot<br>
-:param&nbsp;args:&nbsp;Tableau&nbsp;splité&nbsp;de&nbsp;la&nbsp;condition</tt></dd></dl>
+<dl><dt><a name="IAAlterner-__init__"><strong>__init__</strong></a>(self, c, ia1, ia2, condition)</dt><dd><tt>Constructeur&nbsp;de&nbsp;la&nbsp;classe&nbsp;<a href="#IAAlterner">IAAlterner</a><br>
+Paramètres<br>
+:param&nbsp;c:&nbsp;controleur&nbsp;du&nbsp;robot<br>
+:param&nbsp;ia1:&nbsp;ia&nbsp;à&nbsp;appeler&nbsp;si&nbsp;la&nbsp;condition&nbsp;est&nbsp;vérifiée<br>
+:param&nbsp;ia2:&nbsp;ia&nbsp;à&nbsp;appeler&nbsp;si&nbsp;la&nbsp;condition&nbsp;n'est&nbsp;pas&nbsp;vérifiée<br>
+:param&nbsp;condition:&nbsp;IACondition&nbsp;correspondant&nbsp;à&nbsp;la&nbsp;condition</tt></dd></dl>
 
-<dl><dt><a name="IACondition-end"><strong>end</strong></a>(self)</dt></dl>
+<dl><dt><a name="IAAlterner-start"><strong>start</strong></a>(self)</dt><dd><tt>Lancement&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
-<dl><dt><a name="IACondition-start"><strong>start</strong></a>(self)</dt></dl>
+<dl><dt><a name="IAAlterner-step"><strong>step</strong></a>(self)</dt><dd><tt>Execution&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a>&nbsp;pas&nbsp;à&nbsp;pas</tt></dd></dl>
 
-<dl><dt><a name="IACondition-step"><strong>step</strong></a>(self)</dt></dl>
+<dl><dt><a name="IAAlterner-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Arret&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
-<dl><dt><a name="IACondition-stop"><strong>stop</strong></a>(self)</dt></dl>
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="IAFonction">class <strong>IAFonction</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#IAFonction">IAFonction</a>(c,&nbsp;args)<br>
+&nbsp;<br>
+Classe&nbsp;permettant&nbsp;de&nbsp;réaliser&nbsp;une&nbsp;ia&nbsp;avec&nbsp;une&nbsp;certaine&nbsp;fonction<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="IAFonction-__init__"><strong>__init__</strong></a>(self, c, args)</dt><dd><tt>Constructeur&nbsp;de&nbsp;la&nbsp;classe&nbsp;<a href="#IAFonction">IAFonction</a><br>
+:param&nbsp;c:&nbsp;le&nbsp;controleur<br>
+:param&nbsp;args:&nbsp;les&nbsp;arguments&nbsp;de&nbsp;la&nbsp;fonction</tt></dd></dl>
+
+<dl><dt><a name="IAFonction-start"><strong>start</strong></a>(self)</dt><dd><tt>Lancement&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
+
+<dl><dt><a name="IAFonction-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Arret&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
 <hr>
 Data descriptors defined here:<br>
@@ -265,55 +270,22 @@ Data descriptors defined here:<br>
 <font color="#000000" face="helvetica, arial"><a name="IAFor">class <strong>IAFor</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt><a href="#IAFor">IAFor</a>(controleur,&nbsp;ia,&nbsp;nbIter)<br>
+<td colspan=2><tt><a href="#IAFor">IAFor</a>(c,&nbsp;ia,&nbsp;nbIter)<br>
 &nbsp;<br>
 Classe&nbsp;permettant&nbsp;de&nbsp;réaliser&nbsp;une&nbsp;ia&nbsp;un&nbsp;certain&nbsp;nombre&nbsp;de&nbsp;fois<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
-<dl><dt><a name="IAFor-__init__"><strong>__init__</strong></a>(self, controleur, ia, nbIter)</dt><dd><tt>Paramètres<br>
-:param&nbsp;controleur:&nbsp;controleur&nbsp;du&nbsp;robot<br>
+<dl><dt><a name="IAFor-__init__"><strong>__init__</strong></a>(self, c, ia, nbIter)</dt><dd><tt>Constructeur&nbsp;de&nbsp;la&nbsp;classe&nbsp;<a href="#IAFor">IAFor</a><br>
+Paramètres<br>
+:param&nbsp;c:&nbsp;controleur&nbsp;du&nbsp;robot<br>
 :param&nbsp;ia:&nbsp;ia&nbsp;à&nbsp;appeler&nbsp;si&nbsp;la&nbsp;condition&nbsp;est&nbsp;vérifiée<br>
 :param&nbsp;nbIter:&nbsp;nombre&nbsp;de&nbsp;fois&nbsp;que&nbsp;l'ia&nbsp;doit&nbsp;être&nbsp;effectuée</tt></dd></dl>
 
-<dl><dt><a name="IAFor-end"><strong>end</strong></a>(self)</dt></dl>
+<dl><dt><a name="IAFor-start"><strong>start</strong></a>(self)</dt><dd><tt>Lancement&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
-<dl><dt><a name="IAFor-start"><strong>start</strong></a>(self)</dt></dl>
+<dl><dt><a name="IAFor-step"><strong>step</strong></a>(self)</dt><dd><tt>Execution&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a>&nbsp;tant&nbsp;que&nbsp;la&nbsp;boucle&nbsp;for&nbsp;n&nbsp;est&nbsp;pas&nbsp;finie</tt></dd></dl>
 
-<dl><dt><a name="IAFor-step"><strong>step</strong></a>(self, dT: float)</dt></dl>
-
-<dl><dt><a name="IAFor-stop"><strong>stop</strong></a>(self)</dt></dl>
-
-<hr>
-Data descriptors defined here:<br>
-<dl><dt><strong>__dict__</strong></dt>
-<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
-</dl>
-<dl><dt><strong>__weakref__</strong></dt>
-<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
-</dl>
-</td></tr></table> <p>
-<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
-<td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="IAGererVariable">class <strong>IAGererVariable</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
-    
-<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt><a href="#IAGererVariable">IAGererVariable</a>(controleur,&nbsp;args)<br>
-&nbsp;<br>
-Classe&nbsp;permettant&nbsp;de&nbsp;modifier&nbsp;une&nbsp;variable<br>&nbsp;</tt></td></tr>
-<tr><td>&nbsp;</td>
-<td width="100%">Methods defined here:<br>
-<dl><dt><a name="IAGererVariable-__init__"><strong>__init__</strong></a>(self, controleur, args)</dt><dd><tt>Paramètres<br>
-:param&nbsp;controleur:&nbsp;controleur&nbsp;du&nbsp;robot<br>
-:param&nbsp;args:&nbsp;Tableau&nbsp;splité&nbsp;de&nbsp;l'instruction</tt></dd></dl>
-
-<dl><dt><a name="IAGererVariable-end"><strong>end</strong></a>(self)</dt></dl>
-
-<dl><dt><a name="IAGererVariable-start"><strong>start</strong></a>(self)</dt></dl>
-
-<dl><dt><a name="IAGererVariable-step"><strong>step</strong></a>(self, dT)</dt></dl>
-
-<dl><dt><a name="IAGererVariable-stop"><strong>stop</strong></a>(self)</dt></dl>
+<dl><dt><a name="IAFor-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Arret&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
 <hr>
 Data descriptors defined here:<br>
@@ -330,56 +302,23 @@ Data descriptors defined here:<br>
 <font color="#000000" face="helvetica, arial"><a name="IAIf">class <strong>IAIf</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt><a href="#IAIf">IAIf</a>(controleur,&nbsp;ia1,&nbsp;ia2,&nbsp;condition)<br>
+<td colspan=2><tt><a href="#IAIf">IAIf</a>(c,&nbsp;ia1,&nbsp;ia2,&nbsp;condition)<br>
 &nbsp;<br>
-Classe&nbsp;permettant&nbsp;de&nbsp;réaliser&nbsp;une&nbsp;ia&nbsp;conditionnelle<br>&nbsp;</tt></td></tr>
+Classe&nbsp;permettant&nbsp;de&nbsp;réaliser&nbsp;un&nbsp;"if"<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
-<dl><dt><a name="IAIf-__init__"><strong>__init__</strong></a>(self, controleur, ia1, ia2, condition)</dt><dd><tt>Paramètres<br>
-:param&nbsp;controleur:&nbsp;controleur&nbsp;du&nbsp;robot<br>
+<dl><dt><a name="IAIf-__init__"><strong>__init__</strong></a>(self, c, ia1, ia2, condition)</dt><dd><tt>Constructeur&nbsp;de&nbsp;la&nbsp;classe&nbsp;<a href="#IAIf">IAIf</a><br>
+Paramètres<br>
+:param&nbsp;c:&nbsp;controleur&nbsp;du&nbsp;robot<br>
 :param&nbsp;ia1:&nbsp;ia&nbsp;à&nbsp;appeler&nbsp;si&nbsp;la&nbsp;condition&nbsp;est&nbsp;vérifiée<br>
 :param&nbsp;ia2:&nbsp;ia&nbsp;à&nbsp;appeler&nbsp;si&nbsp;la&nbsp;condition&nbsp;n'est&nbsp;pas&nbsp;vérifiée<br>
-:param&nbsp;condition:&nbsp;<a href="#IACondition">IACondition</a>&nbsp;correspondant&nbsp;à&nbsp;la&nbsp;condition&nbsp;du&nbsp;if</tt></dd></dl>
+:param&nbsp;condition:&nbsp;IACondition&nbsp;correspondant&nbsp;à&nbsp;la&nbsp;condition&nbsp;du&nbsp;if</tt></dd></dl>
 
-<dl><dt><a name="IAIf-end"><strong>end</strong></a>(self)</dt></dl>
+<dl><dt><a name="IAIf-start"><strong>start</strong></a>(self)</dt><dd><tt>Lancement&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
-<dl><dt><a name="IAIf-start"><strong>start</strong></a>(self)</dt></dl>
+<dl><dt><a name="IAIf-step"><strong>step</strong></a>(self)</dt><dd><tt>Execution&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a>&nbsp;tant&nbsp;que&nbsp;la&nbsp;condition&nbsp;est&nbsp;vraie</tt></dd></dl>
 
-<dl><dt><a name="IAIf-step"><strong>step</strong></a>(self, dT: float)</dt></dl>
-
-<dl><dt><a name="IAIf-stop"><strong>stop</strong></a>(self)</dt></dl>
-
-<hr>
-Data descriptors defined here:<br>
-<dl><dt><strong>__dict__</strong></dt>
-<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
-</dl>
-<dl><dt><strong>__weakref__</strong></dt>
-<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
-</dl>
-</td></tr></table> <p>
-<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
-<td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="IAPrint">class <strong>IAPrint</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
-    
-<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt><a href="#IAPrint">IAPrint</a>(controleur,&nbsp;args)<br>
-&nbsp;<br>
-Classe&nbsp;permettant&nbsp;d'effectuer&nbsp;un&nbsp;affichage<br>&nbsp;</tt></td></tr>
-<tr><td>&nbsp;</td>
-<td width="100%">Methods defined here:<br>
-<dl><dt><a name="IAPrint-__init__"><strong>__init__</strong></a>(self, controleur, args)</dt><dd><tt>Paramètres<br>
-:param&nbsp;controleur:&nbsp;controleur&nbsp;du&nbsp;robot<br>
-:param&nbsp;args:&nbsp;Tableau&nbsp;splité&nbsp;de&nbsp;l'instruction</tt></dd></dl>
-
-<dl><dt><a name="IAPrint-end"><strong>end</strong></a>(self)</dt></dl>
-
-<dl><dt><a name="IAPrint-start"><strong>start</strong></a>(self)</dt></dl>
-
-<dl><dt><a name="IAPrint-step"><strong>step</strong></a>(self, dT)</dt></dl>
-
-<dl><dt><a name="IAPrint-stop"><strong>stop</strong></a>(self)</dt></dl>
+<dl><dt><a name="IAIf-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Arret&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
 <hr>
 Data descriptors defined here:<br>
@@ -396,22 +335,21 @@ Data descriptors defined here:<br>
 <font color="#000000" face="helvetica, arial"><a name="IASeq">class <strong>IASeq</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt><a href="#IASeq">IASeq</a>(controleur,&nbsp;iaList)<br>
+<td colspan=2><tt><a href="#IASeq">IASeq</a>(c,&nbsp;iaList)<br>
 &nbsp;<br>
 Classe&nbsp;permettant&nbsp;de&nbsp;réaliser&nbsp;une&nbsp;séquence&nbsp;d'<a href="#IA">IA</a><br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
-<dl><dt><a name="IASeq-__init__"><strong>__init__</strong></a>(self, controleur, iaList)</dt><dd><tt>Paramètres<br>
-:param&nbsp;controleur:&nbsp;controleur&nbsp;du&nbsp;robot<br>
+<dl><dt><a name="IASeq-__init__"><strong>__init__</strong></a>(self, c, iaList)</dt><dd><tt>Constructeur&nbsp;de&nbsp;la&nbsp;classe&nbsp;<a href="#IASeq">IASeq</a><br>
+Paramètres<br>
+:param&nbsp;c:&nbsp;controleur&nbsp;du&nbsp;robot<br>
 :param&nbsp;iaList:&nbsp;liste&nbsp;des&nbsp;ia&nbsp;à&nbsp;effectuer</tt></dd></dl>
 
-<dl><dt><a name="IASeq-end"><strong>end</strong></a>(self)</dt></dl>
+<dl><dt><a name="IASeq-start"><strong>start</strong></a>(self)</dt><dd><tt>Lancement&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
-<dl><dt><a name="IASeq-start"><strong>start</strong></a>(self)</dt></dl>
+<dl><dt><a name="IASeq-step"><strong>step</strong></a>(self)</dt><dd><tt>Execution&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a>&nbsp;tant&nbsp;que&nbsp;la&nbsp;sequence&nbsp;n&nbsp;est&nbsp;pas&nbsp;finie</tt></dd></dl>
 
-<dl><dt><a name="IASeq-step"><strong>step</strong></a>(self, dT: float)</dt></dl>
-
-<dl><dt><a name="IASeq-stop"><strong>stop</strong></a>(self)</dt></dl>
+<dl><dt><a name="IASeq-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Arret&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
 <hr>
 Data descriptors defined here:<br>
@@ -428,23 +366,49 @@ Data descriptors defined here:<br>
 <font color="#000000" face="helvetica, arial"><a name="IAWhile">class <strong>IAWhile</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt><a href="#IAWhile">IAWhile</a>(controleur,&nbsp;ia,&nbsp;condition)<br>
+<td colspan=2><tt><a href="#IAWhile">IAWhile</a>(c,&nbsp;ia,&nbsp;condition)<br>
 &nbsp;<br>
 Classe&nbsp;permettant&nbsp;de&nbsp;réaliser&nbsp;une&nbsp;ia&nbsp;tant&nbsp;qu'une&nbsp;condition&nbsp;est&nbsp;vérifiée<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
-<dl><dt><a name="IAWhile-__init__"><strong>__init__</strong></a>(self, controleur, ia, condition)</dt><dd><tt>Paramètres<br>
-:param&nbsp;controleur:&nbsp;controleur&nbsp;du&nbsp;robot<br>
+<dl><dt><a name="IAWhile-__init__"><strong>__init__</strong></a>(self, c, ia, condition)</dt><dd><tt>Constructeur&nbsp;de&nbsp;la&nbsp;classe&nbsp;<a href="#IAWhile">IAWhile</a><br>
+Paramètres<br>
+:param&nbsp;c:&nbsp;controleur&nbsp;du&nbsp;robot<br>
 :param&nbsp;ia:&nbsp;ia&nbsp;à&nbsp;appeler&nbsp;tant&nbsp;que&nbsp;la&nbsp;condition&nbsp;est&nbsp;vérifiée<br>
-:param&nbsp;condition:&nbsp;<a href="#IACondition">IACondition</a>&nbsp;correspondant&nbsp;à&nbsp;la&nbsp;condition&nbsp;du&nbsp;while</tt></dd></dl>
+:param&nbsp;condition:&nbsp;IACondition&nbsp;correspondant&nbsp;à&nbsp;la&nbsp;condition&nbsp;du&nbsp;while</tt></dd></dl>
 
-<dl><dt><a name="IAWhile-end"><strong>end</strong></a>(self)</dt></dl>
+<dl><dt><a name="IAWhile-start"><strong>start</strong></a>(self)</dt><dd><tt>Lancement&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
-<dl><dt><a name="IAWhile-start"><strong>start</strong></a>(self)</dt></dl>
+<dl><dt><a name="IAWhile-step"><strong>step</strong></a>(self)</dt><dd><tt>Execution&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a>&nbsp;tant&nbsp;que&nbsp;la&nbsp;condition&nbsp;du&nbsp;while&nbsp;est&nbsp;vraie</tt></dd></dl>
 
-<dl><dt><a name="IAWhile-step"><strong>step</strong></a>(self, dT: float)</dt></dl>
+<dl><dt><a name="IAWhile-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Arret&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
-<dl><dt><a name="IAWhile-stop"><strong>stop</strong></a>(self)</dt></dl>
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Stop">class <strong>Stop</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Stop">Stop</a>(c)<br>
+&nbsp;<br>
+Classe&nbsp;représentant&nbsp;l'ia&nbsp;permettant&nbsp;au&nbsp;robot&nbsp;de&nbsp;s'arrêter<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Stop-__init__"><strong>__init__</strong></a>(self, c)</dt><dd><tt>Constructeur&nbsp;de&nbsp;la&nbsp;classe&nbsp;<a href="#Stop">Stop</a><br>
+:param&nbsp;c:&nbsp;controleur&nbsp;du&nbsp;robot</tt></dd></dl>
+
+<dl><dt><a name="Stop-start"><strong>start</strong></a>(self)</dt><dd><tt>Lancement&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
+
+<dl><dt><a name="Stop-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Arret&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
 <hr>
 Data descriptors defined here:<br>
@@ -461,26 +425,49 @@ Data descriptors defined here:<br>
 <font color="#000000" face="helvetica, arial"><a name="TournerSurPlace">class <strong>TournerSurPlace</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt><a href="#TournerSurPlace">TournerSurPlace</a>(controleur,&nbsp;angle,&nbsp;v)<br>
+<td colspan=2><tt><a href="#TournerSurPlace">TournerSurPlace</a>(c,&nbsp;a,&nbsp;v)<br>
 &nbsp;<br>
-Classe&nbsp;représentant&nbsp;l'ia&nbsp;permettant&nbsp;de&nbsp;tourner&nbsp;à&nbsp;droite<br>
-&nbsp;<br>
-:param&nbsp;controleur:&nbsp;controleur&nbsp;du&nbsp;robot<br>
-:param&nbsp;angle:&nbsp;angle&nbsp;(degré)&nbsp;de&nbsp;rotation<br>
-:param&nbsp;v:&nbsp;vitesse&nbsp;(tour&nbsp;de&nbsp;roue/s)<br>&nbsp;</tt></td></tr>
+Classe&nbsp;représentant&nbsp;l'<a href="#IA">IA</a>&nbsp;permettant&nbsp;de&nbsp;tourner&nbsp;à&nbsp;droite<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
-<dl><dt><a name="TournerSurPlace-__init__"><strong>__init__</strong></a>(self, controleur, angle, v)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+<dl><dt><a name="TournerSurPlace-__init__"><strong>__init__</strong></a>(self, c, a, v)</dt><dd><tt>Constructeur&nbsp;de&nbsp;la&nbsp;classe&nbsp;<a href="#TournerSurPlace">TournerSurPlace</a><br>
+:param&nbsp;controleur:&nbsp;controleur&nbsp;du&nbsp;robot<br>
+:param&nbsp;angle:&nbsp;angle&nbsp;(degré)&nbsp;de&nbsp;rotation<br>
+:param&nbsp;v:&nbsp;vitesse&nbsp;(tour&nbsp;de&nbsp;roue/s)</tt></dd></dl>
 
-<dl><dt><a name="TournerSurPlace-avancer"><strong>avancer</strong></a>(self)</dt></dl>
+<dl><dt><a name="TournerSurPlace-start"><strong>start</strong></a>(self)</dt><dd><tt>Permet&nbsp;de&nbsp;lancer&nbsp;le&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
-<dl><dt><a name="TournerSurPlace-end"><strong>end</strong></a>(self)</dt></dl>
+<dl><dt><a name="TournerSurPlace-step"><strong>step</strong></a>(self)</dt><dd><tt>Execution&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a>&nbsp;tant&nbsp;que&nbsp;la&nbsp;distance&nbsp;à&nbsp;parcourir&nbsp;n&nbsp;a&nbsp;pas&nbsp;été&nbsp;effectué</tt></dd></dl>
 
-<dl><dt><a name="TournerSurPlace-start"><strong>start</strong></a>(self)</dt></dl>
+<dl><dt><a name="TournerSurPlace-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Permet&nbsp;de&nbsp;stoper&nbsp;le&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
-<dl><dt><a name="TournerSurPlace-step"><strong>step</strong></a>(self, dT: float)</dt></dl>
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="TournerTete">class <strong>TournerTete</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#TournerTete">TournerTete</a>(c,&nbsp;a)<br>
+&nbsp;<br>
+Classe&nbsp;représentant&nbsp;l'ia&nbsp;permettant&nbsp;de&nbsp;tourner&nbsp;la&nbsp;tete&nbsp;du&nbsp;robot<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="TournerTete-__init__"><strong>__init__</strong></a>(self, c, a)</dt><dd><tt>Constructeur&nbsp;de&nbsp;la&nbsp;classe&nbsp;<a href="#TournerTete">TournerTete</a><br>
+:param&nbsp;angle:&nbsp;angle&nbsp;(degré)&nbsp;de&nbsp;rotation<br>
+:param&nbsp;c:&nbsp;controleur</tt></dd></dl>
 
-<dl><dt><a name="TournerSurPlace-stop"><strong>stop</strong></a>(self)</dt></dl>
+<dl><dt><a name="TournerTete-start"><strong>start</strong></a>(self)</dt><dd><tt>Lancement&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
+
+<dl><dt><a name="TournerTete-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Arret&nbsp;du&nbsp;thread&nbsp;de&nbsp;l&nbsp;<a href="#IA">IA</a></tt></dd></dl>
 
 <hr>
 Data descriptors defined here:<br>
@@ -499,7 +486,6 @@ Data descriptors defined here:<br>
 <tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl><dt><a name="-degrees"><strong>degrees</strong></a>(x, /)</dt><dd><tt>Convert&nbsp;angle&nbsp;x&nbsp;from&nbsp;radians&nbsp;to&nbsp;degrees.</tt></dd></dl>
  <dl><dt><a name="-radians"><strong>radians</strong></a>(x, /)</dt><dd><tt>Convert&nbsp;angle&nbsp;x&nbsp;from&nbsp;degrees&nbsp;to&nbsp;radians.</tt></dd></dl>
- <dl><dt><a name="-substituerVariables"><strong>substituerVariables</strong></a>(ia, i)</dt><dd><tt>Fonctions&nbsp;auxiliaire&nbsp;permettant&nbsp;de&nbsp;remplacer&nbsp;les&nbsp;variables&nbsp;par&nbsp;leur&nbsp;valeurs</tt></dd></dl>
 </td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#55aa55">
@@ -507,7 +493,5 @@ Data descriptors defined here:<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
     
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><strong>RAYON_ROBOT</strong> = 5<br>
-<strong>TAILLE_ROUES</strong> = 7<br>
-<strong>pi</strong> = 3.141592653589793</td></tr></table>
+<td width="100%"><strong>pi</strong> = 3.141592653589793</td></tr></table>
 </body></html>

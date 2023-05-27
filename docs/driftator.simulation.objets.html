@@ -65,9 +65,9 @@ Methods defined here:<br>
 :param&nbsp;posY:&nbsp;position&nbsp;y&nbsp;du&nbsp;centre&nbsp;de&nbsp;l'obstacle<br>
 :param&nbsp;angle:&nbsp;angle&nbsp;de&nbsp;la&nbsp;balise</tt></dd></dl>
 
-<dl><dt><a name="Balise-estDedans"><strong>estDedans</strong></a>(self, x: int, y: int)</dt><dd><tt>Fonction&nbsp;abstraite&nbsp;pour&nbsp;objet&nbsp;de&nbsp;type&nbsp;<a href="#Obstacle">Obstacle</a></tt></dd></dl>
+<dl><dt><a name="Balise-estDedans"><strong>estDedans</strong></a>(self, x: int, y: int)</dt><dd><tt>Fonction&nbsp;abstraite&nbsp;pour&nbsp;objet&nbsp;de&nbsp;type&nbsp;<a href="#Obstacle">Obstacle</a>&nbsp;(pas&nbsp;définie&nbsp;dans&nbsp;la&nbsp;cas&nbsp;spécifique&nbsp;d'une&nbsp;balise)</tt></dd></dl>
 
-<dl><dt><a name="Balise-testCrash"><strong>testCrash</strong></a>(self, robot: driftator.simulation.objets.Robot)</dt><dd><tt>Fonction&nbsp;abstraite&nbsp;pour&nbsp;objet&nbsp;de&nbsp;type&nbsp;<a href="#Obstacle">Obstacle</a></tt></dd></dl>
+<dl><dt><a name="Balise-testCrash"><strong>testCrash</strong></a>(self, robot: driftator.simulation.objets.Robot)</dt><dd><tt>Fonction&nbsp;abstraite&nbsp;pour&nbsp;objet&nbsp;de&nbsp;type&nbsp;<a href="#Obstacle">Obstacle</a>&nbsp;(pas&nbsp;définie&nbsp;dans&nbsp;le&nbsp;cas&nbsp;spécifique&nbsp;d'une&nbsp;balise)</tt></dd></dl>
 
 <hr>
 Readonly properties defined here:<br>
@@ -367,13 +367,17 @@ Classe&nbsp;représentant&nbsp;un&nbsp;robot<br>&nbsp;</tt></td></tr>
 
 <dl><dt><a name="Robot-getPosRoueGaucheY"><strong>getPosRoueGaucheY</strong></a>(self)</dt><dd><tt>:returns:&nbsp;la&nbsp;position&nbsp;Y&nbsp;de&nbsp;la&nbsp;roue&nbsp;gauche</tt></dd></dl>
 
-<dl><dt><a name="Robot-get_motor_position"><strong>get_motor_position</strong></a>(self)</dt></dl>
+<dl><dt><a name="Robot-get_motor_position"><strong>get_motor_position</strong></a>(self)</dt><dd><tt>Lit&nbsp;les&nbsp;etats&nbsp;des&nbsp;moteurs&nbsp;en&nbsp;degre.<br>
+:returns:&nbsp;couple&nbsp;du&nbsp;degre&nbsp;de&nbsp;rotation&nbsp;des&nbsp;moteurs</tt></dd></dl>
 
-<dl><dt><a name="Robot-setAngleCam"><strong>setAngleCam</strong></a>(self, c)</dt></dl>
+<dl><dt><a name="Robot-setAngleCam"><strong>setAngleCam</strong></a>(self, c)</dt><dd><tt>Modifie&nbsp;l&nbsp;angle&nbsp;de&nbsp;la&nbsp;camera&nbsp;du&nbsp;robot<br>
+:param&nbsp;c:&nbsp;nouvel&nbsp;angle&nbsp;de&nbsp;la&nbsp;camera</tt></dd></dl>
 
-<dl><dt><a name="Robot-setVD"><strong>setVD</strong></a>(self, v)</dt></dl>
+<dl><dt><a name="Robot-setVD"><strong>setVD</strong></a>(self, v)</dt><dd><tt>Modifie&nbsp;la&nbsp;vitesse&nbsp;de&nbsp;la&nbsp;roue&nbsp;droite&nbsp;du&nbsp;robot<br>
+:param&nbsp;v:&nbsp;nouvelle&nbsp;vitesse&nbsp;de&nbsp;la&nbsp;roue&nbsp;droite</tt></dd></dl>
 
-<dl><dt><a name="Robot-setVG"><strong>setVG</strong></a>(self, v)</dt><dd><tt>#TEMPORAIRE&nbsp;-&nbsp;ERREUR&nbsp;A&nbsp;CORRIGER</tt></dd></dl>
+<dl><dt><a name="Robot-setVG"><strong>setVG</strong></a>(self, v)</dt><dd><tt>Modifie&nbsp;la&nbsp;vitesse&nbsp;de&nbsp;la&nbsp;roue&nbsp;gauche&nbsp;du&nbsp;robot<br>
+:param&nbsp;v:&nbsp;nouvelle&nbsp;vitesse&nbsp;de&nbsp;la&nbsp;roue&nbsp;gauche</tt></dd></dl>
 
 <dl><dt><a name="Robot-testCrash"><strong>testCrash</strong></a>(self, robot)</dt><dd><tt>Méthode&nbsp;qui&nbsp;détermine&nbsp;si&nbsp;le&nbsp;robot&nbsp;passé&nbsp;en&nbsp;paramètres&nbsp;est&nbsp;en&nbsp;collision&nbsp;avec&nbsp;ce&nbsp;robot<br>
 #Marge&nbsp;d&nbsp;erreur&nbsp;de&nbsp;0.2<br>

@@ -1,7 +1,8 @@
 Semaine du 10/05/2023
-Compte rendu fin de projet semaine 13
+Compte rendu fin de projet semaine 13 et +
 
 Objectifs:
+- fin du projet
 - amélioration de la detection balise
 - correction du décalage de rotation d angle dans la fonction tourner
 - amélioration de la configuration
@@ -17,4 +18,11 @@ Taches faites :
 - allégement de la fonction enregistrer_json
 - ajout d un script edit_config permettant de creer des configurations tres facilement (obstacles ronds/carrées, balises, robot, image de fond)
 - ajout du circuit pour notre projet final
-- création des 4 nouvelles balises pour notre projet final (tourner à droite, tourner à gauche, stop, feu rouge)
+- création des 4 nouvelles balises jeun-bleu pour notre projet final (tourner à droite, tourner à gauche, stop, feu rouge)
+- documentation pydoc complete
+- création d un menu graphique "DRIFTATOR EDITOR" afin de relier toutes améliorations de notre projet
+- ajout d'un fichier "settings.json" avec les parametres globaux de la simulation 2D, 3D et IRL
+- relecture du code, ajout de commentaires et simplification du code
+- redaction du rapport
+- mis à jour du Readme
+

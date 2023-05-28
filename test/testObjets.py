@@ -1,5 +1,4 @@
-from math import cos, sin, radians, degrees, sqrt
-import driftator_sim as driftator
+import driftator.simulation
 import unittest
 
 class TestRobot(unittest.TestCase):

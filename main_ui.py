@@ -9,30 +9,33 @@ Variables generales
 """
 
 #Variables couleurs
-clr_cfg_cases = (122, 222, 255)
-clr_cfg_selected = (31, 73, 87)
+clr_cfg_cases = (152, 193, 217)
+clr_cfg_selected = (66, 137, 179)
 
-clr_ia_cases = (255, 112, 102)
-clr_ia_selected = (255, 17, 0)
+clr_ia_cases = (240, 181, 181)
+clr_ia_selected = (113, 71, 93)
 
-clr_vue_cases = (145, 255, 162)
-clr_vue_selected = (39, 94, 47)
+clr_vue_cases = (166, 211, 160)
+clr_vue_selected = (111, 184, 101)
 
-clr_play = (255, 137, 46)
+clr_touches = (240, 205, 161)
+
+clr_lancer = (250, 237, 203)
+clr_lancer_border = (224, 180, 123)
 
 font_size = 16
-
 #Tailles des boutons
 h, w = 40, 240
 
 #Positions des menus
 cfg_menu = (187, 150)
 ia_menu = (583, 150)
-vue_menu = (187, 450)
+vue_menu = (583, 450)
+touches_menu = (187, 450)
 
 #Bonton lancer
-p_x, p_y = 375, 675
-p_h, p_w = 60, 100
+p_x, p_y = 583, 670
+p_h, p_w = 60, 240
 
 #Taille de la fenêtre
 s_x = 750
@@ -108,8 +111,35 @@ def show_menu():
     global screen
 
     #Affichage du titre
-    text = pygame.font.Font('freesansbold.ttf', 50).render("DRIFTATOR EDITOR", False, (0, 0, 0))
+    text = pygame.font.Font('driftator/driftator/affichage/font/StayPixelRegular-EaOxl.ttf', 70).render("DRIFTATOR EDITOR", False, (0, 0, 0))
     screen.blit(text, (375 - text.get_width()/2, 20))
+
+    #Affichage des fleurs
+    screen.blit(pygame.image.load("driftator/driftator/affichage/textures/fleur_laila.png"), (85, 20))
+    screen.blit(pygame.image.load("driftator/driftator/affichage/textures/fleur_laila.png"), (620, 20))
+
+    #Affichage des hotkeys
+    text_h = 0
+    pygame.draw.rect(screen, clr_touches, (touches_menu[0] - w/2, touches_menu[1] - h/2, w, 270), border_radius=6)
+    text = pygame.font.Font('freesansbold.ttf', font_size).render("Hotkeys", True, (0, 0, 0))
+    screen.blit(text, (touches_menu[0] - text.get_width()/2, touches_menu[1] - text.get_height()/2 + text_h))
+
+    textHotkeys = ["Ctrl + Click sur une IA : Ouvre le fichier", "IA sur VSCODE", "Ctrl + Click sur une config : Ouvre", "l'editeur de config", "Ctrl + Suppr : Supprime l'IA/config", "selectionnée"]
+    for text in textHotkeys:
+        text_h += 20
+        text = pygame.font.Font('freesansbold.ttf', 12).render(text, True, (50, 50, 50))
+        screen.blit(text, (touches_menu[0] - w/2 + 7, touches_menu[1] - text.get_height()/2 + text_h))
+    
+    text_h += 30
+
+    text = pygame.font.Font('freesansbold.ttf', font_size).render("Dans l'éditeur", True, (0, 0, 0))
+    screen.blit(text, (touches_menu[0] - text.get_width()/2, touches_menu[1] - text.get_height()/2 + text_h))
+
+    textMenuEditeur = ["Ctrl + S : Sauvegarde la config", "Ctrl + Z : Annule la dernière action", "Clique droit : Supprime l'objet", "selectionné"]
+    for text in textMenuEditeur:
+        text_h += 20
+        text = pygame.font.Font('freesansbold.ttf', 12).render(text, True, (50, 50, 50))
+        screen.blit(text, (touches_menu[0] - w/2 + 7, touches_menu[1] - text.get_height()/2 + text_h))
 
     #Affichage des menus
     
@@ -136,7 +166,8 @@ def show_menu():
             screen.blit(text, (x + 5 - w/2, y + (h+10) * i - text.get_height()/2))
 
     #Bouton lancer
-    pygame.draw.rect(screen, clr_play, (p_x - p_w/2, p_y - p_h/2, p_w, p_h), border_radius=6)
+    pygame.draw.rect(screen, clr_lancer, (p_x - p_w/2, p_y - p_h/2, p_w, p_h), border_radius=6)
+    pygame.draw.rect(screen, clr_lancer_border, (p_x - p_w/2, p_y - p_h/2, p_w, p_h), 2, border_radius=6)
     text = pygame.font.Font('freesansbold.ttf', font_size).render("Lancer", True, (0, 0, 0))
     screen.blit(text, (p_x - text.get_width()/2, p_y - text.get_height()/2))
 
@@ -149,7 +180,7 @@ Script principal
 running = True
 while running:
     #On reset l'ecran
-    screen.fill((255,255,255))
+    screen.fill((236,231,231))
 
     show_menu()
 
@@ -185,7 +216,7 @@ while running:
                 latest_selected = 1
             #Menu des vues
             elif vue_menu[0] - w/2 < x < vue_menu[0] + w/2 and vue_menu[1] - h/2 < y < vue_menu[1] + 2 * (h * 1.1):
-                vue_selected = min(2, int((y - vue_menu[1] + h/2)//((h * 1.2))))
+                vue_selected = min(1, int((y - vue_menu[1] + h/2)//((h * 1.2))))
                 latest_selected = -1
             #Lancer
             elif p_x - p_w/2 < x < p_x + p_w/2 and p_y - p_h/2 < y < p_y + p_h/2 and cfg_list[cfg_selected + 5 * cfg_page] != "+" and ia_list[ia_selected + 5 * ia_page] != "+":

@@ -25,11 +25,19 @@ def setColor(clr):
 
 def distanceCase(v1, v2):
     """
-    Fonction auxiliaire renvoyant une distance en nb de case entre 2 couples de coordonnées    
+    Fonction auxiliaire renvoyant une distance en nb de case entre 2 couples de coordonnées
+    :param v1: premier couple de coordonées
+    :param v2: second couple de coordonées
+    :returns: le nombre de cases entre les 2 couples de coordonnées
     """
     return abs(v1[0] - v2[0]) + abs(v1[1] - v2[1])
 
 def getPosBalise(img):
+    """
+    Fonction permettant de detecter une balise RVBJ
+    :param img: l image à analiser
+    :returns: position de la balise ou None si la balise n'a pas été trouvé
+    """
     #Lecture de l'image
     im = Image.fromarray(img)
 
@@ -84,6 +92,11 @@ def getPosBalise(img):
     return None
 
 def getPosBaliseV2(img):
+    """
+    Fonction améliorée permettant de detecter une balise RVBJ
+    :param img: l image à analiser
+    :returns: position de la balise ou None si la balise n'a pas été trouvé
+    """
     #Redimension de l'image
     img = Image.fromarray(img)
     img = img.resize((160, 120))
@@ -105,54 +118,13 @@ def getPosBaliseV2(img):
     clr = [np.mean(c) for c in clr_balises]
     return np.mean(clr)/80 - 1
 
-def getPosBaliseV3(img):
-    #Redimension de l'image
-    img = Image.fromarray(img)
-    img.save("test.png")
-    print("image sauvée")
-    img = img.resize((80, 60))
-    img = np.array(img)
-
-    #Obtention des coordonnées moyennes des couleurs rouge/bleu/vert/jaune
-    j = np.where((img[..., 0:1] > 150) & (img[..., 1:2] > 150) & (img[..., 2:3] < 30))
-
-    x = j[0]
-    y = j[1]
-    
-    for p in len(x):
-        #Coin au gauche
-        top_left = (x[p], y[p])
-        
-        #Coin haut droite
-        top_right = np.where((y == top_left[1]) & (x > top_left[0]))
-        if len(top_right) == 0:
-            break
-        else:
-            top_right = top_right[0]
-
-        #Coin bas gauche
-        bottom_left = np.where((x == top_left[0]) & (y > top_left[1]))
-        if len(bottom_left) == 0:
-            break
-        else:
-            bottom_left = bottom_left[0]
-
-        #Coin bas droite
-        bottom_right = np.where((x == top_right[0]) & (y > top_right[1]))
-        if len(bottom_right) == 0:
-            break
-        else:
-            bottom_right = bottom_right[0]
-
-        balise_coordinates = (top_left, top_right, bottom_left, bottom_right)
-        break
-
-        
-    #La couleur a bien été trouvée, on renvoie la coordonnée x
-    return 0, (balise_coordinates[0] + balise_coordinates[1])/80 - 1
-
 
 def getBalises(img):
+    """
+    Fonction améliorée permettant de detecter une des balises de type carré jaune-bleu
+    :param img: l image à analiser
+    :returns: position de la balise et le type de balise détecté (id) ou None si la balise n'a pas été trouvé
+    """
     #Redimension de l'image
     img = Image.fromarray(img)
     width, height = int(img.width/8), int(img.height/8)

@@ -1,6 +1,11 @@
 import json
 
 def startRobot(strat, dT = 0.001):
+    """
+    Fonction permettant de lancer le robot irl avec une certaine stratégie (ia)
+    :param strat: la stratégie choisie pour l ia 
+    :param dT: dT choisi pour l actualisation dans le fichier settings.json
+    """
     from . import ia
 
     #Importation de la librairie du robot
@@ -21,6 +26,13 @@ def startRobot(strat, dT = 0.001):
 
 
 def startSimulation(strat, config, simView = 1, dT = 0.00001):
+    """
+    Fonction permettant de lancer la simulation du robot en 2D ou 3D avec une config et une stratégie
+    :param strat: la stratégie (ia) choisie
+    :param config: le fichier de configuration choisi
+    :param simView: 1=vue 2D / 2=vue 3D
+    :param dT: dT choisi pour l actualisation dans le fichier settings.json
+    """
     from . import simulation, affichage, ia
 
     #Chargement des paramètres

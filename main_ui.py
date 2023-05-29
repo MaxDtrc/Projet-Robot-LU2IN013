@@ -216,7 +216,7 @@ while running:
                 latest_selected = 1
             #Menu des vues
             elif vue_menu[0] - w/2 < x < vue_menu[0] + w/2 and vue_menu[1] - h/2 < y < vue_menu[1] + 2 * (h * 1.1):
-                vue_selected = min(2, int((y - vue_menu[1] + h/2)//((h * 1.2))))
+                vue_selected = min(1, int((y - vue_menu[1] + h/2)//((h * 1.2))))
                 latest_selected = -1
             #Lancer
             elif p_x - p_w/2 < x < p_x + p_w/2 and p_y - p_h/2 < y < p_y + p_h/2 and cfg_list[cfg_selected + 5 * cfg_page] != "+" and ia_list[ia_selected + 5 * ia_page] != "+":

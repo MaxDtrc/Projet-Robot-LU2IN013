@@ -128,7 +128,7 @@ def show_menu():
     for text in textHotkeys:
         text_h += 20
         text = pygame.font.Font('freesansbold.ttf', 12).render(text, True, (50, 50, 50))
-        screen.blit(text, (text.get_width() - text.get_width() + 78 , touches_menu[1] - text.get_height()/2 + text_h))
+        screen.blit(text, (touches_menu[0] - w/2 + 7, touches_menu[1] - text.get_height()/2 + text_h))
     
     text_h += 30
 
@@ -139,7 +139,7 @@ def show_menu():
     for text in textMenuEditeur:
         text_h += 20
         text = pygame.font.Font('freesansbold.ttf', 12).render(text, True, (50, 50, 50))
-        screen.blit(text, (text.get_width() - text.get_width() + 78 , touches_menu[1] - text.get_height()/2 + text_h))
+        screen.blit(text, (touches_menu[0] - w/2 + 7, touches_menu[1] - text.get_height()/2 + text_h))
 
     #Affichage des menus
     

@@ -9,7 +9,7 @@
         "fps": 240
     },
     "general":{
-        "dTRobot": 0.001,
+        "dTRobot": 0.0001,
         "dTSimu": 0.00001
     }
 }

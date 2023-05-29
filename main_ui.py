@@ -34,7 +34,7 @@ vue_menu = (583, 450)
 touches_menu = (187, 450)
 
 #Bonton lancer
-p_x, p_y = 583, 650
+p_x, p_y = 583, 670
 p_h, p_w = 60, 240
 
 #Taille de la fenêtre
@@ -120,11 +120,11 @@ def show_menu():
 
     #Affichage des hotkeys
     text_h = 0
-    pygame.draw.rect(screen, clr_touches, (touches_menu[0] - w/2, touches_menu[1] - h/2, w, 250), border_radius=6)
+    pygame.draw.rect(screen, clr_touches, (touches_menu[0] - w/2, touches_menu[1] - h/2, w, 270), border_radius=6)
     text = pygame.font.Font('freesansbold.ttf', font_size).render("Hotkeys", True, (0, 0, 0))
     screen.blit(text, (touches_menu[0] - text.get_width()/2, touches_menu[1] - text.get_height()/2 + text_h))
 
-    textHotkeys = ["Ctrl + Click : Ouvre le fichier IA sur", "VSCODE", "Ctrl + Click : Ouvre l'editeur de config", "Ctrl + Suppr : Supprime l'IA/config", "selectionnée"]
+    textHotkeys = ["Ctrl + Click sur une IA : Ouvre le fichier", "IA sur VSCODE", "Ctrl + Click sur une config : Ouvre", "l'editeur de config", "Ctrl + Suppr : Supprime l'IA/config", "selectionnée"]
     for text in textHotkeys:
         text_h += 20
         text = pygame.font.Font('freesansbold.ttf', 12).render(text, True, (50, 50, 50))
